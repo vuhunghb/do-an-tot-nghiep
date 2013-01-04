@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+
+<deployment xmlns="http://xml.apache.org/axis/wsdd/" xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+	<service name="Plugin_testws_TestEntityService" provider="java:RPC" style="rpc" use="encoded">
+		<operation xmlns:operNS="urn:http.service.irestads" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="getHelloString2" qname="operNS:getHelloString2" returnQName="getHelloString2Return" returnType="rtns:string" soapAction=""> </operation>
+		<operation xmlns:operNS="urn:http.service.irestads" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="getHelloString" qname="operNS:getHelloString" returnQName="getHelloStringReturn" returnType="rtns:string" soapAction=""> </operation>
+		<parameter name="allowedMethods" value="getHelloString getHelloString2" />
+		<parameter name="className" value="irestads.service.http.TestEntityServiceSoap" />
+		<parameter name="typeMappingVersion" value="1.2" />
+		<parameter name="wsdlPortType" value="TestEntityServiceSoap" />
+		<parameter name="wsdlServiceElement" value="TestEntityServiceSoapService" />
+		<parameter name="wsdlServicePort" value="Plugin_testws_TestEntityService" />
+		<parameter name="wsdlTargetNamespace" value="urn:http.service.irestads" />
+	</service>
+</deployment>
