@@ -1,0 +1,200 @@
+<?xml version="1.0"?>
+
+<f:view
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+>
+	<h:head />
+	<h:body>
+		<h:form id="form" >
+			<p:growl id="messages" showDetail="true" />
+			<p:contextMenu for="dishTable">
+				<p:menuitem value="Chi tiết" update="display" icon="ui-icon-search"
+					oncomplete="dishDialog.show()" />
+				<p:menuitem value="Xóa" update=":form:dishTable :form:messages"
+					icon="ui-icon-close" actionListener="#{dishBeans.deleteDish()}" />
+			</p:contextMenu>
+
+
+			<p:dataTable id="dishTable" var="dish"
+				value="#{dishBeans.dishs}" paginator="true" rows="10"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="1,2,5,10,15" sortBy="#{dish.dishId}"
+				rowKey="#{dish.dishId}" selectionMode="single" selection="#{dishBeans.dishSelected}"
+				 editable="true">
+
+				<p:ajax event="rowEdit" listener="#{dishBeans.onEdit}"
+					update=":form:dishTable :form:messages" />
+					
+					
+				<f:facet name="header">
+            Bảng lớp học
+        </f:facet>
+		<!-- 	<p:columnGroup type="header">
+					<p:row>
+						<p:column width="50" headerText="MaMA" />
+						<p:column width="100" headerText="Tên"  />
+						<p:column headerText="Mô tả" />
+						<p:column headerText="Giá TK" />
+						<p:column headerText="Hình đại diện" />
+						<p:column headerText="Hình chi tiết" />
+						<p:column headerText="Chi tiết" />
+						<p:column headerText="Loại" />
+						<p:column headerText="Chỉnh sửa" />
+					</p:row>
+				</p:columnGroup> -->	
+				
+				<p:column sortBy="#{dish.dishId}">
+				<f:facet name="header">  
+                <h:outputText value="Mã" />  
+            	</f:facet>
+            	<h:outputText value="#{dish.dishId}" />
+           		 </p:column>
+
+				<p:column sortBy="#{dish.dishName}">
+				<f:facet name="header">  
+                <h:outputText value="Tên" />  
+            	</f:facet>
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{dish.dishName}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{dish.dishName}" label="Tên Món ăn" />
+						</f:facet>
+					</p:cellEditor>
+
+				</p:column>
+				<p:column sortBy="#{dish.decription}">
+				<f:facet name="header">  
+                <h:outputText value="Mô Tả" />  
+            	</f:facet>
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{dish.decription}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{dish.decription}" label="Mô tả Món ăn" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				<p:column sortBy="#{dish.referPrice}"> 
+				<f:facet name="header" >  
+                <h:outputText value="Giá TK" />  
+            	</f:facet>
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{dish.referPrice}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{dish.referPrice}" label="Giá TK Món ăn" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				<p:column sortBy="#{dish.avatarImg}">
+				<f:facet name="header" >  
+                <h:outputText value="Hình đại diện" />  
+            	</f:facet>
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{dish.avatarImg}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{dish.avatarImg}"
+								label="Hình đại diện Món ăn" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				<p:column sortBy="#{dish.detailImg}">
+				<f:facet name="header">  
+                <h:outputText value="Hình chi tiết" />  
+            	</f:facet>
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{dish.detailImg}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{dish.detailImg}"
+								label="Hình chi tiết Món ăn" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				<p:column sortBy="#{dish.detail}">
+				<f:facet name="header">  
+                <h:outputText value="Chi tiết" />  
+            	</f:facet>
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{dish.detail}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{dish.detail}" label="Chi tiết Món ăn" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				<p:column sortBy="#{dish.categoryId}">
+				<f:facet name="header">  
+                <h:outputText value="Loại" />  
+            	</f:facet>
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{categoryBeans.getCategoryNameByID(dish.categoryId)}" />
+						</f:facet>
+						<f:facet name="input">
+							<h:selectOneMenu value="#{dish.categoryId}">
+								<f:selectItems value="#{categoryBeans.categorys}" var="category"
+									itemLabel="#{category.categoryName}"
+									itemValue="#{category.categoryId}" />
+							</h:selectOneMenu>
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				<p:column>
+					<p:rowEditor />
+				</p:column>
+			</p:dataTable>
+			<p:dialog header="Thông tin chi tiết" widgetVar="dishDialog"
+				resizable="false" width="200" showEffect="clip" hideEffect="fold"
+				id="dialog">
+
+				<h:panelGrid id="display" columns="2" cellpadding="4">
+					<h:outputText value="MaMA:" />
+					<h:outputText style="font-weight:bold"
+						value="#{dishBeans.dishSelected.dishId}" />
+
+					<h:outputText value="Tên:" />
+					<h:outputText style="font-weight:bold"
+						value="#{dishBeans.dishSelected.dishName}" />
+
+					<h:outputText value="Loai" />
+					<h:outputText style="font-weight:bold"
+						value="#{dishBeans.dishSelected.categoryId}" />
+
+					<h:outputText value="Giá tha khảo:" />
+					<h:outputText style="font-weight:bold"
+						value="#{dishBeans.dishSelected.referPrice}" />
+
+					<h:outputText value="Mô tả:" />
+					<h:outputText style="font-weight:bold"
+						value="#{dishBeans.dishSelected.decription}" />
+					<h:outputText value="Ảnh đại diện:" />
+					<h:outputText style="font-weight:bold"
+						value="#{dishBeans.dishSelected.avatarImg}" />
+					<h:outputText value="Mô tả:" />
+					<h:outputText style="font-weight:bold"
+						value="#{dishBeans.dishSelected.detailImg}" />
+					<h:outputText value="Chi tiết:" />
+					<h:outputText style="font-weight:bold"
+						value="#{dishBeans.dishSelected.detail}" />
+
+				</h:panelGrid>
+			</p:dialog>
+			
+		</h:form>
+
+	</h:body>
+</f:view>
