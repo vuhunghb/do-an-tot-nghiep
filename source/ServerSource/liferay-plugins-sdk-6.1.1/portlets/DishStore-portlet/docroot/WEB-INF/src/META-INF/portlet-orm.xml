@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+
+<entity-mappings xmlns="http://java.sun.com/xml/ns/persistence/orm" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.0" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm http://java.sun.com/xml/ns/persistence/orm_1_0.xsd">
+	<persistence-unit-metadata>
+		<xml-mapping-metadata-complete/>
+		<persistence-unit-defaults>
+			<access>PROPERTY</access>
+		</persistence-unit-defaults>
+	</persistence-unit-metadata>
+	<mapped-superclass class="irestads.model.impl.CategoryModelImpl">
+		<attributes>
+			<id name="categoryId" />
+			<basic name="companyId" />
+			<basic name="userId" />
+			<basic name="userName" />
+			<basic name="createDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="modifiedDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="categoryName" />
+			<transient name="modelAttributes" />
+			<transient name="primaryKey" />
+			<transient name="primaryKeyObj" />
+			<transient name="userUuid" />
+		</attributes>
+	</mapped-superclass>
+	<mapped-superclass class="irestads.model.impl.DishModelImpl">
+		<attributes>
+			<id name="dishId" />
+			<basic name="companyId" />
+			<basic name="userId" />
+			<basic name="userName" />
+			<basic name="createDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="modifiedDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="dishName" />
+			<basic name="decription" />
+			<basic name="avatarImg" />
+			<basic name="detailImg" />
+			<basic name="detail" />
+			<basic name="referPrice" />
+			<basic name="categoryId" />
+			<basic name="editTable" />
+			<transient name="modelAttributes" />
+			<transient name="primaryKey" />
+			<transient name="primaryKeyObj" />
+			<transient name="userUuid" />
+		</attributes>
+	</mapped-superclass>
+	<entity class="irestads.model.impl.CategoryImpl" name="Category">
+		<table name="DishStore_Category" />
+		<attributes />
+	</entity>
+	<entity class="irestads.model.impl.DishImpl" name="Dish">
+		<table name="DishStore_Dish" />
+		<attributes />
+	</entity>
+</entity-mappings>
