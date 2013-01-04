@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+
+<model-hints>
+	<model name="irestads.model.TestEntity">
+		<field name="entityId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="userId" type="long" />
+		<field name="userName" type="String" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="name" type="String" />
+		<field name="pass" type="String" />
+		<field name="email" type="String" />
+		<field name="loginDate" type="Date" />
+	</model>
+</model-hints>

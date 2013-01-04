@@ -1,0 +1,1 @@
+create index IX_E79BFA2B on testws_TestEntity (name);
