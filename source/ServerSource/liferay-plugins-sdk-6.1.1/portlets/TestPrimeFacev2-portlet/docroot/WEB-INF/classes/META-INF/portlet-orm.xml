@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+
+<entity-mappings xmlns="http://java.sun.com/xml/ns/persistence/orm" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.0" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm http://java.sun.com/xml/ns/persistence/orm_1_0.xsd">
+	<persistence-unit-metadata>
+		<xml-mapping-metadata-complete/>
+		<persistence-unit-defaults>
+			<access>PROPERTY</access>
+		</persistence-unit-defaults>
+	</persistence-unit-metadata>
+	<mapped-superclass class="irestads.model.impl.LopModelImpl">
+		<attributes>
+			<id name="lopId" />
+			<basic name="tenLop" />
+			<transient name="modelAttributes" />
+			<transient name="primaryKey" />
+			<transient name="primaryKeyObj" />
+		</attributes>
+	</mapped-superclass>
+	<mapped-superclass class="irestads.model.impl.SinhVienModelImpl">
+		<attributes>
+			<id name="sinhVienId" />
+			<basic name="mssv" />
+			<basic name="ten" />
+			<basic name="diaChi" />
+			<basic name="diem" />
+			<basic name="lopId" />
+			<transient name="modelAttributes" />
+			<transient name="primaryKey" />
+			<transient name="primaryKeyObj" />
+		</attributes>
+	</mapped-superclass>
+	<entity class="irestads.model.impl.LopImpl" name="Lop">
+		<table name="testprimeface_Lop" />
+		<attributes>
+			<transient name="dssv" />
+		</attributes>
+	</entity>
+	<entity class="irestads.model.impl.SinhVienImpl" name="SinhVien">
+		<table name="testprimeface_SinhVien" />
+		<attributes />
+	</entity>
+</entity-mappings>

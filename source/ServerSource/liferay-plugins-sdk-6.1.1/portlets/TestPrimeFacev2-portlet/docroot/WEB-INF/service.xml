@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE service-builder PUBLIC "-//Liferay//DTD Service Builder 6.1.0//EN" "http://www.liferay.com/dtd/liferay-service-builder_6_1_0.dtd">
+<service-builder package-path="irestads">
+	<author>ADMIN</author>
+	<namespace>testprimeface</namespace>
+	
+	<entity  name="SinhVien" local-service="true" remote-service="true">
+		<!-- PK fields -->
+
+		<column name="sinhVienId" type="long" primary="true" />
+
+		<!-- Other fields -->
+
+		<column name="mssv" type="String" />
+		<column name="ten" type="String" />
+		<column name="diaChi" type="String" />
+		<column name="diem" type="double" />
+		<column name="lopId" type="String" />
+		
+		<order by="asc">
+			<order-column name="lopId" />
+			<order-column name="mssv" />
+		</order>
+		
+	</entity>
+	
+	<entity name="Lop" local-service="true" remote-service="true">
+
+		<!-- PK fields -->
+
+		<column name="lopId" type="long" primary="true" />
+
+
+		<!-- Audit fields -->
+
+		<!-- Other fields -->
+
+		<column name="tenLop" type="String" />
+		<column name="danhSachSV" type="Collection" entity="SinhVien"
+			mapping-key="lopId" />
+		<!-- Order -->
+
+		<order by="asc">
+			<order-column name="lopId" />
+		</order>
+
+	</entity>
+</service-builder>
