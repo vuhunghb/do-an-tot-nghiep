@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+
+<model-hints>
+	<model name="irestads.model.Lop">
+		<field name="lopId" type="long" />
+		<field name="tenLop" type="String" />
+	</model>
+	<model name="irestads.model.SinhVien">
+		<field name="sinhVienId" type="long" />
+		<field name="mssv" type="String" />
+		<field name="ten" type="String" />
+		<field name="diaChi" type="String" />
+		<field name="diem" type="double" />
+		<field name="lopId" type="String" />
+	</model>
+</model-hints>

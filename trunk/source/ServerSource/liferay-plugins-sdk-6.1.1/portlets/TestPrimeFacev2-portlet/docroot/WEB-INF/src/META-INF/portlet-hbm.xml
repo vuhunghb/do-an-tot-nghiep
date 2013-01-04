@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping default-lazy="false" auto-import="false">
+	<import class="irestads.model.Lop" />
+	<import class="irestads.model.SinhVien" />
+	<class name="irestads.model.impl.LopImpl" table="testprimeface_Lop">
+		<cache usage="read-write" />
+		<id name="lopId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="tenLop" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+	</class>
+	<class name="irestads.model.impl.SinhVienImpl" table="testprimeface_SinhVien">
+		<cache usage="read-write" />
+		<id name="sinhVienId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="mssv" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="ten" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="diaChi" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="diem" type="com.liferay.portal.dao.orm.hibernate.DoubleType" />
+		<property name="lopId" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,115 @@
+<?xml version="1.0"?>
+
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	<h:head />
+	<h:body>
+		<h:form id="form" >
+			<p:growl id="messages" showDetail="true"/>  
+			<p:contextMenu for="sinhVienTable">
+				<p:menuitem value="Chi tiết" update="display" icon="ui-icon-search"
+					oncomplete="svDialog.show()" />
+				<p:menuitem value="Xóa" update=":form:sinhVienTable :form:messages" icon="ui-icon-close" actionListener="#{sinhVienBeans.deleteSinhVien}" />
+			</p:contextMenu>
+
+
+			<p:dataTable id="sinhVienTable" var="sinhVien"
+				value="#{sinhVienBeans.sinhViens}" paginator="true" rows="10"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="1,2,5,10,15" sortBy="sinhVien.mssv"
+				rowKey="#{sinhVien.mssv}" selectionMode="single"
+				selection="#{sinhVienBeans.sinhVienSelected}" editable="true">
+
+				<p:ajax event="rowEdit" listener="#{sinhVienBeans.onEdit}"
+					update=":form:sinhVienTable :form:messages" />
+					
+				<f:facet name="header">
+            Bảng lớp học
+        </f:facet>
+				<p:columnGroup type="header">
+					<p:row>
+
+						<p:column width="50" headerText="MSSV" />
+						<p:column width="100" headerText="Tên" />
+						<p:column headerText="Địa chỉ" />
+						<p:column headerText="Điểm số" />
+						<p:column headerText="Lớp" />
+						<p:column headerText="Chỉnh sửa" />
+					</p:row>
+				</p:columnGroup>
+
+				<p:column sortBy="#{sinhVien.mssv}">
+                #{sinhVien.mssv}
+            </p:column>
+
+				<p:column>
+                #{sinhVien.ten}
+            </p:column>
+
+				<p:column>
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{sinhVien.diaChi}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{sinhVien.diaChi}" label="Địa chỉ" />
+						</f:facet>
+					</p:cellEditor>
+
+				</p:column>
+
+				<p:column>
+                #{sinhVien.diem}
+            </p:column>
+				<p:column>
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{sinhVien.lopId}" />
+						</f:facet>
+						<f:facet name="input">
+							<h:selectOneMenu value="#{sinhVien.lopId}">
+								<f:selectItems value="#{lopHocBeans.lops}" var="lop"
+									itemLabel="#{lop.lopId}" itemValue="#{lop.lopId}" />
+							</h:selectOneMenu>
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				<p:column>
+					<p:rowEditor />
+				</p:column>
+			</p:dataTable>
+
+			<p:dialog header="Thông tin chi tiết" widgetVar="svDialog"
+				resizable="false" width="200" showEffect="clip" hideEffect="fold"
+				id="dialog">
+
+				<h:panelGrid id="display" columns="2" cellpadding="4">
+					<h:outputText value="MSSV:" />
+					<h:outputText style="font-weight:bold"
+						value="#{sinhVienBeans.sinhVienSelected.mssv}" />
+
+					<h:outputText value="Tên:" />
+					<h:outputText style="font-weight:bold"
+						value="#{sinhVienBeans.sinhVienSelected.ten}" />
+
+					<h:outputText value="Địa chỉ" />
+					<h:outputText style="font-weight:bold"
+						value="#{sinhVienBeans.sinhVienSelected.diaChi}" />
+
+					<h:outputText value="Điểm:" />
+					<h:outputText style="font-weight:bold"
+						value="#{sinhVienBeans.sinhVienSelected.diem}" />
+
+					<h:outputText value="Lớp:" />
+					<h:outputText style="font-weight:bold"
+						value="#{sinhVienBeans.sinhVienSelected.lopId}" />
+				</h:panelGrid>
+			</p:dialog>
+		</h:form>
+
+	</h:body>
+</f:view>
