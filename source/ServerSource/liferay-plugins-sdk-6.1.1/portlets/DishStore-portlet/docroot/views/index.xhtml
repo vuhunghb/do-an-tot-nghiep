@@ -1,16 +1,14 @@
 <?xml version="1.0"?>
 
-<f:view
-	xmlns="http://www.w3.org/1999/xhtml"
+<f:view xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
->
+	xmlns:ui="http://java.sun.com/jsf/facelets">
 	<h:head />
 	<h:body>
-		<h:form id="form" >
+		<h:form id="form">
 			<p:growl id="messages" showDetail="true" />
 			<p:contextMenu for="dishTable">
 				<p:menuitem value="Chi tiết" update="display" icon="ui-icon-search"
@@ -21,44 +19,37 @@
 
 
 			<p:dataTable id="dishTable" var="dish"
+				
 				value="#{dishBeans.dishs}" paginator="true" rows="10"
 				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 				rowsPerPageTemplate="1,2,5,10,15" sortBy="#{dish.dishId}"
-				rowKey="#{dish.dishId}" selectionMode="single" selection="#{dishBeans.dishSelected}"
-				 editable="true">
+				rowKey="#{dish.dishId}" selectionMode="single"
+				selection="#{dishBeans.dishSelected}" editable="true">
 
 				<p:ajax event="rowEdit" listener="#{dishBeans.onEdit}"
 					update=":form:dishTable :form:messages" />
-					
-					
-				<f:facet name="header">
-            Bảng lớp học
-        </f:facet>
-		<!-- 	<p:columnGroup type="header">
-					<p:row>
-						<p:column width="50" headerText="MaMA" />
-						<p:column width="100" headerText="Tên"  />
-						<p:column headerText="Mô tả" />
-						<p:column headerText="Giá TK" />
-						<p:column headerText="Hình đại diện" />
-						<p:column headerText="Hình chi tiết" />
-						<p:column headerText="Chi tiết" />
-						<p:column headerText="Loại" />
-						<p:column headerText="Chỉnh sửa" />
-					</p:row>
-				</p:columnGroup> -->	
 				
-				<p:column sortBy="#{dish.dishId}">
-				<f:facet name="header">  
-                <h:outputText value="Mã" />  
-            	</f:facet>
-            	<h:outputText value="#{dish.dishId}" />
-           		 </p:column>
+				<!-- 	<p:columnGroup type="header">
+				<f:facet name="header">
+					<p:outputPanel>
+						<h:outputText value="Search all fields:" />
+						<p:inputText id="globalFilter" onkeyup="dishsTable.filter()"
+							style="width:150px" />
+					</p:outputPanel>
+				</f:facet>
+					-->
+				
+				<p:column sortBy="#{dish.dishId}" >
+					<f:facet name="header">
+						<h:outputText value="Mã" />
+					</f:facet>
+					<h:outputText value="#{dish.dishId}" />
+				</p:column>
 
-				<p:column sortBy="#{dish.dishName}">
-				<f:facet name="header">  
-                <h:outputText value="Tên" />  
-            	</f:facet>
+				<p:column sortBy="#{dish.dishName}" >
+					<f:facet name="header">
+						<h:outputText value="Tên" />
+					</f:facet>
 					<p:cellEditor>
 						<f:facet name="output">
 							<h:outputText value="#{dish.dishName}" />
@@ -70,9 +61,9 @@
 
 				</p:column>
 				<p:column sortBy="#{dish.decription}">
-				<f:facet name="header">  
-                <h:outputText value="Mô Tả" />  
-            	</f:facet>
+					<f:facet name="header">
+						<h:outputText value="Mô Tả" />
+					</f:facet>
 					<p:cellEditor>
 						<f:facet name="output">
 							<h:outputText value="#{dish.decription}" />
@@ -82,10 +73,10 @@
 						</f:facet>
 					</p:cellEditor>
 				</p:column>
-				<p:column sortBy="#{dish.referPrice}"> 
-				<f:facet name="header" >  
-                <h:outputText value="Giá TK" />  
-            	</f:facet>
+				<p:column sortBy="#{dish.referPrice}">
+					<f:facet name="header">
+						<h:outputText value="Giá TK" />
+					</f:facet>
 					<p:cellEditor>
 						<f:facet name="output">
 							<h:outputText value="#{dish.referPrice}" />
@@ -96,9 +87,9 @@
 					</p:cellEditor>
 				</p:column>
 				<p:column sortBy="#{dish.avatarImg}">
-				<f:facet name="header" >  
-                <h:outputText value="Hình đại diện" />  
-            	</f:facet>
+					<f:facet name="header">
+						<h:outputText value="Hình đại diện" />
+					</f:facet>
 					<p:cellEditor>
 						<f:facet name="output">
 							<h:outputText value="#{dish.avatarImg}" />
@@ -110,9 +101,9 @@
 					</p:cellEditor>
 				</p:column>
 				<p:column sortBy="#{dish.detailImg}">
-				<f:facet name="header">  
-                <h:outputText value="Hình chi tiết" />  
-            	</f:facet>
+					<f:facet name="header">
+						<h:outputText value="Hình chi tiết" />
+					</f:facet>
 					<p:cellEditor>
 						<f:facet name="output">
 							<h:outputText value="#{dish.detailImg}" />
@@ -124,9 +115,9 @@
 					</p:cellEditor>
 				</p:column>
 				<p:column sortBy="#{dish.detail}">
-				<f:facet name="header">  
-                <h:outputText value="Chi tiết" />  
-            	</f:facet>
+					<f:facet name="header">
+						<h:outputText value="Chi tiết" />
+					</f:facet>
 					<p:cellEditor>
 						<f:facet name="output">
 							<h:outputText value="#{dish.detail}" />
@@ -137,12 +128,13 @@
 					</p:cellEditor>
 				</p:column>
 				<p:column sortBy="#{dish.categoryId}">
-				<f:facet name="header">  
-                <h:outputText value="Loại" />  
-            	</f:facet>
+					<f:facet name="header">
+						<h:outputText value="Loại" />
+					</f:facet>
 					<p:cellEditor>
 						<f:facet name="output">
-							<h:outputText value="#{categoryBeans.getCategoryNameByID(dish.categoryId)}" />
+							<h:outputText
+								value="#{categoryBeans.getCategoryNameByID(dish.categoryId)}" />
 						</f:facet>
 						<f:facet name="input">
 							<h:selectOneMenu value="#{dish.categoryId}">
@@ -193,7 +185,7 @@
 
 				</h:panelGrid>
 			</p:dialog>
-			
+
 		</h:form>
 
 	</h:body>

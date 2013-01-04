@@ -3,10 +3,11 @@ package irestads.beans;
 import irestads.model.Category;
 import irestads.service.CategoryServiceUtil;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CategoryBeans {
+public class CategoryBeans implements Serializable {
 	private String categoryName;
 	private List<Category> categorys;
 	

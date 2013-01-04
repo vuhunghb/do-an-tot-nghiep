@@ -8,6 +8,7 @@ import irestads.service.DishServiceUtil;
 
 
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,11 +19,19 @@ import javax.faces.context.FacesContext;
 import org.primefaces.event.RowEditEvent;
 
 
-@SessionScoped
-public class DishBeans {
+
+public class DishBeans implements Serializable {
 	private List<Dish> dishs;
 	private Dish dishSelected;
+	private List<Dish> filteredDishs;
+	
 
+	public List<Dish> getFilteredDishs() {
+		return filteredDishs;
+	}
+	public void setFilteredDishs(List<Dish> filteredDishs) {
+		this.filteredDishs = filteredDishs;
+	}
 	public DishBeans() {
 		this.dishs = new ArrayList<Dish>();
 		this.getDishsFromDB();
@@ -50,9 +59,10 @@ public class DishBeans {
 	
 	
 	public List<Dish> getDishs() {
-	//	System.out.println("vo get dish "+ this.dishs.get(0).getDishName()+" ++ "+this.dishs.get(1).getDishName());
-		//this.getDishsFromDB();
-		return dishs;
+
+		
+		    return dishs;
+	
 	}
 
 
