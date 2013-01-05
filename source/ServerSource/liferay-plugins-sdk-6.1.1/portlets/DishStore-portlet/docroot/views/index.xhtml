@@ -38,19 +38,31 @@
 					</p:outputPanel>
 				</f:facet>
 					-->
+					
+					<p:columnGroup type="header">
+					<p:row>
+						<p:column width="50" headerText="Ma" sortBy="#{dish.dishId}" filterBy="#{dish.dishId}" filterMatchMode="contains"/>
+						<p:column width="100" headerText="Tên" sortBy="#{dish.dishName}" filterBy="#{dish.dishName}" filterMatchMode="contains"/>
+						<p:column headerText="Mô tả" sortBy="#{dish.decription}"/>
+						<p:column headerText="Giá TK" sortBy="#{dish.referPrice}" />
+						<p:column headerText="Hình đại diện" sortBy="#{dish.avatarImg}" />
+						<p:column headerText="Hình chi tiết" sortBy="#{dish.detailImg}" />
+						<p:column headerText="Chi tiết" sortBy="#{dish.detail}" />
+						<p:column headerText="Loại" sortBy="#{dish.categoryId}" />
+						<p:column headerText="Chỉnh sửa" />
+					</p:row>
+				</p:columnGroup>
 				
-				<p:column sortBy="#{dish.dishId}" >
-					<f:facet name="header">
-						<h:outputText value="Mã" />
-					</f:facet>
+				
+				<p:column>
 					<h:outputText value="#{dish.dishId}" />
+				
 				</p:column>
 
-				<p:column sortBy="#{dish.dishName}" >
-					<f:facet name="header">
-						<h:outputText value="Tên" />
-					</f:facet>
-					<p:cellEditor>
+				<p:column>
+					
+				
+				<p:cellEditor> // ku nay ne, choi no la ko sort dc
 						<f:facet name="output">
 							<h:outputText value="#{dish.dishName}" />
 						</f:facet>
@@ -60,10 +72,8 @@
 					</p:cellEditor>
 
 				</p:column>
-				<p:column sortBy="#{dish.decription}">
-					<f:facet name="header">
-						<h:outputText value="Mô Tả" />
-					</f:facet>
+			<p:column>
+					
 					<p:cellEditor>
 						<f:facet name="output">
 							<h:outputText value="#{dish.decription}" />
@@ -73,10 +83,8 @@
 						</f:facet>
 					</p:cellEditor>
 				</p:column>
-				<p:column sortBy="#{dish.referPrice}">
-					<f:facet name="header">
-						<h:outputText value="Giá TK" />
-					</f:facet>
+				<p:column>
+					
 					<p:cellEditor>
 						<f:facet name="output">
 							<h:outputText value="#{dish.referPrice}" />
@@ -86,10 +94,8 @@
 						</f:facet>
 					</p:cellEditor>
 				</p:column>
-				<p:column sortBy="#{dish.avatarImg}">
-					<f:facet name="header">
-						<h:outputText value="Hình đại diện" />
-					</f:facet>
+				<p:column>
+					
 					<p:cellEditor>
 						<f:facet name="output">
 							<h:outputText value="#{dish.avatarImg}" />
@@ -100,10 +106,8 @@
 						</f:facet>
 					</p:cellEditor>
 				</p:column>
-				<p:column sortBy="#{dish.detailImg}">
-					<f:facet name="header">
-						<h:outputText value="Hình chi tiết" />
-					</f:facet>
+				<p:column>
+					
 					<p:cellEditor>
 						<f:facet name="output">
 							<h:outputText value="#{dish.detailImg}" />
@@ -114,10 +118,7 @@
 						</f:facet>
 					</p:cellEditor>
 				</p:column>
-				<p:column sortBy="#{dish.detail}">
-					<f:facet name="header">
-						<h:outputText value="Chi tiết" />
-					</f:facet>
+				<p:column>
 					<p:cellEditor>
 						<f:facet name="output">
 							<h:outputText value="#{dish.detail}" />
@@ -127,10 +128,8 @@
 						</f:facet>
 					</p:cellEditor>
 				</p:column>
-				<p:column sortBy="#{dish.categoryId}">
-					<f:facet name="header">
-						<h:outputText value="Loại" />
-					</f:facet>
+				<p:column>
+					
 					<p:cellEditor>
 						<f:facet name="output">
 							<h:outputText
@@ -148,6 +147,7 @@
 				<p:column>
 					<p:rowEditor />
 				</p:column>
+				
 			</p:dataTable>
 			<p:dialog header="Thông tin chi tiết" widgetVar="dishDialog"
 				resizable="false" width="200" showEffect="clip" hideEffect="fold"
