@@ -20,7 +20,7 @@ create table DishStore_Dish (
 	avatarImg VARCHAR(75) null,
 	detailImg VARCHAR(75) null,
 	detail VARCHAR(75) null,
-	referPrice DOUBLE,
-	categoryId LONG,
-	editTable BOOLEAN
+	referPrice INTEGER,
+	numOfDiner INTEGER,
+	categoryId LONG
 );

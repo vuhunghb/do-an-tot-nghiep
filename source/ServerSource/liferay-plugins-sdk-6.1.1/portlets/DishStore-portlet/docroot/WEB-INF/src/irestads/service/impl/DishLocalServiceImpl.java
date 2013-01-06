@@ -53,7 +53,7 @@ public class DishLocalServiceImpl extends DishLocalServiceBaseImpl {
 	// day la lop ServiceLocalImpl trong file doc
 	// chi thuc hien code o day, ko goi truc tiep. ma chi goi qua SẻviceLocalUtils
 	
-	public Dish createDish(String dishName,String decription, String avatarImg, String detailImg, String detail, double referPrice,long categoryId){
+	public Dish createDish(String dishName,String decription, String avatarImg, String detailImg, String detail, int referPrice,long categoryId){
 		try {
 			long id = CounterLocalServiceUtil.increment(Dish.class.getName());
 			Dish dishModel = DishUtil.create(id);

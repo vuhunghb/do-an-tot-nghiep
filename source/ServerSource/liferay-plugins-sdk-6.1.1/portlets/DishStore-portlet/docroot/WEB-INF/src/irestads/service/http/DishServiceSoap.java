@@ -68,7 +68,7 @@ public class DishServiceSoap {
 	public static irestads.model.DishSoap createDish(
 		java.lang.String dishName, java.lang.String decription,
 		java.lang.String avatarImg, java.lang.String detailImg,
-		java.lang.String detail, double referPrice, long categoryId)
+		java.lang.String detail, int referPrice, long categoryId)
 		throws RemoteException {
 		try {
 			irestads.model.Dish returnValue = DishServiceUtil.createDish(dishName,

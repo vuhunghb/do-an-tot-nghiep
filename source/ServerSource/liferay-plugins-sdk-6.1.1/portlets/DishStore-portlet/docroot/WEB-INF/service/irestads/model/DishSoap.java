@@ -43,8 +43,8 @@ public class DishSoap implements Serializable {
 		soapModel.setDetailImg(model.getDetailImg());
 		soapModel.setDetail(model.getDetail());
 		soapModel.setReferPrice(model.getReferPrice());
+		soapModel.setNumOfDiner(model.getNumOfDiner());
 		soapModel.setCategoryId(model.getCategoryId());
-		soapModel.setEditTable(model.getEditTable());
 
 		return soapModel;
 	}
@@ -185,12 +185,20 @@ public class DishSoap implements Serializable {
 		_detail = detail;
 	}
 
-	public double getReferPrice() {
+	public int getReferPrice() {
 		return _referPrice;
 	}
 
-	public void setReferPrice(double referPrice) {
+	public void setReferPrice(int referPrice) {
 		_referPrice = referPrice;
+	}
+
+	public int getNumOfDiner() {
+		return _numOfDiner;
+	}
+
+	public void setNumOfDiner(int numOfDiner) {
+		_numOfDiner = numOfDiner;
 	}
 
 	public long getCategoryId() {
@@ -199,18 +207,6 @@ public class DishSoap implements Serializable {
 
 	public void setCategoryId(long categoryId) {
 		_categoryId = categoryId;
-	}
-
-	public boolean getEditTable() {
-		return _editTable;
-	}
-
-	public boolean isEditTable() {
-		return _editTable;
-	}
-
-	public void setEditTable(boolean editTable) {
-		_editTable = editTable;
 	}
 
 	private long _dishId;
@@ -224,7 +220,7 @@ public class DishSoap implements Serializable {
 	private String _avatarImg;
 	private String _detailImg;
 	private String _detail;
-	private double _referPrice;
+	private int _referPrice;
+	private int _numOfDiner;
 	private long _categoryId;
-	private boolean _editTable;
 }

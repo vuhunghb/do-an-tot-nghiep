@@ -37,6 +37,7 @@ import irestads.service.DishLocalService;
 import irestads.service.DishService;
 
 import irestads.service.persistence.CategoryPersistence;
+import irestads.service.persistence.DishFinder;
 import irestads.service.persistence.DishPersistence;
 
 import javax.sql.DataSource;
@@ -168,6 +169,24 @@ public abstract class DishServiceBaseImpl extends BaseServiceImpl
 	 */
 	public void setDishPersistence(DishPersistence dishPersistence) {
 		this.dishPersistence = dishPersistence;
+	}
+
+	/**
+	 * Returns the dish finder.
+	 *
+	 * @return the dish finder
+	 */
+	public DishFinder getDishFinder() {
+		return dishFinder;
+	}
+
+	/**
+	 * Sets the dish finder.
+	 *
+	 * @param dishFinder the dish finder
+	 */
+	public void setDishFinder(DishFinder dishFinder) {
+		this.dishFinder = dishFinder;
 	}
 
 	/**
@@ -365,6 +384,8 @@ public abstract class DishServiceBaseImpl extends BaseServiceImpl
 	protected DishService dishService;
 	@BeanReference(type = DishPersistence.class)
 	protected DishPersistence dishPersistence;
+	@BeanReference(type = DishFinder.class)
+	protected DishFinder dishFinder;
 	@BeanReference(type = CounterLocalService.class)
 	protected CounterLocalService counterLocalService;
 	@BeanReference(type = ResourceLocalService.class)

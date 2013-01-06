@@ -35,7 +35,7 @@ public class DishServiceClp implements DishService {
 
 		_methodParameterTypes3 = new String[] {
 				"java.lang.String", "java.lang.String", "java.lang.String",
-				"java.lang.String", "java.lang.String", "double", "long"
+				"java.lang.String", "java.lang.String", "int", "long"
 			};
 
 		_methodName4 = "getAllDishs";
@@ -104,7 +104,7 @@ public class DishServiceClp implements DishService {
 
 	public irestads.model.Dish createDish(java.lang.String dishName,
 		java.lang.String decription, java.lang.String avatarImg,
-		java.lang.String detailImg, java.lang.String detail, double referPrice,
+		java.lang.String detailImg, java.lang.String detail, int referPrice,
 		long categoryId) {
 		Object returnObj = null;
 

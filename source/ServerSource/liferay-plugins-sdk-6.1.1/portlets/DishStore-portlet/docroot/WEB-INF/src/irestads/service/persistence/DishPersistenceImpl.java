@@ -351,8 +351,8 @@ public class DishPersistenceImpl extends BasePersistenceImpl<Dish>
 		dishImpl.setDetailImg(dish.getDetailImg());
 		dishImpl.setDetail(dish.getDetail());
 		dishImpl.setReferPrice(dish.getReferPrice());
+		dishImpl.setNumOfDiner(dish.getNumOfDiner());
 		dishImpl.setCategoryId(dish.getCategoryId());
-		dishImpl.setEditTable(dish.isEditTable());
 
 		return dishImpl;
 	}

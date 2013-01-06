@@ -76,11 +76,11 @@ public class DishModelImpl extends BaseModelImpl<Dish> implements DishModel {
 			{ "avatarImg", Types.VARCHAR },
 			{ "detailImg", Types.VARCHAR },
 			{ "detail", Types.VARCHAR },
-			{ "referPrice", Types.DOUBLE },
-			{ "categoryId", Types.BIGINT },
-			{ "editTable", Types.BOOLEAN }
+			{ "referPrice", Types.INTEGER },
+			{ "numOfDiner", Types.INTEGER },
+			{ "categoryId", Types.BIGINT }
 		};
-	public static final String TABLE_SQL_CREATE = "create table DishStore_Dish (dishId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,dishName VARCHAR(75) null,decription VARCHAR(75) null,avatarImg VARCHAR(75) null,detailImg VARCHAR(75) null,detail VARCHAR(75) null,referPrice DOUBLE,categoryId LONG,editTable BOOLEAN)";
+	public static final String TABLE_SQL_CREATE = "create table DishStore_Dish (dishId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,dishName VARCHAR(75) null,decription VARCHAR(75) null,avatarImg VARCHAR(75) null,detailImg VARCHAR(75) null,detail VARCHAR(75) null,referPrice INTEGER,numOfDiner INTEGER,categoryId LONG)";
 	public static final String TABLE_SQL_DROP = "drop table DishStore_Dish";
 	public static final String ORDER_BY_JPQL = " ORDER BY dish.dishName ASC";
 	public static final String ORDER_BY_SQL = " ORDER BY DishStore_Dish.dishName ASC";
@@ -120,8 +120,8 @@ public class DishModelImpl extends BaseModelImpl<Dish> implements DishModel {
 		model.setDetailImg(soapModel.getDetailImg());
 		model.setDetail(soapModel.getDetail());
 		model.setReferPrice(soapModel.getReferPrice());
+		model.setNumOfDiner(soapModel.getNumOfDiner());
 		model.setCategoryId(soapModel.getCategoryId());
-		model.setEditTable(soapModel.getEditTable());
 
 		return model;
 	}
@@ -192,8 +192,8 @@ public class DishModelImpl extends BaseModelImpl<Dish> implements DishModel {
 		attributes.put("detailImg", getDetailImg());
 		attributes.put("detail", getDetail());
 		attributes.put("referPrice", getReferPrice());
+		attributes.put("numOfDiner", getNumOfDiner());
 		attributes.put("categoryId", getCategoryId());
-		attributes.put("editTable", getEditTable());
 
 		return attributes;
 	}
@@ -266,22 +266,22 @@ public class DishModelImpl extends BaseModelImpl<Dish> implements DishModel {
 			setDetail(detail);
 		}
 
-		Double referPrice = (Double)attributes.get("referPrice");
+		Integer referPrice = (Integer)attributes.get("referPrice");
 
 		if (referPrice != null) {
 			setReferPrice(referPrice);
+		}
+
+		Integer numOfDiner = (Integer)attributes.get("numOfDiner");
+
+		if (numOfDiner != null) {
+			setNumOfDiner(numOfDiner);
 		}
 
 		Long categoryId = (Long)attributes.get("categoryId");
 
 		if (categoryId != null) {
 			setCategoryId(categoryId);
-		}
-
-		Boolean editTable = (Boolean)attributes.get("editTable");
-
-		if (editTable != null) {
-			setEditTable(editTable);
 		}
 	}
 
@@ -433,12 +433,21 @@ public class DishModelImpl extends BaseModelImpl<Dish> implements DishModel {
 	}
 
 	@JSON
-	public double getReferPrice() {
+	public int getReferPrice() {
 		return _referPrice;
 	}
 
-	public void setReferPrice(double referPrice) {
+	public void setReferPrice(int referPrice) {
 		_referPrice = referPrice;
+	}
+
+	@JSON
+	public int getNumOfDiner() {
+		return _numOfDiner;
+	}
+
+	public void setNumOfDiner(int numOfDiner) {
+		_numOfDiner = numOfDiner;
 	}
 
 	@JSON
@@ -448,19 +457,6 @@ public class DishModelImpl extends BaseModelImpl<Dish> implements DishModel {
 
 	public void setCategoryId(long categoryId) {
 		_categoryId = categoryId;
-	}
-
-	@JSON
-	public boolean getEditTable() {
-		return _editTable;
-	}
-
-	public boolean isEditTable() {
-		return _editTable;
-	}
-
-	public void setEditTable(boolean editTable) {
-		_editTable = editTable;
 	}
 
 	public long getColumnBitmask() {
@@ -507,8 +503,8 @@ public class DishModelImpl extends BaseModelImpl<Dish> implements DishModel {
 		dishImpl.setDetailImg(getDetailImg());
 		dishImpl.setDetail(getDetail());
 		dishImpl.setReferPrice(getReferPrice());
+		dishImpl.setNumOfDiner(getNumOfDiner());
 		dishImpl.setCategoryId(getCategoryId());
-		dishImpl.setEditTable(getEditTable());
 
 		dishImpl.resetOriginalValues();
 
@@ -644,9 +640,9 @@ public class DishModelImpl extends BaseModelImpl<Dish> implements DishModel {
 
 		dishCacheModel.referPrice = getReferPrice();
 
-		dishCacheModel.categoryId = getCategoryId();
+		dishCacheModel.numOfDiner = getNumOfDiner();
 
-		dishCacheModel.editTable = getEditTable();
+		dishCacheModel.categoryId = getCategoryId();
 
 		return dishCacheModel;
 	}
@@ -679,10 +675,10 @@ public class DishModelImpl extends BaseModelImpl<Dish> implements DishModel {
 		sb.append(getDetail());
 		sb.append(", referPrice=");
 		sb.append(getReferPrice());
+		sb.append(", numOfDiner=");
+		sb.append(getNumOfDiner());
 		sb.append(", categoryId=");
 		sb.append(getCategoryId());
-		sb.append(", editTable=");
-		sb.append(getEditTable());
 		sb.append("}");
 
 		return sb.toString();
@@ -744,12 +740,12 @@ public class DishModelImpl extends BaseModelImpl<Dish> implements DishModel {
 		sb.append(getReferPrice());
 		sb.append("]]></column-value></column>");
 		sb.append(
-			"<column><column-name>categoryId</column-name><column-value><![CDATA[");
-		sb.append(getCategoryId());
+			"<column><column-name>numOfDiner</column-name><column-value><![CDATA[");
+		sb.append(getNumOfDiner());
 		sb.append("]]></column-value></column>");
 		sb.append(
-			"<column><column-name>editTable</column-name><column-value><![CDATA[");
-		sb.append(getEditTable());
+			"<column><column-name>categoryId</column-name><column-value><![CDATA[");
+		sb.append(getCategoryId());
 		sb.append("]]></column-value></column>");
 
 		sb.append("</model>");
@@ -774,9 +770,9 @@ public class DishModelImpl extends BaseModelImpl<Dish> implements DishModel {
 	private String _avatarImg;
 	private String _detailImg;
 	private String _detail;
-	private double _referPrice;
+	private int _referPrice;
+	private int _numOfDiner;
 	private long _categoryId;
-	private boolean _editTable;
 	private long _columnBitmask;
 	private Dish _escapedModelProxy;
 }

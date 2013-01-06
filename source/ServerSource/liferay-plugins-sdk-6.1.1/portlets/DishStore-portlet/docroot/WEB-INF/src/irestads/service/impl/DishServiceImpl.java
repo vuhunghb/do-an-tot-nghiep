@@ -48,7 +48,7 @@ public class DishServiceImpl extends DishServiceBaseImpl {
 	// tao lai phuong thuc y chang local nhung chi cac phuong thuc can de goi tu xa (Remote calling)
 	//ko viet gi ca chi goi phuong thuc tu ServiceLocal
 //	
-	public Dish createDish(String dishName,String decription, String avatarImg, String detailImg, String detail, double referPrice,long categoryId){
+	public Dish createDish(String dishName,String decription, String avatarImg, String detailImg, String detail, int referPrice,long categoryId){
 		
 		// sau nay cho nay se de kiem tra authentication..sau nay thoi
 		// vay thi DisLocalServiceUtil dc sinh ra tu DishLocalServiceImpl.

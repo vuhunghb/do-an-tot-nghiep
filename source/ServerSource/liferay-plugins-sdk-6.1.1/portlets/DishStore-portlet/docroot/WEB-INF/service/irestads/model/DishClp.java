@@ -78,8 +78,8 @@ public class DishClp extends BaseModelImpl<Dish> implements Dish {
 		attributes.put("detailImg", getDetailImg());
 		attributes.put("detail", getDetail());
 		attributes.put("referPrice", getReferPrice());
+		attributes.put("numOfDiner", getNumOfDiner());
 		attributes.put("categoryId", getCategoryId());
-		attributes.put("editTable", getEditTable());
 
 		return attributes;
 	}
@@ -152,22 +152,22 @@ public class DishClp extends BaseModelImpl<Dish> implements Dish {
 			setDetail(detail);
 		}
 
-		Double referPrice = (Double)attributes.get("referPrice");
+		Integer referPrice = (Integer)attributes.get("referPrice");
 
 		if (referPrice != null) {
 			setReferPrice(referPrice);
+		}
+
+		Integer numOfDiner = (Integer)attributes.get("numOfDiner");
+
+		if (numOfDiner != null) {
+			setNumOfDiner(numOfDiner);
 		}
 
 		Long categoryId = (Long)attributes.get("categoryId");
 
 		if (categoryId != null) {
 			setCategoryId(categoryId);
-		}
-
-		Boolean editTable = (Boolean)attributes.get("editTable");
-
-		if (editTable != null) {
-			setEditTable(editTable);
 		}
 	}
 
@@ -267,12 +267,20 @@ public class DishClp extends BaseModelImpl<Dish> implements Dish {
 		_detail = detail;
 	}
 
-	public double getReferPrice() {
+	public int getReferPrice() {
 		return _referPrice;
 	}
 
-	public void setReferPrice(double referPrice) {
+	public void setReferPrice(int referPrice) {
 		_referPrice = referPrice;
+	}
+
+	public int getNumOfDiner() {
+		return _numOfDiner;
+	}
+
+	public void setNumOfDiner(int numOfDiner) {
+		_numOfDiner = numOfDiner;
 	}
 
 	public long getCategoryId() {
@@ -281,18 +289,6 @@ public class DishClp extends BaseModelImpl<Dish> implements Dish {
 
 	public void setCategoryId(long categoryId) {
 		_categoryId = categoryId;
-	}
-
-	public boolean getEditTable() {
-		return _editTable;
-	}
-
-	public boolean isEditTable() {
-		return _editTable;
-	}
-
-	public void setEditTable(boolean editTable) {
-		_editTable = editTable;
 	}
 
 	public BaseModel<?> getDishRemoteModel() {
@@ -334,8 +330,8 @@ public class DishClp extends BaseModelImpl<Dish> implements Dish {
 		clone.setDetailImg(getDetailImg());
 		clone.setDetail(getDetail());
 		clone.setReferPrice(getReferPrice());
+		clone.setNumOfDiner(getNumOfDiner());
 		clone.setCategoryId(getCategoryId());
-		clone.setEditTable(getEditTable());
 
 		return clone;
 	}
@@ -410,10 +406,10 @@ public class DishClp extends BaseModelImpl<Dish> implements Dish {
 		sb.append(getDetail());
 		sb.append(", referPrice=");
 		sb.append(getReferPrice());
+		sb.append(", numOfDiner=");
+		sb.append(getNumOfDiner());
 		sb.append(", categoryId=");
 		sb.append(getCategoryId());
-		sb.append(", editTable=");
-		sb.append(getEditTable());
 		sb.append("}");
 
 		return sb.toString();
@@ -475,12 +471,12 @@ public class DishClp extends BaseModelImpl<Dish> implements Dish {
 		sb.append(getReferPrice());
 		sb.append("]]></column-value></column>");
 		sb.append(
-			"<column><column-name>categoryId</column-name><column-value><![CDATA[");
-		sb.append(getCategoryId());
+			"<column><column-name>numOfDiner</column-name><column-value><![CDATA[");
+		sb.append(getNumOfDiner());
 		sb.append("]]></column-value></column>");
 		sb.append(
-			"<column><column-name>editTable</column-name><column-value><![CDATA[");
-		sb.append(getEditTable());
+			"<column><column-name>categoryId</column-name><column-value><![CDATA[");
+		sb.append(getCategoryId());
 		sb.append("]]></column-value></column>");
 
 		sb.append("</model>");
@@ -500,8 +496,8 @@ public class DishClp extends BaseModelImpl<Dish> implements Dish {
 	private String _avatarImg;
 	private String _detailImg;
 	private String _detail;
-	private double _referPrice;
+	private int _referPrice;
+	private int _numOfDiner;
 	private long _categoryId;
-	private boolean _editTable;
 	private BaseModel<?> _dishRemoteModel;
 }
