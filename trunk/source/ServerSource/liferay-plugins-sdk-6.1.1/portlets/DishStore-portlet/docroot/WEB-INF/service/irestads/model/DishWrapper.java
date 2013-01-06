@@ -57,8 +57,8 @@ public class DishWrapper implements Dish, ModelWrapper<Dish> {
 		attributes.put("detailImg", getDetailImg());
 		attributes.put("detail", getDetail());
 		attributes.put("referPrice", getReferPrice());
+		attributes.put("numOfDiner", getNumOfDiner());
 		attributes.put("categoryId", getCategoryId());
-		attributes.put("editTable", getEditTable());
 
 		return attributes;
 	}
@@ -130,22 +130,22 @@ public class DishWrapper implements Dish, ModelWrapper<Dish> {
 			setDetail(detail);
 		}
 
-		Double referPrice = (Double)attributes.get("referPrice");
+		Integer referPrice = (Integer)attributes.get("referPrice");
 
 		if (referPrice != null) {
 			setReferPrice(referPrice);
+		}
+
+		Integer numOfDiner = (Integer)attributes.get("numOfDiner");
+
+		if (numOfDiner != null) {
+			setNumOfDiner(numOfDiner);
 		}
 
 		Long categoryId = (Long)attributes.get("categoryId");
 
 		if (categoryId != null) {
 			setCategoryId(categoryId);
-		}
-
-		Boolean editTable = (Boolean)attributes.get("editTable");
-
-		if (editTable != null) {
-			setEditTable(editTable);
 		}
 	}
 
@@ -390,7 +390,7 @@ public class DishWrapper implements Dish, ModelWrapper<Dish> {
 	*
 	* @return the refer price of this dish
 	*/
-	public double getReferPrice() {
+	public int getReferPrice() {
 		return _dish.getReferPrice();
 	}
 
@@ -399,8 +399,26 @@ public class DishWrapper implements Dish, ModelWrapper<Dish> {
 	*
 	* @param referPrice the refer price of this dish
 	*/
-	public void setReferPrice(double referPrice) {
+	public void setReferPrice(int referPrice) {
 		_dish.setReferPrice(referPrice);
+	}
+
+	/**
+	* Returns the num of diner of this dish.
+	*
+	* @return the num of diner of this dish
+	*/
+	public int getNumOfDiner() {
+		return _dish.getNumOfDiner();
+	}
+
+	/**
+	* Sets the num of diner of this dish.
+	*
+	* @param numOfDiner the num of diner of this dish
+	*/
+	public void setNumOfDiner(int numOfDiner) {
+		_dish.setNumOfDiner(numOfDiner);
 	}
 
 	/**
@@ -419,33 +437,6 @@ public class DishWrapper implements Dish, ModelWrapper<Dish> {
 	*/
 	public void setCategoryId(long categoryId) {
 		_dish.setCategoryId(categoryId);
-	}
-
-	/**
-	* Returns the edit table of this dish.
-	*
-	* @return the edit table of this dish
-	*/
-	public boolean getEditTable() {
-		return _dish.getEditTable();
-	}
-
-	/**
-	* Returns <code>true</code> if this dish is edit table.
-	*
-	* @return <code>true</code> if this dish is edit table; <code>false</code> otherwise
-	*/
-	public boolean isEditTable() {
-		return _dish.isEditTable();
-	}
-
-	/**
-	* Sets whether this dish is edit table.
-	*
-	* @param editTable the edit table of this dish
-	*/
-	public void setEditTable(boolean editTable) {
-		_dish.setEditTable(editTable);
 	}
 
 	public boolean isNew() {

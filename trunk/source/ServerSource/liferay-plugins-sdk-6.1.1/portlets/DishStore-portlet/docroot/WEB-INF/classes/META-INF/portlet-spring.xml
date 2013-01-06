@@ -7,4 +7,5 @@
 	<bean id="irestads.service.DishLocalService" class="irestads.service.impl.DishLocalServiceImpl" />
 	<bean id="irestads.service.DishService" class="irestads.service.impl.DishServiceImpl" />
 	<bean id="irestads.service.persistence.DishPersistence" class="irestads.service.persistence.DishPersistenceImpl" parent="basePersistence" />
+	<bean id="irestads.service.persistence.DishFinder" class="irestads.service.persistence.DishFinderImpl" parent="basePersistence" />
 </beans>

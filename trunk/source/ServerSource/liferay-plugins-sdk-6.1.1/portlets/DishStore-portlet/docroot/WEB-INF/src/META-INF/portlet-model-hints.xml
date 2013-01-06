@@ -22,8 +22,8 @@
 		<field name="avatarImg" type="String" />
 		<field name="detailImg" type="String" />
 		<field name="detail" type="String" />
-		<field name="referPrice" type="double" />
+		<field name="referPrice" type="int" />
+		<field name="numOfDiner" type="int" />
 		<field name="categoryId" type="long" />
-		<field name="editTable" type="boolean" />
 	</model>
 </model-hints>

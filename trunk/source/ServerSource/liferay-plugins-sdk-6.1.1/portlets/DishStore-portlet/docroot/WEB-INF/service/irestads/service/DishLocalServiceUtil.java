@@ -267,7 +267,7 @@ public class DishLocalServiceUtil {
 
 	public static irestads.model.Dish createDish(java.lang.String dishName,
 		java.lang.String decription, java.lang.String avatarImg,
-		java.lang.String detailImg, java.lang.String detail, double referPrice,
+		java.lang.String detailImg, java.lang.String detail, int referPrice,
 		long categoryId) {
 		return getService()
 				   .createDish(dishName, decription, avatarImg, detailImg,

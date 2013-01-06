@@ -44,8 +44,8 @@
 			<basic name="detailImg" />
 			<basic name="detail" />
 			<basic name="referPrice" />
+			<basic name="numOfDiner" />
 			<basic name="categoryId" />
-			<basic name="editTable" />
 			<transient name="modelAttributes" />
 			<transient name="primaryKey" />
 			<transient name="primaryKeyObj" />

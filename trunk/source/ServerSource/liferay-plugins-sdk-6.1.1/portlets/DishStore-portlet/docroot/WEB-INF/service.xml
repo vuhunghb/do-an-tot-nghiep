@@ -26,7 +26,8 @@
 		<column name="avatarImg" type="String" />
 		<column name="detailImg" type="String" />
 		<column name="detail" type="String" />
-		<column name="referPrice" type="double" />
+		<column name="referPrice" type="int" />
+		<column name="numOfDiner" type="int"></column>
 		<column name="categoryId" type="long" /> 
 		
 

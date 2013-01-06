@@ -66,7 +66,7 @@ public interface DishService extends BaseService, InvokableService {
 
 	public irestads.model.Dish createDish(java.lang.String dishName,
 		java.lang.String decription, java.lang.String avatarImg,
-		java.lang.String detailImg, java.lang.String detail, double referPrice,
+		java.lang.String detailImg, java.lang.String detail, int referPrice,
 		long categoryId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)

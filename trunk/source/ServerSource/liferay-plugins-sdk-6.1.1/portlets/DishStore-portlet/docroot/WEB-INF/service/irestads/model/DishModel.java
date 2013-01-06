@@ -241,14 +241,28 @@ public interface DishModel extends AuditedModel, BaseModel<Dish> {
 	 *
 	 * @return the refer price of this dish
 	 */
-	public double getReferPrice();
+	public int getReferPrice();
 
 	/**
 	 * Sets the refer price of this dish.
 	 *
 	 * @param referPrice the refer price of this dish
 	 */
-	public void setReferPrice(double referPrice);
+	public void setReferPrice(int referPrice);
+
+	/**
+	 * Returns the num of diner of this dish.
+	 *
+	 * @return the num of diner of this dish
+	 */
+	public int getNumOfDiner();
+
+	/**
+	 * Sets the num of diner of this dish.
+	 *
+	 * @param numOfDiner the num of diner of this dish
+	 */
+	public void setNumOfDiner(int numOfDiner);
 
 	/**
 	 * Returns the category ID of this dish.
@@ -263,27 +277,6 @@ public interface DishModel extends AuditedModel, BaseModel<Dish> {
 	 * @param categoryId the category ID of this dish
 	 */
 	public void setCategoryId(long categoryId);
-
-	/**
-	 * Returns the edit table of this dish.
-	 *
-	 * @return the edit table of this dish
-	 */
-	public boolean getEditTable();
-
-	/**
-	 * Returns <code>true</code> if this dish is edit table.
-	 *
-	 * @return <code>true</code> if this dish is edit table; <code>false</code> otherwise
-	 */
-	public boolean isEditTable();
-
-	/**
-	 * Sets whether this dish is edit table.
-	 *
-	 * @param editTable the edit table of this dish
-	 */
-	public void setEditTable(boolean editTable);
 
 	public boolean isNew();
 

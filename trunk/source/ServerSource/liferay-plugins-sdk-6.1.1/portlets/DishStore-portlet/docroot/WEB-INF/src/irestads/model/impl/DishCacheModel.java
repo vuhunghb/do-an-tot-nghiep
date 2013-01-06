@@ -60,10 +60,10 @@ public class DishCacheModel implements CacheModel<Dish>, Serializable {
 		sb.append(detail);
 		sb.append(", referPrice=");
 		sb.append(referPrice);
+		sb.append(", numOfDiner=");
+		sb.append(numOfDiner);
 		sb.append(", categoryId=");
 		sb.append(categoryId);
-		sb.append(", editTable=");
-		sb.append(editTable);
 		sb.append("}");
 
 		return sb.toString();
@@ -133,8 +133,8 @@ public class DishCacheModel implements CacheModel<Dish>, Serializable {
 		}
 
 		dishImpl.setReferPrice(referPrice);
+		dishImpl.setNumOfDiner(numOfDiner);
 		dishImpl.setCategoryId(categoryId);
-		dishImpl.setEditTable(editTable);
 
 		dishImpl.resetOriginalValues();
 
@@ -152,7 +152,7 @@ public class DishCacheModel implements CacheModel<Dish>, Serializable {
 	public String avatarImg;
 	public String detailImg;
 	public String detail;
-	public double referPrice;
+	public int referPrice;
+	public int numOfDiner;
 	public long categoryId;
-	public boolean editTable;
 }
