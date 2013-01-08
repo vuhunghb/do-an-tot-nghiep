@@ -99,6 +99,26 @@ public class DishPersistenceImpl extends BasePersistenceImpl<Dish>
 			DishModelImpl.FINDER_CACHE_ENABLED, Long.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByDishName",
 			new String[] { String.class.getName() });
+	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_BY_REFERPRICE =
+		new FinderPath(DishModelImpl.ENTITY_CACHE_ENABLED,
+			DishModelImpl.FINDER_CACHE_ENABLED, DishImpl.class,
+			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByReferPrice",
+			new String[] {
+				Integer.class.getName(),
+				
+			"java.lang.Integer", "java.lang.Integer",
+				"com.liferay.portal.kernel.util.OrderByComparator"
+			});
+	public static final FinderPath FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_REFERPRICE =
+		new FinderPath(DishModelImpl.ENTITY_CACHE_ENABLED,
+			DishModelImpl.FINDER_CACHE_ENABLED, DishImpl.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByReferPrice",
+			new String[] { Integer.class.getName() },
+			DishModelImpl.REFERPRICE_COLUMN_BITMASK);
+	public static final FinderPath FINDER_PATH_COUNT_BY_REFERPRICE = new FinderPath(DishModelImpl.ENTITY_CACHE_ENABLED,
+			DishModelImpl.FINDER_CACHE_ENABLED, Long.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByReferPrice",
+			new String[] { Integer.class.getName() });
 	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_ALL = new FinderPath(DishModelImpl.ENTITY_CACHE_ENABLED,
 			DishModelImpl.FINDER_CACHE_ENABLED, DishImpl.class,
 			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findAll", new String[0]);
@@ -319,6 +339,27 @@ public class DishPersistenceImpl extends BasePersistenceImpl<Dish>
 
 				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_DISHNAME, args);
 				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_DISHNAME,
+					args);
+			}
+
+			if ((dishModelImpl.getColumnBitmask() &
+					FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_REFERPRICE.getColumnBitmask()) != 0) {
+				Object[] args = new Object[] {
+						Integer.valueOf(dishModelImpl.getOriginalReferPrice())
+					};
+
+				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_REFERPRICE,
+					args);
+				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_REFERPRICE,
+					args);
+
+				args = new Object[] {
+						Integer.valueOf(dishModelImpl.getReferPrice())
+					};
+
+				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_REFERPRICE,
+					args);
+				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_REFERPRICE,
 					args);
 			}
 		}
@@ -856,6 +897,384 @@ public class DishPersistenceImpl extends BasePersistenceImpl<Dish>
 	}
 
 	/**
+	 * Returns all the dishs where referPrice = &#63;.
+	 *
+	 * @param referPrice the refer price
+	 * @return the matching dishs
+	 * @throws SystemException if a system exception occurred
+	 */
+	public List<Dish> findByReferPrice(int referPrice)
+		throws SystemException {
+		return findByReferPrice(referPrice, QueryUtil.ALL_POS,
+			QueryUtil.ALL_POS, null);
+	}
+
+	/**
+	 * Returns a range of all the dishs where referPrice = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
+	 * </p>
+	 *
+	 * @param referPrice the refer price
+	 * @param start the lower bound of the range of dishs
+	 * @param end the upper bound of the range of dishs (not inclusive)
+	 * @return the range of matching dishs
+	 * @throws SystemException if a system exception occurred
+	 */
+	public List<Dish> findByReferPrice(int referPrice, int start, int end)
+		throws SystemException {
+		return findByReferPrice(referPrice, start, end, null);
+	}
+
+	/**
+	 * Returns an ordered range of all the dishs where referPrice = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
+	 * </p>
+	 *
+	 * @param referPrice the refer price
+	 * @param start the lower bound of the range of dishs
+	 * @param end the upper bound of the range of dishs (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching dishs
+	 * @throws SystemException if a system exception occurred
+	 */
+	public List<Dish> findByReferPrice(int referPrice, int start, int end,
+		OrderByComparator orderByComparator) throws SystemException {
+		FinderPath finderPath = null;
+		Object[] finderArgs = null;
+
+		if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
+				(orderByComparator == null)) {
+			finderPath = FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_REFERPRICE;
+			finderArgs = new Object[] { referPrice };
+		}
+		else {
+			finderPath = FINDER_PATH_WITH_PAGINATION_FIND_BY_REFERPRICE;
+			finderArgs = new Object[] { referPrice, start, end, orderByComparator };
+		}
+
+		List<Dish> list = (List<Dish>)FinderCacheUtil.getResult(finderPath,
+				finderArgs, this);
+
+		if ((list != null) && !list.isEmpty()) {
+			for (Dish dish : list) {
+				if ((referPrice != dish.getReferPrice())) {
+					list = null;
+
+					break;
+				}
+			}
+		}
+
+		if (list == null) {
+			StringBundler query = null;
+
+			if (orderByComparator != null) {
+				query = new StringBundler(3 +
+						(orderByComparator.getOrderByFields().length * 3));
+			}
+			else {
+				query = new StringBundler(3);
+			}
+
+			query.append(_SQL_SELECT_DISH_WHERE);
+
+			query.append(_FINDER_COLUMN_REFERPRICE_REFERPRICE_2);
+
+			if (orderByComparator != null) {
+				appendOrderByComparator(query, _ORDER_BY_ENTITY_ALIAS,
+					orderByComparator);
+			}
+
+			else {
+				query.append(DishModelImpl.ORDER_BY_JPQL);
+			}
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				qPos.add(referPrice);
+
+				list = (List<Dish>)QueryUtil.list(q, getDialect(), start, end);
+			}
+			catch (Exception e) {
+				throw processException(e);
+			}
+			finally {
+				if (list == null) {
+					FinderCacheUtil.removeResult(finderPath, finderArgs);
+				}
+				else {
+					cacheResult(list);
+
+					FinderCacheUtil.putResult(finderPath, finderArgs, list);
+				}
+
+				closeSession(session);
+			}
+		}
+
+		return list;
+	}
+
+	/**
+	 * Returns the first dish in the ordered set where referPrice = &#63;.
+	 *
+	 * @param referPrice the refer price
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching dish
+	 * @throws irestads.NoSuchDishException if a matching dish could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public Dish findByReferPrice_First(int referPrice,
+		OrderByComparator orderByComparator)
+		throws NoSuchDishException, SystemException {
+		Dish dish = fetchByReferPrice_First(referPrice, orderByComparator);
+
+		if (dish != null) {
+			return dish;
+		}
+
+		StringBundler msg = new StringBundler(4);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("referPrice=");
+		msg.append(referPrice);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchDishException(msg.toString());
+	}
+
+	/**
+	 * Returns the first dish in the ordered set where referPrice = &#63;.
+	 *
+	 * @param referPrice the refer price
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching dish, or <code>null</code> if a matching dish could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public Dish fetchByReferPrice_First(int referPrice,
+		OrderByComparator orderByComparator) throws SystemException {
+		List<Dish> list = findByReferPrice(referPrice, 0, 1, orderByComparator);
+
+		if (!list.isEmpty()) {
+			return list.get(0);
+		}
+
+		return null;
+	}
+
+	/**
+	 * Returns the last dish in the ordered set where referPrice = &#63;.
+	 *
+	 * @param referPrice the refer price
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching dish
+	 * @throws irestads.NoSuchDishException if a matching dish could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public Dish findByReferPrice_Last(int referPrice,
+		OrderByComparator orderByComparator)
+		throws NoSuchDishException, SystemException {
+		Dish dish = fetchByReferPrice_Last(referPrice, orderByComparator);
+
+		if (dish != null) {
+			return dish;
+		}
+
+		StringBundler msg = new StringBundler(4);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("referPrice=");
+		msg.append(referPrice);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchDishException(msg.toString());
+	}
+
+	/**
+	 * Returns the last dish in the ordered set where referPrice = &#63;.
+	 *
+	 * @param referPrice the refer price
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching dish, or <code>null</code> if a matching dish could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public Dish fetchByReferPrice_Last(int referPrice,
+		OrderByComparator orderByComparator) throws SystemException {
+		int count = countByReferPrice(referPrice);
+
+		List<Dish> list = findByReferPrice(referPrice, count - 1, count,
+				orderByComparator);
+
+		if (!list.isEmpty()) {
+			return list.get(0);
+		}
+
+		return null;
+	}
+
+	/**
+	 * Returns the dishs before and after the current dish in the ordered set where referPrice = &#63;.
+	 *
+	 * @param dishId the primary key of the current dish
+	 * @param referPrice the refer price
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the previous, current, and next dish
+	 * @throws irestads.NoSuchDishException if a dish with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public Dish[] findByReferPrice_PrevAndNext(long dishId, int referPrice,
+		OrderByComparator orderByComparator)
+		throws NoSuchDishException, SystemException {
+		Dish dish = findByPrimaryKey(dishId);
+
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			Dish[] array = new DishImpl[3];
+
+			array[0] = getByReferPrice_PrevAndNext(session, dish, referPrice,
+					orderByComparator, true);
+
+			array[1] = dish;
+
+			array[2] = getByReferPrice_PrevAndNext(session, dish, referPrice,
+					orderByComparator, false);
+
+			return array;
+		}
+		catch (Exception e) {
+			throw processException(e);
+		}
+		finally {
+			closeSession(session);
+		}
+	}
+
+	protected Dish getByReferPrice_PrevAndNext(Session session, Dish dish,
+		int referPrice, OrderByComparator orderByComparator, boolean previous) {
+		StringBundler query = null;
+
+		if (orderByComparator != null) {
+			query = new StringBundler(6 +
+					(orderByComparator.getOrderByFields().length * 6));
+		}
+		else {
+			query = new StringBundler(3);
+		}
+
+		query.append(_SQL_SELECT_DISH_WHERE);
+
+		query.append(_FINDER_COLUMN_REFERPRICE_REFERPRICE_2);
+
+		if (orderByComparator != null) {
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
+
+			if (orderByConditionFields.length > 0) {
+				query.append(WHERE_AND);
+			}
+
+			for (int i = 0; i < orderByConditionFields.length; i++) {
+				query.append(_ORDER_BY_ENTITY_ALIAS);
+				query.append(orderByConditionFields[i]);
+
+				if ((i + 1) < orderByConditionFields.length) {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(WHERE_GREATER_THAN_HAS_NEXT);
+					}
+					else {
+						query.append(WHERE_LESSER_THAN_HAS_NEXT);
+					}
+				}
+				else {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(WHERE_GREATER_THAN);
+					}
+					else {
+						query.append(WHERE_LESSER_THAN);
+					}
+				}
+			}
+
+			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
+
+			for (int i = 0; i < orderByFields.length; i++) {
+				query.append(_ORDER_BY_ENTITY_ALIAS);
+				query.append(orderByFields[i]);
+
+				if ((i + 1) < orderByFields.length) {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(ORDER_BY_ASC_HAS_NEXT);
+					}
+					else {
+						query.append(ORDER_BY_DESC_HAS_NEXT);
+					}
+				}
+				else {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(ORDER_BY_ASC);
+					}
+					else {
+						query.append(ORDER_BY_DESC);
+					}
+				}
+			}
+		}
+
+		else {
+			query.append(DishModelImpl.ORDER_BY_JPQL);
+		}
+
+		String sql = query.toString();
+
+		Query q = session.createQuery(sql);
+
+		q.setFirstResult(0);
+		q.setMaxResults(2);
+
+		QueryPos qPos = QueryPos.getInstance(q);
+
+		qPos.add(referPrice);
+
+		if (orderByComparator != null) {
+			Object[] values = orderByComparator.getOrderByConditionValues(dish);
+
+			for (Object value : values) {
+				qPos.add(value);
+			}
+		}
+
+		List<Dish> list = q.list();
+
+		if (list.size() == 2) {
+			return list.get(1);
+		}
+		else {
+			return null;
+		}
+	}
+
+	/**
 	 * Returns all the dishs.
 	 *
 	 * @return the dishs
@@ -982,6 +1401,18 @@ public class DishPersistenceImpl extends BasePersistenceImpl<Dish>
 	}
 
 	/**
+	 * Removes all the dishs where referPrice = &#63; from the database.
+	 *
+	 * @param referPrice the refer price
+	 * @throws SystemException if a system exception occurred
+	 */
+	public void removeByReferPrice(int referPrice) throws SystemException {
+		for (Dish dish : findByReferPrice(referPrice)) {
+			remove(dish);
+		}
+	}
+
+	/**
 	 * Removes all the dishs from the database.
 	 *
 	 * @throws SystemException if a system exception occurred
@@ -1048,6 +1479,59 @@ public class DishPersistenceImpl extends BasePersistenceImpl<Dish>
 				}
 
 				FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_DISHNAME,
+					finderArgs, count);
+
+				closeSession(session);
+			}
+		}
+
+		return count.intValue();
+	}
+
+	/**
+	 * Returns the number of dishs where referPrice = &#63;.
+	 *
+	 * @param referPrice the refer price
+	 * @return the number of matching dishs
+	 * @throws SystemException if a system exception occurred
+	 */
+	public int countByReferPrice(int referPrice) throws SystemException {
+		Object[] finderArgs = new Object[] { referPrice };
+
+		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_BY_REFERPRICE,
+				finderArgs, this);
+
+		if (count == null) {
+			StringBundler query = new StringBundler(2);
+
+			query.append(_SQL_COUNT_DISH_WHERE);
+
+			query.append(_FINDER_COLUMN_REFERPRICE_REFERPRICE_2);
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				qPos.add(referPrice);
+
+				count = (Long)q.uniqueResult();
+			}
+			catch (Exception e) {
+				throw processException(e);
+			}
+			finally {
+				if (count == null) {
+					count = Long.valueOf(0);
+				}
+
+				FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_REFERPRICE,
 					finderArgs, count);
 
 				closeSession(session);
@@ -1141,6 +1625,7 @@ public class DishPersistenceImpl extends BasePersistenceImpl<Dish>
 	private static final String _FINDER_COLUMN_DISHNAME_DISHNAME_1 = "dish.dishName IS NULL";
 	private static final String _FINDER_COLUMN_DISHNAME_DISHNAME_2 = "dish.dishName = ?";
 	private static final String _FINDER_COLUMN_DISHNAME_DISHNAME_3 = "(dish.dishName IS NULL OR dish.dishName = ?)";
+	private static final String _FINDER_COLUMN_REFERPRICE_REFERPRICE_2 = "dish.referPrice = ?";
 	private static final String _ORDER_BY_ENTITY_ALIAS = "dish.";
 	private static final String _NO_SUCH_ENTITY_WITH_PRIMARY_KEY = "No Dish exists with the primary key ";
 	private static final String _NO_SUCH_ENTITY_WITH_KEY = "No Dish exists with the key {";

@@ -17,6 +17,7 @@ package irestads.service.impl;
 import irestads.model.Dish;
 import irestads.service.DishLocalServiceUtil;
 import irestads.service.base.DishServiceBaseImpl;
+import irestads.service.persistence.DishFinderUtil;
 
 import java.util.List;
 
@@ -78,6 +79,33 @@ public class DishServiceImpl extends DishServiceBaseImpl {
 			e.printStackTrace();
 			return null;
 		}
+	}
+	public Dish findDishsById(long dishId) {
+		return DishLocalServiceUtil.findDishsById(dishId);
+	}
+	public List<Dish> findDishsByReferPrice(int referPrice){
+		return DishLocalServiceUtil.findDishsByReferPrice(referPrice);
+	}
+	public List<Dish> findDishsByName(String dishName){
+		return DishLocalServiceUtil.findDishsByName(dishName);
+	}
+	public List<Dish> findDishsByDecription(String decription) {
+		return DishLocalServiceUtil.findDishsByDecription(decription);
+	}
+
+	public List<Dish> findDishsByAvatarImg(String avatarImg) {
+		return DishLocalServiceUtil.findDishsByAvatarImg(avatarImg);
+	}
+
+	public List<Dish> findDishsByDetailImg(String detailImg) {
+		return DishLocalServiceUtil.findDishsByDetailImg(detailImg);
+	}
+
+	public List<Dish> findDishsByDetail(String detail) {
+		return DishLocalServiceUtil.findDishsByDetail(detail);
+	}
+	public List<Dish> findDishsByCategoryName(String categoryName){
+		return DishLocalServiceUtil.findDishsByCategoryName(categoryName);
 	}
 
 }

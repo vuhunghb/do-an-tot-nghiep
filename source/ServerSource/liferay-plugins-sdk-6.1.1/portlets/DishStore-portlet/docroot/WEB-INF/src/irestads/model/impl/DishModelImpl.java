@@ -94,6 +94,7 @@ public class DishModelImpl extends BaseModelImpl<Dish> implements DishModel {
 	public static final boolean COLUMN_BITMASK_ENABLED = GetterUtil.getBoolean(com.liferay.util.service.ServiceProps.get(
 				"value.object.column.bitmask.enabled.irestads.model.Dish"), true);
 	public static long DISHNAME_COLUMN_BITMASK = 1L;
+	public static long REFERPRICE_COLUMN_BITMASK = 2L;
 
 	/**
 	 * Converts the soap model instance into a normal model instance.
@@ -438,7 +439,19 @@ public class DishModelImpl extends BaseModelImpl<Dish> implements DishModel {
 	}
 
 	public void setReferPrice(int referPrice) {
+		_columnBitmask |= REFERPRICE_COLUMN_BITMASK;
+
+		if (!_setOriginalReferPrice) {
+			_setOriginalReferPrice = true;
+
+			_originalReferPrice = _referPrice;
+		}
+
 		_referPrice = referPrice;
+	}
+
+	public int getOriginalReferPrice() {
+		return _originalReferPrice;
 	}
 
 	@JSON
@@ -558,6 +571,10 @@ public class DishModelImpl extends BaseModelImpl<Dish> implements DishModel {
 		DishModelImpl dishModelImpl = this;
 
 		dishModelImpl._originalDishName = dishModelImpl._dishName;
+
+		dishModelImpl._originalReferPrice = dishModelImpl._referPrice;
+
+		dishModelImpl._setOriginalReferPrice = false;
 
 		dishModelImpl._columnBitmask = 0;
 	}
@@ -771,6 +788,8 @@ public class DishModelImpl extends BaseModelImpl<Dish> implements DishModel {
 	private String _detailImg;
 	private String _detail;
 	private int _referPrice;
+	private int _originalReferPrice;
+	private boolean _setOriginalReferPrice;
 	private int _numOfDiner;
 	private long _categoryId;
 	private long _columnBitmask;

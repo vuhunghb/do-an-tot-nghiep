@@ -16,13 +16,20 @@
 				<p:menuitem value="Xóa" update=":form:dishTable :form:messages"
 					icon="ui-icon-close" actionListener="#{dishBeans.deleteDish()}" />
 			</p:contextMenu>
-			<h:panelGrid id="display" columns="2" cellpadding="4">
+			<h:panelGrid columns="5">
 				<h:outputText value="Từ khóa " />
-				<p:selectOneMenu value="#{pprBean.city}" effect="fold"
-					editable="true">
-					<f:selectItem itemLabel="Select One" itemValue="" />
-					<f:selectItems value="#{pprBean.cities}" />
+				<p:selectOneMenu id="searchType" value="#{dishBeans.searchType}"
+					effect="fold" >
+					<f:selectItem itemLabel="Select One" itemValue="2" />
+					<f:selectItems value="#{dishBeans.searchTypesValue}" />
 				</p:selectOneMenu>
+				<h:outputText value="Nội dung" />
+				<h:inputText id="keyWord" value="#{dishBeans.keyWords}" />
+
+				<p:commandButton value="Tìm Kiến"  update="@form" action="#{dishBeans.search()}">
+				
+				</p:commandButton>
+		
 			</h:panelGrid>
 
 			<p:dataTable id="dishTable" var="dish" value="#{dishBeans.dishs}"
@@ -35,15 +42,6 @@
 				<p:ajax event="rowEdit" listener="#{dishBeans.onEdit}"
 					update=":form:dishTable :form:messages" />
 
-				<!-- 	<p:columnGroup type="header">
-				<f:facet name="header">
-					<p:outputPanel>
-						<h:outputText value="Search all fields:" />
-						<p:inputText id="globalFilter" onkeyup="dishsTable.filter()"
-							style="width:150px" />
-					</p:outputPanel>
-				</f:facet>
-					-->
 
 				<p:columnGroup type="header">
 					<p:row>
@@ -135,7 +133,7 @@
 					<p:cellEditor>
 						<f:facet name="output">
 							<h:outputText
-								value="#{categoryBeans.getCategoryNameByID(dish.categoryId)}" />
+								value="#{dishBeans.getCategoryNameByID(dish.categoryId)}" />
 						</f:facet>
 						<f:facet name="input">
 							<h:selectOneMenu value="#{dish.categoryId}">
@@ -148,6 +146,9 @@
 				</p:column>
 				<p:column>
 					<p:rowEditor />
+				</p:column>
+				<p:column>
+					#{dish.categoryId}
 				</p:column>
 
 			</p:dataTable>

@@ -142,5 +142,117 @@ public class DishServiceSoap {
 		}
 	}
 
+	public static irestads.model.DishSoap findDishsById(long dishId)
+		throws RemoteException {
+		try {
+			irestads.model.Dish returnValue = DishServiceUtil.findDishsById(dishId);
+
+			return irestads.model.DishSoap.toSoapModel(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static irestads.model.DishSoap[] findDishsByReferPrice(
+		int referPrice) throws RemoteException {
+		try {
+			java.util.List<irestads.model.Dish> returnValue = DishServiceUtil.findDishsByReferPrice(referPrice);
+
+			return irestads.model.DishSoap.toSoapModels(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static irestads.model.DishSoap[] findDishsByName(
+		java.lang.String dishName) throws RemoteException {
+		try {
+			java.util.List<irestads.model.Dish> returnValue = DishServiceUtil.findDishsByName(dishName);
+
+			return irestads.model.DishSoap.toSoapModels(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static irestads.model.DishSoap[] findDishsByDecription(
+		java.lang.String decription) throws RemoteException {
+		try {
+			java.util.List<irestads.model.Dish> returnValue = DishServiceUtil.findDishsByDecription(decription);
+
+			return irestads.model.DishSoap.toSoapModels(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static irestads.model.DishSoap[] findDishsByAvatarImg(
+		java.lang.String avatarImg) throws RemoteException {
+		try {
+			java.util.List<irestads.model.Dish> returnValue = DishServiceUtil.findDishsByAvatarImg(avatarImg);
+
+			return irestads.model.DishSoap.toSoapModels(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static irestads.model.DishSoap[] findDishsByDetailImg(
+		java.lang.String detailImg) throws RemoteException {
+		try {
+			java.util.List<irestads.model.Dish> returnValue = DishServiceUtil.findDishsByDetailImg(detailImg);
+
+			return irestads.model.DishSoap.toSoapModels(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static irestads.model.DishSoap[] findDishsByDetail(
+		java.lang.String detail) throws RemoteException {
+		try {
+			java.util.List<irestads.model.Dish> returnValue = DishServiceUtil.findDishsByDetail(detail);
+
+			return irestads.model.DishSoap.toSoapModels(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static irestads.model.DishSoap[] findDishsByCategoryName(
+		java.lang.String categoryName) throws RemoteException {
+		try {
+			java.util.List<irestads.model.Dish> returnValue = DishServiceUtil.findDishsByCategoryName(categoryName);
+
+			return irestads.model.DishSoap.toSoapModels(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
 	private static Log _log = LogFactoryUtil.getLog(DishServiceSoap.class);
 }

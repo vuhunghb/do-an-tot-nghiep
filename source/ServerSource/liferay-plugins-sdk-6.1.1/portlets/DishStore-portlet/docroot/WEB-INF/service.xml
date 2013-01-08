@@ -42,6 +42,9 @@
 		<finder name="DishName" return-type="Collection">
 			<finder-column name="dishName" />
 		</finder>
+		<finder name="ReferPrice" return-type="Collection">
+			<finder-column name="referPrice" />
+		</finder>
 		
 	</entity>
 	<entity name="Category" local-service="true" remote-service="true">

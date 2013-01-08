@@ -16,6 +16,14 @@ Liferay.Service.registerClass(
 		getAllDishs: true,
 		getDishsByCategory: true,
 		updateDish: true,
-		deleteDish: true
+		deleteDish: true,
+		findDishsById: true,
+		findDishsByReferPrice: true,
+		findDishsByName: true,
+		findDishsByDecription: true,
+		findDishsByAvatarImg: true,
+		findDishsByDetailImg: true,
+		findDishsByDetail: true,
+		findDishsByCategoryName: true
 	}
 );
