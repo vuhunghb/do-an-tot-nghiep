@@ -79,4 +79,27 @@ public interface DishService extends BaseService, InvokableService {
 	public irestads.model.Dish updateDish(irestads.model.Dish dish);
 
 	public irestads.model.Dish deleteDish(irestads.model.Dish dish);
+
+	public irestads.model.Dish findDishsById(long dishId);
+
+	public java.util.List<irestads.model.Dish> findDishsByReferPrice(
+		int referPrice);
+
+	public java.util.List<irestads.model.Dish> findDishsByName(
+		java.lang.String dishName);
+
+	public java.util.List<irestads.model.Dish> findDishsByDecription(
+		java.lang.String decription);
+
+	public java.util.List<irestads.model.Dish> findDishsByAvatarImg(
+		java.lang.String avatarImg);
+
+	public java.util.List<irestads.model.Dish> findDishsByDetailImg(
+		java.lang.String detailImg);
+
+	public java.util.List<irestads.model.Dish> findDishsByDetail(
+		java.lang.String detail);
+
+	public java.util.List<irestads.model.Dish> findDishsByCategoryName(
+		java.lang.String categoryName);
 }

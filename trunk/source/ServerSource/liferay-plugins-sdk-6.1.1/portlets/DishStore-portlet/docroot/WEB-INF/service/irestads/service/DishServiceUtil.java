@@ -88,6 +88,45 @@ public class DishServiceUtil {
 		return getService().deleteDish(dish);
 	}
 
+	public static irestads.model.Dish findDishsById(long dishId) {
+		return getService().findDishsById(dishId);
+	}
+
+	public static java.util.List<irestads.model.Dish> findDishsByReferPrice(
+		int referPrice) {
+		return getService().findDishsByReferPrice(referPrice);
+	}
+
+	public static java.util.List<irestads.model.Dish> findDishsByName(
+		java.lang.String dishName) {
+		return getService().findDishsByName(dishName);
+	}
+
+	public static java.util.List<irestads.model.Dish> findDishsByDecription(
+		java.lang.String decription) {
+		return getService().findDishsByDecription(decription);
+	}
+
+	public static java.util.List<irestads.model.Dish> findDishsByAvatarImg(
+		java.lang.String avatarImg) {
+		return getService().findDishsByAvatarImg(avatarImg);
+	}
+
+	public static java.util.List<irestads.model.Dish> findDishsByDetailImg(
+		java.lang.String detailImg) {
+		return getService().findDishsByDetailImg(detailImg);
+	}
+
+	public static java.util.List<irestads.model.Dish> findDishsByDetail(
+		java.lang.String detail) {
+		return getService().findDishsByDetail(detail);
+	}
+
+	public static java.util.List<irestads.model.Dish> findDishsByCategoryName(
+		java.lang.String categoryName) {
+		return getService().findDishsByCategoryName(categoryName);
+	}
+
 	public static void clearService() {
 		_service = null;
 	}

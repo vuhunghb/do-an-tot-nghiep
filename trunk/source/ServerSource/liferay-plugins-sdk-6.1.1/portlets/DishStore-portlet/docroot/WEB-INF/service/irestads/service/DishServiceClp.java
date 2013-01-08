@@ -53,6 +53,38 @@ public class DishServiceClp implements DishService {
 		_methodName7 = "deleteDish";
 
 		_methodParameterTypes7 = new String[] { "irestads.model.Dish" };
+
+		_methodName8 = "findDishsById";
+
+		_methodParameterTypes8 = new String[] { "long" };
+
+		_methodName9 = "findDishsByReferPrice";
+
+		_methodParameterTypes9 = new String[] { "int" };
+
+		_methodName10 = "findDishsByName";
+
+		_methodParameterTypes10 = new String[] { "java.lang.String" };
+
+		_methodName11 = "findDishsByDecription";
+
+		_methodParameterTypes11 = new String[] { "java.lang.String" };
+
+		_methodName12 = "findDishsByAvatarImg";
+
+		_methodParameterTypes12 = new String[] { "java.lang.String" };
+
+		_methodName13 = "findDishsByDetailImg";
+
+		_methodParameterTypes13 = new String[] { "java.lang.String" };
+
+		_methodName14 = "findDishsByDetail";
+
+		_methodParameterTypes14 = new String[] { "java.lang.String" };
+
+		_methodName15 = "findDishsByCategoryName";
+
+		_methodParameterTypes15 = new String[] { "java.lang.String" };
 	}
 
 	public java.lang.String getBeanIdentifier() {
@@ -233,6 +265,195 @@ public class DishServiceClp implements DishService {
 		return (irestads.model.Dish)ClpSerializer.translateOutput(returnObj);
 	}
 
+	public irestads.model.Dish findDishsById(long dishId) {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableService.invokeMethod(_methodName8,
+					_methodParameterTypes8, new Object[] { dishId });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (irestads.model.Dish)ClpSerializer.translateOutput(returnObj);
+	}
+
+	public java.util.List<irestads.model.Dish> findDishsByReferPrice(
+		int referPrice) {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableService.invokeMethod(_methodName9,
+					_methodParameterTypes9, new Object[] { referPrice });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (java.util.List<irestads.model.Dish>)ClpSerializer.translateOutput(returnObj);
+	}
+
+	public java.util.List<irestads.model.Dish> findDishsByName(
+		java.lang.String dishName) {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableService.invokeMethod(_methodName10,
+					_methodParameterTypes10,
+					new Object[] { ClpSerializer.translateInput(dishName) });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (java.util.List<irestads.model.Dish>)ClpSerializer.translateOutput(returnObj);
+	}
+
+	public java.util.List<irestads.model.Dish> findDishsByDecription(
+		java.lang.String decription) {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableService.invokeMethod(_methodName11,
+					_methodParameterTypes11,
+					new Object[] { ClpSerializer.translateInput(decription) });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (java.util.List<irestads.model.Dish>)ClpSerializer.translateOutput(returnObj);
+	}
+
+	public java.util.List<irestads.model.Dish> findDishsByAvatarImg(
+		java.lang.String avatarImg) {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableService.invokeMethod(_methodName12,
+					_methodParameterTypes12,
+					new Object[] { ClpSerializer.translateInput(avatarImg) });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (java.util.List<irestads.model.Dish>)ClpSerializer.translateOutput(returnObj);
+	}
+
+	public java.util.List<irestads.model.Dish> findDishsByDetailImg(
+		java.lang.String detailImg) {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableService.invokeMethod(_methodName13,
+					_methodParameterTypes13,
+					new Object[] { ClpSerializer.translateInput(detailImg) });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (java.util.List<irestads.model.Dish>)ClpSerializer.translateOutput(returnObj);
+	}
+
+	public java.util.List<irestads.model.Dish> findDishsByDetail(
+		java.lang.String detail) {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableService.invokeMethod(_methodName14,
+					_methodParameterTypes14,
+					new Object[] { ClpSerializer.translateInput(detail) });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (java.util.List<irestads.model.Dish>)ClpSerializer.translateOutput(returnObj);
+	}
+
+	public java.util.List<irestads.model.Dish> findDishsByCategoryName(
+		java.lang.String categoryName) {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableService.invokeMethod(_methodName15,
+					_methodParameterTypes15,
+					new Object[] { ClpSerializer.translateInput(categoryName) });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (java.util.List<irestads.model.Dish>)ClpSerializer.translateOutput(returnObj);
+	}
+
 	private InvokableService _invokableService;
 	private String _methodName0;
 	private String[] _methodParameterTypes0;
@@ -248,4 +469,20 @@ public class DishServiceClp implements DishService {
 	private String[] _methodParameterTypes6;
 	private String _methodName7;
 	private String[] _methodParameterTypes7;
+	private String _methodName8;
+	private String[] _methodParameterTypes8;
+	private String _methodName9;
+	private String[] _methodParameterTypes9;
+	private String _methodName10;
+	private String[] _methodParameterTypes10;
+	private String _methodName11;
+	private String[] _methodParameterTypes11;
+	private String _methodName12;
+	private String[] _methodParameterTypes12;
+	private String _methodName13;
+	private String[] _methodParameterTypes13;
+	private String _methodName14;
+	private String[] _methodParameterTypes14;
+	private String _methodName15;
+	private String[] _methodParameterTypes15;
 }

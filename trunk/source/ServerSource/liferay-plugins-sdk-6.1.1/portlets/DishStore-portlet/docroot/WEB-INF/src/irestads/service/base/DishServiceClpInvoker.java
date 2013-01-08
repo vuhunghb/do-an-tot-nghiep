@@ -53,6 +53,38 @@ public class DishServiceClpInvoker {
 		_methodName40 = "deleteDish";
 
 		_methodParameterTypes40 = new String[] { "irestads.model.Dish" };
+
+		_methodName41 = "findDishsById";
+
+		_methodParameterTypes41 = new String[] { "long" };
+
+		_methodName42 = "findDishsByReferPrice";
+
+		_methodParameterTypes42 = new String[] { "int" };
+
+		_methodName43 = "findDishsByName";
+
+		_methodParameterTypes43 = new String[] { "java.lang.String" };
+
+		_methodName44 = "findDishsByDecription";
+
+		_methodParameterTypes44 = new String[] { "java.lang.String" };
+
+		_methodName45 = "findDishsByAvatarImg";
+
+		_methodParameterTypes45 = new String[] { "java.lang.String" };
+
+		_methodName46 = "findDishsByDetailImg";
+
+		_methodParameterTypes46 = new String[] { "java.lang.String" };
+
+		_methodName47 = "findDishsByDetail";
+
+		_methodParameterTypes47 = new String[] { "java.lang.String" };
+
+		_methodName48 = "findDishsByCategoryName";
+
+		_methodParameterTypes48 = new String[] { "java.lang.String" };
 	}
 
 	public Object invokeMethod(String name, String[] parameterTypes,
@@ -96,6 +128,46 @@ public class DishServiceClpInvoker {
 			return DishServiceUtil.deleteDish((irestads.model.Dish)arguments[0]);
 		}
 
+		if (_methodName41.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes41, parameterTypes)) {
+			return DishServiceUtil.findDishsById(((Long)arguments[0]).longValue());
+		}
+
+		if (_methodName42.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes42, parameterTypes)) {
+			return DishServiceUtil.findDishsByReferPrice(((Integer)arguments[0]).intValue());
+		}
+
+		if (_methodName43.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes43, parameterTypes)) {
+			return DishServiceUtil.findDishsByName((java.lang.String)arguments[0]);
+		}
+
+		if (_methodName44.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes44, parameterTypes)) {
+			return DishServiceUtil.findDishsByDecription((java.lang.String)arguments[0]);
+		}
+
+		if (_methodName45.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes45, parameterTypes)) {
+			return DishServiceUtil.findDishsByAvatarImg((java.lang.String)arguments[0]);
+		}
+
+		if (_methodName46.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes46, parameterTypes)) {
+			return DishServiceUtil.findDishsByDetailImg((java.lang.String)arguments[0]);
+		}
+
+		if (_methodName47.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes47, parameterTypes)) {
+			return DishServiceUtil.findDishsByDetail((java.lang.String)arguments[0]);
+		}
+
+		if (_methodName48.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes48, parameterTypes)) {
+			return DishServiceUtil.findDishsByCategoryName((java.lang.String)arguments[0]);
+		}
+
 		throw new UnsupportedOperationException();
 	}
 
@@ -113,4 +185,20 @@ public class DishServiceClpInvoker {
 	private String[] _methodParameterTypes39;
 	private String _methodName40;
 	private String[] _methodParameterTypes40;
+	private String _methodName41;
+	private String[] _methodParameterTypes41;
+	private String _methodName42;
+	private String[] _methodParameterTypes42;
+	private String _methodName43;
+	private String[] _methodParameterTypes43;
+	private String _methodName44;
+	private String[] _methodParameterTypes44;
+	private String _methodName45;
+	private String[] _methodParameterTypes45;
+	private String _methodName46;
+	private String[] _methodParameterTypes46;
+	private String _methodName47;
+	private String[] _methodParameterTypes47;
+	private String _methodName48;
+	private String[] _methodParameterTypes48;
 }

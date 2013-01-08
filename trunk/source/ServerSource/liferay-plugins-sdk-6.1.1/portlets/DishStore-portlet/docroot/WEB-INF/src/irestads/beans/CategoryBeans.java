@@ -32,11 +32,6 @@ public class CategoryBeans implements Serializable {
 	public void setCategorys(List<Category> categorys) {
 		this.categorys = categorys;
 	}
-	public String getCategoryNameByID(long categoryId){
-		System.out.println("Category ID "+categoryId);
-		Category c=CategoryServiceUtil.findByID(categoryId);
-		return c.getCategoryName();
-	}
 	
 	
 	

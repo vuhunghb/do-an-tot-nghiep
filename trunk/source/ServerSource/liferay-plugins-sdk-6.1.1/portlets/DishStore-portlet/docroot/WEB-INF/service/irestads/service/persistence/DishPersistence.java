@@ -214,6 +214,120 @@ public interface DishPersistence extends BasePersistence<Dish> {
 			irestads.NoSuchDishException;
 
 	/**
+	* Returns all the dishs where referPrice = &#63;.
+	*
+	* @param referPrice the refer price
+	* @return the matching dishs
+	* @throws SystemException if a system exception occurred
+	*/
+	public java.util.List<irestads.model.Dish> findByReferPrice(int referPrice)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
+	* Returns a range of all the dishs where referPrice = &#63;.
+	*
+	* <p>
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
+	* </p>
+	*
+	* @param referPrice the refer price
+	* @param start the lower bound of the range of dishs
+	* @param end the upper bound of the range of dishs (not inclusive)
+	* @return the range of matching dishs
+	* @throws SystemException if a system exception occurred
+	*/
+	public java.util.List<irestads.model.Dish> findByReferPrice(
+		int referPrice, int start, int end)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
+	* Returns an ordered range of all the dishs where referPrice = &#63;.
+	*
+	* <p>
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
+	* </p>
+	*
+	* @param referPrice the refer price
+	* @param start the lower bound of the range of dishs
+	* @param end the upper bound of the range of dishs (not inclusive)
+	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	* @return the ordered range of matching dishs
+	* @throws SystemException if a system exception occurred
+	*/
+	public java.util.List<irestads.model.Dish> findByReferPrice(
+		int referPrice, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
+	* Returns the first dish in the ordered set where referPrice = &#63;.
+	*
+	* @param referPrice the refer price
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the first matching dish
+	* @throws irestads.NoSuchDishException if a matching dish could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public irestads.model.Dish findByReferPrice_First(int referPrice,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			irestads.NoSuchDishException;
+
+	/**
+	* Returns the first dish in the ordered set where referPrice = &#63;.
+	*
+	* @param referPrice the refer price
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the first matching dish, or <code>null</code> if a matching dish could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public irestads.model.Dish fetchByReferPrice_First(int referPrice,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
+	* Returns the last dish in the ordered set where referPrice = &#63;.
+	*
+	* @param referPrice the refer price
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the last matching dish
+	* @throws irestads.NoSuchDishException if a matching dish could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public irestads.model.Dish findByReferPrice_Last(int referPrice,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			irestads.NoSuchDishException;
+
+	/**
+	* Returns the last dish in the ordered set where referPrice = &#63;.
+	*
+	* @param referPrice the refer price
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the last matching dish, or <code>null</code> if a matching dish could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public irestads.model.Dish fetchByReferPrice_Last(int referPrice,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
+	* Returns the dishs before and after the current dish in the ordered set where referPrice = &#63;.
+	*
+	* @param dishId the primary key of the current dish
+	* @param referPrice the refer price
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the previous, current, and next dish
+	* @throws irestads.NoSuchDishException if a dish with the primary key could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public irestads.model.Dish[] findByReferPrice_PrevAndNext(long dishId,
+		int referPrice,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			irestads.NoSuchDishException;
+
+	/**
 	* Returns all the dishs.
 	*
 	* @return the dishs
@@ -264,6 +378,15 @@ public interface DishPersistence extends BasePersistence<Dish> {
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
+	* Removes all the dishs where referPrice = &#63; from the database.
+	*
+	* @param referPrice the refer price
+	* @throws SystemException if a system exception occurred
+	*/
+	public void removeByReferPrice(int referPrice)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
 	* Removes all the dishs from the database.
 	*
 	* @throws SystemException if a system exception occurred
@@ -279,6 +402,16 @@ public interface DishPersistence extends BasePersistence<Dish> {
 	* @throws SystemException if a system exception occurred
 	*/
 	public int countByDishName(java.lang.String dishName)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
+	* Returns the number of dishs where referPrice = &#63;.
+	*
+	* @param referPrice the refer price
+	* @return the number of matching dishs
+	* @throws SystemException if a system exception occurred
+	*/
+	public int countByReferPrice(int referPrice)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**

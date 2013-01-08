@@ -275,6 +275,45 @@ public class DishLocalServiceWrapper implements DishLocalService,
 		return _dishLocalService.getDishsByCategory(categoryId);
 	}
 
+	public irestads.model.Dish findDishsById(long dishId) {
+		return _dishLocalService.findDishsById(dishId);
+	}
+
+	public java.util.List<irestads.model.Dish> findDishsByReferPrice(
+		int referPrice) {
+		return _dishLocalService.findDishsByReferPrice(referPrice);
+	}
+
+	public java.util.List<irestads.model.Dish> findDishsByCategoryName(
+		java.lang.String categoryName) {
+		return _dishLocalService.findDishsByCategoryName(categoryName);
+	}
+
+	public java.util.List<irestads.model.Dish> findDishsByName(
+		java.lang.String dishName) {
+		return _dishLocalService.findDishsByName(dishName);
+	}
+
+	public java.util.List<irestads.model.Dish> findDishsByDecription(
+		java.lang.String decription) {
+		return _dishLocalService.findDishsByDecription(decription);
+	}
+
+	public java.util.List<irestads.model.Dish> findDishsByAvatarImg(
+		java.lang.String avatarImg) {
+		return _dishLocalService.findDishsByAvatarImg(avatarImg);
+	}
+
+	public java.util.List<irestads.model.Dish> findDishsByDetailImg(
+		java.lang.String detailImg) {
+		return _dishLocalService.findDishsByDetailImg(detailImg);
+	}
+
+	public java.util.List<irestads.model.Dish> findDishsByDetail(
+		java.lang.String detail) {
+		return _dishLocalService.findDishsByDetail(detail);
+	}
+
 	/**
 	 * @deprecated Renamed to {@link #getWrappedService}
 	 */
