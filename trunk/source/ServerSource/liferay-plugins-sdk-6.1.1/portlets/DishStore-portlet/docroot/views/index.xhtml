@@ -16,7 +16,8 @@
 				<p:menuitem value="Xóa" update=":form:dishTable :form:messages"
 					icon="ui-icon-close" actionListener="#{dishBeans.deleteDish()}" />
 			</p:contextMenu>
-			<h:panelGrid columns="5">
+			
+			<h:panelGrid columns="6">
 				<h:outputText value="Từ khóa " />
 				<p:selectOneMenu id="searchType" value="#{dishBeans.searchType}"
 					effect="fold" >
@@ -26,10 +27,8 @@
 				<h:outputText value="Nội dung" />
 				<h:inputText id="keyWord" value="#{dishBeans.keyWords}" />
 
-				<p:commandButton value="Tìm Kiến"  update="@form" action="#{dishBeans.search()}">
-				
-				</p:commandButton>
-		
+				<p:commandButton value="Tìm Kiến"  update="@form" action="#{dishBeans.search()}"/> 
+				<h:commandButton id="addDishId" value="Thêm" action="#{dishBeans.changeAddPage()}" ></h:commandButton>
 			</h:panelGrid>
 
 			<p:dataTable id="dishTable" var="dish" value="#{dishBeans.dishs}"
@@ -41,18 +40,18 @@
 
 				<p:ajax event="rowEdit" listener="#{dishBeans.onEdit}"
 					update=":form:dishTable :form:messages" />
-
+    			
 
 				<p:columnGroup type="header">
 					<p:row>
-						<p:column width="50" headerText="Ma" />
+						<p:column width="50" headerText="Mã" />
 						<p:column width="100" headerText="Tên" />
-						<p:column headerText="Mô tả" sortBy="#{dish.decription}" />
-						<p:column headerText="Giá TK" sortBy="#{dish.referPrice}" />
-						<p:column headerText="Hình đại diện" sortBy="#{dish.avatarImg}" />
-						<p:column headerText="Hình chi tiết" sortBy="#{dish.detailImg}" />
-						<p:column headerText="Chi tiết" sortBy="#{dish.detail}" />
-						<p:column headerText="Loại" sortBy="#{dish.categoryId}" />
+						<p:column headerText="Mô tả"  />
+						<p:column headerText="Giá TK"  />
+						<p:column headerText="Hình đại diện"  />
+						<p:column headerText="Hình chi tiết"  />
+						<p:column headerText="Chi tiết"  />
+						<p:column headerText="Loại" />
 						<p:column headerText="Chỉnh sửa" />
 					</p:row>
 				</p:columnGroup>
@@ -61,7 +60,6 @@
 				</p:column>
 
 				<p:column>
-
 					<p:cellEditor>
 						<f:facet name="output">
 							<h:outputText value="#{dish.dishName}" />
@@ -70,10 +68,8 @@
 							<p:inputText value="#{dish.dishName}" label="Tên Món ăn" />
 						</f:facet>
 					</p:cellEditor>
-
 				</p:column>
 				<p:column>
-
 					<p:cellEditor>
 						<f:facet name="output">
 							<h:outputText value="#{dish.decription}" />
@@ -84,7 +80,6 @@
 					</p:cellEditor>
 				</p:column>
 				<p:column>
-
 					<p:cellEditor>
 						<f:facet name="output">
 							<h:outputText value="#{dish.referPrice}" />
@@ -95,7 +90,6 @@
 					</p:cellEditor>
 				</p:column>
 				<p:column>
-
 					<p:cellEditor>
 						<f:facet name="output">
 							<h:outputText value="#{dish.avatarImg}" />
@@ -107,7 +101,6 @@
 					</p:cellEditor>
 				</p:column>
 				<p:column>
-
 					<p:cellEditor>
 						<f:facet name="output">
 							<h:outputText value="#{dish.detailImg}" />
@@ -129,7 +122,6 @@
 					</p:cellEditor>
 				</p:column>
 				<p:column>
-
 					<p:cellEditor>
 						<f:facet name="output">
 							<h:outputText
@@ -147,10 +139,6 @@
 				<p:column>
 					<p:rowEditor />
 				</p:column>
-				<p:column>
-					#{dish.categoryId}
-				</p:column>
-
 			</p:dataTable>
 			<p:dialog header="Thông tin chi tiết" widgetVar="dishDialog"
 				resizable="false" width="200" showEffect="clip" hideEffect="fold"

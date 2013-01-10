@@ -85,6 +85,13 @@ public class DishServiceClp implements DishService {
 		_methodName15 = "findDishsByCategoryName";
 
 		_methodParameterTypes15 = new String[] { "java.lang.String" };
+
+		_methodName16 = "findDishsBySomeField";
+
+		_methodParameterTypes16 = new String[] {
+				"long", "int", "java.lang.String", "java.lang.String",
+				"java.lang.String", "java.lang.String", "java.lang.String"
+			};
 	}
 
 	public java.lang.String getBeanIdentifier() {
@@ -454,6 +461,46 @@ public class DishServiceClp implements DishService {
 		return (java.util.List<irestads.model.Dish>)ClpSerializer.translateOutput(returnObj);
 	}
 
+	public java.util.List<irestads.model.Dish> findDishsBySomeField(
+		long dishId, int referPrice, java.lang.String dishName,
+		java.lang.String decription, java.lang.String avatarImg,
+		java.lang.String detailImg, java.lang.String detail) {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableService.invokeMethod(_methodName16,
+					_methodParameterTypes16,
+					new Object[] {
+						dishId,
+						
+					referPrice,
+						
+					ClpSerializer.translateInput(dishName),
+						
+					ClpSerializer.translateInput(decription),
+						
+					ClpSerializer.translateInput(avatarImg),
+						
+					ClpSerializer.translateInput(detailImg),
+						
+					ClpSerializer.translateInput(detail)
+					});
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (java.util.List<irestads.model.Dish>)ClpSerializer.translateOutput(returnObj);
+	}
+
 	private InvokableService _invokableService;
 	private String _methodName0;
 	private String[] _methodParameterTypes0;
@@ -485,4 +532,6 @@ public class DishServiceClp implements DishService {
 	private String[] _methodParameterTypes14;
 	private String _methodName15;
 	private String[] _methodParameterTypes15;
+	private String _methodName16;
+	private String[] _methodParameterTypes16;
 }

@@ -150,6 +150,13 @@ public class DishLocalServiceClp implements DishLocalService {
 		_methodName29 = "findDishsByDetail";
 
 		_methodParameterTypes29 = new String[] { "java.lang.String" };
+
+		_methodName30 = "findDishsBySomeField";
+
+		_methodParameterTypes30 = new String[] {
+				"long", "int", "java.lang.String", "java.lang.String",
+				"java.lang.String", "java.lang.String", "java.lang.String"
+			};
 	}
 
 	public irestads.model.Dish addDish(irestads.model.Dish dish)
@@ -944,6 +951,46 @@ public class DishLocalServiceClp implements DishLocalService {
 		return (java.util.List<irestads.model.Dish>)ClpSerializer.translateOutput(returnObj);
 	}
 
+	public java.util.List<irestads.model.Dish> findDishsBySomeField(
+		long dishId, int referPrice, java.lang.String dishName,
+		java.lang.String decription, java.lang.String avatarImg,
+		java.lang.String detailImg, java.lang.String detail) {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName30,
+					_methodParameterTypes30,
+					new Object[] {
+						dishId,
+						
+					referPrice,
+						
+					ClpSerializer.translateInput(dishName),
+						
+					ClpSerializer.translateInput(decription),
+						
+					ClpSerializer.translateInput(avatarImg),
+						
+					ClpSerializer.translateInput(detailImg),
+						
+					ClpSerializer.translateInput(detail)
+					});
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (java.util.List<irestads.model.Dish>)ClpSerializer.translateOutput(returnObj);
+	}
+
 	private InvokableLocalService _invokableLocalService;
 	private String _methodName0;
 	private String[] _methodParameterTypes0;
@@ -1003,4 +1050,6 @@ public class DishLocalServiceClp implements DishLocalService {
 	private String[] _methodParameterTypes28;
 	private String _methodName29;
 	private String[] _methodParameterTypes29;
+	private String _methodName30;
+	private String[] _methodParameterTypes30;
 }

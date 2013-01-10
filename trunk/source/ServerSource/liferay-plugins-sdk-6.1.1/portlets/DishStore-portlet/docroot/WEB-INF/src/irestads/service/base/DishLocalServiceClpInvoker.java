@@ -158,6 +158,13 @@ public class DishLocalServiceClpInvoker {
 		_methodName64 = "findDishsByDetail";
 
 		_methodParameterTypes64 = new String[] { "java.lang.String" };
+
+		_methodName65 = "findDishsBySomeField";
+
+		_methodParameterTypes65 = new String[] {
+				"long", "int", "java.lang.String", "java.lang.String",
+				"java.lang.String", "java.lang.String", "java.lang.String"
+			};
 	}
 
 	public Object invokeMethod(String name, String[] parameterTypes,
@@ -328,6 +335,15 @@ public class DishLocalServiceClpInvoker {
 			return DishLocalServiceUtil.findDishsByDetail((java.lang.String)arguments[0]);
 		}
 
+		if (_methodName65.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes65, parameterTypes)) {
+			return DishLocalServiceUtil.findDishsBySomeField(((Long)arguments[0]).longValue(),
+				((Integer)arguments[1]).intValue(),
+				(java.lang.String)arguments[2], (java.lang.String)arguments[3],
+				(java.lang.String)arguments[4], (java.lang.String)arguments[5],
+				(java.lang.String)arguments[6]);
+		}
+
 		throw new UnsupportedOperationException();
 	}
 
@@ -393,4 +409,6 @@ public class DishLocalServiceClpInvoker {
 	private String[] _methodParameterTypes63;
 	private String _methodName64;
 	private String[] _methodParameterTypes64;
+	private String _methodName65;
+	private String[] _methodParameterTypes65;
 }
