@@ -16,7 +16,9 @@ import java.util.Map;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 
+import org.primefaces.context.RequestContext;
 import org.primefaces.event.RowEditEvent;
 
 import sun.security.x509.DistributionPointName;
@@ -83,13 +85,31 @@ public class DishBeans {
 	}
 
 	public String addDish() {
+		// RequestContext context = RequestContext.getCurrentInstance();  
 		System.out.println("add");
-		
-		DishServiceUtil.createDish(dishAdd.getDishName(),
+		 FacesMessage fmsg = null;  
+	boolean	 result=false;
+		 String msg;
+	Dish d=	DishServiceUtil.createDish(dishAdd.getDishName(),
 				dishAdd.getDecription(), dishAdd.getAvatarImg(),
 				dishAdd.getDetailImg(), dishAdd.getDetail(),
 				dishAdd.getReferPrice(), dishAdd.getCategoryId());
-		return "index.xhtml";
+		
+		if (d != null) {
+			msg = "Thêm Sinh viên thành công ";
+			fmsg = new FacesMessage(FacesMessage.SEVERITY_INFO, msg, "Mã: "
+					+ d.getDishId() + " Tên: " + d.getDishName());
+			result = true;
+		} else {
+			msg = "Thêm Sinh viên không thành công ";
+			fmsg = new FacesMessage(FacesMessage.SEVERITY_WARN, msg,
+					"Kiểm tra Lỗi");
+			result = false;
+		}
+
+	FacesContext.getCurrentInstance().addMessage(null, fmsg);
+		// context.addCallbackParam("result", result); 
+	return "index.html";
 	}
 	public String changeAddPage(){
 		return "add_dish.xhtml";

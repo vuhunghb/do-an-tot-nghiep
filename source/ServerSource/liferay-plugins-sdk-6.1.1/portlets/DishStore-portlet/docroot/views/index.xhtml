@@ -6,10 +6,21 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
+	 <script type="text/javascript">  
+    function handleLoginRequest(xhr, status, args) {  
+        if(args.validationFailed) {  
+            jQuery('#addDialog').effect("shake", { times:3 }, 100);
+           // addDishDlg.show(); 
+        } else {  
+        	addDishDlg.hide();  
+           // jQuery('#loginLink').fadeOut();  
+        }  
+    }  
+</script> 
 	<h:head />
 	<h:body>
 		<h:form id="form">
-			<p:growl id="messages" showDetail="true" />
+			<p:growl id="messages" showDetail="true" life="3000"/>
 			<p:contextMenu for="dishTable">
 				<p:menuitem value="Chi tiết" update="display" icon="ui-icon-search"
 					oncomplete="dishDialog.show()" />
@@ -28,20 +39,16 @@
 				<h:inputText id="keyWord" value="#{dishBeans.keyWords}" />
 
 				<p:commandButton value="Tìm Kiến"  update="@form" action="#{dishBeans.search()}"/> 
-				<h:commandButton id="addDishId" value="Thêm" action="#{dishBeans.changeAddPage()}" ></h:commandButton>
+				<p:commandButton id="showAddDlgButton" type="button" value="Thêm Món Ăn" onclick="addDishDlg.show()" />  
 			</h:panelGrid>
-
 			<p:dataTable id="dishTable" var="dish" value="#{dishBeans.dishs}"
 				paginator="true" rows="10"
 				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 				rowsPerPageTemplate="1,2,5,10,15" sortBy="#{dish.dishId}"
 				rowKey="#{dish.dishId}" selectionMode="single"
 				selection="#{dishBeans.dishSelected}" editable="true">
-
 				<p:ajax event="rowEdit" listener="#{dishBeans.onEdit}"
 					update=":form:dishTable :form:messages" />
-    			
-
 				<p:columnGroup type="header">
 					<p:row>
 						<p:column width="50" headerText="Mã" />
@@ -58,7 +65,6 @@
 				<p:column>
 					<h:outputText value="#{dish.dishId}" />
 				</p:column>
-
 				<p:column>
 					<p:cellEditor>
 						<f:facet name="output">
@@ -126,6 +132,7 @@
 						<f:facet name="output">
 							<h:outputText
 								value="#{dishBeans.getCategoryNameByID(dish.categoryId)}" />
+								<!-- value#{dish.categoryId}{dishBeans.getCategoryNameByID(dish.categoryId)}" -->
 						</f:facet>
 						<f:facet name="input">
 							<h:selectOneMenu value="#{dish.categoryId}">
@@ -142,7 +149,7 @@
 			</p:dataTable>
 			<p:dialog header="Thông tin chi tiết" widgetVar="dishDialog"
 				resizable="false" width="200" showEffect="clip" hideEffect="fold"
-				id="dialog">
+				id="viewDialog">
 
 				<h:panelGrid id="display" columns="2" cellpadding="4">
 					<h:outputText value="MaMA:" />
@@ -176,8 +183,63 @@
 
 				</h:panelGrid>
 			</p:dialog>
+			</h:form>
+			<h:form id="addForm">
+			<!-- Dialog add dish -->
+			<p:dialog header="Thêm Món ăn" widgetVar="addDishDlg"
+				resizable="false" width="600" showEffect="clip" hideEffect="fold"
+				id="addDialog">
+				<h:panelGrid  id="pAddDish" columns="3">
+		 
+		 <h:outputLabel for="dishNameAdd" value="Tên: (*)" /> 
+		<p:inputText id="dishNameAdd" size="40"
+				value="#{dishBeans.dishAdd.dishName}" required="true"
+				label="User Name" />
+			<p:message for="dishNameAdd" style="color:red"/>
+		Loại: 
+		<p:selectOneMenu value="#{dishBeans.dishAdd.categoryId}" id="distTypeAdd" required="true" label="Category">
+								<f:selectItem itemLabel="chọn" />
+								<f:selectItems value="#{categoryBeans.categorys}" var="category"
+									itemLabel="#{category.categoryName}"
+									itemValue="#{category.categoryId}" />
+							</p:selectOneMenu>
+			<p:message for="distTypeAdd" style="color:red" ></p:message>
+		Mô Tả (*): 
+		<p:inputTextarea id="dishDecriptionAdd" size="60"
+				value="#{dishBeans.dishAdd.decription}" required="true"
+				label="Decription"></p:inputTextarea>
+			<p:message for="dishDecriptionAdd" style="color:red"></p:message>
+		Hình đại diện: 
+		<p:inputText id="avatarImgAdd" size="40"
+				value="#{dishBeans.dishAdd.avatarImg}" required="false"
+				label="Avatar Img" />
+			<p:message for="avatarImgAdd" style="color:red"></p:message>
+		
+		Hình chi tiết: 
+		<p:inputText id="detailImgAdd" size="40"
+				value="#{dishBeans.dishAdd.detailImg}" required="false"
+				label="Detail Img" />
+			<p:message for="detailImgAdd" style="color:red"></p:message>
+		Giá tham khảo: 
+		<p:inputText id="referPriceAdd" size="40"
+				value="#{dishBeans.dishAdd.referPrice}" required="false"
+				label="Refer Price" />
+			<p:message for="referPriceAdd" style="color:red"></p:message>
+			Chi tiết: 
+		<p:inputTextarea id="detailAdd" 
+				value="#{dishBeans.dishAdd.detail}" required="false"
+				label="Detail" />
+			<p:message for="detailAdd" style="color:red"></p:message>
+		</h:panelGrid>
+		<p:commandButton action="#{dishBeans.addDish()}" value="Lưu" update=":form:dishTable :form:messages pAddDish" oncomplete="handleLoginRequest(xhr, status, args)">
+		</p:commandButton>
+		<p:commandButton  value="Thoát" onclick="addDishDlg.hide()">
+		</p:commandButton>
+				
+				</p:dialog>
+				</h:form>
 
-		</h:form>
+		
 
 	</h:body>
 </f:view>
