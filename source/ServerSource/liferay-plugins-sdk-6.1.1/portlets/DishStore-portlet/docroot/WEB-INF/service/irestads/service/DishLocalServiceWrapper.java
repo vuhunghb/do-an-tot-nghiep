@@ -314,6 +314,14 @@ public class DishLocalServiceWrapper implements DishLocalService,
 		return _dishLocalService.findDishsByDetail(detail);
 	}
 
+	public java.util.List<irestads.model.Dish> findDishsBySomeField(
+		long dishId, int referPrice, java.lang.String dishName,
+		java.lang.String decription, java.lang.String avatarImg,
+		java.lang.String detailImg, java.lang.String detail) {
+		return _dishLocalService.findDishsBySomeField(dishId, referPrice,
+			dishName, decription, avatarImg, detailImg, detail);
+	}
+
 	/**
 	 * @deprecated Renamed to {@link #getWrappedService}
 	 */

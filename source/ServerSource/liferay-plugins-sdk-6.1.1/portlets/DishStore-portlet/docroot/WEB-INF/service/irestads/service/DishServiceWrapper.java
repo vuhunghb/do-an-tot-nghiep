@@ -119,6 +119,14 @@ public class DishServiceWrapper implements DishService,
 		return _dishService.findDishsByCategoryName(categoryName);
 	}
 
+	public java.util.List<irestads.model.Dish> findDishsBySomeField(
+		long dishId, int referPrice, java.lang.String dishName,
+		java.lang.String decription, java.lang.String avatarImg,
+		java.lang.String detailImg, java.lang.String detail) {
+		return _dishService.findDishsBySomeField(dishId, referPrice, dishName,
+			decription, avatarImg, detailImg, detail);
+	}
+
 	/**
 	 * @deprecated Renamed to {@link #getWrappedService}
 	 */

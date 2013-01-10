@@ -185,5 +185,8 @@ public class DishLocalServiceImpl extends DishLocalServiceBaseImpl {
 	public List<Dish> findDishsByDetail(String detail) {
 		return DishFinderUtil.findDishsByDetail("%" + detail + "%");
 	}
+	public List<Dish> findDishsBySomeField(long dishId,int referPrice,String dishName, String decription, String avatarImg,String detailImg, String detail) {
+		return DishFinderUtil.findDishsBySomeField(dishId, referPrice, dishName, decription, avatarImg, detailImg, detail);
+	}
 
 }

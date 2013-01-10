@@ -127,6 +127,15 @@ public class DishServiceUtil {
 		return getService().findDishsByCategoryName(categoryName);
 	}
 
+	public static java.util.List<irestads.model.Dish> findDishsBySomeField(
+		long dishId, int referPrice, java.lang.String dishName,
+		java.lang.String decription, java.lang.String avatarImg,
+		java.lang.String detailImg, java.lang.String detail) {
+		return getService()
+				   .findDishsBySomeField(dishId, referPrice, dishName,
+			decription, avatarImg, detailImg, detail);
+	}
+
 	public static void clearService() {
 		_service = null;
 	}

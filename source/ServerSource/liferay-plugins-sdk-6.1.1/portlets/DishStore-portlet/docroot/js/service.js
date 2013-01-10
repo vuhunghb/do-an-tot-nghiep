@@ -24,6 +24,7 @@ Liferay.Service.registerClass(
 		findDishsByAvatarImg: true,
 		findDishsByDetailImg: true,
 		findDishsByDetail: true,
-		findDishsByCategoryName: true
+		findDishsByCategoryName: true,
+		findDishsBySomeField: true
 	}
 );
