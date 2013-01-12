@@ -20,5 +20,7 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="docroot/WEB-INF/lib/jquery-1.8.3.js"/>
+	<classpathentry kind="lib" path="docroot/WEB-INF/lib/commons-fileupload-1.2.2.jar"/>
+	<classpathentry kind="lib" path="docroot/WEB-INF/lib/commons-io-2.4.jar"/>
 	<classpathentry kind="output" path="docroot/WEB-INF/classes"/>
 </classpath>
