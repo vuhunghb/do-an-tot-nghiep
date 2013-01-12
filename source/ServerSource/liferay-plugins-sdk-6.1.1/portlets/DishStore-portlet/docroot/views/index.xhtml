@@ -19,8 +19,19 @@
 </script> 
 	<h:head />
 	<h:body>
+	<h:form enctype="multipart/form-data">  
+  
+    <p:fileUpload fileUploadListener="#{testBeans.handleFileUpload()}"  
+            mode="advanced"   
+            update="messages"  
+            sizeLimit="100000"   
+            allowTypes="/(\.|\/)(gif|jpe?g|png)$/"/>  
+  
+    <p:growl id="messages" showDetail="true"/>  
+  
+</h:form>  
 		<h:form id="form">
-			<p:growl id="messages" showDetail="true" life="3000"/>
+			  <p:growl id="messages" showDetail="true" life="3000"/>
 			<p:contextMenu for="dishTable">
 				<p:menuitem value="Chi tiết" update="display" icon="ui-icon-search"
 					oncomplete="dishDialog.show()" />
@@ -184,7 +195,7 @@
 				</h:panelGrid>
 			</p:dialog>
 			</h:form>
-			<h:form id="addForm">
+			<h:form id="addForm" enctype="multipart/form-data">
 			<!-- Dialog add dish -->
 			<p:dialog header="Thêm Món ăn" widgetVar="addDishDlg"
 				resizable="false" width="600" showEffect="clip" hideEffect="fold"
@@ -210,11 +221,13 @@
 				label="Decription"></p:inputTextarea>
 			<p:message for="dishDecriptionAdd" style="color:red"></p:message>
 		Hình đại diện: 
-		<p:inputText id="avatarImgAdd" size="40"
+	<!--  	<p:inputText id="avatarImgAdd" size="40"
 				value="#{dishBeans.dishAdd.avatarImg}" required="false"
-				label="Avatar Img" />
-			<p:message for="avatarImgAdd" style="color:red"></p:message>
-		
+				label="Avatar Img" />-->
+			
+		<p:fileUpload id="avatarImgAdd" fileUploadListener ="#{dishBeans.myUpload}"
+        allowTypes="/(\.|\/)(gif|jpe?g|png)$/" sizeLimit="100000" description="Select Images"/>
+        <p:message for="avatarImgAdd" style="color:red"></p:message>
 		Hình chi tiết: 
 		<p:inputText id="detailImgAdd" size="40"
 				value="#{dishBeans.dishAdd.detailImg}" required="false"

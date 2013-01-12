@@ -5,12 +5,22 @@
 	<managed-bean>
 		<managed-bean-name>categoryBeans</managed-bean-name>
 		<managed-bean-class>irestads.beans.CategoryBeans</managed-bean-class>
-		<managed-bean-scope>view</managed-bean-scope>
+		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>dishBeans</managed-bean-name>
 		<managed-bean-class>irestads.beans.DishBeans</managed-bean-class>
-		<managed-bean-scope>view</managed-bean-scope>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>fileUploadController</managed-bean-name>
+		<managed-bean-class>irestads.beans.FileUploadController</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>testBeans</managed-bean-name>
+		<managed-bean-class>irestads.beans.Test</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
  <lifecycle>
   <phase-listener>com.liferay.faces.util.lifecycle.DebugPhaseListener</phase-listener>
