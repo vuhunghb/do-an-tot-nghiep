@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+
+<model-hints>
+	<model name="iRestads.model.Category">
+		<field name="categoryId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="userId" type="long" />
+		<field name="userName" type="String" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="categoryName" type="String" />
+	</model>
+	<model name="iRestads.model.Dish">
+		<field name="dishId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="userId" type="long" />
+		<field name="userName" type="String" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="dishName" type="String" />
+		<field name="decription" type="String" />
+		<field name="avatarImg" type="String" />
+		<field name="detailImg" type="String" />
+		<field name="detail" type="String" />
+		<field name="referPrice" type="double" />
+		<field name="categoryId" type="long" />
+		<field name="editTable" type="boolean" />
+	</model>
+</model-hints>

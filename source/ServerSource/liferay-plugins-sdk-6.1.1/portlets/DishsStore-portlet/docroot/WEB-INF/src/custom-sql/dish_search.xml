@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<custom-sql>
+
+	<sql id="findDishsByName">
+              <![CDATA[
+               SELECT
+                    *
+               FROM
+                    dishstore_dish
+               WHERE
+                   (dishstore_dish.dishName like ?)
+              ]]>
+	</sql>
+	<sql id="findDishsByDecription">
+              <![CDATA[
+               SELECT
+                    *
+               FROM
+                    dishstore_dish
+               WHERE
+                   (dishstore_dish.decription like ?)
+              ]]>
+	</sql>
+	<sql id="findDishsByAvatarImg">
+              <![CDATA[
+               SELECT
+                    *
+               FROM
+                    dishstore_dish
+               WHERE
+                   (dishstore_dish.avatarImg like ?)
+              ]]>
+	</sql>
+	<sql id="findDishsByDetailImg">
+              <![CDATA[
+               SELECT
+                    *
+               FROM
+                    dishstore_dish
+               WHERE
+                   (dishstore_dish.detailImg like ?)
+              ]]>
+	</sql>
+	<sql id="findDishsByDetail">
+              <![CDATA[
+               SELECT
+                    *
+               FROM
+                    dishstore_dish
+               WHERE
+                   (dishstore_dish.detail like ?)
+              ]]>
+	</sql>
+	<sql id="findDishsByCategoryName">
+<![CDATA[
+    SELECT
+	*
+    FROM dishstore_dish
+    INNER JOIN 
+        dishstore_category ON dishstore_dish.categoryId = dishstore_category.categoryId
+    WHERE
+        (dishstore_category.categoryName LIKE ?) 
+        
+    ]]>
+</sql>
+<sql id="findDishsBySomeField">
+		<![CDATA[
+			SELECT *
+			FROM dishstore_dish
+			WHERE (dishId = ?)[$AND_OR_CONNECTOR$]
+				(
+					(referPrice = ?) [$AND_OR_CONNECTOR$]
+					(dishName LIKE ? [$AND_OR_NULL_CHECK$] ) [$AND_OR_CONNECTOR$]
+					(decription LIKE ? [$AND_OR_NULL_CHECK$] ) [$AND_OR_CONNECTOR$]
+					(avatarImg LIKE ? [$AND_OR_NULL_CHECK$]) [$AND_OR_CONNECTOR$]
+					(detailImg LIKE ? [$AND_OR_NULL_CHECK$] ) [$AND_OR_CONNECTOR$]
+					(detail LIKE ? [$AND_OR_NULL_CHECK$])
+				)
+		]]>
+	</sql>
+
+</custom-sql>
+

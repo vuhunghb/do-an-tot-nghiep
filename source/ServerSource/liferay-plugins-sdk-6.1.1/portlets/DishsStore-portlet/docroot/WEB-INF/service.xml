@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE service-builder PUBLIC "-//Liferay//DTD Service Builder 6.1.0//EN" "http://www.liferay.com/dtd/liferay-service-builder_6_1_0.dtd">
+<service-builder package-path="irestads">
+	<author>Be</author>
+	<namespace>dishsstore</namespace>
+
+	<entity name="Dish" local-service="true" remote-service="true">
+
+		<!-- PK fields -->
+
+		<column name="dishId" type="long" primary="true" />
+
+
+		<!-- Audit fields -->
+
+		<column name="companyId" type="long" />
+		<column name="userId" type="long" />
+		<column name="userName" type="String" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+		<!-- Other fields -->
+
+		<column name="dishName" type="String" />
+		<column name="decription" type="String" />
+		<column name="avatarImg" type="String" />
+		<column name="avatarBaseCode" type="String" />
+		<column name="detailImg" type="String" />
+		<column name="detailBaseCode" type="String" />
+		<column name="detail" type="String" />
+		<column name="referPrice" type="int" />
+		<column name="numOfDiner" type="int"></column>
+		<column name="categoryId" type="long" /> 
+		
+
+		<!-- Order -->
+
+		<order by="asc">
+			<order-column name="dishName" />
+		</order>
+
+		<!-- Finder methods -->
+
+		<finder name="DishName" return-type="Collection">
+			<finder-column name="dishName" />
+		</finder>
+		<finder name="ReferPrice" return-type="Collection">
+			<finder-column name="referPrice" />
+		</finder>
+		
+	</entity>
+	<entity name="Category" local-service="true" remote-service="true">
+
+		<!-- PK fields -->
+
+		<column name="categoryId" type="long" primary="true" />
+
+
+		<!-- Audit fields -->
+
+		<column name="companyId" type="long" />
+		<column name="userId" type="long" />
+		<column name="userName" type="String" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+		<!-- Other fields -->
+
+		<column name="categoryName" type="String" />
+		<column name="dishs" type="Collection" entity="Dish"
+			mapping-key="catagoryId" />
+
+
+
+		<!-- Order -->
+
+		<order by="asc">
+			<order-column name="categoryName" />
+		</order>
+
+		<!-- Finder methods -->
+
+		<finder name="CategoryName" return-type="Collection">
+			<finder-column name="categoryName" />
+		</finder>
+
+		
+
+	</entity>
+</service-builder>

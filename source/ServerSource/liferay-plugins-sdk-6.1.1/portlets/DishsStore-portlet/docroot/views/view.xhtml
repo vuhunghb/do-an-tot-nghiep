@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+
+<f:view
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+>
+	<h:head />
+	<h:body>
+	<h:form enctype="multipart/form-data">  
+  
+   <p:graphicImage value="#{fileUploadController.scImg}"></p:graphicImage>
+   <p:fileUpload fileUploadListener="#{uploadBean.handleFileUpload}"
+			id="uploadfile"
+			mode="advanced" 
+			update="messages :img" 
+			/>
+			
+			<p:commandButton id="btn_save" value="Submit" partialSubmit="true"
+						   onclick="executeUpload()" />
+			
+		<script type="text/javascript">
+			function executeUpload(){                			
+				 $('button.start[type=button]').click();
+				 $('#btn_save').click();
+			}
+		</script>			
+		
+		<p:growl id="messages" showDetail="true" />
+	</h:form>
+	
+	<p:graphicImage id="img" value="#{uploadBean.image}"></p:graphicImage>
+  
+
+	</h:body>
+</f:view>

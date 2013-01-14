@@ -1,0 +1,91 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<f:view>
+
+	<h:form>
+	<h:panelGrid columns="3">
+	<h:selectOneMenu value="#{maintainDishBean.searchTypeProperty}">
+	<f:selectItems value="#{maintainDishBean.searchTypes}"></f:selectItems>
+	</h:selectOneMenu>
+	<h:inputText value="#{maintainDishBean.contentSearch}"></h:inputText>
+	<h:commandButton value="Search"></h:commandButton>
+	</h:panelGrid>
+		<h:dataTable border="1" value="#{maintainDishBean.allDishs}" var="dish">
+			<h:column id="idx">
+				<f:facet name="header">STT</f:facet>
+				<h:outputText value="#{maintainDishBean.allDishs.indexOf(dish)+1}"></h:outputText>
+			</h:column>
+			<h:column id="dishID">
+				<f:facet name="header">Mã</f:facet>
+				<h:outputText value="#{dish.dishId }"
+					rendered="#{not dish.editTable }"></h:outputText>
+				<h:inputText value="#{dish.dishId }" rendered="#{dish.editTable }"></h:inputText>
+			</h:column>
+			<h:column id="dishName">
+				<f:facet name="header">Tên</f:facet>
+				<h:outputText value="#{dish.dishName }"
+					rendered="#{not dish.editTable }"></h:outputText>
+				<h:inputText value="#{dish.dishName }" rendered="#{dish.editTable }"></h:inputText>
+			</h:column>
+			<h:column id="dishType">
+				<f:facet name="header">Loại</f:facet>
+				<h:outputText value="#{dish.categoryName }"
+					rendered="#{not dish.editTable }"></h:outputText>
+				<h:selectOneMenu value="#{dish.categoryName }" rendered="#{dish.editTable }">
+					<f:selectItems value="#{maintainDishBean.favCategoryValue}"></f:selectItems>
+				</h:selectOneMenu>
+			</h:column>
+			<h:column id="dishDecription">
+				<f:facet name="header">Mô tả</f:facet>
+				<h:outputText value="#{dish.decription }"
+					rendered="#{not dish.editTable }"></h:outputText>
+				<h:inputText value="#{dish.decription }" rendered="#{dish.editTable }"></h:inputText>
+			</h:column>
+			<h:column id="avatarImg">
+				<f:facet name="header">Hình đại diện</f:facet>
+				<h:outputText value="#{dish.avatarImg }"
+					rendered="#{not dish.editTable }"></h:outputText>
+				<h:inputText value="#{dish.avatarImg}" rendered="#{dish.editTable }"></h:inputText>
+			</h:column>
+			<h:column id="detailImg">
+				<f:facet name="header">Hình chi tiết</f:facet>
+				<h:outputText value="#{dish.detailImg }"
+					rendered="#{not dish.editTable}"></h:outputText>
+				<h:inputText value="#{dish.detailImg}" rendered="#{dish.editTable }"></h:inputText>
+			</h:column>
+			<h:column id="referPrice">
+				<f:facet name="header">Giá TK</f:facet>
+				<h:outputText value="#{dish.referPrice }"
+					rendered="#{not dish.editTable }"></h:outputText>
+				<h:inputText value="#{dish.referPrice }" rendered="#{dish.editTable }"></h:inputText>
+			</h:column>
+			<h:column>
+				<f:facet name="header">Sua</f:facet>
+				<h:commandLink value="Edit"
+					action="#{maintainDishBean.editAction(dish)}"
+					rendered="#{not dish.editTable}" />
+				<h:commandLink action="#{maintainDishBean.saveDishEdit(dish)}"
+					value="Save" rendered="#{dish.editTable}">
+				</h:commandLink>
+			</h:column>
+
+			<h:column>
+				<f:facet name="header">Xoa</f:facet>
+				<h:commandLink value="Xoa" action="#{maintainDishBean.removeDish(dish)}" />
+			</h:column>
+		</h:dataTable>
+		
+		<h:commandButton id="addDishId" value="Thêm" action="AddDish" ></h:commandButton>
+		<h:commandButton action="#{maintainDishBean.saveEditAll}" value="Save All"
+			rendered="true">
+		</h:commandButton>
+
+	</h:form>
+</f:view>
+</html>

@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" default-destroy-method="destroy" default-init-method="afterPropertiesSet" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+	<bean id="iRestads.service.CategoryLocalService" class="iRestads.service.impl.CategoryLocalServiceImpl" />
+	<bean id="iRestads.service.CategoryService" class="iRestads.service.impl.CategoryServiceImpl" />
+	<bean id="iRestads.service.persistence.CategoryPersistence" class="iRestads.service.persistence.CategoryPersistenceImpl" parent="basePersistence" />
+	<bean id="iRestads.service.DishLocalService" class="iRestads.service.impl.DishLocalServiceImpl" />
+	<bean id="iRestads.service.DishService" class="iRestads.service.impl.DishServiceImpl" />
+	<bean id="iRestads.service.persistence.DishPersistence" class="iRestads.service.persistence.DishPersistenceImpl" parent="basePersistence" />
+</beans>
