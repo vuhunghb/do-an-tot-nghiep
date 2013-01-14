@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping default-lazy="false" auto-import="false">
+	<import class="iRestads.model.Category" />
+	<import class="iRestads.model.Dish" />
+	<class name="iRestads.model.impl.CategoryImpl" table="dishstore_Category">
+		<cache usage="read-write" />
+		<id name="categoryId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="companyId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="userName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="createDate" type="org.hibernate.type.TimestampType" />
+		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
+		<property name="categoryName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+	</class>
+	<class name="iRestads.model.impl.DishImpl" table="dishstore_Dish">
+		<cache usage="read-write" />
+		<id name="dishId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="companyId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="userName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="createDate" type="org.hibernate.type.TimestampType" />
+		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
+		<property name="dishName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="decription" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="avatarImg" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="detailImg" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="detail" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="referPrice" type="com.liferay.portal.dao.orm.hibernate.DoubleType" />
+		<property name="categoryId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="editTable" type="com.liferay.portal.dao.orm.hibernate.BooleanType" />
+	</class>
+</hibernate-mapping>

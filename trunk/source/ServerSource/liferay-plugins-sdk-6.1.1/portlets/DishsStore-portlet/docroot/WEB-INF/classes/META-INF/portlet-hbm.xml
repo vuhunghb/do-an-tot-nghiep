@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping default-lazy="false" auto-import="false">
+	<import class="irestads.model.Category" />
+	<import class="irestads.model.Dish" />
+	<class name="irestads.model.impl.CategoryImpl" table="dishsstore_Category">
+		<cache usage="read-write" />
+		<id name="categoryId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="companyId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="userName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="createDate" type="org.hibernate.type.TimestampType" />
+		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
+		<property name="categoryName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+	</class>
+	<class name="irestads.model.impl.DishImpl" table="dishsstore_Dish">
+		<cache usage="read-write" />
+		<id name="dishId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="companyId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="userName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="createDate" type="org.hibernate.type.TimestampType" />
+		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
+		<property name="dishName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="decription" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="avatarImg" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="avatarBaseCode" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="detailImg" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="detailBaseCode" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="detail" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="referPrice" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
+		<property name="numOfDiner" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
+		<property name="categoryId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+	</class>
+</hibernate-mapping>

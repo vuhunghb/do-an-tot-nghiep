@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<body>
+	<h:form>
+		<h:panelGrid columns="3">
+		Tên: 
+		<h:inputText id="dishNameAdd" size="40"
+				value="#{maintainDishBean.dishName}" required="true"
+				label="User Name" />
+			<h:message for="dishNameAdd" style="color:red"></h:message>
+		Loại: 
+		<h:selectOneMenu id="distTypeAdd" 
+				value="#{maintainDishBean.categoryId}">
+				<f:selectItems value="#{maintainDishBean.allCategoryValues}"></f:selectItems>
+			</h:selectOneMenu>
+			<h:message for="distTypeAdd" style="color:red"></h:message>
+		Mô Tả: 
+		<h:inputTextarea id="dishDecriptionAdd" size="40"
+				value="#{maintainDishBean.decription}" required="true"
+				label="Decription"></h:inputTextarea>
+			<h:message for="dishDecriptionAdd" style="color:red"></h:message>
+		Hình đại diện: 
+		<h:inputText id="avatarImgAdd" size="40"
+				value="#{maintainDishBean.avatarImg}" required="false"
+				label="User Name" />
+			<h:message for="avatarImgAdd" style="color:red"></h:message>
+		
+		Hình chi tiết: 
+		<h:inputText id="detailImgAdd" size="40"
+				value="#{maintainDishBean.detailImg}" required="false"
+				label="User Name" />
+			<h:message for="detailImgAdd" style="color:red"></h:message>
+		Giá tham khảo: 
+		<h:inputText id="referPriceAdd" size="40"
+				value="#{maintainDishBean.referPrice}" required="false"
+				label="User Name" />
+			<h:message for="referPriceAdd" style="color:red"></h:message>
+		</h:panelGrid>
+		<h:commandButton action="#{maintainDishBean.addDish}" value="Add"
+			rendered="true">
+		</h:commandButton>
+	</h:form>
+
+</body>
+</html>
