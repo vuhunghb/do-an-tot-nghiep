@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">IRestads</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="menu_settings">Settings</string>
+    <string name="scr1_price">Giá :</string>
+    <string name="scr1_numofdiner_title">Phần ăn :</string>
+    <string name="sc1_dinner_title">thực khách</string>
+    <string name="scr1_description_title">Mô tả : </string>
+    <string name="scr1_left_function">«« Chức năng »»</string>
+    <string name="scr2_comfirm_accept_title">Xác nhận đặt món</string>
+    <string name="scr2_comfirm_accept_massage">Bạn chắc chắn muốn đặt món ăn này ?</string>
+    <string name="scr2_comfirm_accept_ok">Có</string>
+    <string name="scr2_comfirm_accept_cancel">Không</string>
+    <string name="scr2_comfirm_cancel_title">Xác nhận hủy món</string>
+    <string name="scr2_comfirm_cancel_massage">Bạn chắc chắn muốn hủy món ăn này ? </string>
+    <string name="scr2_comfirm_cancel_1">Đã tiến hành hủy món ăn</string>
+    <string name="scr2_comfirm_cancel_2">Không thể hủy món ăn này vì món ăn đã được thực hiện</string>
+
+    <string-array name="menu_src1_item_title">
+        <item>Đặt món</item>
+        <item>Chi tiết món ăn</item>
+        <item>Hóa đơn</item>
+        <item>Thanh toán</item>
+        <item>Quảng cáo</item>
+    </string-array>
+
+    <string name="menu_function_title">Chức năng</string>
+    <string name="menu_dialog_type_list">Menu type list</string>
+    <string name="menu_dialog_type_view">Menu type view</string>
+
+    <string-array name="order_line_status">
+        <item>Chưa đặt</item>
+        <item>Đã đặt</item>
+        <item>Đang thực hiện</item>
+        <item>Hoàn thành</item>
+    </string-array>
+
+    <string name="settings_label">THIẾT LẬP</string>
+
+    <string-array name="settings_function">
+        <item>Đăng nhập</item>
+        <item>Kết nối</item>
+        <item>Cập nhật</item>
+    </string-array>
+
+</resources>
