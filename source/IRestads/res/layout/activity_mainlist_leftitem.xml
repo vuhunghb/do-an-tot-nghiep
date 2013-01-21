@@ -1,0 +1,28 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rlt_main"
+    android:layout_width="300dp"
+    android:layout_height="67dp"
+    android:padding="6dp"
+    tools:context=".MainListActivity" >
+
+    <TextView
+        android:id="@+id/mainlist_left_dish_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:text="Name" >
+    </TextView>
+
+    <TextView
+        android:id="@+id/mainlist_left_dish_price"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@+id/mainlist_left_dish_name"
+        android:gravity="center"
+        android:text="Description" >
+    </TextView>
+
+</RelativeLayout>
