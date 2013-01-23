@@ -152,7 +152,7 @@ public class MenuLineLocalServiceImpl extends MenuLineLocalServiceBaseImpl {
 			menuLine = MenuLineUtil.update(menuLine, true);
 			// create version
 			UVersion uVersion =UVersionUtil.create(0);
-			uVersion
+			uVersion 
 			return menuLine;
 		} catch (SystemException e) {
 			// TODO Auto-generated catch block
