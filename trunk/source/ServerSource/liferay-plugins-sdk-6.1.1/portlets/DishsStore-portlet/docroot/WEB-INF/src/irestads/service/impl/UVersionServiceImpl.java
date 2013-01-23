@@ -14,6 +14,8 @@
 
 package irestads.service.impl;
 
+import irestads.model.UVersion;
+import irestads.service.UVersionLocalServiceUtil;
 import irestads.service.base.UVersionServiceBaseImpl;
 
 /**
@@ -36,4 +38,8 @@ public class UVersionServiceImpl extends UVersionServiceBaseImpl {
 	 *
 	 * Never reference this interface directly. Always use {@link irestads.service.UVersionServiceUtil} to access the u version remote service.
 	 */
+	public UVersion createVersion(UVersion v){
+		
+		return UVersionLocalServiceUtil.createVersion(v);
+	}
 }

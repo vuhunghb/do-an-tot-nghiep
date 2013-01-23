@@ -156,12 +156,13 @@ public class MenuBeans {
 	public String addMenuLine() {
 		FacesMessage msg = null;
 		DishModel dish = menuLineAdd.getDish();
-	MenuLine menuLine=	 MenuLineServiceUtil.createMenuLine(dish.getDishName(),
-				dish.getDecription(), dish.getAvatarImg(), dish.getDetailImg(),
-				dish.getDetail(), dish.getReferPrice(),
-				dish.getAvatarBaseCode(), dish.getDetailBaseCode(),
-				dish.getCategoryId(), menuLineAdd.getNumOfDish(),
-				true);
+//	MenuLine menuLine=	 MenuLineServiceUtil.createMenuLine(dish.getDishName(),
+//				dish.getDecription(), dish.getAvatarImg(), dish.getDetailImg(),
+//				dish.getDetail(), dish.getReferPrice(),
+//				dish.getAvatarBaseCode(), dish.getDetailBaseCode(),
+//				dish.getCategoryId(), menuLineAdd.getNumOfDish(),
+//				true);
+		MenuLine menuLine=MenuLineServiceUtil.createMenuLineDish(menuLineAdd);
 		 String message = "Không thêm thực đơn";
 			if (menuLine != null) {
 				message = "Đã thêm  thực đơn thành công";

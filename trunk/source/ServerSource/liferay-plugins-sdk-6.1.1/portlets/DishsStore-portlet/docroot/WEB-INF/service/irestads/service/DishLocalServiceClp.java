@@ -731,13 +731,13 @@ public class DishLocalServiceClp implements DishLocalService {
 		return (irestads.model.Dish)ClpSerializer.translateOutput(returnObj);
 	}
 
-	public irestads.model.Dish createDish(irestads.model.Dish d) {
+	public irestads.model.Dish createDish(irestads.model.Dish dishAdd) {
 		Object returnObj = null;
 
 		try {
 			returnObj = _invokableLocalService.invokeMethod(_methodName20,
 					_methodParameterTypes20,
-					new Object[] { ClpSerializer.translateInput(d) });
+					new Object[] { ClpSerializer.translateInput(dishAdd) });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);

@@ -268,8 +268,8 @@ public class DishLocalServiceWrapper implements DishLocalService,
 			categoryId);
 	}
 
-	public irestads.model.Dish createDish(irestads.model.Dish d) {
-		return _dishLocalService.createDish(d);
+	public irestads.model.Dish createDish(irestads.model.Dish dishAdd) {
+		return _dishLocalService.createDish(dishAdd);
 	}
 
 	public java.util.List<irestads.model.Dish> findDishNotInMenu() {
