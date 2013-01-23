@@ -14,6 +14,13 @@
 
 package irestads.service.http;
 
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+
+import irestads.service.UVersionServiceUtil;
+
+import java.rmi.RemoteException;
+
 /**
  * <p>
  * This class provides a SOAP utility for the
@@ -58,4 +65,20 @@ package irestads.service.http;
  * @generated
  */
 public class UVersionServiceSoap {
+	public static irestads.model.UVersionSoap createVersion(
+		irestads.model.UVersionSoap v) throws RemoteException {
+		try {
+			irestads.model.UVersion returnValue = UVersionServiceUtil.createVersion(irestads.model.impl.UVersionModelImpl.toModel(
+						v));
+
+			return irestads.model.UVersionSoap.toSoapModel(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	private static Log _log = LogFactoryUtil.getLog(UVersionServiceSoap.class);
 }

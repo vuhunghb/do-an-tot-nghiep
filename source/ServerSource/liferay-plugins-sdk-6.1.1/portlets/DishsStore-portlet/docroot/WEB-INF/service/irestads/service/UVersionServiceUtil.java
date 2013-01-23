@@ -62,6 +62,11 @@ public class UVersionServiceUtil {
 		return getService().invokeMethod(name, parameterTypes, arguments);
 	}
 
+	public static irestads.model.UVersion createVersion(
+		irestads.model.UVersion v) {
+		return getService().createVersion(v);
+	}
+
 	public static void clearService() {
 		_service = null;
 	}

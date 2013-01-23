@@ -30,6 +30,10 @@ public class UVersionServiceClpInvoker {
 		_methodName53 = "setBeanIdentifier";
 
 		_methodParameterTypes53 = new String[] { "java.lang.String" };
+
+		_methodName58 = "createVersion";
+
+		_methodParameterTypes58 = new String[] { "irestads.model.UVersion" };
 	}
 
 	public Object invokeMethod(String name, String[] parameterTypes,
@@ -44,6 +48,11 @@ public class UVersionServiceClpInvoker {
 			UVersionServiceUtil.setBeanIdentifier((java.lang.String)arguments[0]);
 		}
 
+		if (_methodName58.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes58, parameterTypes)) {
+			return UVersionServiceUtil.createVersion((irestads.model.UVersion)arguments[0]);
+		}
+
 		throw new UnsupportedOperationException();
 	}
 
@@ -51,4 +60,6 @@ public class UVersionServiceClpInvoker {
 	private String[] _methodParameterTypes52;
 	private String _methodName53;
 	private String[] _methodParameterTypes53;
+	private String _methodName58;
+	private String[] _methodParameterTypes58;
 }

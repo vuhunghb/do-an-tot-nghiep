@@ -275,8 +275,8 @@ public class DishLocalServiceUtil {
 			detail, referPrice, avatarBaseCode, detailBaseCode, categoryId);
 	}
 
-	public static irestads.model.Dish createDish(irestads.model.Dish d) {
-		return getService().createDish(d);
+	public static irestads.model.Dish createDish(irestads.model.Dish dishAdd) {
+		return getService().createDish(dishAdd);
 	}
 
 	public static java.util.List<irestads.model.Dish> findDishNotInMenu() {

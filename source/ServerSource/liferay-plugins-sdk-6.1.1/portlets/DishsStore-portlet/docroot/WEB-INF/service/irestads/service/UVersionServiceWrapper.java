@@ -55,6 +55,10 @@ public class UVersionServiceWrapper implements UVersionService,
 		return _uVersionService.invokeMethod(name, parameterTypes, arguments);
 	}
 
+	public irestads.model.UVersion createVersion(irestads.model.UVersion v) {
+		return _uVersionService.createVersion(v);
+	}
+
 	/**
 	 * @deprecated Renamed to {@link #getWrappedService}
 	 */

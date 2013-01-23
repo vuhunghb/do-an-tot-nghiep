@@ -25,6 +25,7 @@ import irestads.NoSuchMenuLineException;
 import irestads.model.Dish;
 import irestads.model.DishModel;
 import irestads.model.MenuLine;
+import irestads.model.UVersion;
 import irestads.service.DishLocalServiceUtil;
 import irestads.service.DishServiceUtil;
 import irestads.service.MenuLineLocalServiceUtil;
@@ -33,6 +34,7 @@ import irestads.service.persistence.DishUtil;
 import irestads.service.persistence.MenuLineFinder;
 import irestads.service.persistence.MenuLineFinderUtil;
 import irestads.service.persistence.MenuLineUtil;
+import irestads.service.persistence.UVersionUtil;
 
 /**
  * The implementation of the menu line local service.
@@ -127,8 +129,11 @@ public class MenuLineLocalServiceImpl extends MenuLineLocalServiceBaseImpl {
 
 		
 			// create Dish
-	//	DishLocalServiceUtil.createDish(ml.getDish().);
+		
+		Dish d=	DishLocalServiceUtil.createDish((Dish) ml.getDish());
 			// create MenuLine
+		ml.setDishId(d.getDishId());
+		
 		MenuLine menuLine=	this.createMenuLine(ml);
 
 			return menuLine;
@@ -145,6 +150,9 @@ public class MenuLineLocalServiceImpl extends MenuLineLocalServiceBaseImpl {
 			menuLine.setStatus(status);
 			menuLine.setDishId(dishId);
 			menuLine = MenuLineUtil.update(menuLine, true);
+			// create version
+			UVersion uVersion =UVersionUtil.create(0);
+			uVersion
 			return menuLine;
 		} catch (SystemException e) {
 			// TODO Auto-generated catch block

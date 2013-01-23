@@ -30,6 +30,10 @@ public class UVersionServiceClp implements UVersionService {
 		_methodName1 = "setBeanIdentifier";
 
 		_methodParameterTypes1 = new String[] { "java.lang.String" };
+
+		_methodName3 = "createVersion";
+
+		_methodParameterTypes3 = new String[] { "irestads.model.UVersion" };
 	}
 
 	public java.lang.String getBeanIdentifier() {
@@ -79,9 +83,34 @@ public class UVersionServiceClp implements UVersionService {
 		throw new UnsupportedOperationException();
 	}
 
+	public irestads.model.UVersion createVersion(irestads.model.UVersion v) {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableService.invokeMethod(_methodName3,
+					_methodParameterTypes3,
+					new Object[] { ClpSerializer.translateInput(v) });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (irestads.model.UVersion)ClpSerializer.translateOutput(returnObj);
+	}
+
 	private InvokableService _invokableService;
 	private String _methodName0;
 	private String[] _methodParameterTypes0;
 	private String _methodName1;
 	private String[] _methodParameterTypes1;
+	private String _methodName3;
+	private String[] _methodParameterTypes3;
 }

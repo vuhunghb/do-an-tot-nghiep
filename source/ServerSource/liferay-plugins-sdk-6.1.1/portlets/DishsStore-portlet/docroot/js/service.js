@@ -54,3 +54,10 @@ Liferay.Service.registerClass(
 		parseBooleanToShow: true
 	}
 );
+
+Liferay.Service.registerClass(
+	Liferay.Service.dishsstore, "UVersion",
+	{
+		createVersion: true
+	}
+);

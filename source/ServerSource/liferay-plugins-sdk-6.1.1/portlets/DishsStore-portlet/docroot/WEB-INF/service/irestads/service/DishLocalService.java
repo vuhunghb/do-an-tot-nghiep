@@ -245,7 +245,7 @@ public interface DishLocalService extends BaseLocalService, InvokableLocalServic
 		java.lang.String avatarBaseCode, java.lang.String detailBaseCode,
 		long categoryId);
 
-	public irestads.model.Dish createDish(irestads.model.Dish d);
+	public irestads.model.Dish createDish(irestads.model.Dish dishAdd);
 
 	public java.util.List<irestads.model.Dish> findDishNotInMenu();
 
