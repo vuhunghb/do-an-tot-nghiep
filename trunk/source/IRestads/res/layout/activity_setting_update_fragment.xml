@@ -15,23 +15,23 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center_vertical"
             android:paddingTop="5dp" >
 
             <ImageView
-                android:id="@+id/imageView1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:id="@+id/ImageView01"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:paddingRight="10dp"
-                android:src="@drawable/settings_update_icon" />
+                android:src="@drawable/settingsupdateicon" />
 
             <TextView
-                android:id="@+id/textView1"
+                android:id="@+id/TextView06"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="THIẾT LẬP CẬP NHẬT"
+                android:text="@string/settings_update_title"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="#ffffff" />
-
         </LinearLayout>
 
         <ScrollView
@@ -57,12 +57,12 @@
                         android:id="@+id/TextView03"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Phiên bản hiển tại : "
+                        android:text="@string/settings_update_current_version"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:textColor="#ffffff" />
 
                     <TextView
-                        android:id="@+id/textView2"
+                        android:id="@+id/settings_update_current_version"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="# 1234"
@@ -83,12 +83,12 @@
                         android:id="@+id/TextView02"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="CẬP NHẬT TỰ ĐỘNG"
+                        android:text="@string/settings_update_auto_title"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:textColor="#ffffff" />
 
                     <TimePicker
-                        android:id="@+id/TimePicker01"
+                        android:id="@+id/settings_update_time"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -101,16 +101,16 @@
                         android:gravity="center" >
 
                         <Button
-                            android:id="@+id/Button01"
+                            android:id="@+id/settings_update_auto_save"
                             android:layout_width="100dp"
                             android:layout_height="wrap_content"
-                            android:text="Lưu" />
+                            android:text="@string/btn_stoge_label" />
 
                         <Button
-                            android:id="@+id/Button02"
+                            android:id="@+id/settings_update_auto_cancel"
                             android:layout_width="100dp"
                             android:layout_height="wrap_content"
-                            android:text="Hủy" />
+                            android:text="@string/btn_canel" />
                     </LinearLayout>
                 </LinearLayout>
 
@@ -126,9 +126,17 @@
                         android:id="@+id/TextView01"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="CẬP NHẬT BẰNG TAY"
+                        android:text="@string/settings_update_manual_title"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:textColor="#ffffff" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="1dp"
+                        android:background="#222222"
+                        android:orientation="horizontal" >
+                    </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -136,16 +144,16 @@
                         android:gravity="center" >
 
                         <Button
-                            android:id="@+id/button1"
+                            android:id="@+id/settings_update_manual_save"
                             android:layout_width="100dp"
                             android:layout_height="wrap_content"
-                            android:text="Cập nhật" />
+                            android:text="@string/btn_update" />
 
                         <Button
-                            android:id="@+id/button2"
+                            android:id="@+id/settings_update_manual_cancel"
                             android:layout_width="100dp"
                             android:layout_height="wrap_content"
-                            android:text="Hủy" />
+                            android:text="@string/btn_canel" />
 
                     </LinearLayout>
 

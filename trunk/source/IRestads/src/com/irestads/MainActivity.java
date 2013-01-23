@@ -1,6 +1,9 @@
 package com.irestads;
 
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.Timer;
 import java.util.Vector;
 
 import android.os.Bundle;
@@ -30,15 +33,21 @@ import org.ksoap2.serialization.PropertyInfo;
 import com.irestads.dao.DishDAO;
 import com.irestads.marshal.MarshalLong;
 import com.irestads.model.DishModel;
+import com.irestads.model.SettingsModel;
+import com.irestads.util.StogeSettingsUtil;
+import com.irestads.util.UpdateTimerTask;
 
 @SuppressLint({ "NewApi", "UseValueOf" })
 public class MainActivity extends Activity {
 
-	private static final String NAMESPACE = "http://model.irestads";
-	private static String URL = "http://test:test@192.168.15.101:8080/TestPrimeFacev2-portlet/api/axis/Plugin_testprimeface_SinhVienService?wsdl";
-	private static final String METHOD_NAME = "getSinhVienByLop";
-	private static final String SOAP_ACTION = "http://model.irestads/getSinhVienByLop";
+	public static final String NAMESPACE = "http://model.irestads/";
+	public static String URL = "http://test:test@192.168.15.100:8080/DishsStore-portlet/api/axis/Plugin_dishsstore_DishService?wsdl";
+	public static final String METHOD_NAME = "getAllDishs";
+	 private static final String SOAP_ACTION ="http://model.irestads/getAllDishs";
+	// "http://model.irestads/getSinhVienByLop";
 	public static final String PREFS_NAME = "iRestAdsPrefsFile";
+	public static SettingsModel settingsModel;
+	public static Timer timer;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +62,23 @@ public class MainActivity extends Activity {
 
 		ActionBar actionBar = getActionBar();
 		actionBar.hide();
+
+		callServiceMethod();
 		
+		StogeSettingsUtil settingsUtil = new StogeSettingsUtil();
+		settingsModel = settingsUtil.readSettings();
+		runUpdateTimer();
+	}
+
+	public static void runUpdateTimer() {
+		if (timer != null) {
+			timer.cancel();
+		}
+		timer = new Timer();
+		// Calendar calendar = new GregorianCalendar(2013, 0, 20, 17, 40);
+		Date date = settingsModel.getAutoUpdateTime();
+		UpdateTimerTask updateTimerTask = new UpdateTimerTask();
+		timer.scheduleAtFixedRate(updateTimerTask, date, 86400000);
 	}
 
 	public void setUserSession() {
@@ -90,15 +115,13 @@ public class MainActivity extends Activity {
 	}
 
 	public void onClickCallDish(View view) {
-		// overridePendingTransition(android.R.anim.fade_in,
-		// android.R.anim.fade_out);
 		startActivity(new Intent("android.intent.action.MainListActivity"));
 	}
 
 	public void createMenu(Menu menu) {
-//		SigninDialog signinDialog = new SigninDialog();
-//		signinDialog.show(getFragmentManager(), "dialog");
-		
+		// SigninDialog signinDialog = new SigninDialog();
+		// signinDialog.show(getFragmentManager(), "dialog");
+
 		MenuItem mnu1 = menu.add(0, 0, 0, "Thiết lập");
 		{
 			mnu1.setAlphabeticShortcut('a');
@@ -129,7 +152,6 @@ public class MainActivity extends Activity {
 			mnu5.setIcon(R.drawable.ic_launcher);
 
 		}
-
 	}
 
 	public boolean menuChoice(MenuItem item) {
@@ -164,8 +186,6 @@ public class MainActivity extends Activity {
 
 		StrictMode.setThreadPolicy(policy);
 
-		TextView lblResult = (TextView) findViewById(R.id.result);
-
 		SoapObject request = new SoapObject(NAMESPACE, METHOD_NAME);
 
 		/*
@@ -187,11 +207,12 @@ public class MainActivity extends Activity {
 		Long id = new Long(1);
 		// propInfo.setValue(id);
 
-		request.addProperty("lopID", new Long(1));
+//		request.addProperty("lopID", new Long(1));
 		// request.addProperty(propInfo);
 		SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
-				SoapEnvelope.VER11);
+				SoapEnvelope.VER12);
 		envelope.setOutputSoapObject(request);
+		
 		MarshalLong mL = new MarshalLong();
 		mL.register(envelope);
 
@@ -210,14 +231,14 @@ public class MainActivity extends Activity {
 			if (rs != null) {
 				for (SoapObject cs : rs) {
 					resultsRequestSOAP = resultsRequestSOAP + "0 : "
-							+ cs.getProperty("diaChi").toString(); // ok
+							+ cs.getProperty("dishName").toString(); // ok
 					resultsRequestSOAP = resultsRequestSOAP + "2 : "
-							+ cs.getProperty("mssv").toString();
+							+ cs.getProperty("dishId").toString();
 					resultsRequestSOAP = resultsRequestSOAP + "\n";
 				}
 			}
 
-			lblResult.setText(resultsRequestSOAP);
+			Toast.makeText(this, resultsRequestSOAP, Toast.LENGTH_LONG).show();
 
 		} catch (Exception e) {
 			e.printStackTrace();

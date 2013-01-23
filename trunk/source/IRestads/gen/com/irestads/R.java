@@ -32,30 +32,34 @@ public final class R {
         public static final int scr2topbg=0x7f02000d;
         public static final int scr2topbg1=0x7f02000e;
         public static final int settings=0x7f02000f;
-        public static final int settings_update_icon=0x7f020010;
-        public static final int turnleftarrow=0x7f020011;
-        public static final int turnrightarrow=0x7f020012;
-        public static final int turnrightarrow1=0x7f020013;
+        public static final int settingsconnecticon=0x7f020010;
+        public static final int settingsupdateicon=0x7f020011;
+        public static final int turnleftarrow=0x7f020012;
+        public static final int turnrightarrow=0x7f020013;
+        public static final int turnrightarrow1=0x7f020014;
     }
     public static final class id {
         public static final int Button01=0x7f08001e;
-        public static final int Button02=0x7f080028;
+        public static final int Button02=0x7f08002d;
+        public static final int Button03=0x7f08002c;
+        public static final int EditText01=0x7f08002b;
+        public static final int EditText02=0x7f08002a;
+        public static final int ImageView01=0x7f08002e;
         public static final int TextView01=0x7f080001;
         public static final int TextView02=0x7f080000;
-        public static final int TextView03=0x7f080023;
+        public static final int TextView03=0x7f080025;
         public static final int TextView04=0x7f08000d;
         public static final int TextView05=0x7f08000f;
+        public static final int TextView06=0x7f08002f;
         public static final int TextView17=0x7f080020;
-        public static final int TimePicker01=0x7f080027;
         public static final int button1=0x7f08001f;
-        public static final int button2=0x7f080029;
-        public static final int editText1=0x7f08002a;
-        public static final int editText2=0x7f08002b;
-        public static final int imageView1=0x7f080025;
+        public static final int editText1=0x7f080029;
+        public static final int editText2=0x7f080036;
+        public static final int imageView1=0x7f080027;
         public static final int linearLayout1=0x7f080004;
         public static final int mainlist_left_dish_name=0x7f080013;
         public static final int mainlist_left_dish_price=0x7f080014;
-        public static final int menu_settings=0x7f08002c;
+        public static final int menu_settings=0x7f080037;
         public static final int result=0x7f080003;
         public static final int rlt_main=0x7f080012;
         public static final int sce1_left_category_left=0x7f080005;
@@ -79,9 +83,17 @@ public final class R {
         public static final int scr2_order_table=0x7f080022;
         public static final int scr2_order_total_price=0x7f080021;
         public static final int scrollView1=0x7f080008;
-        public static final int settings_content=0x7f080024;
+        public static final int settings_btn_connect=0x7f080023;
+        public static final int settings_btn_update=0x7f080024;
+        public static final int settings_content=0x7f080026;
+        public static final int settings_update_auto_cancel=0x7f080033;
+        public static final int settings_update_auto_save=0x7f080032;
+        public static final int settings_update_current_version=0x7f080030;
+        public static final int settings_update_manual_cancel=0x7f080035;
+        public static final int settings_update_manual_save=0x7f080034;
+        public static final int settings_update_time=0x7f080031;
         public static final int textView1=0x7f080002;
-        public static final int textView2=0x7f080026;
+        public static final int textView2=0x7f080028;
         public static final int textView3=0x7f08000a;
     }
     public static final class layout {
@@ -93,14 +105,18 @@ public final class R {
         public static final int activity_setting_connect_fragment=0x7f030005;
         public static final int activity_setting_list_fragment=0x7f030006;
         public static final int activity_setting_update_fragment=0x7f030007;
-        public static final int menu_dialog=0x7f030008;
-        public static final int signin_dialog=0x7f030009;
+        public static final int activity_setting_update_manual_dialog=0x7f030008;
+        public static final int menu_dialog=0x7f030009;
+        public static final int signin_dialog=0x7f03000a;
     }
     public static final class menu {
         public static final int activity_main=0x7f070000;
     }
     public static final class string {
         public static final int app_name=0x7f040000;
+        public static final int btn_canel=0x7f04001e;
+        public static final int btn_stoge_label=0x7f04001d;
+        public static final int btn_update=0x7f04001f;
         public static final int hello_world=0x7f040001;
         public static final int menu_dialog_type_list=0x7f040011;
         public static final int menu_dialog_type_view=0x7f040012;
@@ -120,6 +136,15 @@ public final class R {
         public static final int scr2_comfirm_cancel_massage=0x7f04000d;
         public static final int scr2_comfirm_cancel_title=0x7f04000c;
         public static final int settings_label=0x7f040013;
+        public static final int settings_update_auto_message_cancel=0x7f04001a;
+        public static final int settings_update_auto_message_ok=0x7f040019;
+        public static final int settings_update_auto_title=0x7f040016;
+        public static final int settings_update_current_version=0x7f040015;
+        public static final int settings_update_manual_confim_message=0x7f04001c;
+        public static final int settings_update_manual_confim_title=0x7f04001b;
+        public static final int settings_update_manual_title=0x7f040017;
+        public static final int settings_update_newest_version=0x7f040018;
+        public static final int settings_update_title=0x7f040014;
     }
     public static final class style {
         /** 

@@ -13,9 +13,8 @@
         android:background="#222222" >
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="250dp"
             android:layout_height="match_parent"
-            android:layout_weight="0.3"
             android:background="#000000"
             android:orientation="vertical" >
 
@@ -25,37 +24,43 @@
                 android:orientation="vertical" >
 
                 <LinearLayout
+                    android:id="@+id/settings_btn_connect"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_marginBottom="2dp"
                     android:layout_marginRight="2dp"
                     android:background="#222222"
-                    android:gravity="center_vertical" >
+                    android:clickable="true"
+                    android:gravity="center_vertical"
+                    android:onClick="onClickSettingButton" >
 
                     <TextView
                         android:id="@+id/TextView05"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingLeft="5dp"
-                        android:text="Large Text"
+                        android:text="Kết nối"
                         android:textAppearance="?android:attr/textAppearanceLarge"
                         android:textColor="#ffffff" />
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/settings_btn_update"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_marginBottom="2dp"
                     android:layout_marginRight="2dp"
                     android:background="#222222"
-                    android:gravity="center_vertical" >
+                    android:clickable="true"
+                    android:gravity="center_vertical"
+                    android:onClick="onClickSettingButton" >
 
                     <TextView
                         android:id="@+id/TextView04"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingLeft="5dp"
-                        android:text="Large Text"
+                        android:text="Cập nhật"
                         android:textAppearance="?android:attr/textAppearanceLarge"
                         android:textColor="#ffffff" />
                 </LinearLayout>
@@ -73,7 +78,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingLeft="5dp"
-                        android:text="Large Text"
+                        android:text="Thông tin bàn"
                         android:textAppearance="?android:attr/textAppearanceLarge"
                         android:textColor="#ffffff" />
                 </LinearLayout>
@@ -119,9 +124,8 @@
 
         <LinearLayout
             android:id="@+id/settings_content"
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="match_parent"
-            android:layout_weight="0.7"
             android:background="#222222"
             android:orientation="vertical" >
 

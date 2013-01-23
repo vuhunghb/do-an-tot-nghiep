@@ -7,7 +7,7 @@ import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
-@SuppressLint("NewApi")
+@SuppressLint({ "NewApi", "ValidFragment" })
 public class ConfirmDialog extends DialogFragment {
 	String massage, okButtonName, cancelButtonName;
 	boolean result = false;
