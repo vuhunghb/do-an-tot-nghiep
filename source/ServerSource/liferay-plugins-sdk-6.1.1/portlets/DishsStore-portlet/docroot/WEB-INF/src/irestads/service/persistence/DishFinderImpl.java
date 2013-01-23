@@ -6,6 +6,7 @@ import javax.servlet.jsp.tagext.TryCatchFinally;
 
 import irestads.model.Dish;
 import irestads.model.impl.DishImpl;
+import irestads.model.impl.MenuLineImpl;
 
 import com.liferay.portal.kernel.dao.orm.QueryPos;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
@@ -26,6 +27,26 @@ public class DishFinderImpl extends BasePersistenceImpl<Dish> implements
 	public static String FIND_DISHS_BY_DETAIL = "findDishsByDetail";
 	public static String FIND_DISHS_BY_CATEGORY_NAME = "findDishsByCategoryName";
 	public static String FIND_DISHS_BY_SOME_FIELD="findDishsBySomeField";
+	public static String FIND_DISH_NOTIN_ML = "findDishNotInMenu";
+	
+		public List<Dish> findDishNotInMenu() {
+			Session session = null;
+			try {
+				session = openSession();
+				String sql = CustomSQLUtil.get(FIND_DISH_NOTIN_ML);
+				System.out.println("sql d n m" + sql);
+				SQLQuery query = session.createSQLQuery(sql);
+				query.addEntity("Dish", DishImpl.class);
+				QueryPos qPos = QueryPos.getInstance(query);
+				return (List) query.list();
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				if (session != null)
+					closeSession(session);
+			}
+			return null;
+		}
 
 	public List<Dish> findDishsByName(String dishName) {
 

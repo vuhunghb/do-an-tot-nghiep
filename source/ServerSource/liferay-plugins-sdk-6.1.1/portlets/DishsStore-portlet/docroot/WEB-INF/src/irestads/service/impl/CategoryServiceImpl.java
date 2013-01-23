@@ -45,7 +45,9 @@ public class CategoryServiceImpl extends CategoryServiceBaseImpl {
 	 *
 	 * Never reference this interface directly. Always use {@link iRestads.service.CategoryServiceUtil} to access the category remote service.
 	 */
-	
+	public int countCategoryById(long categoryId) {
+		return CategoryLocalServiceUtil.countCategoryById(categoryId);
+	}
 	public Category createCategory(String categoryName){
 		return CategoryLocalServiceUtil.createCategory(categoryName);
 	}

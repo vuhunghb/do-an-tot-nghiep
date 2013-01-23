@@ -58,7 +58,7 @@ public class DishLocalServiceImpl extends DishLocalServiceBaseImpl {
 	// SẻviceLocalUtils
 
 	public Dish createDish(String dishName, String decription,
-			String avatarImg, String detailImg, String detail, int referPrice,
+			String avatarImg, String detailImg, String detail, int referPrice,String avatarBaseCode,String detailBaseCode,
 			long categoryId) {
 		try {
 			long id = CounterLocalServiceUtil.increment(Dish.class.getName());
@@ -70,6 +70,8 @@ public class DishLocalServiceImpl extends DishLocalServiceBaseImpl {
 			dishModel.setDetail(detail);
 			dishModel.setReferPrice(referPrice);
 			dishModel.setCategoryId(categoryId);
+			dishModel.setAvatarBaseCode(avatarBaseCode);
+			dishModel.setDetailBaseCode(detailBaseCode);
 
 			// System.out.println("categoryId--------------------------------"+categoryId);
 			dishModel = DishUtil.update(dishModel, true);
@@ -81,6 +83,15 @@ public class DishLocalServiceImpl extends DishLocalServiceBaseImpl {
 			return null;
 		}
 
+	}
+	public Dish createDish(Dish dishAdd) {
+		return createDish(dishAdd.getDishName(),
+				dishAdd.getDecription(), dishAdd.getAvatarImg(),
+				dishAdd.getDetailImg(), dishAdd.getDetail(),
+				dishAdd.getReferPrice(),dishAdd.getAvatarBaseCode(),dishAdd.getDetailBaseCode(), dishAdd.getCategoryId());
+	}
+	public List<Dish> findDishNotInMenu() {
+		return DishFinderUtil.findDishNotInMenu();
 	}
 
 	public List<Dish> getAllDishs() {
@@ -116,6 +127,7 @@ public class DishLocalServiceImpl extends DishLocalServiceBaseImpl {
 				d.setDetailImg(dish.getDetailImg());
 				d.setReferPrice(dish.getReferPrice());
 				d.setCategoryId(dish.getCategoryId());
+				
 				return DishUtil.update(d, true);
 			}
 

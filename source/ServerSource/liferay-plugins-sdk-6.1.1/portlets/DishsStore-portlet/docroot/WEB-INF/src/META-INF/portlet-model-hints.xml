@@ -28,4 +28,36 @@
 		<field name="numOfDiner" type="int" />
 		<field name="categoryId" type="long" />
 	</model>
+	<model name="irestads.model.Menu">
+		<field name="menuId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="userId" type="long" />
+		<field name="userName" type="String" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="menuName" type="String" />
+	</model>
+	<model name="irestads.model.MenuLine">
+		<field name="menuLineId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="userId" type="long" />
+		<field name="userName" type="String" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="numOfDish" type="int" />
+		<field name="status" type="boolean" />
+		<field name="dishId" type="long" />
+	</model>
+	<model name="irestads.model.UVersion">
+		<field name="versionId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="userId" type="long" />
+		<field name="userName" type="String" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="logObjName" type="String" />
+		<field name="logObjId" type="long" />
+		<field name="logType" type="int" />
+		<field name="logDate" type="Date" />
+	</model>
 </model-hints>

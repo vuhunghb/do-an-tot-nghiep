@@ -64,6 +64,8 @@ public interface CategoryService extends BaseService, InvokableService {
 		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
 		throws java.lang.Throwable;
 
+	public int countCategoryById(long categoryId);
+
 	public irestads.model.Category createCategory(java.lang.String categoryName);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)

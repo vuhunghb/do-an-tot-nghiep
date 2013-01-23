@@ -22,6 +22,12 @@ import irestads.service.CategoryServiceUtil;
 import irestads.service.ClpSerializer;
 import irestads.service.DishLocalServiceUtil;
 import irestads.service.DishServiceUtil;
+import irestads.service.MenuLineLocalServiceUtil;
+import irestads.service.MenuLineServiceUtil;
+import irestads.service.MenuLocalServiceUtil;
+import irestads.service.MenuServiceUtil;
+import irestads.service.UVersionLocalServiceUtil;
+import irestads.service.UVersionServiceUtil;
 
 /**
  * @author Brian Wing Shun Chan
@@ -44,6 +50,15 @@ public class ClpMessageListener extends BaseMessageListener {
 			DishLocalServiceUtil.clearService();
 
 			DishServiceUtil.clearService();
+			MenuLocalServiceUtil.clearService();
+
+			MenuServiceUtil.clearService();
+			MenuLineLocalServiceUtil.clearService();
+
+			MenuLineServiceUtil.clearService();
+			UVersionLocalServiceUtil.clearService();
+
+			UVersionServiceUtil.clearService();
 		}
 	}
 }

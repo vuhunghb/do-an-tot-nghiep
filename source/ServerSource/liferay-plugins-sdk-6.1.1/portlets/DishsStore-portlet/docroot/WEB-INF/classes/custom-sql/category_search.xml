@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<custom-sql>
+<sql id="countCategoryById">
+<![CDATA[
+    SELECT COUNT(*) AS COUNT_VALUE
+    FROM dishsstore_category
+    WHERE
+        (dishsstore_category.categoryId= ?) 
+        
+    ]]>
+</sql>
+</custom-sql>
+

@@ -3,6 +3,7 @@ Liferay.Service.register("Liferay.Service.dishsstore", "irestads.service", "Dish
 Liferay.Service.registerClass(
 	Liferay.Service.dishsstore, "Category",
 	{
+		countCategoryById: true,
 		createCategory: true,
 		getAllCategorys: true,
 		findByID: true
@@ -13,6 +14,7 @@ Liferay.Service.registerClass(
 	Liferay.Service.dishsstore, "Dish",
 	{
 		createDish: true,
+		findDishNotInMenu: true,
 		getAllDishs: true,
 		getDishsByCategory: true,
 		updateDish: true,
@@ -26,5 +28,29 @@ Liferay.Service.registerClass(
 		findDishsByDetail: true,
 		findDishsByCategoryName: true,
 		findDishsBySomeField: true
+	}
+);
+
+Liferay.Service.registerClass(
+	Liferay.Service.dishsstore, "MenuLine",
+	{
+		getAllMenuLine: true,
+		createMenuLine: true,
+		createMenuLineDish: true,
+		updateMenuLine: true,
+		deleteMenuLine: true,
+		findMenuLineById: true,
+		findMenuLinesByDReferPrice: true,
+		setDishForMenuLine: true,
+		findMenuLinesByDishId: true,
+		findMenuLinesByDName: true,
+		findMenuLinesByDDecription: true,
+		findMenuLinesByDAvatarImg: true,
+		findMenuLinesByDDetailImg: true,
+		findMenuLinesByDDetail: true,
+		findMenuLinesByDCategoryName: true,
+		findMenuLinesByNumOfDish: true,
+		findMenuLinesByStatus: true,
+		parseBooleanToShow: true
 	}
 );

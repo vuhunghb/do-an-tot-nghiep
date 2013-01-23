@@ -18,6 +18,8 @@ package irestads.service.persistence;
  * @author Be
  */
 public interface DishFinder {
+	public java.util.List<irestads.model.Dish> findDishNotInMenu();
+
 	public java.util.List<irestads.model.Dish> findDishsByName(
 		java.lang.String dishName);
 

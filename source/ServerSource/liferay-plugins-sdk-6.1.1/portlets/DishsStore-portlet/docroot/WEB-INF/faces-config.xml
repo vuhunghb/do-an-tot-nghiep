@@ -7,23 +7,23 @@
     xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
 >
 	<managed-bean>
-		<managed-bean-name>fileUploadController</managed-bean-name>
-		<managed-bean-class>irestads.beans.FileUploadController</managed-bean-class>
-		<managed-bean-scope>session</managed-bean-scope>
-	</managed-bean>
-	<managed-bean>
 		<managed-bean-name>dishBeans</managed-bean-name>
-		<managed-bean-class>irestads.beans.DishBeans</managed-bean-class>
+		<managed-bean-class>irestads.beans.dishs_store.DishBeans</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>categoryBeans</managed-bean-name>
-		<managed-bean-class>irestads.beans.CategoryBeans</managed-bean-class>
+		<managed-bean-class>irestads.beans.dishs_store.CategoryBeans</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
-		<managed-bean-name>myUploadBean</managed-bean-name>
-		<managed-bean-class>irestads.beans.MyUploadBean</managed-bean-class>
+		<managed-bean-name>fileUploadController</managed-bean-name>
+		<managed-bean-class>irestads.beans.dishs_store.FileUploadController</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>menuBeans</managed-bean-name>
+		<managed-bean-class>irestads.beans.maintain_menu.MenuBeans</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
 	<lifecycle>

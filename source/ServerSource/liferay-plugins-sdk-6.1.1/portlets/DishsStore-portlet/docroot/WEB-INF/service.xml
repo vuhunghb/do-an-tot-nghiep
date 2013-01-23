@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE service-builder PUBLIC "-//Liferay//DTD Service Builder 6.1.0//EN" "http://www.liferay.com/dtd/liferay-service-builder_6_1_0.dtd">
 <service-builder package-path="irestads">
-	<author>Be</author>
+	<author>Be</author>															
 	<namespace>dishsstore</namespace>
 
 	<entity name="Dish" local-service="true" remote-service="true">
@@ -30,8 +30,8 @@
 		<column name="detail" type="String" />
 		<column name="referPrice" type="int" />
 		<column name="numOfDiner" type="int"></column>
-		<column name="categoryId" type="long" /> 
-		
+		<column name="categoryId" type="long" />
+
 
 		<!-- Order -->
 
@@ -47,44 +47,108 @@
 		<finder name="ReferPrice" return-type="Collection">
 			<finder-column name="referPrice" />
 		</finder>
-		
+
 	</entity>
 	<entity name="Category" local-service="true" remote-service="true">
-
 		<!-- PK fields -->
-
 		<column name="categoryId" type="long" primary="true" />
-
-
 		<!-- Audit fields -->
-
 		<column name="companyId" type="long" />
 		<column name="userId" type="long" />
 		<column name="userName" type="String" />
 		<column name="createDate" type="Date" />
 		<column name="modifiedDate" type="Date" />
-
 		<!-- Other fields -->
-
 		<column name="categoryName" type="String" />
 		<column name="dishs" type="Collection" entity="Dish"
 			mapping-key="catagoryId" />
-
-
-
 		<!-- Order -->
-
 		<order by="asc">
 			<order-column name="categoryName" />
 		</order>
-
 		<!-- Finder methods -->
-
 		<finder name="CategoryName" return-type="Collection">
 			<finder-column name="categoryName" />
 		</finder>
-
 		
+	</entity>
 
+	<entity name="UVersion" local-service="true" remote-service="true">
+		<!-- PK fields -->
+		<column name="versionId" type="long" primary="true" />
+		<!-- Audit fields -->
+		<column name="companyId" type="long" />
+		<column name="userId" type="long" />
+		<column name="userName" type="String" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+		<!-- Other fields -->
+		<column name="logObjName" type="String" />
+		<column name="logObjId" type="long"></column>
+		<column name="logType" type="int"></column>
+		<column name="logDate" type="Date"></column>
+		<!-- Order -->
+		<order by="asc">
+			<order-column name="logDate" />
+		</order>
+		<!-- Finder methods -->
+		<finder name="LogDate" return-type="Collection">
+			<finder-column name="logDate" />
+		</finder>
+	</entity>
+	
+	<entity name="MenuLine" local-service="true" remote-service="true">
+		<!-- PK fields -->
+		<column name="menuLineId" type="long" primary="true" />
+		<!-- Audit fields -->
+		<column name="companyId" type="long" />
+		<column name="userId" type="long" />
+		<column name="userName" type="String" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+		
+		<!-- Other fields -->
+		
+		<column name="numOfDish" type="int"></column>
+		<column name="status" type="boolean"></column>
+		<column name="dishId" type="long"></column>
+		
+		<!-- Order -->
+		<order by="asc">
+			<order-column name="menuLineId" />
+		</order>
+		<!-- Finder methods -->
+		<finder name="Status" return-type="Collection">
+			<finder-column name="status" />
+		</finder>
+		<finder name="DishId" return-type="Collection">
+			<finder-column name="dishId" />
+		</finder>
+		<finder name="NumOfDish" return-type="Collection">
+			<finder-column name="numOfDish" />
+		</finder>
+		
+	</entity>
+	<entity name="Menu" local-service="true" remote-service="true">
+		<!-- PK fields -->
+		<column name="menuId" type="long" primary="true" />
+		<!-- Audit fields -->
+		<column name="companyId" type="long" />
+		<column name="userId" type="long" />
+		<column name="userName" type="String" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+		<!-- Other fields -->
+		<column name="menuName" type="String" />
+		<column name="menuLines" type="Collection" entity="MenuLine"
+			mapping-key="menuLineId" />
+		<!-- Order -->
+		<order by="asc">
+			<order-column name="menuName" />
+		</order>
+		<!-- Finder methods -->
+		<finder name="MenuName" return-type="Collection">
+			<finder-column name="menuName" />
+		</finder>
 	</entity>
 </service-builder>

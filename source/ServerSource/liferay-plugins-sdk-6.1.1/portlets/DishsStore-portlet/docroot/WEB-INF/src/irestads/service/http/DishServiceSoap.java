@@ -68,14 +68,44 @@ public class DishServiceSoap {
 	public static irestads.model.DishSoap createDish(
 		java.lang.String dishName, java.lang.String decription,
 		java.lang.String avatarImg, java.lang.String detailImg,
-		java.lang.String detail, int referPrice, long categoryId)
-		throws RemoteException {
+		java.lang.String detail, int referPrice,
+		java.lang.String avatarBaseCode, java.lang.String detailBaseCode,
+		long categoryId) throws RemoteException {
 		try {
 			irestads.model.Dish returnValue = DishServiceUtil.createDish(dishName,
 					decription, avatarImg, detailImg, detail, referPrice,
-					categoryId);
+					avatarBaseCode, detailBaseCode, categoryId);
 
 			return irestads.model.DishSoap.toSoapModel(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static irestads.model.DishSoap createDish(irestads.model.DishSoap d)
+		throws RemoteException {
+		try {
+			irestads.model.Dish returnValue = DishServiceUtil.createDish(irestads.model.impl.DishModelImpl.toModel(
+						d));
+
+			return irestads.model.DishSoap.toSoapModel(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static irestads.model.DishSoap[] findDishNotInMenu()
+		throws RemoteException {
+		try {
+			java.util.List<irestads.model.Dish> returnValue = DishServiceUtil.findDishNotInMenu();
+
+			return irestads.model.DishSoap.toSoapModels(returnValue);
 		}
 		catch (Exception e) {
 			_log.error(e, e);

@@ -17,6 +17,8 @@ package irestads.service.impl;
 import irestads.NoSuchCategoryException;
 import irestads.model.Category;
 import irestads.service.base.CategoryLocalServiceBaseImpl;
+import irestads.service.persistence.CategoryFinder;
+import irestads.service.persistence.CategoryFinderUtil;
 import irestads.service.persistence.CategoryUtil;
 
 import java.util.List;
@@ -52,6 +54,8 @@ public class CategoryLocalServiceImpl extends CategoryLocalServiceBaseImpl {
 			category.setCategoryName(categoryName);
 			category=CategoryUtil.update(category, true);
 			
+			
+			
 		//	categoryPersistence.getDishs(pk)
 			
 			return category;
@@ -62,7 +66,9 @@ public class CategoryLocalServiceImpl extends CategoryLocalServiceBaseImpl {
 		return null;
 		
 	}
-	
+	public int countCategoryById(long categoryId) {
+		return CategoryFinderUtil.countCategoryById(categoryId);
+	}
 	
 	public List<Category> getAllCategorys(){
 		try {

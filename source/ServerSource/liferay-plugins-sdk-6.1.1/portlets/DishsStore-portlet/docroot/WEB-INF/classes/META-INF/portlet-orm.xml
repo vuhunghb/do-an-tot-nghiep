@@ -54,12 +54,90 @@
 			<transient name="userUuid" />
 		</attributes>
 	</mapped-superclass>
+	<mapped-superclass class="irestads.model.impl.MenuModelImpl">
+		<attributes>
+			<id name="menuId" />
+			<basic name="companyId" />
+			<basic name="userId" />
+			<basic name="userName" />
+			<basic name="createDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="modifiedDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="menuName" />
+			<transient name="modelAttributes" />
+			<transient name="primaryKey" />
+			<transient name="primaryKeyObj" />
+			<transient name="userUuid" />
+		</attributes>
+	</mapped-superclass>
+	<mapped-superclass class="irestads.model.impl.MenuLineModelImpl">
+		<attributes>
+			<id name="menuLineId" />
+			<basic name="companyId" />
+			<basic name="userId" />
+			<basic name="userName" />
+			<basic name="createDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="modifiedDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="numOfDish" />
+			<basic name="status" />
+			<basic name="dishId" />
+			<transient name="modelAttributes" />
+			<transient name="primaryKey" />
+			<transient name="primaryKeyObj" />
+			<transient name="userUuid" />
+		</attributes>
+	</mapped-superclass>
+	<mapped-superclass class="irestads.model.impl.UVersionModelImpl">
+		<attributes>
+			<id name="versionId" />
+			<basic name="companyId" />
+			<basic name="userId" />
+			<basic name="userName" />
+			<basic name="createDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="modifiedDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="logObjName" />
+			<basic name="logObjId" />
+			<basic name="logType" />
+			<basic name="logDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<transient name="modelAttributes" />
+			<transient name="primaryKey" />
+			<transient name="primaryKeyObj" />
+			<transient name="userUuid" />
+		</attributes>
+	</mapped-superclass>
 	<entity class="irestads.model.impl.CategoryImpl" name="Category">
 		<table name="dishsstore_Category" />
 		<attributes />
 	</entity>
 	<entity class="irestads.model.impl.DishImpl" name="Dish">
 		<table name="dishsstore_Dish" />
+		<attributes />
+	</entity>
+	<entity class="irestads.model.impl.MenuImpl" name="Menu">
+		<table name="dishsstore_Menu" />
+		<attributes />
+	</entity>
+	<entity class="irestads.model.impl.MenuLineImpl" name="MenuLine">
+		<table name="dishsstore_MenuLine" />
+		<attributes>
+			<transient name="dish" />
+		</attributes>
+	</entity>
+	<entity class="irestads.model.impl.UVersionImpl" name="UVersion">
+		<table name="dishsstore_UVersion" />
 		<attributes />
 	</entity>
 </entity-mappings>

@@ -35,10 +35,21 @@ import irestads.service.CategoryLocalService;
 import irestads.service.CategoryService;
 import irestads.service.DishLocalService;
 import irestads.service.DishService;
+import irestads.service.MenuLineLocalService;
+import irestads.service.MenuLineService;
+import irestads.service.MenuLocalService;
+import irestads.service.MenuService;
+import irestads.service.UVersionLocalService;
+import irestads.service.UVersionService;
 
+import irestads.service.persistence.CategoryFinder;
 import irestads.service.persistence.CategoryPersistence;
 import irestads.service.persistence.DishFinder;
 import irestads.service.persistence.DishPersistence;
+import irestads.service.persistence.MenuLineFinder;
+import irestads.service.persistence.MenuLinePersistence;
+import irestads.service.persistence.MenuPersistence;
+import irestads.service.persistence.UVersionPersistence;
 
 import javax.sql.DataSource;
 
@@ -118,6 +129,24 @@ public abstract class CategoryServiceBaseImpl extends BaseServiceImpl
 	}
 
 	/**
+	 * Returns the category finder.
+	 *
+	 * @return the category finder
+	 */
+	public CategoryFinder getCategoryFinder() {
+		return categoryFinder;
+	}
+
+	/**
+	 * Sets the category finder.
+	 *
+	 * @param categoryFinder the category finder
+	 */
+	public void setCategoryFinder(CategoryFinder categoryFinder) {
+		this.categoryFinder = categoryFinder;
+	}
+
+	/**
 	 * Returns the dish local service.
 	 *
 	 * @return the dish local service
@@ -187,6 +216,188 @@ public abstract class CategoryServiceBaseImpl extends BaseServiceImpl
 	 */
 	public void setDishFinder(DishFinder dishFinder) {
 		this.dishFinder = dishFinder;
+	}
+
+	/**
+	 * Returns the menu local service.
+	 *
+	 * @return the menu local service
+	 */
+	public MenuLocalService getMenuLocalService() {
+		return menuLocalService;
+	}
+
+	/**
+	 * Sets the menu local service.
+	 *
+	 * @param menuLocalService the menu local service
+	 */
+	public void setMenuLocalService(MenuLocalService menuLocalService) {
+		this.menuLocalService = menuLocalService;
+	}
+
+	/**
+	 * Returns the menu remote service.
+	 *
+	 * @return the menu remote service
+	 */
+	public MenuService getMenuService() {
+		return menuService;
+	}
+
+	/**
+	 * Sets the menu remote service.
+	 *
+	 * @param menuService the menu remote service
+	 */
+	public void setMenuService(MenuService menuService) {
+		this.menuService = menuService;
+	}
+
+	/**
+	 * Returns the menu persistence.
+	 *
+	 * @return the menu persistence
+	 */
+	public MenuPersistence getMenuPersistence() {
+		return menuPersistence;
+	}
+
+	/**
+	 * Sets the menu persistence.
+	 *
+	 * @param menuPersistence the menu persistence
+	 */
+	public void setMenuPersistence(MenuPersistence menuPersistence) {
+		this.menuPersistence = menuPersistence;
+	}
+
+	/**
+	 * Returns the menu line local service.
+	 *
+	 * @return the menu line local service
+	 */
+	public MenuLineLocalService getMenuLineLocalService() {
+		return menuLineLocalService;
+	}
+
+	/**
+	 * Sets the menu line local service.
+	 *
+	 * @param menuLineLocalService the menu line local service
+	 */
+	public void setMenuLineLocalService(
+		MenuLineLocalService menuLineLocalService) {
+		this.menuLineLocalService = menuLineLocalService;
+	}
+
+	/**
+	 * Returns the menu line remote service.
+	 *
+	 * @return the menu line remote service
+	 */
+	public MenuLineService getMenuLineService() {
+		return menuLineService;
+	}
+
+	/**
+	 * Sets the menu line remote service.
+	 *
+	 * @param menuLineService the menu line remote service
+	 */
+	public void setMenuLineService(MenuLineService menuLineService) {
+		this.menuLineService = menuLineService;
+	}
+
+	/**
+	 * Returns the menu line persistence.
+	 *
+	 * @return the menu line persistence
+	 */
+	public MenuLinePersistence getMenuLinePersistence() {
+		return menuLinePersistence;
+	}
+
+	/**
+	 * Sets the menu line persistence.
+	 *
+	 * @param menuLinePersistence the menu line persistence
+	 */
+	public void setMenuLinePersistence(MenuLinePersistence menuLinePersistence) {
+		this.menuLinePersistence = menuLinePersistence;
+	}
+
+	/**
+	 * Returns the menu line finder.
+	 *
+	 * @return the menu line finder
+	 */
+	public MenuLineFinder getMenuLineFinder() {
+		return menuLineFinder;
+	}
+
+	/**
+	 * Sets the menu line finder.
+	 *
+	 * @param menuLineFinder the menu line finder
+	 */
+	public void setMenuLineFinder(MenuLineFinder menuLineFinder) {
+		this.menuLineFinder = menuLineFinder;
+	}
+
+	/**
+	 * Returns the u version local service.
+	 *
+	 * @return the u version local service
+	 */
+	public UVersionLocalService getUVersionLocalService() {
+		return uVersionLocalService;
+	}
+
+	/**
+	 * Sets the u version local service.
+	 *
+	 * @param uVersionLocalService the u version local service
+	 */
+	public void setUVersionLocalService(
+		UVersionLocalService uVersionLocalService) {
+		this.uVersionLocalService = uVersionLocalService;
+	}
+
+	/**
+	 * Returns the u version remote service.
+	 *
+	 * @return the u version remote service
+	 */
+	public UVersionService getUVersionService() {
+		return uVersionService;
+	}
+
+	/**
+	 * Sets the u version remote service.
+	 *
+	 * @param uVersionService the u version remote service
+	 */
+	public void setUVersionService(UVersionService uVersionService) {
+		this.uVersionService = uVersionService;
+	}
+
+	/**
+	 * Returns the u version persistence.
+	 *
+	 * @return the u version persistence
+	 */
+	public UVersionPersistence getUVersionPersistence() {
+		return uVersionPersistence;
+	}
+
+	/**
+	 * Sets the u version persistence.
+	 *
+	 * @param uVersionPersistence the u version persistence
+	 */
+	public void setUVersionPersistence(UVersionPersistence uVersionPersistence) {
+		this.uVersionPersistence = uVersionPersistence;
 	}
 
 	/**
@@ -378,6 +589,8 @@ public abstract class CategoryServiceBaseImpl extends BaseServiceImpl
 	protected CategoryService categoryService;
 	@BeanReference(type = CategoryPersistence.class)
 	protected CategoryPersistence categoryPersistence;
+	@BeanReference(type = CategoryFinder.class)
+	protected CategoryFinder categoryFinder;
 	@BeanReference(type = DishLocalService.class)
 	protected DishLocalService dishLocalService;
 	@BeanReference(type = DishService.class)
@@ -386,6 +599,26 @@ public abstract class CategoryServiceBaseImpl extends BaseServiceImpl
 	protected DishPersistence dishPersistence;
 	@BeanReference(type = DishFinder.class)
 	protected DishFinder dishFinder;
+	@BeanReference(type = MenuLocalService.class)
+	protected MenuLocalService menuLocalService;
+	@BeanReference(type = MenuService.class)
+	protected MenuService menuService;
+	@BeanReference(type = MenuPersistence.class)
+	protected MenuPersistence menuPersistence;
+	@BeanReference(type = MenuLineLocalService.class)
+	protected MenuLineLocalService menuLineLocalService;
+	@BeanReference(type = MenuLineService.class)
+	protected MenuLineService menuLineService;
+	@BeanReference(type = MenuLinePersistence.class)
+	protected MenuLinePersistence menuLinePersistence;
+	@BeanReference(type = MenuLineFinder.class)
+	protected MenuLineFinder menuLineFinder;
+	@BeanReference(type = UVersionLocalService.class)
+	protected UVersionLocalService uVersionLocalService;
+	@BeanReference(type = UVersionService.class)
+	protected UVersionService uVersionService;
+	@BeanReference(type = UVersionPersistence.class)
+	protected UVersionPersistence uVersionPersistence;
 	@BeanReference(type = CounterLocalService.class)
 	protected CounterLocalService counterLocalService;
 	@BeanReference(type = ResourceLocalService.class)

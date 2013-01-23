@@ -266,6 +266,10 @@ public class CategoryLocalServiceWrapper implements CategoryLocalService,
 		return _categoryLocalService.createCategory(categoryName);
 	}
 
+	public int countCategoryById(long categoryId) {
+		return _categoryLocalService.countCategoryById(categoryId);
+	}
+
 	public java.util.List<irestads.model.Category> getAllCategorys() {
 		return _categoryLocalService.getAllCategorys();
 	}

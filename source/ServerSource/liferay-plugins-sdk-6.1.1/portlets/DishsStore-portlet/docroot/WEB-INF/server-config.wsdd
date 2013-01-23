@@ -1,0 +1,193 @@
+<?xml version="1.0"?>
+
+<deployment xmlns="http://xml.apache.org/axis/wsdd/" xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+	<globalConfiguration>
+		<parameter name="adminPassword" value="admin" />
+		<parameter name="attachments.implementation" value="org.apache.axis.attachments.AttachmentsImpl" />
+		<parameter name="sendXsiTypes" value="true" />
+		<parameter name="sendMultiRefs" value="true" />
+		<parameter name="sendXMLDeclaration" value="true" />
+		<parameter name="axis.sendMinimizedElements" value="true" />
+		<requestFlow>
+			<handler type="java:org.apache.axis.handlers.JWSHandler">
+				<parameter name="scope" value="session" />
+			</handler>
+			<handler type="java:org.apache.axis.handlers.JWSHandler">
+				<parameter name="scope" value="request" />
+				<parameter name="extension" value=".jwr" />
+			</handler>
+		</requestFlow>
+	</globalConfiguration>
+	<handler name="LocalResponder" type="java:org.apache.axis.transport.local.LocalResponder" />
+	<handler name="URLMapper" type="java:org.apache.axis.handlers.http.URLMapper" />
+	<handler name="Authenticate" type="java:org.apache.axis.handlers.SimpleAuthenticationHandler" />
+	<transport name="http">
+		<requestFlow>
+			<handler type="URLMapper" />
+			<handler type="java:org.apache.axis.handlers.http.HTTPAuthHandler" />
+		</requestFlow>
+	</transport>
+	<transport name="local">
+		<responseFlow>
+			<handler type="LocalResponder" />
+		</responseFlow>
+	</transport>
+	<service name="Plugin_dishsstore_CategoryService" provider="java:RPC" style="rpc" use="encoded">
+		<arrayMapping xmlns:ns="urn:http.service.irestads" xmlns:cmp-ns="http://model.irestads" qname="ns:ArrayOf_tns2_CategorySoap" type="java:irestads.model.CategorySoap[]" innerType="cmp-ns:CategorySoap" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"></arrayMapping>
+		<typeMapping xmlns:ns="http://model.irestads" qname="ns:CategorySoap" type="java:irestads.model.CategorySoap" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"></typeMapping>
+		<operation xmlns:operNS="urn:http.service.irestads" xmlns:rtns="http://model.irestads" name="createCategory" qname="operNS:createCategory" returnQName="createCategoryReturn" returnType="rtns:CategorySoap" soapAction="">
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="categoryName" type="tns:string"></parameter>
+		</operation>
+		<operation xmlns:operNS="urn:http.service.irestads" xmlns:rtns="http://model.irestads" name="findByID" qname="operNS:findByID" returnQName="findByIDReturn" returnType="rtns:CategorySoap" soapAction="">
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="categoryId" type="tns:long"></parameter>
+		</operation>
+		<operation xmlns:operNS="urn:http.service.irestads" xmlns:rtns="urn:http.service.irestads" xmlns:tns2="http://model.irestads" name="getAllCategorys" qname="operNS:getAllCategorys" returnQName="getAllCategorysReturn" returnType="rtns:ArrayOf_tns2_CategorySoap" returnItemType="tns2:CategorySoap" soapAction=""> </operation>
+		<parameter name="allowedMethods" value="createCategory findByID getAllCategorys" />
+		<parameter name="className" value="irestads.service.http.CategoryServiceSoap" />
+		<parameter name="schemaUnqualified" value="http://model.irestads,urn:http.service.irestads" />
+		<parameter name="typeMappingVersion" value="1.2" />
+		<parameter name="wsdlPortType" value="CategoryServiceSoap" />
+		<parameter name="wsdlServiceElement" value="CategoryServiceSoapService" />
+		<parameter name="wsdlServicePort" value="Plugin_dishsstore_CategoryService" />
+		<parameter name="wsdlTargetNamespace" value="urn:http.service.irestads" />
+	</service>
+	<service name="Plugin_dishsstore_DishService" provider="java:RPC" style="rpc" use="encoded">
+		<arrayMapping xmlns:ns="urn:http.service.irestads" xmlns:cmp-ns="http://model.irestads" qname="ns:ArrayOf_tns2_DishSoap" type="java:irestads.model.DishSoap[]" innerType="cmp-ns:DishSoap" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"></arrayMapping>
+		<typeMapping xmlns:ns="http://model.irestads" qname="ns:DishSoap" type="java:irestads.model.DishSoap" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"></typeMapping>
+		<operation xmlns:operNS="urn:http.service.irestads" xmlns:rtns="http://model.irestads" name="createDish" qname="operNS:createDish" returnQName="createDishReturn" returnType="rtns:DishSoap" soapAction="">
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="dishName" type="tns:string"></parameter>
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="decription" type="tns:string"></parameter>
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="avatarImg" type="tns:string"></parameter>
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="detailImg" type="tns:string"></parameter>
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="detail" type="tns:string"></parameter>
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="referPrice" type="tns:int"></parameter>
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="avatarBaseCode" type="tns:string"></parameter>
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="detailBaseCode" type="tns:string"></parameter>
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="categoryId" type="tns:long"></parameter>
+		</operation>
+		<operation xmlns:operNS="urn:http.service.irestads" xmlns:rtns="http://model.irestads" name="deleteDish" qname="operNS:deleteDish" returnQName="deleteDishReturn" returnType="rtns:DishSoap" soapAction="">
+			<parameter xmlns:tns="http://model.irestads" qname="dish" type="tns:DishSoap"></parameter>
+		</operation>
+		<operation xmlns:operNS="urn:http.service.irestads" xmlns:rtns="urn:http.service.irestads" xmlns:tns2="http://model.irestads" name="findDishsByAvatarImg" qname="operNS:findDishsByAvatarImg" returnQName="findDishsByAvatarImgReturn" returnType="rtns:ArrayOf_tns2_DishSoap" returnItemType="tns2:DishSoap" soapAction="">
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="avatarImg" type="tns:string"></parameter>
+		</operation>
+		<operation xmlns:operNS="urn:http.service.irestads" xmlns:rtns="urn:http.service.irestads" xmlns:tns2="http://model.irestads" name="findDishsByCategoryName" qname="operNS:findDishsByCategoryName" returnQName="findDishsByCategoryNameReturn" returnType="rtns:ArrayOf_tns2_DishSoap" returnItemType="tns2:DishSoap" soapAction="">
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="categoryName" type="tns:string"></parameter>
+		</operation>
+		<operation xmlns:operNS="urn:http.service.irestads" xmlns:rtns="urn:http.service.irestads" xmlns:tns2="http://model.irestads" name="findDishsByDecription" qname="operNS:findDishsByDecription" returnQName="findDishsByDecriptionReturn" returnType="rtns:ArrayOf_tns2_DishSoap" returnItemType="tns2:DishSoap" soapAction="">
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="decription" type="tns:string"></parameter>
+		</operation>
+		<operation xmlns:operNS="urn:http.service.irestads" xmlns:rtns="urn:http.service.irestads" xmlns:tns2="http://model.irestads" name="findDishsByDetailImg" qname="operNS:findDishsByDetailImg" returnQName="findDishsByDetailImgReturn" returnType="rtns:ArrayOf_tns2_DishSoap" returnItemType="tns2:DishSoap" soapAction="">
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="detailImg" type="tns:string"></parameter>
+		</operation>
+		<operation xmlns:operNS="urn:http.service.irestads" xmlns:rtns="urn:http.service.irestads" xmlns:tns2="http://model.irestads" name="findDishsByDetail" qname="operNS:findDishsByDetail" returnQName="findDishsByDetailReturn" returnType="rtns:ArrayOf_tns2_DishSoap" returnItemType="tns2:DishSoap" soapAction="">
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="detail" type="tns:string"></parameter>
+		</operation>
+		<operation xmlns:operNS="urn:http.service.irestads" xmlns:rtns="http://model.irestads" name="findDishsById" qname="operNS:findDishsById" returnQName="findDishsByIdReturn" returnType="rtns:DishSoap" soapAction="">
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="dishId" type="tns:long"></parameter>
+		</operation>
+		<operation xmlns:operNS="urn:http.service.irestads" xmlns:rtns="urn:http.service.irestads" xmlns:tns2="http://model.irestads" name="findDishsByName" qname="operNS:findDishsByName" returnQName="findDishsByNameReturn" returnType="rtns:ArrayOf_tns2_DishSoap" returnItemType="tns2:DishSoap" soapAction="">
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="dishName" type="tns:string"></parameter>
+		</operation>
+		<operation xmlns:operNS="urn:http.service.irestads" xmlns:rtns="urn:http.service.irestads" xmlns:tns2="http://model.irestads" name="findDishsByReferPrice" qname="operNS:findDishsByReferPrice" returnQName="findDishsByReferPriceReturn" returnType="rtns:ArrayOf_tns2_DishSoap" returnItemType="tns2:DishSoap" soapAction="">
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="referPrice" type="tns:int"></parameter>
+		</operation>
+		<operation xmlns:operNS="urn:http.service.irestads" xmlns:rtns="urn:http.service.irestads" xmlns:tns2="http://model.irestads" name="findDishsBySomeField" qname="operNS:findDishsBySomeField" returnQName="findDishsBySomeFieldReturn" returnType="rtns:ArrayOf_tns2_DishSoap" returnItemType="tns2:DishSoap" soapAction="">
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="dishId" type="tns:long"></parameter>
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="referPrice" type="tns:int"></parameter>
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="dishName" type="tns:string"></parameter>
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="decription" type="tns:string"></parameter>
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="avatarImg" type="tns:string"></parameter>
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="detailImg" type="tns:string"></parameter>
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="detail" type="tns:string"></parameter>
+		</operation>
+		<operation xmlns:operNS="urn:http.service.irestads" xmlns:rtns="urn:http.service.irestads" xmlns:tns2="http://model.irestads" name="getAllDishs" qname="operNS:getAllDishs" returnQName="getAllDishsReturn" returnType="rtns:ArrayOf_tns2_DishSoap" returnItemType="tns2:DishSoap" soapAction=""> </operation>
+		<operation xmlns:operNS="urn:http.service.irestads" xmlns:rtns="urn:http.service.irestads" xmlns:tns2="http://model.irestads" name="getDishsByCategory" qname="operNS:getDishsByCategory" returnQName="getDishsByCategoryReturn" returnType="rtns:ArrayOf_tns2_DishSoap" returnItemType="tns2:DishSoap" soapAction="">
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="categoryId" type="tns:long"></parameter>
+		</operation>
+		<operation xmlns:operNS="urn:http.service.irestads" xmlns:rtns="http://model.irestads" name="updateDish" qname="operNS:updateDish" returnQName="updateDishReturn" returnType="rtns:DishSoap" soapAction="">
+			<parameter xmlns:tns="http://model.irestads" qname="dish" type="tns:DishSoap"></parameter>
+		</operation>
+		<parameter name="allowedMethods" value="createDish deleteDish findDishsByAvatarImg findDishsByCategoryName findDishsByDecription findDishsByDetail findDishsByDetailImg findDishsById findDishsByName findDishsByReferPrice findDishsBySomeField getAllDishs getDishsByCategory updateDish" />
+		<parameter name="className" value="irestads.service.http.DishServiceSoap" />
+		<parameter name="schemaUnqualified" value="http://model.irestads,urn:http.service.irestads" />
+		<parameter name="typeMappingVersion" value="1.2" />
+		<parameter name="wsdlPortType" value="DishServiceSoap" />
+		<parameter name="wsdlServiceElement" value="DishServiceSoapService" />
+		<parameter name="wsdlServicePort" value="Plugin_dishsstore_DishService" />
+		<parameter name="wsdlTargetNamespace" value="urn:http.service.irestads" />
+	</service>
+	<service name="Plugin_dishsstore_MenuLineService" provider="java:RPC" style="rpc" use="encoded">
+		<arrayMapping xmlns:ns="urn:http.service.irestads" xmlns:cmp-ns="http://model.irestads" qname="ns:ArrayOf_tns2_MenuLineSoap" type="java:irestads.model.MenuLineSoap[]" innerType="cmp-ns:MenuLineSoap" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"></arrayMapping>
+		<typeMapping xmlns:ns="http://model.irestads" qname="ns:MenuLineSoap" type="java:irestads.model.MenuLineSoap" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"></typeMapping>
+		<operation xmlns:operNS="urn:http.service.irestads" xmlns:rtns="http://model.irestads" name="deleteMenuLine" qname="operNS:deleteMenuLine" returnQName="deleteMenuLineReturn" returnType="rtns:MenuLineSoap" soapAction="">
+			<parameter xmlns:tns="http://model.irestads" qname="ml" type="tns:MenuLineSoap"></parameter>
+		</operation>
+		<operation xmlns:operNS="urn:http.service.irestads" xmlns:rtns="http://model.irestads" name="findMenuLineById" qname="operNS:findMenuLineById" returnQName="findMenuLineByIdReturn" returnType="rtns:MenuLineSoap" soapAction="">
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="menuLineId" type="tns:long"></parameter>
+		</operation>
+		<operation xmlns:operNS="urn:http.service.irestads" xmlns:rtns="urn:http.service.irestads" xmlns:tns2="http://model.irestads" name="findMenuLinesByDAvatarImg" qname="operNS:findMenuLinesByDAvatarImg" returnQName="findMenuLinesByDAvatarImgReturn" returnType="rtns:ArrayOf_tns2_MenuLineSoap" returnItemType="tns2:MenuLineSoap" soapAction="">
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="avartarImg" type="tns:string"></parameter>
+		</operation>
+		<operation xmlns:operNS="urn:http.service.irestads" xmlns:rtns="urn:http.service.irestads" xmlns:tns2="http://model.irestads" name="findMenuLinesByDCategoryName" qname="operNS:findMenuLinesByDCategoryName" returnQName="findMenuLinesByDCategoryNameReturn" returnType="rtns:ArrayOf_tns2_MenuLineSoap" returnItemType="tns2:MenuLineSoap" soapAction="">
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="categoryName" type="tns:string"></parameter>
+		</operation>
+		<operation xmlns:operNS="urn:http.service.irestads" xmlns:rtns="urn:http.service.irestads" xmlns:tns2="http://model.irestads" name="findMenuLinesByDDecription" qname="operNS:findMenuLinesByDDecription" returnQName="findMenuLinesByDDecriptionReturn" returnType="rtns:ArrayOf_tns2_MenuLineSoap" returnItemType="tns2:MenuLineSoap" soapAction="">
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="decription" type="tns:string"></parameter>
+		</operation>
+		<operation xmlns:operNS="urn:http.service.irestads" xmlns:rtns="urn:http.service.irestads" xmlns:tns2="http://model.irestads" name="findMenuLinesByDDetailImg" qname="operNS:findMenuLinesByDDetailImg" returnQName="findMenuLinesByDDetailImgReturn" returnType="rtns:ArrayOf_tns2_MenuLineSoap" returnItemType="tns2:MenuLineSoap" soapAction="">
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="detailImg" type="tns:string"></parameter>
+		</operation>
+		<operation xmlns:operNS="urn:http.service.irestads" xmlns:rtns="urn:http.service.irestads" xmlns:tns2="http://model.irestads" name="findMenuLinesByDDetail" qname="operNS:findMenuLinesByDDetail" returnQName="findMenuLinesByDDetailReturn" returnType="rtns:ArrayOf_tns2_MenuLineSoap" returnItemType="tns2:MenuLineSoap" soapAction="">
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="detail" type="tns:string"></parameter>
+		</operation>
+		<operation xmlns:operNS="urn:http.service.irestads" xmlns:rtns="urn:http.service.irestads" xmlns:tns2="http://model.irestads" name="findMenuLinesByDName" qname="operNS:findMenuLinesByDName" returnQName="findMenuLinesByDNameReturn" returnType="rtns:ArrayOf_tns2_MenuLineSoap" returnItemType="tns2:MenuLineSoap" soapAction="">
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="dishName" type="tns:string"></parameter>
+		</operation>
+		<operation xmlns:operNS="urn:http.service.irestads" xmlns:rtns="urn:http.service.irestads" xmlns:tns2="http://model.irestads" name="findMenuLinesByDReferPrice" qname="operNS:findMenuLinesByDReferPrice" returnQName="findMenuLinesByDReferPriceReturn" returnType="rtns:ArrayOf_tns2_MenuLineSoap" returnItemType="tns2:MenuLineSoap" soapAction="">
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="price" type="tns:int"></parameter>
+		</operation>
+		<operation xmlns:operNS="urn:http.service.irestads" xmlns:rtns="urn:http.service.irestads" xmlns:tns2="http://model.irestads" name="findMenuLinesByDishId" qname="operNS:findMenuLinesByDishId" returnQName="findMenuLinesByDishIdReturn" returnType="rtns:ArrayOf_tns2_MenuLineSoap" returnItemType="tns2:MenuLineSoap" soapAction="">
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="dishId" type="tns:long"></parameter>
+		</operation>
+		<operation xmlns:operNS="urn:http.service.irestads" xmlns:rtns="urn:http.service.irestads" xmlns:tns2="http://model.irestads" name="findMenuLinesByNumOfDish" qname="operNS:findMenuLinesByNumOfDish" returnQName="findMenuLinesByNumOfDishReturn" returnType="rtns:ArrayOf_tns2_MenuLineSoap" returnItemType="tns2:MenuLineSoap" soapAction="">
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="numOfDish" type="tns:int"></parameter>
+		</operation>
+		<operation xmlns:operNS="urn:http.service.irestads" xmlns:rtns="urn:http.service.irestads" xmlns:tns2="http://model.irestads" name="findMenuLinesByStatus" qname="operNS:findMenuLinesByStatus" returnQName="findMenuLinesByStatusReturn" returnType="rtns:ArrayOf_tns2_MenuLineSoap" returnItemType="tns2:MenuLineSoap" soapAction="">
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="status" type="tns:boolean"></parameter>
+		</operation>
+		<operation xmlns:operNS="urn:http.service.irestads" xmlns:rtns="urn:http.service.irestads" xmlns:tns2="http://model.irestads" name="getAllMenuLine" qname="operNS:getAllMenuLine" returnQName="getAllMenuLineReturn" returnType="rtns:ArrayOf_tns2_MenuLineSoap" returnItemType="tns2:MenuLineSoap" soapAction=""> </operation>
+		<operation xmlns:operNS="urn:http.service.irestads" xmlns:rtns="http://model.irestads" name="setDishForMenuLine" qname="operNS:setDishForMenuLine" returnQName="setDishForMenuLineReturn" returnType="rtns:MenuLineSoap" soapAction="">
+			<parameter xmlns:tns="http://model.irestads" qname="menuLine" type="tns:MenuLineSoap"></parameter>
+		</operation>
+		<operation xmlns:operNS="urn:http.service.irestads" xmlns:rtns="http://model.irestads" name="updateMenuLine" qname="operNS:updateMenuLine" returnQName="updateMenuLineReturn" returnType="rtns:MenuLineSoap" soapAction="">
+			<parameter xmlns:tns="http://model.irestads" qname="ml" type="tns:MenuLineSoap"></parameter>
+		</operation>
+		<parameter name="allowedMethods" value="deleteMenuLine findMenuLineById findMenuLinesByDAvatarImg findMenuLinesByDCategoryName findMenuLinesByDDecription findMenuLinesByDDetail findMenuLinesByDDetailImg findMenuLinesByDName findMenuLinesByDReferPrice findMenuLinesByDishId findMenuLinesByNumOfDish findMenuLinesByStatus getAllMenuLine setDishForMenuLine updateMenuLine" />
+		<parameter name="className" value="irestads.service.http.MenuLineServiceSoap" />
+		<parameter name="schemaUnqualified" value="http://model.irestads,urn:http.service.irestads" />
+		<parameter name="typeMappingVersion" value="1.2" />
+		<parameter name="wsdlPortType" value="MenuLineServiceSoap" />
+		<parameter name="wsdlServiceElement" value="MenuLineServiceSoapService" />
+		<parameter name="wsdlServicePort" value="Plugin_dishsstore_MenuLineService" />
+		<parameter name="wsdlTargetNamespace" value="urn:http.service.irestads" />
+	</service>
+	<service name="Plugin_dishsstore_MenuService" provider="java:RPC" style="rpc" use="encoded">
+		<parameter name="allowedMethods" value="*" />
+		<parameter name="className" value="irestads.service.http.MenuServiceSoap" />
+		<parameter name="typeMappingVersion" value="1.2" />
+		<parameter name="wsdlPortType" value="MenuServiceSoap" />
+		<parameter name="wsdlServiceElement" value="MenuServiceSoapService" />
+		<parameter name="wsdlServicePort" value="Plugin_dishsstore_MenuService" />
+		<parameter name="wsdlTargetNamespace" value="urn:http.service.irestads" />
+	</service>
+	<service name="Plugin_dishsstore_UVersionService" provider="java:RPC" style="rpc" use="encoded">
+		<parameter name="allowedMethods" value="*" />
+		<parameter name="className" value="irestads.service.http.UVersionServiceSoap" />
+		<parameter name="typeMappingVersion" value="1.2" />
+		<parameter name="wsdlPortType" value="UVersionServiceSoap" />
+		<parameter name="wsdlServiceElement" value="UVersionServiceSoapService" />
+		<parameter name="wsdlServicePort" value="Plugin_dishsstore_UVersionService" />
+		<parameter name="wsdlTargetNamespace" value="urn:http.service.irestads" />
+	</service>
+</deployment>

@@ -21,6 +21,10 @@ import com.liferay.portal.kernel.util.ReferenceRegistry;
  * @author Be
  */
 public class DishFinderUtil {
+	public static java.util.List<irestads.model.Dish> findDishNotInMenu() {
+		return getFinder().findDishNotInMenu();
+	}
+
 	public static java.util.List<irestads.model.Dish> findDishsByName(
 		java.lang.String dishName) {
 		return getFinder().findDishsByName(dishName);

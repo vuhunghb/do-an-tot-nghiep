@@ -1,0 +1,315 @@
+<?xml version="1.0"?>
+
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	<script type="text/javascript">  
+    function handleLoginRequest(xhr, status, args) {  
+        if(args.validationFailed) {  
+            jQuery('#addDialog').effect("shake", { times:3 }, 100);
+           // addMenuLineDlg.show(); 
+        } else {  
+        	addMenuLineDlg.hide();  
+           // jQuery('#loginLink').fadeOut();  
+        }  
+    }  
+    function nextbutton(xhr, status, args) {  
+        
+    }  
+</script>
+	<h:head />
+	<h:body>
+
+		<h:form id="formTable">
+		   
+			<p:growl id="messages" showDetail="true" life="3000" />
+			<p:contextMenu for="menuLineTable">
+				<p:menuitem value="Chi tiết" update="display" icon="ui-icon-search"
+					oncomplete="dishDialog.show()" />
+				<p:menuitem value="Xóa"
+					update=":formTable:menuLineTable :formTable:messages :fAddDishFromStore:addFromDishStoreDlg"
+					icon="ui-icon-close" actionListener="#{menuBeans.deleteMenuLine()}" />
+			</p:contextMenu>
+			
+
+			<h:panelGrid columns="7">
+				<h:outputText value="Từ khóa " />
+				<p:selectOneMenu id="searchType" value="#{menuBeans.searchType}"
+					effect="fold">
+					<f:selectItem itemLabel="Select One" itemValue="2" />
+					<f:selectItems value="#{menuBeans.searchTypesValue}" />
+				</p:selectOneMenu>
+				<h:outputText value="Nội dung" />
+				<h:inputText id="keyWord" value="#{menuBeans.keyWords}" />
+
+				<p:commandButton value="Tìm Kiến" update="@form"
+					action="#{menuBeans.search}" />
+				<p:commandButton id="showAddDlgButton" type="button"
+					value="Thêm Mới Món Ăn" onclick="addMenuLineDlg.show()" />
+				<p:commandButton id="showAddDlgDSButton" type="button"
+					value="Lấy từ kho " onclick="storeDishsDlg.show()" />
+
+			</h:panelGrid>
+
+			<p:dataTable id="menuLineTable" var="ml"
+				value="#{menuBeans.menuLines}" paginator="true" rows="10"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="1,2,5,10,15" sortBy="#{ml.menuLineId}"
+				rowKey="#{ml.menuLineId}" selectionMode="single"
+				selection="#{menuBeans.menuLineSelected}" editable="true">
+				<p:ajax event="rowEdit" listener="#{menuBeans.onEdit}"
+					update=":formTable:menuLineTable :formTable:messages" />
+				<p:columnGroup type="header">
+					<p:row>
+						<p:column width="50" headerText="Mã" />
+						<p:column width="100" headerText="Tên" />
+						<p:column headerText="Mô tả" />
+						<p:column headerText="Giá TK" />
+						<p:column headerText="Loại" />
+						<p:column headerText="Số lượng"></p:column>
+						<p:column headerText="Trạng thái"></p:column>
+						<p:column headerText="Chỉnh sửa" />
+					</p:row>
+				</p:columnGroup>
+				<p:column>
+					<h:outputText value="#{ml.dish.dishId}" />
+				</p:column>
+				<p:column>
+					<h:outputText value="#{ml.dish.dishName}" />
+				</p:column>
+				<p:column>
+					<h:outputText value="#{ml.dish.decription}" />
+				</p:column>
+				<p:column>
+					<h:outputText value="#{ml.dish.referPrice}" />
+				</p:column>
+				<p:column>
+					<h:outputText value="#{ml.dish.categoryId}" />
+					
+				</p:column>
+				<p:column>
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{ml.numOfDish}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{ml.numOfDish}" label="Tên Món ăn" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				<p:column>
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{menuBeans.parseBooleanToShow(ml.status)}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:selectOneMenu value="#{ml.status}" style="width:60px">
+
+								<f:selectItem itemLabel="Còn" itemValue="true" />
+								<f:selectItem itemLabel="Hết" itemValue="false" />
+							</p:selectOneMenu>
+
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				<p:column>
+					<p:rowEditor />
+				</p:column>
+			</p:dataTable>
+			<p:dialog header="Thông tin chi tiết" widgetVar="dishDialog"
+				resizable="false" width="200" showEffect="clip" hideEffect="fold"
+				id="viewDialog">
+
+				<h:panelGrid id="display" columns="2" cellpadding="4">
+					<h:outputText value="MaMA:" />
+					<h:outputText style="font-weight:bold"
+						value="#{menuBeans.menuLineSelected.dish.dishId}" />
+
+					<h:outputText value="Tên:" />
+					<h:outputText style="font-weight:bold"
+						value="#{menuBeans.menuLineSelected.dish.dishName}" />
+
+					<h:outputText value="Loai" />
+					<h:outputText style="font-weight:bold"
+						value="#{menuBeans.menuLineSelected.dish.categoryId}" />
+
+					<h:outputText value="Giá tha khảo:" />
+					<h:outputText style="font-weight:bold"
+						value="#{menuBeans.menuLineSelected.dish.referPrice}" />
+
+					<h:outputText value="Mô tả:" />
+					<h:outputText style="font-weight:bold"
+						value="#{menuBeans.menuLineSelected.dish.decription}" />
+					<h:outputText value="Ảnh đại diện:" />
+					<h:outputText style="font-weight:bold"
+						value="#{menuBeans.menuLineSelected.dish.avatarImg}" />
+					<h:outputText value="Mô tả:" />
+					<h:outputText style="font-weight:bold"
+						value="#{menuBeans.menuLineSelected.dish.detailImg}" />
+					<h:outputText value="Chi tiết:" />
+					<h:outputText style="font-weight:bold"
+						value="#{menuBeans.menuLineSelected.dish.detail}" />
+					<h:outputText value="Số lượng:" />
+					<h:outputText style="font-weight:bold"
+						value="#{menuBeans.menuLineSelected.numOfDish}" />
+					<h:outputText value="Trạng thái:" />
+					<h:outputText style="font-weight:bold"
+						value="#{menuBeans.parseBooleanToShow(menuBeans.menuLineSelected.status)}" />
+
+				</h:panelGrid>
+			</p:dialog>
+
+
+		</h:form>
+		<!-- Dialog add menuLine -->
+		<h:form id="formAdd">
+
+			<p:dialog header="Thêm mới Món ăn" widgetVar="addMenuLineDlg"
+				resizable="false" width="500" showEffect="clip" hideEffect="fold"
+				id="addDialog">
+				<h:panelGrid id="pAdd" columns="3">
+
+					<h:outputLabel for="dishNameAdd" value="Tên: (*)" />
+					<p:inputText id="dishNameAdd" size="47"
+						value="#{menuBeans.menuLineAdd.dish.dishName}" required="true"
+						label="User Name" />
+					<p:message id="msgDishName" for="dishNameAdd" style="color:red"
+						display="icon" />
+		Loại: 
+		<p:selectOneMenu value="#{menuBeans.menuLineAdd.dish.categoryId}"
+						id="distTypeAdd" required="true" label="Category">
+						<f:selectItem itemLabel="chọn" />
+						<f:selectItems value="#{categoryBeans.categorys}" var="category"
+							itemLabel="#{category.categoryName}"
+							itemValue="#{category.categoryId}" />
+					</p:selectOneMenu>
+					<p:message for="distTypeAdd" style="color:red" display="icon"></p:message>
+		Mô Tả (*): 
+		<p:inputTextarea id="dishDecriptionAdd" style="width:250px"
+						value="#{menuBeans.menuLineAdd.dish.decription}" required="true"
+						label="Decription"></p:inputTextarea>
+					<p:message for="dishDecriptionAdd" style="color:red" display="icon"></p:message>
+		
+		Hình đại diện: 
+	<!--  	<p:inputText id="avatarImgAdd" size="47"
+				value="#{menuBeans.menuLineAdd.dish.avatarImg}" required="false"
+				label="Avatar Img" />
+				
+				-->
+
+					<p:fileUpload id="avatarImgAdd"
+						fileUploadListener="#{fileUploadController.uploadImg}"
+						mode="advanced" update=":formTable:messages" sizeLimit="100000"
+						allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
+					<p:message for="avatarImgAdd" style="color:red"></p:message>
+		Hình chi tiết: 
+		<p:inputText id="detailImgAdd" size="47"
+						value="#{menuBeans.menuLineAdd.dish.detailImg}" required="false"
+						label="Detail Img" />
+					<p:message for="detailImgAdd" style="color:red"></p:message>
+		Giá tham khảo: 
+		<p:inputText id="referPriceAdd" size="47"
+						value="#{menuBeans.menuLineAdd.dish.referPrice}" required="false"
+						label="Refer Price" />
+					<p:message for="referPriceAdd" style="color:red"></p:message>
+			Chi tiết: 
+		<p:inputTextarea id="detailAdd"
+						value="#{menuBeans.menuLineAdd.dish.detail}" style="width:250px"
+						required="false" label="Detail" />
+					<p:message for="detailAdd" style="color:red"></p:message>
+					Số lượng *: 
+		<p:inputText id="numOfDishAdd"
+						value="#{menuBeans.menuLineAdd.numOfDish}" size="47"
+						required="true" label="Detail" />
+					<p:message for="numOfDishAdd" style="color:red"></p:message>
+
+				</h:panelGrid>
+				<p:commandButton action="#{menuBeans.addMenuLine}" value="Lưu"
+					update=":formTable:menuLineTable :formTable:messages pAdd">
+				</p:commandButton>
+				<p:commandButton value="Thoát" onclick="addMenuLineDlg.hide()">
+				</p:commandButton>
+
+			</p:dialog>
+		</h:form>
+		<!-- dialog for dishstore -->
+		
+		<h:form id="fAddDishFromStore">
+		
+			<p:dialog header="Thêm mới Món ăn" widgetVar="storeDishsDlg"
+				resizable="false" width="700" showEffect="clip" hideEffect="fold"
+				id="addFromDishStoreDlg">
+			 <p:messages id="msgs"/>  
+				<p:growl id="growl" sticky="true" showDetail="true"/>  
+  
+    			<p:wizard widgetVar="wiz"  
+            flowListener="#{menuBeans.onFlowProcess}">
+             <p:tab id="mainDishsTab" title="Danh sách">  
+				
+				<p:dataTable id="dishNotInMLTable" var="dish" value="#{menuBeans.dishsNotInML}"
+					scrollable="true" scrollHeight="100"
+					frozenRows="#{menuBeans.dishsNotInML}"  rowKey="#{dish.dishId}" selection="#{menuBeans.selectedDishs}" selectionMode="multiple">
+					<p:column headerText="Mã" width="100">
+						<h:outputText value="#{dish.dishId}" />
+					</p:column>
+					<p:column headerText="Tên" width="125">
+						<h:outputText value="#{dish.dishName}" />
+					</p:column>
+
+					<p:column headerText="Giá" width="125">
+						<h:outputText value="#{dish.referPrice}" />
+					</p:column>
+
+					<p:column headerText="Mô Tả" width="125">
+						<h:outputText value="#{dish.decription}" />
+					</p:column>
+
+					<p:column headerText="Loại" width="125">
+						<h:outputText value="#{dish.categoryId}" />
+					</p:column>
+
+				</p:dataTable>
+				</p:tab>
+				 <p:tab id="choosenDish" title="Danh sách đã chọn">  
+				<p:dataTable id="dishsSelectedTable" var="ml" value="#{menuBeans.candidateMenuLine}"
+					scrollable="true" scrollHeight="100"
+					frozenRows="#{menuBeans.candidateMenuLine}"  rowKey="#{ml.dish.dishId}" >
+					<p:column headerText="Mã" width="100">
+						<h:outputText value="#{ml.dish.dishId}" />
+					</p:column>
+					<p:column headerText="Tên" width="125">
+						<h:outputText value="#{ml.dish.dishName}" />
+					</p:column>
+
+					<p:column headerText="Giá" width="125">
+						<h:outputText value="#{ml.dish.referPrice}" />
+					</p:column>
+
+					<p:column headerText="Mô Tả" width="125">
+						<h:outputText value="#{ml.dish.decription}" />
+					</p:column>
+
+					<p:column headerText="Loại" width="125">
+						<h:outputText value="#{ml.dish.categoryId}" />
+					</p:column>
+					<p:column headerText="Số lượng" width="125">
+						<h:inputText value="#{ml.numOfDish}"  required="true">
+						 <f:validateLongRange maximum="150" minimum="1" />
+						</h:inputText>
+					</p:column>
+
+				</p:dataTable>
+				<p:commandButton action="#{menuBeans.addMenuLines()}" value="Lưu"
+					update=":formTable:menuLineTable :formTable:messages addFromDishStoreDlg" oncomplete="storeDishsDlg.hide()">
+				</p:commandButton>
+				<p:commandButton value="Thoát" onclick="storeDishsDlg.hide()">
+				</p:commandButton>
+				 </p:tab>
+				</p:wizard>
+			</p:dialog>
+		</h:form>
+	</h:body>
+</f:view>
