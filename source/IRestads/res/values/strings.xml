@@ -45,4 +45,18 @@
         <item>Cập nhật</item>
     </string-array>
 
+    <string name="settings_update_title">THIẾT LẬP CẬP NHẬT</string>
+    <string name="settings_update_current_version">"Phiên bản hiển tại : "</string>
+    <string name="settings_update_auto_title">CẬP NHẬT TỰ ĐỘNG</string>
+    <string name="settings_update_manual_title">CẬP NHẬT BẰNG TAY</string>
+    <string name="settings_update_newest_version">"Phiên bản mới nhất : "</string>
+    <string name="settings_update_auto_message_ok">"Đã cập nhật thiết lập mới"</string>    
+    <string name="settings_update_auto_message_cancel">"Đã hủy thiết lập mới"</string>
+    <string name="settings_update_manual_confim_title">"Xác nhận cập nhật bằng tay"</string>
+    <string name="settings_update_manual_confim_message">"Bạn có chắc chắn muốn cập nhật phiên bản này ?"</string>
+    
+    <string name="btn_stoge_label">Lưu</string>
+    <string name="btn_canel">Hủy</string>
+    <string name="btn_update">Cập nhật</string>
+
 </resources>
