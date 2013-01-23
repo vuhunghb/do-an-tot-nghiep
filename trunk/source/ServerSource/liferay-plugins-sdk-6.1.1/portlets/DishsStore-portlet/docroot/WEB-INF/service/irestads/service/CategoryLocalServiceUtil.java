@@ -274,6 +274,10 @@ public class CategoryLocalServiceUtil {
 		return getService().createCategory(categoryName);
 	}
 
+	public static int countCategoryById(long categoryId) {
+		return getService().countCategoryById(categoryId);
+	}
+
 	public static java.util.List<irestads.model.Category> getAllCategorys() {
 		return getService().getAllCategorys();
 	}

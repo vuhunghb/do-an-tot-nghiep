@@ -49,12 +49,18 @@ public class DishServiceImpl extends DishServiceBaseImpl {
 	// tao lai phuong thuc y chang local nhung chi cac phuong thuc can de goi tu xa (Remote calling)
 	//ko viet gi ca chi goi phuong thuc tu ServiceLocal
 //	
-	public Dish createDish(String dishName,String decription, String avatarImg, String detailImg, String detail, int referPrice,long categoryId){
+	public Dish createDish(String dishName,String decription, String avatarImg, String detailImg, String detail, int referPrice,String avatarBaseCode,String detailBaseCode,long categoryId ){
 		
 		// sau nay cho nay se de kiem tra authentication..sau nay thoi
 		// vay thi DisLocalServiceUtil dc sinh ra tu DishLocalServiceImpl.
 		// ServiceImpl chi xai kieu nay thoi nha.. ok ?ok
-		return DishLocalServiceUtil.createDish(dishName, decription, avatarImg, detailImg, detail, referPrice,categoryId);
+		return DishLocalServiceUtil.createDish(dishName, decription, avatarImg, detailImg, detail, referPrice,avatarBaseCode,detailBaseCode,categoryId);
+	}
+	public Dish createDish(Dish d) {
+		return DishLocalServiceUtil.createDish(d);
+	}
+	public List<Dish> findDishNotInMenu() {
+		return DishLocalServiceUtil.findDishNotInMenu();
 	}
 	public List<Dish> getAllDishs(){
 		return DishLocalServiceUtil.getAllDishs();
@@ -110,5 +116,6 @@ public class DishServiceImpl extends DishServiceBaseImpl {
 	public List<Dish> findDishsBySomeField(long dishId,int referPrice,String dishName, String decription, String avatarImg,String detailImg, String detail) {
 		return DishLocalServiceUtil.findDishsBySomeField(dishId, referPrice, dishName, decription, avatarImg, detailImg, detail);
 	}
+	
 
 }

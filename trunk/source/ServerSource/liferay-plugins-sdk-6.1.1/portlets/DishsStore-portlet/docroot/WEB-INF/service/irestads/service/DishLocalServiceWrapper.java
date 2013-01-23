@@ -261,9 +261,19 @@ public class DishLocalServiceWrapper implements DishLocalService,
 	public irestads.model.Dish createDish(java.lang.String dishName,
 		java.lang.String decription, java.lang.String avatarImg,
 		java.lang.String detailImg, java.lang.String detail, int referPrice,
+		java.lang.String avatarBaseCode, java.lang.String detailBaseCode,
 		long categoryId) {
 		return _dishLocalService.createDish(dishName, decription, avatarImg,
-			detailImg, detail, referPrice, categoryId);
+			detailImg, detail, referPrice, avatarBaseCode, detailBaseCode,
+			categoryId);
+	}
+
+	public irestads.model.Dish createDish(irestads.model.Dish d) {
+		return _dishLocalService.createDish(d);
+	}
+
+	public java.util.List<irestads.model.Dish> findDishNotInMenu() {
+		return _dishLocalService.findDishNotInMenu();
 	}
 
 	public java.util.List<irestads.model.Dish> getAllDishs() {

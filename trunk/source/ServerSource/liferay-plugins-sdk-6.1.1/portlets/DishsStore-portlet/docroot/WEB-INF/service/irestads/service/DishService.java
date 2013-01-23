@@ -67,7 +67,12 @@ public interface DishService extends BaseService, InvokableService {
 	public irestads.model.Dish createDish(java.lang.String dishName,
 		java.lang.String decription, java.lang.String avatarImg,
 		java.lang.String detailImg, java.lang.String detail, int referPrice,
+		java.lang.String avatarBaseCode, java.lang.String detailBaseCode,
 		long categoryId);
+
+	public irestads.model.Dish createDish(irestads.model.Dish d);
+
+	public java.util.List<irestads.model.Dish> findDishNotInMenu();
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public java.util.List<irestads.model.Dish> getAllDishs();

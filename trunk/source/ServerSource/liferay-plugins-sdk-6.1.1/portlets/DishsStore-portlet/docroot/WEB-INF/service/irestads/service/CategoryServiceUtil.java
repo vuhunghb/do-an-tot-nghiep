@@ -62,6 +62,10 @@ public class CategoryServiceUtil {
 		return getService().invokeMethod(name, parameterTypes, arguments);
 	}
 
+	public static int countCategoryById(long categoryId) {
+		return getService().countCategoryById(categoryId);
+	}
+
 	public static irestads.model.Category createCategory(
 		java.lang.String categoryName) {
 		return getService().createCategory(categoryName);

@@ -243,6 +243,8 @@ public interface CategoryLocalService extends BaseLocalService,
 
 	public irestads.model.Category createCategory(java.lang.String categoryName);
 
+	public int countCategoryById(long categoryId);
+
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public java.util.List<irestads.model.Category> getAllCategorys();
 

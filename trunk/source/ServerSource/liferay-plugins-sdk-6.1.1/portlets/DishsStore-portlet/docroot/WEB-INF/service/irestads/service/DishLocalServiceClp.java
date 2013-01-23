@@ -108,52 +108,61 @@ public class DishLocalServiceClp implements DishLocalService {
 
 		_methodParameterTypes19 = new String[] {
 				"java.lang.String", "java.lang.String", "java.lang.String",
-				"java.lang.String", "java.lang.String", "int", "long"
+				"java.lang.String", "java.lang.String", "int",
+				"java.lang.String", "java.lang.String", "long"
 			};
 
-		_methodName20 = "getAllDishs";
+		_methodName20 = "createDish";
 
-		_methodParameterTypes20 = new String[] {  };
+		_methodParameterTypes20 = new String[] { "irestads.model.Dish" };
 
-		_methodName21 = "getDishsByCategory";
+		_methodName21 = "findDishNotInMenu";
 
-		_methodParameterTypes21 = new String[] { "long" };
+		_methodParameterTypes21 = new String[] {  };
 
-		_methodName22 = "findDishsById";
+		_methodName22 = "getAllDishs";
 
-		_methodParameterTypes22 = new String[] { "long" };
+		_methodParameterTypes22 = new String[] {  };
 
-		_methodName23 = "findDishsByReferPrice";
+		_methodName23 = "getDishsByCategory";
 
-		_methodParameterTypes23 = new String[] { "int" };
+		_methodParameterTypes23 = new String[] { "long" };
 
-		_methodName24 = "findDishsByCategoryName";
+		_methodName24 = "findDishsById";
 
-		_methodParameterTypes24 = new String[] { "java.lang.String" };
+		_methodParameterTypes24 = new String[] { "long" };
 
-		_methodName25 = "findDishsByName";
+		_methodName25 = "findDishsByReferPrice";
 
-		_methodParameterTypes25 = new String[] { "java.lang.String" };
+		_methodParameterTypes25 = new String[] { "int" };
 
-		_methodName26 = "findDishsByDecription";
+		_methodName26 = "findDishsByCategoryName";
 
 		_methodParameterTypes26 = new String[] { "java.lang.String" };
 
-		_methodName27 = "findDishsByAvatarImg";
+		_methodName27 = "findDishsByName";
 
 		_methodParameterTypes27 = new String[] { "java.lang.String" };
 
-		_methodName28 = "findDishsByDetailImg";
+		_methodName28 = "findDishsByDecription";
 
 		_methodParameterTypes28 = new String[] { "java.lang.String" };
 
-		_methodName29 = "findDishsByDetail";
+		_methodName29 = "findDishsByAvatarImg";
 
 		_methodParameterTypes29 = new String[] { "java.lang.String" };
 
-		_methodName30 = "findDishsBySomeField";
+		_methodName30 = "findDishsByDetailImg";
 
-		_methodParameterTypes30 = new String[] {
+		_methodParameterTypes30 = new String[] { "java.lang.String" };
+
+		_methodName31 = "findDishsByDetail";
+
+		_methodParameterTypes31 = new String[] { "java.lang.String" };
+
+		_methodName32 = "findDishsBySomeField";
+
+		_methodParameterTypes32 = new String[] {
 				"long", "int", "java.lang.String", "java.lang.String",
 				"java.lang.String", "java.lang.String", "java.lang.String"
 			};
@@ -680,6 +689,7 @@ public class DishLocalServiceClp implements DishLocalService {
 	public irestads.model.Dish createDish(java.lang.String dishName,
 		java.lang.String decription, java.lang.String avatarImg,
 		java.lang.String detailImg, java.lang.String detail, int referPrice,
+		java.lang.String avatarBaseCode, java.lang.String detailBaseCode,
 		long categoryId) {
 		Object returnObj = null;
 
@@ -699,6 +709,10 @@ public class DishLocalServiceClp implements DishLocalService {
 						
 					referPrice,
 						
+					ClpSerializer.translateInput(avatarBaseCode),
+						
+					ClpSerializer.translateInput(detailBaseCode),
+						
 					categoryId
 					});
 		}
@@ -717,12 +731,57 @@ public class DishLocalServiceClp implements DishLocalService {
 		return (irestads.model.Dish)ClpSerializer.translateOutput(returnObj);
 	}
 
-	public java.util.List<irestads.model.Dish> getAllDishs() {
+	public irestads.model.Dish createDish(irestads.model.Dish d) {
 		Object returnObj = null;
 
 		try {
 			returnObj = _invokableLocalService.invokeMethod(_methodName20,
-					_methodParameterTypes20, new Object[] {  });
+					_methodParameterTypes20,
+					new Object[] { ClpSerializer.translateInput(d) });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (irestads.model.Dish)ClpSerializer.translateOutput(returnObj);
+	}
+
+	public java.util.List<irestads.model.Dish> findDishNotInMenu() {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName21,
+					_methodParameterTypes21, new Object[] {  });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (java.util.List<irestads.model.Dish>)ClpSerializer.translateOutput(returnObj);
+	}
+
+	public java.util.List<irestads.model.Dish> getAllDishs() {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName22,
+					_methodParameterTypes22, new Object[] {  });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -744,8 +803,8 @@ public class DishLocalServiceClp implements DishLocalService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName21,
-					_methodParameterTypes21, new Object[] { categoryId });
+			returnObj = _invokableLocalService.invokeMethod(_methodName23,
+					_methodParameterTypes23, new Object[] { categoryId });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -766,8 +825,8 @@ public class DishLocalServiceClp implements DishLocalService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName22,
-					_methodParameterTypes22, new Object[] { dishId });
+			returnObj = _invokableLocalService.invokeMethod(_methodName24,
+					_methodParameterTypes24, new Object[] { dishId });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -789,8 +848,8 @@ public class DishLocalServiceClp implements DishLocalService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName23,
-					_methodParameterTypes23, new Object[] { referPrice });
+			returnObj = _invokableLocalService.invokeMethod(_methodName25,
+					_methodParameterTypes25, new Object[] { referPrice });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -812,8 +871,8 @@ public class DishLocalServiceClp implements DishLocalService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName24,
-					_methodParameterTypes24,
+			returnObj = _invokableLocalService.invokeMethod(_methodName26,
+					_methodParameterTypes26,
 					new Object[] { ClpSerializer.translateInput(categoryName) });
 		}
 		catch (Throwable t) {
@@ -836,8 +895,8 @@ public class DishLocalServiceClp implements DishLocalService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName25,
-					_methodParameterTypes25,
+			returnObj = _invokableLocalService.invokeMethod(_methodName27,
+					_methodParameterTypes27,
 					new Object[] { ClpSerializer.translateInput(dishName) });
 		}
 		catch (Throwable t) {
@@ -860,8 +919,8 @@ public class DishLocalServiceClp implements DishLocalService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName26,
-					_methodParameterTypes26,
+			returnObj = _invokableLocalService.invokeMethod(_methodName28,
+					_methodParameterTypes28,
 					new Object[] { ClpSerializer.translateInput(decription) });
 		}
 		catch (Throwable t) {
@@ -884,8 +943,8 @@ public class DishLocalServiceClp implements DishLocalService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName27,
-					_methodParameterTypes27,
+			returnObj = _invokableLocalService.invokeMethod(_methodName29,
+					_methodParameterTypes29,
 					new Object[] { ClpSerializer.translateInput(avatarImg) });
 		}
 		catch (Throwable t) {
@@ -908,8 +967,8 @@ public class DishLocalServiceClp implements DishLocalService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName28,
-					_methodParameterTypes28,
+			returnObj = _invokableLocalService.invokeMethod(_methodName30,
+					_methodParameterTypes30,
 					new Object[] { ClpSerializer.translateInput(detailImg) });
 		}
 		catch (Throwable t) {
@@ -932,8 +991,8 @@ public class DishLocalServiceClp implements DishLocalService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName29,
-					_methodParameterTypes29,
+			returnObj = _invokableLocalService.invokeMethod(_methodName31,
+					_methodParameterTypes31,
 					new Object[] { ClpSerializer.translateInput(detail) });
 		}
 		catch (Throwable t) {
@@ -958,8 +1017,8 @@ public class DishLocalServiceClp implements DishLocalService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName30,
-					_methodParameterTypes30,
+			returnObj = _invokableLocalService.invokeMethod(_methodName32,
+					_methodParameterTypes32,
 					new Object[] {
 						dishId,
 						
@@ -1052,4 +1111,8 @@ public class DishLocalServiceClp implements DishLocalService {
 	private String[] _methodParameterTypes29;
 	private String _methodName30;
 	private String[] _methodParameterTypes30;
+	private String _methodName31;
+	private String[] _methodParameterTypes31;
+	private String _methodName32;
+	private String[] _methodParameterTypes32;
 }

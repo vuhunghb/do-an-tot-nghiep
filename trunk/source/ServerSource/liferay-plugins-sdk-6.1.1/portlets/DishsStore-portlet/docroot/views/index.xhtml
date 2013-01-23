@@ -20,22 +20,14 @@
 	<h:head />
 	<h:body>
 		
-		<h:form id="form">
+		<h:form id="formTable"> 
 			<p:growl id="messages" showDetail="true" life="3000" />
 			<p:contextMenu for="dishTable">
 				<p:menuitem value="Chi tiết" update="display" icon="ui-icon-search"
 					oncomplete="dishDialog.show()" />
-				<p:menuitem value="Xóa" update=":form:dishTable :form:messages"
+				<p:menuitem value="Xóa" update=":formTable:dishTable :formTable:messages"
 					icon="ui-icon-close" actionListener="#{dishBeans.deleteDish()}" />
 			</p:contextMenu>
-			abc
-			<p:fileUpload id="avatarImgAdd"
-						fileUploadListener="#{fileUploadController.uploadImg}"
-						mode="advanced" update="messages" sizeLimit="100000"
-						allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
-					<p:message for="avatarImgAdd" style="color:red"></p:message>
- 			<p:graphicImage  id="reabcfreshMe" value="#{fileUploadController.scImg}" /> 
- 			
  			
 			<h:panelGrid columns="6">
 				<h:outputText value="Từ khóa " />
@@ -60,7 +52,7 @@
 				rowKey="#{dish.dishId}" selectionMode="single"
 				selection="#{dishBeans.dishSelected}" editable="true">
 				<p:ajax event="rowEdit" listener="#{dishBeans.onEdit}"
-					update=":form:dishTable :form:messages" />
+					update=":formTable:dishTable :formTable:messages" />
 				<p:columnGroup type="header">
 					<p:row>
 						<p:column width="50" headerText="Mã" />
@@ -143,7 +135,7 @@
 					<p:cellEditor>
 						<f:facet name="output">
 							<h:outputText
-								value="#{dishBeans.getCategoryNameByID(dish.categoryId)}" />
+								value="#{dish.categoryId}" />
 							<!-- value#{dish.categoryId}{dishBeans.getCategoryNameByID(dish.categoryId)}" -->
 						</f:facet>
 						<f:facet name="input">
@@ -195,10 +187,12 @@
 
 				</h:panelGrid>
 			</p:dialog>
-		</h:form>
-		<h:form id="addForm" enctype="multipart/form-data">
-			<p:growl id="messages" showDetail="true" />
+	
+		
+			</h:form>
 			<!-- Dialog add dish -->
+			<h:form id="formAdd"> 
+			
 			<p:dialog header="Thêm Món ăn" widgetVar="addDishDlg"
 				resizable="false" width="600" showEffect="clip" hideEffect="fold"
 				id="addDialog">
@@ -208,7 +202,7 @@
 					<p:inputText id="dishNameAdd" size="40"
 						value="#{dishBeans.dishAdd.dishName}" required="true"
 						label="User Name" />
-					<p:message for="dishNameAdd" style="color:red" />
+					<p:message id="msgDishName" for="dishNameAdd" style="color:red" display="icon"/>
 		Loại: 
 		<p:selectOneMenu value="#{dishBeans.dishAdd.categoryId}"
 						id="distTypeAdd" required="true" label="Category">
@@ -217,12 +211,12 @@
 							itemLabel="#{category.categoryName}"
 							itemValue="#{category.categoryId}" />
 					</p:selectOneMenu>
-					<p:message for="distTypeAdd" style="color:red"></p:message>
+					<p:message for="distTypeAdd" style="color:red" display="icon"></p:message>
 		Mô Tả (*): 
 		<p:inputTextarea id="dishDecriptionAdd" size="60"
 						value="#{dishBeans.dishAdd.decription}" required="true"
 						label="Decription"></p:inputTextarea>
-				 <p:message for="dishDecriptionAdd" style="color:red"></p:message>
+				 <p:message for="dishDecriptionAdd" style="color:red" display="icon"></p:message>
 		
 		Hình đại diện: 
 	<!--  	<p:inputText id="avatarImgAdd" size="40"
@@ -233,7 +227,7 @@
 
 					<p:fileUpload id="avatarImgAdd"
 						fileUploadListener="#{fileUploadController.uploadImg}"
-						mode="advanced" update="messages" sizeLimit="100000"
+						mode="advanced" update=":formTable:messages" sizeLimit="100000"
 						allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
 					<p:message for="avatarImgAdd" style="color:red"></p:message>
 		Hình chi tiết: 
@@ -252,12 +246,12 @@
 					<p:message for="detailAdd" style="color:red"></p:message>
 				</h:panelGrid>
 				<p:commandButton action="#{dishBeans.addDish()}" value="Lưu"
-					update=":form:dishTable :form:messages pAddDish"
+					update=":formTable:dishTable :formTable:messages pAddDish"
 					oncomplete="handleLoginRequest(xhr, status, args)">
 				</p:commandButton>
 				<p:commandButton value="Thoát" onclick="addDishDlg.hide()">
 				</p:commandButton>
-				<p:graphicImage  id="refreshMe" value="#{fileUploadController.scImg}" />  
+			
 			</p:dialog>
 		</h:form>
 

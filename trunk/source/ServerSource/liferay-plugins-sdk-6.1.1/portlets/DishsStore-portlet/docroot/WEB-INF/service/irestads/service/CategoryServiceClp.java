@@ -31,17 +31,21 @@ public class CategoryServiceClp implements CategoryService {
 
 		_methodParameterTypes1 = new String[] { "java.lang.String" };
 
-		_methodName3 = "createCategory";
+		_methodName3 = "countCategoryById";
 
-		_methodParameterTypes3 = new String[] { "java.lang.String" };
+		_methodParameterTypes3 = new String[] { "long" };
 
-		_methodName4 = "getAllCategorys";
+		_methodName4 = "createCategory";
 
-		_methodParameterTypes4 = new String[] {  };
+		_methodParameterTypes4 = new String[] { "java.lang.String" };
 
-		_methodName5 = "findByID";
+		_methodName5 = "getAllCategorys";
 
-		_methodParameterTypes5 = new String[] { "long" };
+		_methodParameterTypes5 = new String[] {  };
+
+		_methodName6 = "findByID";
+
+		_methodParameterTypes6 = new String[] { "long" };
 	}
 
 	public java.lang.String getBeanIdentifier() {
@@ -91,12 +95,34 @@ public class CategoryServiceClp implements CategoryService {
 		throw new UnsupportedOperationException();
 	}
 
-	public irestads.model.Category createCategory(java.lang.String categoryName) {
+	public int countCategoryById(long categoryId) {
 		Object returnObj = null;
 
 		try {
 			returnObj = _invokableService.invokeMethod(_methodName3,
-					_methodParameterTypes3,
+					_methodParameterTypes3, new Object[] { categoryId });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return ((Integer)returnObj).intValue();
+	}
+
+	public irestads.model.Category createCategory(java.lang.String categoryName) {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableService.invokeMethod(_methodName4,
+					_methodParameterTypes4,
 					new Object[] { ClpSerializer.translateInput(categoryName) });
 		}
 		catch (Throwable t) {
@@ -118,8 +144,8 @@ public class CategoryServiceClp implements CategoryService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableService.invokeMethod(_methodName4,
-					_methodParameterTypes4, new Object[] {  });
+			returnObj = _invokableService.invokeMethod(_methodName5,
+					_methodParameterTypes5, new Object[] {  });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -140,8 +166,8 @@ public class CategoryServiceClp implements CategoryService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableService.invokeMethod(_methodName5,
-					_methodParameterTypes5, new Object[] { categoryId });
+			returnObj = _invokableService.invokeMethod(_methodName6,
+					_methodParameterTypes6, new Object[] { categoryId });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -169,4 +195,6 @@ public class CategoryServiceClp implements CategoryService {
 	private String[] _methodParameterTypes4;
 	private String _methodName5;
 	private String[] _methodParameterTypes5;
+	private String _methodName6;
+	private String[] _methodParameterTypes6;
 }

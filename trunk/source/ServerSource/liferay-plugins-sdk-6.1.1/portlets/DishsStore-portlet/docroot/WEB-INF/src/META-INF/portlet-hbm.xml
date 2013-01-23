@@ -4,6 +4,9 @@
 <hibernate-mapping default-lazy="false" auto-import="false">
 	<import class="irestads.model.Category" />
 	<import class="irestads.model.Dish" />
+	<import class="irestads.model.Menu" />
+	<import class="irestads.model.MenuLine" />
+	<import class="irestads.model.UVersion" />
 	<class name="irestads.model.impl.CategoryImpl" table="dishsstore_Category">
 		<cache usage="read-write" />
 		<id name="categoryId" type="long">
@@ -36,5 +39,46 @@
 		<property name="referPrice" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
 		<property name="numOfDiner" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
 		<property name="categoryId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+	</class>
+	<class name="irestads.model.impl.MenuImpl" table="dishsstore_Menu">
+		<cache usage="read-write" />
+		<id name="menuId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="companyId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="userName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="createDate" type="org.hibernate.type.TimestampType" />
+		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
+		<property name="menuName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+	</class>
+	<class name="irestads.model.impl.MenuLineImpl" table="dishsstore_MenuLine">
+		<cache usage="read-write" />
+		<id name="menuLineId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="companyId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="userName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="createDate" type="org.hibernate.type.TimestampType" />
+		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
+		<property name="numOfDish" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
+		<property name="status" type="com.liferay.portal.dao.orm.hibernate.BooleanType" />
+		<property name="dishId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+	</class>
+	<class name="irestads.model.impl.UVersionImpl" table="dishsstore_UVersion">
+		<cache usage="read-write" />
+		<id name="versionId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="companyId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="userName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="createDate" type="org.hibernate.type.TimestampType" />
+		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
+		<property name="logObjName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="logObjId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="logType" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
+		<property name="logDate" type="org.hibernate.type.TimestampType" />
 	</class>
 </hibernate-mapping>

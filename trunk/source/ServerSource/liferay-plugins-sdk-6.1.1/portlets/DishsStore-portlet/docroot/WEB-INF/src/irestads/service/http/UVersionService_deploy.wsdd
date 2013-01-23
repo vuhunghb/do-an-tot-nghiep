@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+
+<deployment xmlns="http://xml.apache.org/axis/wsdd/" xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+	<service name="Plugin_dishsstore_UVersionService" provider="java:RPC" style="rpc" use="encoded">
+		<parameter name="allowedMethods" value="*" />
+		<parameter name="className" value="irestads.service.http.UVersionServiceSoap" />
+		<parameter name="typeMappingVersion" value="1.2" />
+		<parameter name="wsdlPortType" value="UVersionServiceSoap" />
+		<parameter name="wsdlServiceElement" value="UVersionServiceSoapService" />
+		<parameter name="wsdlServicePort" value="Plugin_dishsstore_UVersionService" />
+		<parameter name="wsdlTargetNamespace" value="urn:http.service.irestads" />
+	</service>
+</deployment>

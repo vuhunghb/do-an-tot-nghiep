@@ -65,10 +65,19 @@ public class DishServiceUtil {
 	public static irestads.model.Dish createDish(java.lang.String dishName,
 		java.lang.String decription, java.lang.String avatarImg,
 		java.lang.String detailImg, java.lang.String detail, int referPrice,
+		java.lang.String avatarBaseCode, java.lang.String detailBaseCode,
 		long categoryId) {
 		return getService()
 				   .createDish(dishName, decription, avatarImg, detailImg,
-			detail, referPrice, categoryId);
+			detail, referPrice, avatarBaseCode, detailBaseCode, categoryId);
+	}
+
+	public static irestads.model.Dish createDish(irestads.model.Dish d) {
+		return getService().createDish(d);
+	}
+
+	public static java.util.List<irestads.model.Dish> findDishNotInMenu() {
+		return getService().findDishNotInMenu();
 	}
 
 	public static java.util.List<irestads.model.Dish> getAllDishs() {

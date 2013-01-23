@@ -35,60 +35,69 @@ public class DishServiceClp implements DishService {
 
 		_methodParameterTypes3 = new String[] {
 				"java.lang.String", "java.lang.String", "java.lang.String",
-				"java.lang.String", "java.lang.String", "int", "long"
+				"java.lang.String", "java.lang.String", "int",
+				"java.lang.String", "java.lang.String", "long"
 			};
 
-		_methodName4 = "getAllDishs";
+		_methodName4 = "createDish";
 
-		_methodParameterTypes4 = new String[] {  };
+		_methodParameterTypes4 = new String[] { "irestads.model.Dish" };
 
-		_methodName5 = "getDishsByCategory";
+		_methodName5 = "findDishNotInMenu";
 
-		_methodParameterTypes5 = new String[] { "long" };
+		_methodParameterTypes5 = new String[] {  };
 
-		_methodName6 = "updateDish";
+		_methodName6 = "getAllDishs";
 
-		_methodParameterTypes6 = new String[] { "irestads.model.Dish" };
+		_methodParameterTypes6 = new String[] {  };
 
-		_methodName7 = "deleteDish";
+		_methodName7 = "getDishsByCategory";
 
-		_methodParameterTypes7 = new String[] { "irestads.model.Dish" };
+		_methodParameterTypes7 = new String[] { "long" };
 
-		_methodName8 = "findDishsById";
+		_methodName8 = "updateDish";
 
-		_methodParameterTypes8 = new String[] { "long" };
+		_methodParameterTypes8 = new String[] { "irestads.model.Dish" };
 
-		_methodName9 = "findDishsByReferPrice";
+		_methodName9 = "deleteDish";
 
-		_methodParameterTypes9 = new String[] { "int" };
+		_methodParameterTypes9 = new String[] { "irestads.model.Dish" };
 
-		_methodName10 = "findDishsByName";
+		_methodName10 = "findDishsById";
 
-		_methodParameterTypes10 = new String[] { "java.lang.String" };
+		_methodParameterTypes10 = new String[] { "long" };
 
-		_methodName11 = "findDishsByDecription";
+		_methodName11 = "findDishsByReferPrice";
 
-		_methodParameterTypes11 = new String[] { "java.lang.String" };
+		_methodParameterTypes11 = new String[] { "int" };
 
-		_methodName12 = "findDishsByAvatarImg";
+		_methodName12 = "findDishsByName";
 
 		_methodParameterTypes12 = new String[] { "java.lang.String" };
 
-		_methodName13 = "findDishsByDetailImg";
+		_methodName13 = "findDishsByDecription";
 
 		_methodParameterTypes13 = new String[] { "java.lang.String" };
 
-		_methodName14 = "findDishsByDetail";
+		_methodName14 = "findDishsByAvatarImg";
 
 		_methodParameterTypes14 = new String[] { "java.lang.String" };
 
-		_methodName15 = "findDishsByCategoryName";
+		_methodName15 = "findDishsByDetailImg";
 
 		_methodParameterTypes15 = new String[] { "java.lang.String" };
 
-		_methodName16 = "findDishsBySomeField";
+		_methodName16 = "findDishsByDetail";
 
-		_methodParameterTypes16 = new String[] {
+		_methodParameterTypes16 = new String[] { "java.lang.String" };
+
+		_methodName17 = "findDishsByCategoryName";
+
+		_methodParameterTypes17 = new String[] { "java.lang.String" };
+
+		_methodName18 = "findDishsBySomeField";
+
+		_methodParameterTypes18 = new String[] {
 				"long", "int", "java.lang.String", "java.lang.String",
 				"java.lang.String", "java.lang.String", "java.lang.String"
 			};
@@ -144,6 +153,7 @@ public class DishServiceClp implements DishService {
 	public irestads.model.Dish createDish(java.lang.String dishName,
 		java.lang.String decription, java.lang.String avatarImg,
 		java.lang.String detailImg, java.lang.String detail, int referPrice,
+		java.lang.String avatarBaseCode, java.lang.String detailBaseCode,
 		long categoryId) {
 		Object returnObj = null;
 
@@ -163,6 +173,10 @@ public class DishServiceClp implements DishService {
 						
 					referPrice,
 						
+					ClpSerializer.translateInput(avatarBaseCode),
+						
+					ClpSerializer.translateInput(detailBaseCode),
+						
 					categoryId
 					});
 		}
@@ -181,12 +195,57 @@ public class DishServiceClp implements DishService {
 		return (irestads.model.Dish)ClpSerializer.translateOutput(returnObj);
 	}
 
-	public java.util.List<irestads.model.Dish> getAllDishs() {
+	public irestads.model.Dish createDish(irestads.model.Dish d) {
 		Object returnObj = null;
 
 		try {
 			returnObj = _invokableService.invokeMethod(_methodName4,
-					_methodParameterTypes4, new Object[] {  });
+					_methodParameterTypes4,
+					new Object[] { ClpSerializer.translateInput(d) });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (irestads.model.Dish)ClpSerializer.translateOutput(returnObj);
+	}
+
+	public java.util.List<irestads.model.Dish> findDishNotInMenu() {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableService.invokeMethod(_methodName5,
+					_methodParameterTypes5, new Object[] {  });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (java.util.List<irestads.model.Dish>)ClpSerializer.translateOutput(returnObj);
+	}
+
+	public java.util.List<irestads.model.Dish> getAllDishs() {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableService.invokeMethod(_methodName6,
+					_methodParameterTypes6, new Object[] {  });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -208,8 +267,8 @@ public class DishServiceClp implements DishService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableService.invokeMethod(_methodName5,
-					_methodParameterTypes5, new Object[] { categoryId });
+			returnObj = _invokableService.invokeMethod(_methodName7,
+					_methodParameterTypes7, new Object[] { categoryId });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -230,8 +289,8 @@ public class DishServiceClp implements DishService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableService.invokeMethod(_methodName6,
-					_methodParameterTypes6,
+			returnObj = _invokableService.invokeMethod(_methodName8,
+					_methodParameterTypes8,
 					new Object[] { ClpSerializer.translateInput(dish) });
 		}
 		catch (Throwable t) {
@@ -253,8 +312,8 @@ public class DishServiceClp implements DishService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableService.invokeMethod(_methodName7,
-					_methodParameterTypes7,
+			returnObj = _invokableService.invokeMethod(_methodName9,
+					_methodParameterTypes9,
 					new Object[] { ClpSerializer.translateInput(dish) });
 		}
 		catch (Throwable t) {
@@ -276,8 +335,8 @@ public class DishServiceClp implements DishService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableService.invokeMethod(_methodName8,
-					_methodParameterTypes8, new Object[] { dishId });
+			returnObj = _invokableService.invokeMethod(_methodName10,
+					_methodParameterTypes10, new Object[] { dishId });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -299,8 +358,8 @@ public class DishServiceClp implements DishService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableService.invokeMethod(_methodName9,
-					_methodParameterTypes9, new Object[] { referPrice });
+			returnObj = _invokableService.invokeMethod(_methodName11,
+					_methodParameterTypes11, new Object[] { referPrice });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -322,8 +381,8 @@ public class DishServiceClp implements DishService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableService.invokeMethod(_methodName10,
-					_methodParameterTypes10,
+			returnObj = _invokableService.invokeMethod(_methodName12,
+					_methodParameterTypes12,
 					new Object[] { ClpSerializer.translateInput(dishName) });
 		}
 		catch (Throwable t) {
@@ -346,8 +405,8 @@ public class DishServiceClp implements DishService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableService.invokeMethod(_methodName11,
-					_methodParameterTypes11,
+			returnObj = _invokableService.invokeMethod(_methodName13,
+					_methodParameterTypes13,
 					new Object[] { ClpSerializer.translateInput(decription) });
 		}
 		catch (Throwable t) {
@@ -370,8 +429,8 @@ public class DishServiceClp implements DishService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableService.invokeMethod(_methodName12,
-					_methodParameterTypes12,
+			returnObj = _invokableService.invokeMethod(_methodName14,
+					_methodParameterTypes14,
 					new Object[] { ClpSerializer.translateInput(avatarImg) });
 		}
 		catch (Throwable t) {
@@ -394,8 +453,8 @@ public class DishServiceClp implements DishService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableService.invokeMethod(_methodName13,
-					_methodParameterTypes13,
+			returnObj = _invokableService.invokeMethod(_methodName15,
+					_methodParameterTypes15,
 					new Object[] { ClpSerializer.translateInput(detailImg) });
 		}
 		catch (Throwable t) {
@@ -418,8 +477,8 @@ public class DishServiceClp implements DishService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableService.invokeMethod(_methodName14,
-					_methodParameterTypes14,
+			returnObj = _invokableService.invokeMethod(_methodName16,
+					_methodParameterTypes16,
 					new Object[] { ClpSerializer.translateInput(detail) });
 		}
 		catch (Throwable t) {
@@ -442,8 +501,8 @@ public class DishServiceClp implements DishService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableService.invokeMethod(_methodName15,
-					_methodParameterTypes15,
+			returnObj = _invokableService.invokeMethod(_methodName17,
+					_methodParameterTypes17,
 					new Object[] { ClpSerializer.translateInput(categoryName) });
 		}
 		catch (Throwable t) {
@@ -468,8 +527,8 @@ public class DishServiceClp implements DishService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableService.invokeMethod(_methodName16,
-					_methodParameterTypes16,
+			returnObj = _invokableService.invokeMethod(_methodName18,
+					_methodParameterTypes18,
 					new Object[] {
 						dishId,
 						
@@ -534,4 +593,8 @@ public class DishServiceClp implements DishService {
 	private String[] _methodParameterTypes15;
 	private String _methodName16;
 	private String[] _methodParameterTypes16;
+	private String _methodName17;
+	private String[] _methodParameterTypes17;
+	private String _methodName18;
+	private String[] _methodParameterTypes18;
 }

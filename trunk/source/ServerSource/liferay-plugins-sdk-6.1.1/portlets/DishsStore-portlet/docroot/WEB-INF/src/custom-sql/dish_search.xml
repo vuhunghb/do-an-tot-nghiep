@@ -6,9 +6,9 @@
                SELECT
                     *
                FROM
-                    dishstore_dish
+                    dishsstore_dish
                WHERE
-                   (dishstore_dish.dishName like ?)
+                   (dishsstore_dish.dishName like ?)
               ]]>
 	</sql>
 	<sql id="findDishsByDecription">
@@ -16,9 +16,9 @@
                SELECT
                     *
                FROM
-                    dishstore_dish
+                    dishsstore_dish
                WHERE
-                   (dishstore_dish.decription like ?)
+                   (dishsstore_dish.decription like ?)
               ]]>
 	</sql>
 	<sql id="findDishsByAvatarImg">
@@ -26,9 +26,9 @@
                SELECT
                     *
                FROM
-                    dishstore_dish
+                    dishsstore_dish
                WHERE
-                   (dishstore_dish.avatarImg like ?)
+                   (dishsstore_dish.avatarImg like ?)
               ]]>
 	</sql>
 	<sql id="findDishsByDetailImg">
@@ -36,9 +36,9 @@
                SELECT
                     *
                FROM
-                    dishstore_dish
+                    dishsstore_dish
                WHERE
-                   (dishstore_dish.detailImg like ?)
+                   (dishsstore_dish.detailImg like ?)
               ]]>
 	</sql>
 	<sql id="findDishsByDetail">
@@ -46,27 +46,29 @@
                SELECT
                     *
                FROM
-                    dishstore_dish
+                    dishsstore_dish
                WHERE
-                   (dishstore_dish.detail like ?)
+                   (dishsstore_dish.detail like ?)
               ]]>
 	</sql>
-	<sql id="findDishsByCategoryName">
+	<sql id="findMLsByDCategoryName">
 <![CDATA[
     SELECT
 	*
-    FROM dishstore_dish
+    FROM dishsstore_dish
     INNER JOIN 
-        dishstore_category ON dishstore_dish.categoryId = dishstore_category.categoryId
+        dishsstore_category ON dishsstore_dish.categoryId = dishsstore_category.categoryId
     WHERE
-        (dishstore_category.categoryName LIKE ?) 
+        (dishsstore_category.categoryName LIKE ?) 
         
     ]]>
 </sql>
+
+
 <sql id="findDishsBySomeField">
 		<![CDATA[
 			SELECT *
-			FROM dishstore_dish
+			FROM dishsstore_dish
 			WHERE (dishId = ?)[$AND_OR_CONNECTOR$]
 				(
 					(referPrice = ?) [$AND_OR_CONNECTOR$]

@@ -65,6 +65,20 @@ import java.rmi.RemoteException;
  * @generated
  */
 public class CategoryServiceSoap {
+	public static int countCategoryById(long categoryId)
+		throws RemoteException {
+		try {
+			int returnValue = CategoryServiceUtil.countCategoryById(categoryId);
+
+			return returnValue;
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
 	public static irestads.model.CategorySoap createCategory(
 		java.lang.String categoryName) throws RemoteException {
 		try {

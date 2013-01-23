@@ -55,6 +55,10 @@ public class CategoryServiceWrapper implements CategoryService,
 		return _categoryService.invokeMethod(name, parameterTypes, arguments);
 	}
 
+	public int countCategoryById(long categoryId) {
+		return _categoryService.countCategoryById(categoryId);
+	}
+
 	public irestads.model.Category createCategory(java.lang.String categoryName) {
 		return _categoryService.createCategory(categoryName);
 	}

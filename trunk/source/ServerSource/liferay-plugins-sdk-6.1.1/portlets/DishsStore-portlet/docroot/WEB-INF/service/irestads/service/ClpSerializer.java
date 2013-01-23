@@ -27,6 +27,9 @@ import com.liferay.portal.model.BaseModel;
 
 import irestads.model.CategoryClp;
 import irestads.model.DishClp;
+import irestads.model.MenuClp;
+import irestads.model.MenuLineClp;
+import irestads.model.UVersionClp;
 
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -111,6 +114,18 @@ public class ClpSerializer {
 			return translateInputDish(oldModel);
 		}
 
+		if (oldModelClassName.equals(MenuClp.class.getName())) {
+			return translateInputMenu(oldModel);
+		}
+
+		if (oldModelClassName.equals(MenuLineClp.class.getName())) {
+			return translateInputMenuLine(oldModel);
+		}
+
+		if (oldModelClassName.equals(UVersionClp.class.getName())) {
+			return translateInputUVersion(oldModel);
+		}
+
 		return oldModel;
 	}
 
@@ -146,6 +161,36 @@ public class ClpSerializer {
 		return newModel;
 	}
 
+	public static Object translateInputMenu(BaseModel<?> oldModel) {
+		MenuClp oldClpModel = (MenuClp)oldModel;
+
+		BaseModel<?> newModel = oldClpModel.getMenuRemoteModel();
+
+		newModel.setModelAttributes(oldClpModel.getModelAttributes());
+
+		return newModel;
+	}
+
+	public static Object translateInputMenuLine(BaseModel<?> oldModel) {
+		MenuLineClp oldClpModel = (MenuLineClp)oldModel;
+
+		BaseModel<?> newModel = oldClpModel.getMenuLineRemoteModel();
+
+		newModel.setModelAttributes(oldClpModel.getModelAttributes());
+
+		return newModel;
+	}
+
+	public static Object translateInputUVersion(BaseModel<?> oldModel) {
+		UVersionClp oldClpModel = (UVersionClp)oldModel;
+
+		BaseModel<?> newModel = oldClpModel.getUVersionRemoteModel();
+
+		newModel.setModelAttributes(oldClpModel.getModelAttributes());
+
+		return newModel;
+	}
+
 	public static Object translateInput(Object obj) {
 		if (obj instanceof BaseModel<?>) {
 			return translateInput((BaseModel<?>)obj);
@@ -169,6 +214,18 @@ public class ClpSerializer {
 
 		if (oldModelClassName.equals("irestads.model.impl.DishImpl")) {
 			return translateOutputDish(oldModel);
+		}
+
+		if (oldModelClassName.equals("irestads.model.impl.MenuImpl")) {
+			return translateOutputMenu(oldModel);
+		}
+
+		if (oldModelClassName.equals("irestads.model.impl.MenuLineImpl")) {
+			return translateOutputMenuLine(oldModel);
+		}
+
+		if (oldModelClassName.equals("irestads.model.impl.UVersionImpl")) {
+			return translateOutputUVersion(oldModel);
 		}
 
 		return oldModel;
@@ -259,6 +316,18 @@ public class ClpSerializer {
 			return new irestads.NoSuchDishException();
 		}
 
+		if (className.equals("irestads.NoSuchMenuException")) {
+			return new irestads.NoSuchMenuException();
+		}
+
+		if (className.equals("irestads.NoSuchMenuLineException")) {
+			return new irestads.NoSuchMenuLineException();
+		}
+
+		if (className.equals("irestads.NoSuchUVersionException")) {
+			return new irestads.NoSuchUVersionException();
+		}
+
 		return throwable;
 	}
 
@@ -278,6 +347,36 @@ public class ClpSerializer {
 		newModel.setModelAttributes(oldModel.getModelAttributes());
 
 		newModel.setDishRemoteModel(oldModel);
+
+		return newModel;
+	}
+
+	public static Object translateOutputMenu(BaseModel<?> oldModel) {
+		MenuClp newModel = new MenuClp();
+
+		newModel.setModelAttributes(oldModel.getModelAttributes());
+
+		newModel.setMenuRemoteModel(oldModel);
+
+		return newModel;
+	}
+
+	public static Object translateOutputMenuLine(BaseModel<?> oldModel) {
+		MenuLineClp newModel = new MenuLineClp();
+
+		newModel.setModelAttributes(oldModel.getModelAttributes());
+
+		newModel.setMenuLineRemoteModel(oldModel);
+
+		return newModel;
+	}
+
+	public static Object translateOutputUVersion(BaseModel<?> oldModel) {
+		UVersionClp newModel = new UVersionClp();
+
+		newModel.setModelAttributes(oldModel.getModelAttributes());
+
+		newModel.setUVersionRemoteModel(oldModel);
 
 		return newModel;
 	}

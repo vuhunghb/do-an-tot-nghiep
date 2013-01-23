@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<custom-sql>
+
+
+	<sql id="findMLsByDName">
+              <![CDATA[
+               SELECT
+                    *
+               FROM
+                    dishsstore_menuline
+               INNER JOIN
+               		dishsstore_dish ON dishsstore_menuline.dishId = dishsstore_dish.dishId
+               WHERE
+                   (dishsstore_dish.dishName LIKE ?)                  
+              ]]>
+	</sql>
+	<sql id="findMLsByDDecription">
+              <![CDATA[
+              SELECT
+                    *
+               FROM
+                    dishsstore_menuline
+               INNER JOIN
+               		dishsstore_dish ON dishsstore_menuline.dishId = dishsstore_dish.dishId
+               WHERE
+                   (dishsstore_dish.decription LIKE ?)
+              ]]>
+	</sql>
+	<sql id="findMLsByDAvatarImg">
+              <![CDATA[
+               SELECT
+                    *
+               FROM
+                    dishsstore_menuline
+               INNER JOIN
+               		dishsstore_dish ON dishsstore_menuline.dishId = dishsstore_dish.dishId
+               WHERE
+                   (dishsstore_dish.avatarImg LIKE ?)
+              ]]>
+	</sql>
+	<sql id="findMLsByDDetailImg">
+              <![CDATA[
+              SELECT
+                    *
+               FROM
+                    dishsstore_menuline
+               INNER JOIN
+               		dishsstore_dish ON dishsstore_menuline.dishId = dishsstore_dish.dishId
+               WHERE
+                   (dishsstore_dish.detailImg LIKE ?)
+              ]]>
+	</sql>
+	<sql id="findMLsByDDetail">
+              <![CDATA[
+               SELECT
+                    *
+               FROM
+                    dishsstore_menuline
+               INNER JOIN
+               		dishsstore_dish ON dishsstore_menuline.dishId = dishsstore_dish.dishId
+               WHERE
+                   (dishsstore_dish.detail LIKE ?)
+              ]]>
+	</sql>
+	<sql id="findMlsByDCategoryName">
+<![CDATA[
+    		SELECT
+                    *
+               FROM
+                    dishsstore_menuline
+               INNER JOIN
+               		dishsstore_dish ON dishsstore_menuline.dishId = dishsstore_dish.dishId
+               		JOIN dishsstore_category ON dishsstore_category.categoryId=dishsstore_dish.categoryId
+               WHERE
+                   (dishsstore_category.categoryName LIKE ?)
+        
+    ]]>
+</sql>
+<sql id="findMlsByDReferPrice">
+<![CDATA[
+    		SELECT
+                    *
+               FROM
+                    dishsstore_menuline
+               INNER JOIN
+               		dishsstore_dish ON dishsstore_menuline.dishId = dishsstore_dish.dishId
+               WHERE
+                   (dishsstore_dish.referPrice = ?)
+        
+    ]]>
+</sql>
+<sql id="findDishNotInMenu">
+<![CDATA[
+    		SELECT
+                    *
+               FROM
+                    dishsstore_dish
+               LEFT JOIN
+               		dishsstore_menuline ON dishsstore_menuline.dishId = dishsstore_dish.dishId
+               WHERE
+                   (dishsstore_menuline.dishId is null)
+        
+    ]]>
+</sql>
+<sql id="findDishsBySomeField">
+		<![CDATA[
+			SELECT *
+			FROM dishsstore_dish
+			WHERE (dishId = ?)[$AND_OR_CONNECTOR$]
+				(
+					(referPrice = ?) [$AND_OR_CONNECTOR$]
+					(dishName LIKE ? [$AND_OR_NULL_CHECK$] ) [$AND_OR_CONNECTOR$]
+					(decription LIKE ? [$AND_OR_NULL_CHECK$] ) [$AND_OR_CONNECTOR$]
+					(avatarImg LIKE ? [$AND_OR_NULL_CHECK$]) [$AND_OR_CONNECTOR$]
+					(detailImg LIKE ? [$AND_OR_NULL_CHECK$] ) [$AND_OR_CONNECTOR$]
+					(detail LIKE ? [$AND_OR_NULL_CHECK$])
+				)
+		]]>
+	</sql>
+
+</custom-sql>
+
