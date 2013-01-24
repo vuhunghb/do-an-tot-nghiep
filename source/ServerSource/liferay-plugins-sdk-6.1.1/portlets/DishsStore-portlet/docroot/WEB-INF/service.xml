@@ -85,7 +85,7 @@
 		<!-- Other fields -->
 		<column name="logObjName" type="String" />
 		<column name="logObjId" type="long"></column>
-		<column name="logType" type="int"></column>
+		<column name="logType" type="String"></column>
 		<column name="logDate" type="Date"></column>
 		<!-- Order -->
 		<order by="asc">

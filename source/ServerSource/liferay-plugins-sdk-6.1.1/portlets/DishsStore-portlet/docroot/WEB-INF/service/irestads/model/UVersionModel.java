@@ -195,14 +195,15 @@ public interface UVersionModel extends AuditedModel, BaseModel<UVersion> {
 	 *
 	 * @return the log type of this u version
 	 */
-	public int getLogType();
+	@AutoEscape
+	public String getLogType();
 
 	/**
 	 * Sets the log type of this u version.
 	 *
 	 * @param logType the log type of this u version
 	 */
-	public void setLogType(int logType);
+	public void setLogType(String logType);
 
 	/**
 	 * Returns the log date of this u version.

@@ -57,7 +57,7 @@
 		<field name="modifiedDate" type="Date" />
 		<field name="logObjName" type="String" />
 		<field name="logObjId" type="long" />
-		<field name="logType" type="int" />
+		<field name="logType" type="String" />
 		<field name="logDate" type="Date" />
 	</model>
 </model-hints>

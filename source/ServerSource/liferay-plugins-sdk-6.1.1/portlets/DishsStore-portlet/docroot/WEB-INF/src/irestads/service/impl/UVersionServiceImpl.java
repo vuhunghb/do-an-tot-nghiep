@@ -14,6 +14,8 @@
 
 package irestads.service.impl;
 
+import java.util.List;
+
 import irestads.model.UVersion;
 import irestads.service.UVersionLocalServiceUtil;
 import irestads.service.base.UVersionServiceBaseImpl;
@@ -41,5 +43,11 @@ public class UVersionServiceImpl extends UVersionServiceBaseImpl {
 	public UVersion createVersion(UVersion v){
 		
 		return UVersionLocalServiceUtil.createVersion(v);
+	}
+	public UVersion createVersion(long idObj, String nameObj,String type){
+		return UVersionLocalServiceUtil.createVersion(idObj, nameObj, type);
+	}
+	public List<UVersion> findNextVersions(long uversionId) {
+		return UVersionLocalServiceUtil.findNextVersions(uversionId);
 	}
 }

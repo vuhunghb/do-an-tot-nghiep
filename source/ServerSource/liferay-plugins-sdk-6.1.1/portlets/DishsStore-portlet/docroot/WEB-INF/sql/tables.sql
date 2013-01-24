@@ -58,6 +58,6 @@ create table dishsstore_UVersion (
 	modifiedDate DATE null,
 	logObjName VARCHAR(75) null,
 	logObjId LONG,
-	logType INTEGER,
+	logType VARCHAR(75) null,
 	logDate DATE null
 );

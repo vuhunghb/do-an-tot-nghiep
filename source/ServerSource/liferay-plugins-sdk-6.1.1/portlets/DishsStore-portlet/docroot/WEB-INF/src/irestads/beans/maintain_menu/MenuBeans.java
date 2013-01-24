@@ -18,6 +18,7 @@ import irestads.service.DishServiceUtil;
 import irestads.service.MenuLineLocalServiceUtil;
 import irestads.service.MenuLineServiceUtil;
 import irestads.service.MenuServiceUtil;
+import irestads.service.UVersionLocalServiceUtil;
 import irestads.service.persistence.DishUtil;
 import irestads.service.persistence.MenuLineUtil;
 
@@ -33,9 +34,17 @@ public class MenuBeans {
 	private Dish [] selectedDishs;
 	private Map<String, Object> checkboxValue=new  LinkedHashMap<String, Object>();
 	private boolean skip;  
-    private static Logger logger = Logger.getLogger(MenuBeans.class.getName());  
+    private static Logger logger = Logger.getLogger(MenuBeans.class.getName()); 
+   
 
-	
+    public List<UVersion> findNextVersions() {
+    	List<UVersion> list =	UVersionLocalServiceUtil.findNextVersions(201);
+    	System.out.println("lisst "+list.size());
+    	for (UVersion uVersion : list) {
+			System.out.println(" v "+uVersion.getVersionId());
+		}
+    	return list;
+    }
 
 	private Map<String, Object> searchTypesValue;
 	{

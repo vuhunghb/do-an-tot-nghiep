@@ -34,6 +34,16 @@ public class UVersionServiceClp implements UVersionService {
 		_methodName3 = "createVersion";
 
 		_methodParameterTypes3 = new String[] { "irestads.model.UVersion" };
+
+		_methodName4 = "createVersion";
+
+		_methodParameterTypes4 = new String[] {
+				"long", "java.lang.String", "java.lang.String"
+			};
+
+		_methodName5 = "findNextVersions";
+
+		_methodParameterTypes5 = new String[] { "long" };
 	}
 
 	public java.lang.String getBeanIdentifier() {
@@ -106,6 +116,59 @@ public class UVersionServiceClp implements UVersionService {
 		return (irestads.model.UVersion)ClpSerializer.translateOutput(returnObj);
 	}
 
+	public irestads.model.UVersion createVersion(long idObj,
+		java.lang.String nameObj, java.lang.String type) {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableService.invokeMethod(_methodName4,
+					_methodParameterTypes4,
+					new Object[] {
+						idObj,
+						
+					ClpSerializer.translateInput(nameObj),
+						
+					ClpSerializer.translateInput(type)
+					});
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (irestads.model.UVersion)ClpSerializer.translateOutput(returnObj);
+	}
+
+	public java.util.List<irestads.model.UVersion> findNextVersions(
+		long uversionId) {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableService.invokeMethod(_methodName5,
+					_methodParameterTypes5, new Object[] { uversionId });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (java.util.List<irestads.model.UVersion>)ClpSerializer.translateOutput(returnObj);
+	}
+
 	private InvokableService _invokableService;
 	private String _methodName0;
 	private String[] _methodParameterTypes0;
@@ -113,4 +176,8 @@ public class UVersionServiceClp implements UVersionService {
 	private String[] _methodParameterTypes1;
 	private String _methodName3;
 	private String[] _methodParameterTypes3;
+	private String _methodName4;
+	private String[] _methodParameterTypes4;
+	private String _methodName5;
+	private String[] _methodParameterTypes5;
 }
