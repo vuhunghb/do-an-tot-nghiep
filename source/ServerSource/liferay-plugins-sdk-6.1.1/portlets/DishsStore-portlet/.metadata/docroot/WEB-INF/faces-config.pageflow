@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<pageflow:Pageflow xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf13580091369361" configfile="/DishsStore-portlet/docroot/WEB-INF/faces-config.xml"/>
+<pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf13580091369361" configfile="/DishsStore-portlet/docroot/WEB-INF/faces-config.xml">
+  <nodes xsi:type="pageflow:PFPage" name="views/index.xhtml" x="144" y="94" id="pf13590383723370" outlinks="pf13590383723371" path="/views/index.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="views/menu.xhtml" x="372" y="94" id="pf13590383723382" inlinks="pf13590383723371" path="/views/menu.xhtml"/>
+  <links id="pf13590383723371" target="pf13590383723382" source="pf13590383723370" outcome="goToMenu"/>
+</pageflow:Pageflow>
