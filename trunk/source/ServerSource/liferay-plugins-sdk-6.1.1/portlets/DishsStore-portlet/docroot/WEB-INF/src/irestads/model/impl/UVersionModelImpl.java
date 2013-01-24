@@ -75,10 +75,10 @@ public class UVersionModelImpl extends BaseModelImpl<UVersion>
 			{ "modifiedDate", Types.TIMESTAMP },
 			{ "logObjName", Types.VARCHAR },
 			{ "logObjId", Types.BIGINT },
-			{ "logType", Types.INTEGER },
+			{ "logType", Types.VARCHAR },
 			{ "logDate", Types.TIMESTAMP }
 		};
-	public static final String TABLE_SQL_CREATE = "create table dishsstore_UVersion (versionId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,logObjName VARCHAR(75) null,logObjId LONG,logType INTEGER,logDate DATE null)";
+	public static final String TABLE_SQL_CREATE = "create table dishsstore_UVersion (versionId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,logObjName VARCHAR(75) null,logObjId LONG,logType VARCHAR(75) null,logDate DATE null)";
 	public static final String TABLE_SQL_DROP = "drop table dishsstore_UVersion";
 	public static final String ORDER_BY_JPQL = " ORDER BY uVersion.logDate ASC";
 	public static final String ORDER_BY_SQL = " ORDER BY dishsstore_UVersion.logDate ASC";
@@ -241,7 +241,7 @@ public class UVersionModelImpl extends BaseModelImpl<UVersion>
 			setLogObjId(logObjId);
 		}
 
-		Integer logType = (Integer)attributes.get("logType");
+		String logType = (String)attributes.get("logType");
 
 		if (logType != null) {
 			setLogType(logType);
@@ -345,11 +345,16 @@ public class UVersionModelImpl extends BaseModelImpl<UVersion>
 	}
 
 	@JSON
-	public int getLogType() {
-		return _logType;
+	public String getLogType() {
+		if (_logType == null) {
+			return StringPool.BLANK;
+		}
+		else {
+			return _logType;
+		}
 	}
 
-	public void setLogType(int logType) {
+	public void setLogType(String logType) {
 		_logType = logType;
 	}
 
@@ -519,6 +524,12 @@ public class UVersionModelImpl extends BaseModelImpl<UVersion>
 
 		uVersionCacheModel.logType = getLogType();
 
+		String logType = uVersionCacheModel.logType;
+
+		if ((logType != null) && (logType.length() == 0)) {
+			uVersionCacheModel.logType = null;
+		}
+
 		Date logDate = getLogDate();
 
 		if (logDate != null) {
@@ -626,7 +637,7 @@ public class UVersionModelImpl extends BaseModelImpl<UVersion>
 	private Date _modifiedDate;
 	private String _logObjName;
 	private long _logObjId;
-	private int _logType;
+	private String _logType;
 	private Date _logDate;
 	private Date _originalLogDate;
 	private long _columnBitmask;

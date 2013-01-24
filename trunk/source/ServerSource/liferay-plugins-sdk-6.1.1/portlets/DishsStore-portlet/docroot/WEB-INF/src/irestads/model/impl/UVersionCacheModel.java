@@ -97,7 +97,13 @@ public class UVersionCacheModel implements CacheModel<UVersion>, Serializable {
 		}
 
 		uVersionImpl.setLogObjId(logObjId);
-		uVersionImpl.setLogType(logType);
+
+		if (logType == null) {
+			uVersionImpl.setLogType(StringPool.BLANK);
+		}
+		else {
+			uVersionImpl.setLogType(logType);
+		}
 
 		if (logDate == Long.MIN_VALUE) {
 			uVersionImpl.setLogDate(null);
@@ -119,6 +125,6 @@ public class UVersionCacheModel implements CacheModel<UVersion>, Serializable {
 	public long modifiedDate;
 	public String logObjName;
 	public long logObjId;
-	public int logType;
+	public String logType;
 	public long logDate;
 }

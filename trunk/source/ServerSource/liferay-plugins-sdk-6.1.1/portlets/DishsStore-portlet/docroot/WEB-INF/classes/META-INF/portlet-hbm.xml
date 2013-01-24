@@ -78,7 +78,7 @@
 		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
 		<property name="logObjName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="logObjId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
-		<property name="logType" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
+		<property name="logType" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="logDate" type="org.hibernate.type.TimestampType" />
 	</class>
 </hibernate-mapping>

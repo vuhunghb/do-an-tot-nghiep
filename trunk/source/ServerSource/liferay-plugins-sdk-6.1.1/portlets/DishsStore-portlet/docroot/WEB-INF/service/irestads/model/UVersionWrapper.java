@@ -108,7 +108,7 @@ public class UVersionWrapper implements UVersion, ModelWrapper<UVersion> {
 			setLogObjId(logObjId);
 		}
 
-		Integer logType = (Integer)attributes.get("logType");
+		String logType = (String)attributes.get("logType");
 
 		if (logType != null) {
 			setLogType(logType);
@@ -308,7 +308,7 @@ public class UVersionWrapper implements UVersion, ModelWrapper<UVersion> {
 	*
 	* @return the log type of this u version
 	*/
-	public int getLogType() {
+	public java.lang.String getLogType() {
 		return _uVersion.getLogType();
 	}
 
@@ -317,7 +317,7 @@ public class UVersionWrapper implements UVersion, ModelWrapper<UVersion> {
 	*
 	* @param logType the log type of this u version
 	*/
-	public void setLogType(int logType) {
+	public void setLogType(java.lang.String logType) {
 		_uVersion.setLogType(logType);
 	}
 

@@ -98,17 +98,27 @@ public class UVersionLocalServiceClpInvoker {
 				"irestads.model.UVersion", "boolean"
 			};
 
-		_methodName68 = "getBeanIdentifier";
+		_methodName70 = "getBeanIdentifier";
 
-		_methodParameterTypes68 = new String[] {  };
+		_methodParameterTypes70 = new String[] {  };
 
-		_methodName69 = "setBeanIdentifier";
+		_methodName71 = "setBeanIdentifier";
 
-		_methodParameterTypes69 = new String[] { "java.lang.String" };
+		_methodParameterTypes71 = new String[] { "java.lang.String" };
 
-		_methodName74 = "createVersion";
+		_methodName76 = "createVersion";
 
-		_methodParameterTypes74 = new String[] { "irestads.model.UVersion" };
+		_methodParameterTypes76 = new String[] { "irestads.model.UVersion" };
+
+		_methodName77 = "createVersion";
+
+		_methodParameterTypes77 = new String[] {
+				"long", "java.lang.String", "java.lang.String"
+			};
+
+		_methodName78 = "findNextVersions";
+
+		_methodParameterTypes78 = new String[] { "long" };
 	}
 
 	public Object invokeMethod(String name, String[] parameterTypes,
@@ -200,19 +210,30 @@ public class UVersionLocalServiceClpInvoker {
 				((Boolean)arguments[1]).booleanValue());
 		}
 
-		if (_methodName68.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes68, parameterTypes)) {
+		if (_methodName70.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes70, parameterTypes)) {
 			return UVersionLocalServiceUtil.getBeanIdentifier();
 		}
 
-		if (_methodName69.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes69, parameterTypes)) {
+		if (_methodName71.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes71, parameterTypes)) {
 			UVersionLocalServiceUtil.setBeanIdentifier((java.lang.String)arguments[0]);
 		}
 
-		if (_methodName74.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes74, parameterTypes)) {
+		if (_methodName76.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes76, parameterTypes)) {
 			return UVersionLocalServiceUtil.createVersion((irestads.model.UVersion)arguments[0]);
+		}
+
+		if (_methodName77.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes77, parameterTypes)) {
+			return UVersionLocalServiceUtil.createVersion(((Long)arguments[0]).longValue(),
+				(java.lang.String)arguments[1], (java.lang.String)arguments[2]);
+		}
+
+		if (_methodName78.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes78, parameterTypes)) {
+			return UVersionLocalServiceUtil.findNextVersions(((Long)arguments[0]).longValue());
 		}
 
 		throw new UnsupportedOperationException();
@@ -250,10 +271,14 @@ public class UVersionLocalServiceClpInvoker {
 	private String[] _methodParameterTypes14;
 	private String _methodName15;
 	private String[] _methodParameterTypes15;
-	private String _methodName68;
-	private String[] _methodParameterTypes68;
-	private String _methodName69;
-	private String[] _methodParameterTypes69;
-	private String _methodName74;
-	private String[] _methodParameterTypes74;
+	private String _methodName70;
+	private String[] _methodParameterTypes70;
+	private String _methodName71;
+	private String[] _methodParameterTypes71;
+	private String _methodName76;
+	private String[] _methodParameterTypes76;
+	private String _methodName77;
+	private String[] _methodParameterTypes77;
+	private String _methodName78;
+	private String[] _methodParameterTypes78;
 }

@@ -9,22 +9,20 @@
 	<script type="text/javascript">  
     function handleLoginRequest(xhr, status, args) {  
         if(args.validationFailed) {  
-            jQuery('#addDialog').effect("shake", { times:3 }, 100);
-           // addMenuLineDlg.show(); 
+            jQuery('#storeDishsDlg').effect("shake", { times:3 }, 100);
+            storeDishsDlg.show(); 
         } else {  
-        	addMenuLineDlg.hide();  
+        	storeDishsDlg.hide();  
            // jQuery('#loginLink').fadeOut();  
         }  
     }  
-    function nextbutton(xhr, status, args) {  
-        
-    }  
+  
 </script>
 	<h:head />
 	<h:body>
 
 		<h:form id="formTable">
-		   
+
 			<p:growl id="messages" showDetail="true" life="3000" />
 			<p:contextMenu for="menuLineTable">
 				<p:menuitem value="Chi tiết" update="display" icon="ui-icon-search"
@@ -33,7 +31,8 @@
 					update=":formTable:menuLineTable :formTable:messages :fAddDishFromStore:addFromDishStoreDlg"
 					icon="ui-icon-close" actionListener="#{menuBeans.deleteMenuLine()}" />
 			</p:contextMenu>
-			
+			<p:commandButton value="Test" action="#{menuBeans.findNextVersions()}" >
+			</p:commandButton>
 
 			<h:panelGrid columns="7">
 				<h:outputText value="Từ khóa " />
@@ -88,7 +87,7 @@
 				</p:column>
 				<p:column>
 					<h:outputText value="#{ml.dish.categoryId}" />
-					
+
 				</p:column>
 				<p:column>
 					<p:cellEditor>
@@ -236,78 +235,85 @@
 			</p:dialog>
 		</h:form>
 		<!-- dialog for dishstore -->
-		
+
 		<h:form id="fAddDishFromStore">
-		
+
 			<p:dialog header="Thêm mới Món ăn" widgetVar="storeDishsDlg"
-				resizable="false" width="700" showEffect="clip" hideEffect="fold"
+				resizable="false" width="755" showEffect="clip" hideEffect="fold"
 				id="addFromDishStoreDlg">
-			 <p:messages id="msgs"/>  
-				<p:growl id="growl" sticky="true" showDetail="true"/>  
-  
-    			<p:wizard widgetVar="wiz"  
-            flowListener="#{menuBeans.onFlowProcess}">
-             <p:tab id="mainDishsTab" title="Danh sách">  
-				
-				<p:dataTable id="dishNotInMLTable" var="dish" value="#{menuBeans.dishsNotInML}"
-					scrollable="true" scrollHeight="100"
-					frozenRows="#{menuBeans.dishsNotInML}"  rowKey="#{dish.dishId}" selection="#{menuBeans.selectedDishs}" selectionMode="multiple">
-					<p:column headerText="Mã" width="100">
-						<h:outputText value="#{dish.dishId}" />
-					</p:column>
-					<p:column headerText="Tên" width="125">
-						<h:outputText value="#{dish.dishName}" />
-					</p:column>
+				<p:messages id="msgs" />
+				<p:growl id="growl" sticky="true" showDetail="true" />
 
-					<p:column headerText="Giá" width="125">
-						<h:outputText value="#{dish.referPrice}" />
-					</p:column>
+				<p:wizard widgetVar="wiz" flowListener="#{menuBeans.onFlowProcess}">
+					<p:tab id="mainDishsTab" title="Danh sách">
 
-					<p:column headerText="Mô Tả" width="125">
-						<h:outputText value="#{dish.decription}" />
-					</p:column>
+						<p:dataTable id="dishNotInMLTable" var="dish"
+							value="#{menuBeans.dishsNotInML}" scrollable="true"
+							scrollHeight="150" frozenRows="#{menuBeans.dishsNotInML}"
+							rowKey="#{dish.dishId}" selection="#{menuBeans.selectedDishs}"
+							selectionMode="multiple">
+							<p:column headerText="Mã" width="100">
+								<h:outputText value="#{dish.dishId}" />
+							</p:column>
+							<p:column headerText="Tên" width="125">
+								<h:outputText value="#{dish.dishName}" />
+							</p:column>
 
-					<p:column headerText="Loại" width="125">
-						<h:outputText value="#{dish.categoryId}" />
-					</p:column>
+							<p:column headerText="Giá" width="125">
+								<h:outputText value="#{dish.referPrice}" />
+							</p:column>
 
-				</p:dataTable>
-				</p:tab>
-				 <p:tab id="choosenDish" title="Danh sách đã chọn">  
-				<p:dataTable id="dishsSelectedTable" var="ml" value="#{menuBeans.candidateMenuLine}"
-					scrollable="true" scrollHeight="100"
-					frozenRows="#{menuBeans.candidateMenuLine}"  rowKey="#{ml.dish.dishId}" >
-					<p:column headerText="Mã" width="100">
-						<h:outputText value="#{ml.dish.dishId}" />
-					</p:column>
-					<p:column headerText="Tên" width="125">
-						<h:outputText value="#{ml.dish.dishName}" />
-					</p:column>
+							<p:column headerText="Mô Tả" width="125">
+								<h:outputText value="#{dish.decription}" />
+							</p:column>
 
-					<p:column headerText="Giá" width="125">
-						<h:outputText value="#{ml.dish.referPrice}" />
-					</p:column>
+							<p:column headerText="Loại" width="125">
+								<h:outputText value="#{dish.categoryId}" />
+							</p:column>
 
-					<p:column headerText="Mô Tả" width="125">
-						<h:outputText value="#{ml.dish.decription}" />
-					</p:column>
+						</p:dataTable>
+					</p:tab>
+					<p:tab id="choosenDish" title="Danh sách đã chọn">
+						<p:dataTable id="dishsSelectedTable" var="ml"
+							value="#{menuBeans.candidateMenuLine}" scrollable="true"
+							scrollHeight="150" frozenRows="#{menuBeans.candidateMenuLine}"
+							rowKey="#{ml.dish.dishId}">
+							<p:column headerText="Mã" width="40">
+								<h:outputText value="#{ml.dish.dishId}" />
+							</p:column>
+							<p:column headerText="Tên" width="120">
+								<h:outputText value="#{ml.dish.dishName}" />
+							</p:column>
 
-					<p:column headerText="Loại" width="125">
-						<h:outputText value="#{ml.dish.categoryId}" />
-					</p:column>
-					<p:column headerText="Số lượng" width="125">
-						<h:inputText value="#{ml.numOfDish}"  required="true">
-						 <f:validateLongRange maximum="150" minimum="1" />
-						</h:inputText>
-					</p:column>
+							<p:column headerText="Giá" width="60">
+								<h:outputText value="#{ml.dish.referPrice}" />
+							</p:column>
 
-				</p:dataTable>
-				<p:commandButton action="#{menuBeans.addMenuLines()}" value="Lưu"
-					update=":formTable:menuLineTable :formTable:messages addFromDishStoreDlg" oncomplete="storeDishsDlg.hide()">
-				</p:commandButton>
-				<p:commandButton value="Thoát" onclick="storeDishsDlg.hide()">
-				</p:commandButton>
-				 </p:tab>
+							<p:column headerText="Mô Tả" width="125">
+								<h:outputText value="#{ml.dish.decription}" />
+							</p:column>
+
+							<p:column headerText="Loại" width="110">
+								<h:outputText value="#{ml.dish.categoryId}" />
+							</p:column>
+
+							<p:column headerText="Số lượng" width="150">
+								<h:panelGrid columns="2">
+									<p:inputText id="num" value="#{ml.numOfDish}" required="true">
+										<f:validateLongRange maximum="150" minimum="1" />
+									</p:inputText>
+									<p:message id="msgNum" for="num" display="icon" />
+								</h:panelGrid>
+							</p:column>
+
+						</p:dataTable>
+						<p:commandButton action="#{menuBeans.addMenuLines()}" value="Lưu"
+							update=":formTable:menuLineTable :formTable:messages addFromDishStoreDlg"
+							oncomplete="handleLoginRequest(xhr, status, args)">
+						</p:commandButton>
+						<p:commandButton value="Thoát" onclick="storeDishsDlg.hide()">
+						</p:commandButton>
+					</p:tab>
 				</p:wizard>
 			</p:dialog>
 		</h:form>

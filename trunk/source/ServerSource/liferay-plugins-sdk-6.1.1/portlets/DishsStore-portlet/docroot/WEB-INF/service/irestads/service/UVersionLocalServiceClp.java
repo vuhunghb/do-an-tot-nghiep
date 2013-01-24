@@ -109,6 +109,16 @@ public class UVersionLocalServiceClp implements UVersionLocalService {
 		_methodName19 = "createVersion";
 
 		_methodParameterTypes19 = new String[] { "irestads.model.UVersion" };
+
+		_methodName20 = "createVersion";
+
+		_methodParameterTypes20 = new String[] {
+				"long", "java.lang.String", "java.lang.String"
+			};
+
+		_methodName21 = "findNextVersions";
+
+		_methodParameterTypes21 = new String[] { "long" };
 	}
 
 	public irestads.model.UVersion addUVersion(irestads.model.UVersion uVersion)
@@ -654,6 +664,59 @@ public class UVersionLocalServiceClp implements UVersionLocalService {
 		return (irestads.model.UVersion)ClpSerializer.translateOutput(returnObj);
 	}
 
+	public irestads.model.UVersion createVersion(long idObj,
+		java.lang.String nameObj, java.lang.String type) {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName20,
+					_methodParameterTypes20,
+					new Object[] {
+						idObj,
+						
+					ClpSerializer.translateInput(nameObj),
+						
+					ClpSerializer.translateInput(type)
+					});
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (irestads.model.UVersion)ClpSerializer.translateOutput(returnObj);
+	}
+
+	public java.util.List<irestads.model.UVersion> findNextVersions(
+		long uversionId) {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName21,
+					_methodParameterTypes21, new Object[] { uversionId });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (java.util.List<irestads.model.UVersion>)ClpSerializer.translateOutput(returnObj);
+	}
+
 	private InvokableLocalService _invokableLocalService;
 	private String _methodName0;
 	private String[] _methodParameterTypes0;
@@ -693,4 +756,8 @@ public class UVersionLocalServiceClp implements UVersionLocalService {
 	private String[] _methodParameterTypes17;
 	private String _methodName19;
 	private String[] _methodParameterTypes19;
+	private String _methodName20;
+	private String[] _methodParameterTypes20;
+	private String _methodName21;
+	private String[] _methodParameterTypes21;
 }

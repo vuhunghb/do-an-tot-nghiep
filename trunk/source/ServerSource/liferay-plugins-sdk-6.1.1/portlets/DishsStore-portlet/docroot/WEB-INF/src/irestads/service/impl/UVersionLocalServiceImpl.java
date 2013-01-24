@@ -15,13 +15,19 @@
 package irestads.service.impl;
 
 import java.util.Date;
+import java.util.List;
 
 import com.liferay.counter.service.CounterLocalServiceUtil;
 import com.liferay.portal.kernel.exception.SystemException;
 
+import irestads.defination.LogTypeEnum;
 import irestads.model.Dish;
+import irestads.model.MenuLine;
 import irestads.model.UVersion;
+import irestads.service.UVersionLocalServiceUtil;
 import irestads.service.base.UVersionLocalServiceBaseImpl;
+import irestads.service.persistence.UVersionFinder;
+import irestads.service.persistence.UVersionFinderUtil;
 import irestads.service.persistence.UVersionUtil;
 
 /**
@@ -59,7 +65,26 @@ public class UVersionLocalServiceImpl extends UVersionLocalServiceBaseImpl {
 			e.printStackTrace();
 			return null;
 		}
+	}
+		public UVersion createVersion(long idObj, String nameObj,String type){
+			try {
+				long id = CounterLocalServiceUtil.increment(UVersion.class.getName());
+				UVersion uVersion =UVersionUtil.create(id);
+				uVersion.setLogDate(new Date());
+				uVersion.setLogObjId(idObj);
+				uVersion.setLogObjName(nameObj);
+				uVersion.setLogType(type);
+				uVersion=	UVersionUtil.update(uVersion, true);
+				return uVersion;
+			} catch (SystemException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				return null;
+		}
 		
 		
 	}
+		public List<UVersion> findNextVersions(long uversionId) {
+			return UVersionFinderUtil.findNextVersions(uversionId);
+		}
 }

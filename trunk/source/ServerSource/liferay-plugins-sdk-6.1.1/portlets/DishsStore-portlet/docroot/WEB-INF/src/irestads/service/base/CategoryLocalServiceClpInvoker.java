@@ -98,29 +98,29 @@ public class CategoryLocalServiceClpInvoker {
 				"irestads.model.Category", "boolean"
 			};
 
-		_methodName68 = "getBeanIdentifier";
+		_methodName70 = "getBeanIdentifier";
 
-		_methodParameterTypes68 = new String[] {  };
+		_methodParameterTypes70 = new String[] {  };
 
-		_methodName69 = "setBeanIdentifier";
+		_methodName71 = "setBeanIdentifier";
 
-		_methodParameterTypes69 = new String[] { "java.lang.String" };
+		_methodParameterTypes71 = new String[] { "java.lang.String" };
 
-		_methodName74 = "createCategory";
+		_methodName76 = "createCategory";
 
-		_methodParameterTypes74 = new String[] { "java.lang.String" };
+		_methodParameterTypes76 = new String[] { "java.lang.String" };
 
-		_methodName75 = "countCategoryById";
-
-		_methodParameterTypes75 = new String[] { "long" };
-
-		_methodName76 = "getAllCategorys";
-
-		_methodParameterTypes76 = new String[] {  };
-
-		_methodName77 = "findByID";
+		_methodName77 = "countCategoryById";
 
 		_methodParameterTypes77 = new String[] { "long" };
+
+		_methodName78 = "getAllCategorys";
+
+		_methodParameterTypes78 = new String[] {  };
+
+		_methodName79 = "findByID";
+
+		_methodParameterTypes79 = new String[] { "long" };
 	}
 
 	public Object invokeMethod(String name, String[] parameterTypes,
@@ -212,33 +212,33 @@ public class CategoryLocalServiceClpInvoker {
 				((Boolean)arguments[1]).booleanValue());
 		}
 
-		if (_methodName68.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes68, parameterTypes)) {
+		if (_methodName70.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes70, parameterTypes)) {
 			return CategoryLocalServiceUtil.getBeanIdentifier();
 		}
 
-		if (_methodName69.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes69, parameterTypes)) {
+		if (_methodName71.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes71, parameterTypes)) {
 			CategoryLocalServiceUtil.setBeanIdentifier((java.lang.String)arguments[0]);
-		}
-
-		if (_methodName74.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes74, parameterTypes)) {
-			return CategoryLocalServiceUtil.createCategory((java.lang.String)arguments[0]);
-		}
-
-		if (_methodName75.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes75, parameterTypes)) {
-			return CategoryLocalServiceUtil.countCategoryById(((Long)arguments[0]).longValue());
 		}
 
 		if (_methodName76.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes76, parameterTypes)) {
-			return CategoryLocalServiceUtil.getAllCategorys();
+			return CategoryLocalServiceUtil.createCategory((java.lang.String)arguments[0]);
 		}
 
 		if (_methodName77.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes77, parameterTypes)) {
+			return CategoryLocalServiceUtil.countCategoryById(((Long)arguments[0]).longValue());
+		}
+
+		if (_methodName78.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes78, parameterTypes)) {
+			return CategoryLocalServiceUtil.getAllCategorys();
+		}
+
+		if (_methodName79.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes79, parameterTypes)) {
 			return CategoryLocalServiceUtil.findByID(((Long)arguments[0]).longValue());
 		}
 
@@ -277,16 +277,16 @@ public class CategoryLocalServiceClpInvoker {
 	private String[] _methodParameterTypes14;
 	private String _methodName15;
 	private String[] _methodParameterTypes15;
-	private String _methodName68;
-	private String[] _methodParameterTypes68;
-	private String _methodName69;
-	private String[] _methodParameterTypes69;
-	private String _methodName74;
-	private String[] _methodParameterTypes74;
-	private String _methodName75;
-	private String[] _methodParameterTypes75;
+	private String _methodName70;
+	private String[] _methodParameterTypes70;
+	private String _methodName71;
+	private String[] _methodParameterTypes71;
 	private String _methodName76;
 	private String[] _methodParameterTypes76;
 	private String _methodName77;
 	private String[] _methodParameterTypes77;
+	private String _methodName78;
+	private String[] _methodParameterTypes78;
+	private String _methodName79;
+	private String[] _methodParameterTypes79;
 }

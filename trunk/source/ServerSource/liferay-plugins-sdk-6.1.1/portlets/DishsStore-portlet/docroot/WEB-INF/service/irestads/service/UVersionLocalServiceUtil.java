@@ -274,6 +274,16 @@ public class UVersionLocalServiceUtil {
 		return getService().createVersion(v);
 	}
 
+	public static irestads.model.UVersion createVersion(long idObj,
+		java.lang.String nameObj, java.lang.String type) {
+		return getService().createVersion(idObj, nameObj, type);
+	}
+
+	public static java.util.List<irestads.model.UVersion> findNextVersions(
+		long uversionId) {
+		return getService().findNextVersions(uversionId);
+	}
+
 	public static void clearService() {
 		_service = null;
 	}

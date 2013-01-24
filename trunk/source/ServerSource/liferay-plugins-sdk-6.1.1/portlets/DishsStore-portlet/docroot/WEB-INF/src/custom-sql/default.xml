@@ -3,5 +3,6 @@
         <sql file="custom-sql/dish_search.xml" />
         <sql file="custom-sql/menu_search.xml" />
         <sql file="custom-sql/category_search.xml" />
+        <sql file="custom-sql/uversion_search.xml" />
     </custom-sql>
 

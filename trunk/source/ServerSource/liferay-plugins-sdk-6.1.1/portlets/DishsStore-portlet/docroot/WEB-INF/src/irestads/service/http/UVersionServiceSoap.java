@@ -80,5 +80,35 @@ public class UVersionServiceSoap {
 		}
 	}
 
+	public static irestads.model.UVersionSoap createVersion(long idObj,
+		java.lang.String nameObj, java.lang.String type)
+		throws RemoteException {
+		try {
+			irestads.model.UVersion returnValue = UVersionServiceUtil.createVersion(idObj,
+					nameObj, type);
+
+			return irestads.model.UVersionSoap.toSoapModel(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static irestads.model.UVersionSoap[] findNextVersions(
+		long uversionId) throws RemoteException {
+		try {
+			java.util.List<irestads.model.UVersion> returnValue = UVersionServiceUtil.findNextVersions(uversionId);
+
+			return irestads.model.UVersionSoap.toSoapModels(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
 	private static Log _log = LogFactoryUtil.getLog(UVersionServiceSoap.class);
 }

@@ -58,6 +58,7 @@ Liferay.Service.registerClass(
 Liferay.Service.registerClass(
 	Liferay.Service.dishsstore, "UVersion",
 	{
-		createVersion: true
+		createVersion: true,
+		findNextVersions: true
 	}
 );

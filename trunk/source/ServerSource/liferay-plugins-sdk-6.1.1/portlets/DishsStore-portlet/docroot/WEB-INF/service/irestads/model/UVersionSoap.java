@@ -157,11 +157,11 @@ public class UVersionSoap implements Serializable {
 		_logObjId = logObjId;
 	}
 
-	public int getLogType() {
+	public String getLogType() {
 		return _logType;
 	}
 
-	public void setLogType(int logType) {
+	public void setLogType(String logType) {
 		_logType = logType;
 	}
 
@@ -181,6 +181,6 @@ public class UVersionSoap implements Serializable {
 	private Date _modifiedDate;
 	private String _logObjName;
 	private long _logObjId;
-	private int _logType;
+	private String _logType;
 	private Date _logDate;
 }

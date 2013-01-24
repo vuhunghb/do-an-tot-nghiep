@@ -59,6 +59,16 @@ public class UVersionServiceWrapper implements UVersionService,
 		return _uVersionService.createVersion(v);
 	}
 
+	public irestads.model.UVersion createVersion(long idObj,
+		java.lang.String nameObj, java.lang.String type) {
+		return _uVersionService.createVersion(idObj, nameObj, type);
+	}
+
+	public java.util.List<irestads.model.UVersion> findNextVersions(
+		long uversionId) {
+		return _uVersionService.findNextVersions(uversionId);
+	}
+
 	/**
 	 * @deprecated Renamed to {@link #getWrappedService}
 	 */

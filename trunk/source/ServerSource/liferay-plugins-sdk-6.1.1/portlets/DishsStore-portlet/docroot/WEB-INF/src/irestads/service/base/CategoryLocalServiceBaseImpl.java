@@ -57,6 +57,7 @@ import irestads.service.persistence.DishPersistence;
 import irestads.service.persistence.MenuLineFinder;
 import irestads.service.persistence.MenuLinePersistence;
 import irestads.service.persistence.MenuPersistence;
+import irestads.service.persistence.UVersionFinder;
 import irestads.service.persistence.UVersionPersistence;
 
 import java.io.Serializable;
@@ -612,6 +613,24 @@ public abstract class CategoryLocalServiceBaseImpl extends BaseLocalServiceImpl
 	}
 
 	/**
+	 * Returns the u version finder.
+	 *
+	 * @return the u version finder
+	 */
+	public UVersionFinder getUVersionFinder() {
+		return uVersionFinder;
+	}
+
+	/**
+	 * Sets the u version finder.
+	 *
+	 * @param uVersionFinder the u version finder
+	 */
+	public void setUVersionFinder(UVersionFinder uVersionFinder) {
+		this.uVersionFinder = uVersionFinder;
+	}
+
+	/**
 	 * Returns the counter local service.
 	 *
 	 * @return the counter local service
@@ -834,6 +853,8 @@ public abstract class CategoryLocalServiceBaseImpl extends BaseLocalServiceImpl
 	protected UVersionService uVersionService;
 	@BeanReference(type = UVersionPersistence.class)
 	protected UVersionPersistence uVersionPersistence;
+	@BeanReference(type = UVersionFinder.class)
+	protected UVersionFinder uVersionFinder;
 	@BeanReference(type = CounterLocalService.class)
 	protected CounterLocalService counterLocalService;
 	@BeanReference(type = ResourceLocalService.class)

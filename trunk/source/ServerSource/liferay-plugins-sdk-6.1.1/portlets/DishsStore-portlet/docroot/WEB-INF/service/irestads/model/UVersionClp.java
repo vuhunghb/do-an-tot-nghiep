@@ -131,7 +131,7 @@ public class UVersionClp extends BaseModelImpl<UVersion> implements UVersion {
 			setLogObjId(logObjId);
 		}
 
-		Integer logType = (Integer)attributes.get("logType");
+		String logType = (String)attributes.get("logType");
 
 		if (logType != null) {
 			setLogType(logType);
@@ -216,11 +216,11 @@ public class UVersionClp extends BaseModelImpl<UVersion> implements UVersion {
 		_logObjId = logObjId;
 	}
 
-	public int getLogType() {
+	public String getLogType() {
 		return _logType;
 	}
 
-	public void setLogType(int logType) {
+	public void setLogType(String logType) {
 		_logType = logType;
 	}
 
@@ -406,7 +406,7 @@ public class UVersionClp extends BaseModelImpl<UVersion> implements UVersion {
 	private Date _modifiedDate;
 	private String _logObjName;
 	private long _logObjId;
-	private int _logType;
+	private String _logType;
 	private Date _logDate;
 	private BaseModel<?> _uVersionRemoteModel;
 }
