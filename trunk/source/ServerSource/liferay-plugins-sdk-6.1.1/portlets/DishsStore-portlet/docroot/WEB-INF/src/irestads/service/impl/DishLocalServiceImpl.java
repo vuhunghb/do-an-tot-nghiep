@@ -15,8 +15,10 @@
 package irestads.service.impl;
 
 import irestads.NoSuchDishException;
+import irestads.defination.LogTypeEnum;
 import irestads.model.Dish;
 
+import irestads.service.UVersionServiceUtil;
 import irestads.service.base.DishLocalServiceBaseImpl;
 import irestads.service.persistence.CategoryUtil;
 import irestads.service.persistence.DishFinderUtil;
@@ -53,9 +55,6 @@ public class DishLocalServiceImpl extends DishLocalServiceBaseImpl {
 	 * Never reference this interface directly. Always use {@link
 	 * iRestads.service.DishLocalServiceUtil} to access the dish local service.
 	 */
-	// day la lop ServiceLocalImpl trong file doc
-	// chi thuc hien code o day, ko goi truc tiep. ma chi goi qua
-	// SẻviceLocalUtils
 
 	public Dish createDish(String dishName, String decription,
 			String avatarImg, String detailImg, String detail, int referPrice,String avatarBaseCode,String detailBaseCode,
@@ -128,7 +127,11 @@ public class DishLocalServiceImpl extends DishLocalServiceBaseImpl {
 				d.setReferPrice(dish.getReferPrice());
 				d.setCategoryId(dish.getCategoryId());
 				
-				return DishUtil.update(d, true);
+				d= DishUtil.update(d, true);
+				if(d!=null){
+				UVersionServiceUtil.createVersion(d.getDishId(), Dish.class.getName(), LogTypeEnum.UPDATE.toString());
+				}
+				return d;
 			}
 
 		} catch (SystemException e) {

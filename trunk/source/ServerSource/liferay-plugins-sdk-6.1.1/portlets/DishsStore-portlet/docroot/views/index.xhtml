@@ -29,7 +29,7 @@
 					icon="ui-icon-close" actionListener="#{dishBeans.deleteDish()}" />
 			</p:contextMenu>
  			
-			<h:panelGrid columns="6">
+			<h:panelGrid columns="7">
 				<h:outputText value="Từ khóa " />
 				<p:selectOneMenu id="searchType" value="#{dishBeans.searchType}"
 					effect="fold">
@@ -43,7 +43,7 @@
 					action="#{dishBeans.search()}" />
 				<p:commandButton id="showAddDlgButton" type="button"
 					value="Thêm Món Ăn" onclick="addDishDlg.show()" />
-					
+					<h:commandButton action="goToMenu" value="Menu" />
 			</h:panelGrid>
 			<p:dataTable id="dishTable" var="dish" value="#{dishBeans.dishs}"
 				paginator="true" rows="10"

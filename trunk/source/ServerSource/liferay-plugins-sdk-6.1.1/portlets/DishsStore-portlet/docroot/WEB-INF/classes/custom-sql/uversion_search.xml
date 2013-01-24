@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<custom-sql>
+        <sql id="findNextVersions">
+              <![CDATA[
+               SELECT
+                    *
+               FROM
+                    dishsstore_uversion
+               WHERE
+                   (dishsstore_uversion.versionId > ?)
+              ]]>
+	</sql>
+    </custom-sql>
+
