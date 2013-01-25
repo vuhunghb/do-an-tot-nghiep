@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ValueChangeEvent;
 
 import org.primefaces.event.DragDropEvent;
 import org.primefaces.event.FlowEvent;
@@ -35,8 +36,20 @@ public class MenuBeans {
 	private Map<String, Object> checkboxValue=new  LinkedHashMap<String, Object>();
 	private boolean skip;  
     private static Logger logger = Logger.getLogger(MenuBeans.class.getName()); 
+	private boolean validateFlag=false;
    
-
+	public void searchTypeChanged(ValueChangeEvent e){
+		
+		//assign new value to localeCode
+		int st = (Integer) e.getNewValue();
+		System.out.println("st "+st);
+		if(st==10){
+			validateFlag=true;
+		}else{
+			validateFlag=false;
+		}
+ 
+	}
     public List<UVersion> findNextVersions() {
     	List<UVersion> list =	UVersionLocalServiceUtil.findNextVersions(201);
     	System.out.println("lisst "+list.size());
@@ -370,6 +383,12 @@ public class MenuBeans {
 
 	public void setCandidateMenuLine(List<MenuLine> candidateMenuLine) {
 		this.candidateMenuLine = candidateMenuLine;
+	}
+	public boolean isValidateFlag() {
+		return validateFlag;
+	}
+	public void setValidateFlag(boolean validateFlag) {
+		this.validateFlag = validateFlag;
 	}
 
 	

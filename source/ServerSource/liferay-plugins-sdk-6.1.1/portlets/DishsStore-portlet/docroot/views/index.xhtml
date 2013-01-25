@@ -31,13 +31,14 @@
  			
 			<h:panelGrid columns="7">
 				<h:outputText value="Từ khóa " />
-				<p:selectOneMenu id="searchType" value="#{dishBeans.searchType}"
-					effect="fold">
+				<p:selectOneMenu id="searchType" value="#{dishBeans.searchType}" 
+					effect="fold" >
 					<f:selectItem itemLabel="Select One" itemValue="2" />
 					<f:selectItems value="#{dishBeans.searchTypesValue}" />
 				</p:selectOneMenu>
 				<h:outputText value="Nội dung" />
-				<h:inputText id="keyWord" value="#{dishBeans.keyWords}" />
+				<h:inputText id="keyWord" value="#{dishBeans.keyWords}"  />
+				
 
 				<p:commandButton value="Tìm Kiến" update="@form"
 					action="#{dishBeans.search()}" />
