@@ -31,18 +31,25 @@
 					update=":formTable:menuLineTable :formTable:messages :fAddDishFromStore:addFromDishStoreDlg"
 					icon="ui-icon-close" actionListener="#{menuBeans.deleteMenuLine()}" />
 			</p:contextMenu>
-			<p:commandButton value="Test" action="#{menuBeans.findNextVersions()}" >
+			<p:commandButton value="Test"
+				action="#{menuBeans.findNextVersions()}">
 			</p:commandButton>
 
 			<h:panelGrid columns="7">
 				<h:outputText value="Từ khóa " />
 				<p:selectOneMenu id="searchType" value="#{menuBeans.searchType}"
+					valueChangeListener="#{menuBeans.searchTypeChanged()}" onchange="submit()" 
 					effect="fold">
 					<f:selectItem itemLabel="Select One" itemValue="2" />
 					<f:selectItems value="#{menuBeans.searchTypesValue}" />
 				</p:selectOneMenu>
 				<h:outputText value="Nội dung" />
-				<h:inputText id="keyWord" value="#{menuBeans.keyWords}" />
+				<h:inputText id="keyWord" value="#{menuBeans.keyWords}"
+					rendered="#{not menuBeans.validateFlag}" />
+				<p:selectOneRadio id="options" value="#{menuBeans.keyWords}" rendered="#{menuBeans.validateFlag}">
+					<f:selectItem itemLabel="Còn" itemValue="true" />
+					<f:selectItem itemLabel="Hết" itemValue="false" />
+				</p:selectOneRadio>
 
 				<p:commandButton value="Tìm Kiến" update="@form"
 					action="#{menuBeans.search}" />
