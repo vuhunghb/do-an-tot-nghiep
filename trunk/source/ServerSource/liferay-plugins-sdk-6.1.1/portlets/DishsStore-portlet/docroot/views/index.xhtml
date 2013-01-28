@@ -136,8 +136,7 @@
 					<p:cellEditor>
 						<f:facet name="output">
 							<h:outputText
-								value="#{dish.categoryId}" />
-							<!-- value#{dish.categoryId}{dishBeans.getCategoryNameByID(dish.categoryId)}" -->
+								value="#{categoryBeans.getCategoryNameByID(dish.categoryId)}" />
 						</f:facet>
 						<f:facet name="input">
 							<h:selectOneMenu value="#{dish.categoryId}">
@@ -167,7 +166,7 @@
 
 					<h:outputText value="Loai" />
 					<h:outputText style="font-weight:bold"
-						value="#{dishBeans.dishSelected.categoryId}" />
+						value="#{categoryBeans.getCategoryNameByID(dishBeans.dishSelected.categoryId)}" />
 
 					<h:outputText value="Giá tha khảo:" />
 					<h:outputText style="font-weight:bold"

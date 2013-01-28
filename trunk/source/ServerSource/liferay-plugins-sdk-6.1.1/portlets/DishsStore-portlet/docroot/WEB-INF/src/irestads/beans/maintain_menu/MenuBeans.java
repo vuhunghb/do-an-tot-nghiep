@@ -38,17 +38,19 @@ public class MenuBeans {
     private static Logger logger = Logger.getLogger(MenuBeans.class.getName()); 
 	private boolean validateFlag=false;
    
-	public void searchTypeChanged(ValueChangeEvent e){
+	public void searchTypeChanged(){
+		keyWords="";
+		System.out.println("value "+searchType);
 		
 		//assign new value to localeCode
-		int st = (Integer) e.getNewValue();
-		System.out.println("st "+st);
-		if(st==10){
+	//	int st = (Integer) e.getNewValue();
+//		System.out.println("st "+st);
+		if(searchType.equals("10")){
 			validateFlag=true;
 		}else{
 			validateFlag=false;
 		}
- 
+ System.out.println("flag "+validateFlag);
 	}
     public List<UVersion> findNextVersions() {
     	List<UVersion> list =	UVersionLocalServiceUtil.findNextVersions(201);

@@ -22,10 +22,16 @@ import irestads.service.CategoryServiceUtil;
 import irestads.service.ClpSerializer;
 import irestads.service.DishLocalServiceUtil;
 import irestads.service.DishServiceUtil;
+import irestads.service.DishTableLocalServiceUtil;
+import irestads.service.DishTableServiceUtil;
 import irestads.service.MenuLineLocalServiceUtil;
 import irestads.service.MenuLineServiceUtil;
 import irestads.service.MenuLocalServiceUtil;
 import irestads.service.MenuServiceUtil;
+import irestads.service.OrderLineLocalServiceUtil;
+import irestads.service.OrderLineServiceUtil;
+import irestads.service.OrdersLocalServiceUtil;
+import irestads.service.OrdersServiceUtil;
 import irestads.service.UVersionLocalServiceUtil;
 import irestads.service.UVersionServiceUtil;
 
@@ -50,12 +56,21 @@ public class ClpMessageListener extends BaseMessageListener {
 			DishLocalServiceUtil.clearService();
 
 			DishServiceUtil.clearService();
+			DishTableLocalServiceUtil.clearService();
+
+			DishTableServiceUtil.clearService();
 			MenuLocalServiceUtil.clearService();
 
 			MenuServiceUtil.clearService();
 			MenuLineLocalServiceUtil.clearService();
 
 			MenuLineServiceUtil.clearService();
+			OrderLineLocalServiceUtil.clearService();
+
+			OrderLineServiceUtil.clearService();
+			OrdersLocalServiceUtil.clearService();
+
+			OrdersServiceUtil.clearService();
 			UVersionLocalServiceUtil.clearService();
 
 			UVersionServiceUtil.clearService();

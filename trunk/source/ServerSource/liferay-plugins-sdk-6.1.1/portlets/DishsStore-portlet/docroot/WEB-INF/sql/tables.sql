@@ -27,6 +27,17 @@ create table dishsstore_Dish (
 	categoryId LONG
 );
 
+create table dishsstore_DishTable (
+	dishTableId LONG not null primary key,
+	companyId LONG,
+	userId LONG,
+	userName VARCHAR(75) null,
+	createDate DATE null,
+	modifiedDate DATE null,
+	isAvalable BOOLEAN,
+	numChair INTEGER
+);
+
 create table dishsstore_Menu (
 	menuId LONG not null primary key,
 	companyId LONG,
@@ -47,6 +58,32 @@ create table dishsstore_MenuLine (
 	numOfDish INTEGER,
 	status BOOLEAN,
 	dishId LONG
+);
+
+create table dishsstore_OrderLine (
+	orderLineId LONG not null primary key,
+	companyId LONG,
+	userId LONG,
+	userName VARCHAR(75) null,
+	createDate DATE null,
+	modifiedDate DATE null,
+	numOfDish INTEGER,
+	statusDish INTEGER,
+	dishId LONG
+);
+
+create table dishsstore_Orders (
+	orderId LONG not null primary key,
+	companyId LONG,
+	userId LONG,
+	userName VARCHAR(75) null,
+	createDate DATE null,
+	modifiedDate DATE null,
+	charge INTEGER,
+	createdDate DATE null,
+	isPayMent BOOLEAN,
+	numOfDinner INTEGER,
+	dishTableId LONG
 );
 
 create table dishsstore_UVersion (

@@ -23,124 +23,124 @@ import java.util.Arrays;
  */
 public class MenuLineServiceClpInvoker {
 	public MenuLineServiceClpInvoker() {
-		_methodName54 = "getBeanIdentifier";
+		_methodName72 = "getBeanIdentifier";
 
-		_methodParameterTypes54 = new String[] {  };
+		_methodParameterTypes72 = new String[] {  };
 
-		_methodName55 = "setBeanIdentifier";
+		_methodName73 = "setBeanIdentifier";
 
-		_methodParameterTypes55 = new String[] { "java.lang.String" };
+		_methodParameterTypes73 = new String[] { "java.lang.String" };
 
-		_methodName60 = "getAllMenuLine";
+		_methodName78 = "getAllMenuLine";
 
-		_methodParameterTypes60 = new String[] {  };
+		_methodParameterTypes78 = new String[] {  };
 
-		_methodName61 = "createMenuLine";
+		_methodName79 = "createMenuLine";
 
-		_methodParameterTypes61 = new String[] {
+		_methodParameterTypes79 = new String[] {
 				"java.lang.String", "java.lang.String", "java.lang.String",
 				"java.lang.String", "java.lang.String", "int",
 				"java.lang.String", "java.lang.String", "long", "int", "boolean"
 			};
 
-		_methodName62 = "createMenuLineDish";
+		_methodName80 = "createMenuLineDish";
 
-		_methodParameterTypes62 = new String[] { "irestads.model.MenuLine" };
+		_methodParameterTypes80 = new String[] { "irestads.model.MenuLine" };
 
-		_methodName63 = "createMenuLine";
+		_methodName81 = "createMenuLine";
 
-		_methodParameterTypes63 = new String[] { "irestads.model.MenuLine" };
+		_methodParameterTypes81 = new String[] { "irestads.model.MenuLine" };
 
-		_methodName64 = "createMenuLine";
+		_methodName82 = "createMenuLine";
 
-		_methodParameterTypes64 = new String[] { "long", "int", "boolean" };
+		_methodParameterTypes82 = new String[] { "long", "int", "boolean" };
 
-		_methodName65 = "createMenuLine";
+		_methodName83 = "createMenuLine";
 
-		_methodParameterTypes65 = new String[] { "java.util.List" };
+		_methodParameterTypes83 = new String[] { "java.util.List" };
 
-		_methodName66 = "updateMenuLine";
+		_methodName84 = "updateMenuLine";
 
-		_methodParameterTypes66 = new String[] { "irestads.model.MenuLine" };
+		_methodParameterTypes84 = new String[] { "irestads.model.MenuLine" };
 
-		_methodName67 = "deleteMenuLine";
+		_methodName85 = "deleteMenuLine";
 
-		_methodParameterTypes67 = new String[] { "irestads.model.MenuLine" };
+		_methodParameterTypes85 = new String[] { "irestads.model.MenuLine" };
 
-		_methodName68 = "findMenuLineById";
+		_methodName86 = "findMenuLineById";
 
-		_methodParameterTypes68 = new String[] { "long" };
+		_methodParameterTypes86 = new String[] { "long" };
 
-		_methodName69 = "findMenuLinesByDReferPrice";
+		_methodName87 = "findMenuLinesByDReferPrice";
 
-		_methodParameterTypes69 = new String[] { "int" };
+		_methodParameterTypes87 = new String[] { "int" };
 
-		_methodName70 = "setDishForMenuLine";
+		_methodName88 = "setDishForMenuLine";
 
-		_methodParameterTypes70 = new String[] { "irestads.model.MenuLine" };
+		_methodParameterTypes88 = new String[] { "irestads.model.MenuLine" };
 
-		_methodName71 = "findMenuLinesByDishId";
+		_methodName89 = "findMenuLinesByDishId";
 
-		_methodParameterTypes71 = new String[] { "long" };
+		_methodParameterTypes89 = new String[] { "long" };
 
-		_methodName72 = "findMenuLinesByDName";
+		_methodName90 = "findMenuLinesByDName";
 
-		_methodParameterTypes72 = new String[] { "java.lang.String" };
+		_methodParameterTypes90 = new String[] { "java.lang.String" };
 
-		_methodName73 = "findMenuLinesByDDecription";
+		_methodName91 = "findMenuLinesByDDecription";
 
-		_methodParameterTypes73 = new String[] { "java.lang.String" };
+		_methodParameterTypes91 = new String[] { "java.lang.String" };
 
-		_methodName74 = "findMenuLinesByDAvatarImg";
+		_methodName92 = "findMenuLinesByDAvatarImg";
 
-		_methodParameterTypes74 = new String[] { "java.lang.String" };
+		_methodParameterTypes92 = new String[] { "java.lang.String" };
 
-		_methodName75 = "findMenuLinesByDDetailImg";
+		_methodName93 = "findMenuLinesByDDetailImg";
 
-		_methodParameterTypes75 = new String[] { "java.lang.String" };
+		_methodParameterTypes93 = new String[] { "java.lang.String" };
 
-		_methodName76 = "findMenuLinesByDDetail";
+		_methodName94 = "findMenuLinesByDDetail";
 
-		_methodParameterTypes76 = new String[] { "java.lang.String" };
+		_methodParameterTypes94 = new String[] { "java.lang.String" };
 
-		_methodName77 = "findMenuLinesByDCategoryName";
+		_methodName95 = "findMenuLinesByDCategoryName";
 
-		_methodParameterTypes77 = new String[] { "java.lang.String" };
+		_methodParameterTypes95 = new String[] { "java.lang.String" };
 
-		_methodName78 = "findMenuLinesByNumOfDish";
+		_methodName96 = "findMenuLinesByNumOfDish";
 
-		_methodParameterTypes78 = new String[] { "int" };
+		_methodParameterTypes96 = new String[] { "int" };
 
-		_methodName79 = "findMenuLinesByStatus";
+		_methodName97 = "findMenuLinesByStatus";
 
-		_methodParameterTypes79 = new String[] { "boolean" };
+		_methodParameterTypes97 = new String[] { "boolean" };
 
-		_methodName80 = "parseBooleanToShow";
+		_methodName98 = "parseBooleanToShow";
 
-		_methodParameterTypes80 = new String[] {
+		_methodParameterTypes98 = new String[] {
 				"boolean", "java.lang.String", "java.lang.String"
 			};
 	}
 
 	public Object invokeMethod(String name, String[] parameterTypes,
 		Object[] arguments) throws Throwable {
-		if (_methodName54.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes54, parameterTypes)) {
+		if (_methodName72.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes72, parameterTypes)) {
 			return MenuLineServiceUtil.getBeanIdentifier();
 		}
 
-		if (_methodName55.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes55, parameterTypes)) {
+		if (_methodName73.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes73, parameterTypes)) {
 			MenuLineServiceUtil.setBeanIdentifier((java.lang.String)arguments[0]);
 		}
 
-		if (_methodName60.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes60, parameterTypes)) {
+		if (_methodName78.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes78, parameterTypes)) {
 			return MenuLineServiceUtil.getAllMenuLine();
 		}
 
-		if (_methodName61.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes61, parameterTypes)) {
+		if (_methodName79.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes79, parameterTypes)) {
 			return MenuLineServiceUtil.createMenuLine((java.lang.String)arguments[0],
 				(java.lang.String)arguments[1], (java.lang.String)arguments[2],
 				(java.lang.String)arguments[3], (java.lang.String)arguments[4],
@@ -151,100 +151,100 @@ public class MenuLineServiceClpInvoker {
 				((Boolean)arguments[10]).booleanValue());
 		}
 
-		if (_methodName62.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes62, parameterTypes)) {
+		if (_methodName80.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes80, parameterTypes)) {
 			return MenuLineServiceUtil.createMenuLineDish((irestads.model.MenuLine)arguments[0]);
 		}
 
-		if (_methodName63.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes63, parameterTypes)) {
+		if (_methodName81.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes81, parameterTypes)) {
 			return MenuLineServiceUtil.createMenuLine((irestads.model.MenuLine)arguments[0]);
 		}
 
-		if (_methodName64.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes64, parameterTypes)) {
+		if (_methodName82.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes82, parameterTypes)) {
 			return MenuLineServiceUtil.createMenuLine(((Long)arguments[0]).longValue(),
 				((Integer)arguments[1]).intValue(),
 				((Boolean)arguments[2]).booleanValue());
 		}
 
-		if (_methodName65.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes65, parameterTypes)) {
+		if (_methodName83.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes83, parameterTypes)) {
 			return MenuLineServiceUtil.createMenuLine((java.util.List<irestads.model.MenuLine>)arguments[0]);
 		}
 
-		if (_methodName66.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes66, parameterTypes)) {
+		if (_methodName84.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes84, parameterTypes)) {
 			return MenuLineServiceUtil.updateMenuLine((irestads.model.MenuLine)arguments[0]);
 		}
 
-		if (_methodName67.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes67, parameterTypes)) {
+		if (_methodName85.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes85, parameterTypes)) {
 			return MenuLineServiceUtil.deleteMenuLine((irestads.model.MenuLine)arguments[0]);
 		}
 
-		if (_methodName68.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes68, parameterTypes)) {
+		if (_methodName86.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes86, parameterTypes)) {
 			return MenuLineServiceUtil.findMenuLineById(((Long)arguments[0]).longValue());
 		}
 
-		if (_methodName69.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes69, parameterTypes)) {
+		if (_methodName87.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes87, parameterTypes)) {
 			return MenuLineServiceUtil.findMenuLinesByDReferPrice(((Integer)arguments[0]).intValue());
 		}
 
-		if (_methodName70.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes70, parameterTypes)) {
+		if (_methodName88.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes88, parameterTypes)) {
 			return MenuLineServiceUtil.setDishForMenuLine((irestads.model.MenuLine)arguments[0]);
 		}
 
-		if (_methodName71.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes71, parameterTypes)) {
+		if (_methodName89.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes89, parameterTypes)) {
 			return MenuLineServiceUtil.findMenuLinesByDishId(((Long)arguments[0]).longValue());
 		}
 
-		if (_methodName72.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes72, parameterTypes)) {
+		if (_methodName90.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes90, parameterTypes)) {
 			return MenuLineServiceUtil.findMenuLinesByDName((java.lang.String)arguments[0]);
 		}
 
-		if (_methodName73.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes73, parameterTypes)) {
+		if (_methodName91.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes91, parameterTypes)) {
 			return MenuLineServiceUtil.findMenuLinesByDDecription((java.lang.String)arguments[0]);
 		}
 
-		if (_methodName74.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes74, parameterTypes)) {
+		if (_methodName92.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes92, parameterTypes)) {
 			return MenuLineServiceUtil.findMenuLinesByDAvatarImg((java.lang.String)arguments[0]);
 		}
 
-		if (_methodName75.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes75, parameterTypes)) {
+		if (_methodName93.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes93, parameterTypes)) {
 			return MenuLineServiceUtil.findMenuLinesByDDetailImg((java.lang.String)arguments[0]);
 		}
 
-		if (_methodName76.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes76, parameterTypes)) {
+		if (_methodName94.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes94, parameterTypes)) {
 			return MenuLineServiceUtil.findMenuLinesByDDetail((java.lang.String)arguments[0]);
 		}
 
-		if (_methodName77.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes77, parameterTypes)) {
+		if (_methodName95.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes95, parameterTypes)) {
 			return MenuLineServiceUtil.findMenuLinesByDCategoryName((java.lang.String)arguments[0]);
 		}
 
-		if (_methodName78.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes78, parameterTypes)) {
+		if (_methodName96.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes96, parameterTypes)) {
 			return MenuLineServiceUtil.findMenuLinesByNumOfDish(((Integer)arguments[0]).intValue());
 		}
 
-		if (_methodName79.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes79, parameterTypes)) {
+		if (_methodName97.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes97, parameterTypes)) {
 			return MenuLineServiceUtil.findMenuLinesByStatus(((Boolean)arguments[0]).booleanValue());
 		}
 
-		if (_methodName80.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes80, parameterTypes)) {
+		if (_methodName98.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes98, parameterTypes)) {
 			return MenuLineServiceUtil.parseBooleanToShow(((Boolean)arguments[0]).booleanValue(),
 				(java.lang.String)arguments[1], (java.lang.String)arguments[2]);
 		}
@@ -252,50 +252,50 @@ public class MenuLineServiceClpInvoker {
 		throw new UnsupportedOperationException();
 	}
 
-	private String _methodName54;
-	private String[] _methodParameterTypes54;
-	private String _methodName55;
-	private String[] _methodParameterTypes55;
-	private String _methodName60;
-	private String[] _methodParameterTypes60;
-	private String _methodName61;
-	private String[] _methodParameterTypes61;
-	private String _methodName62;
-	private String[] _methodParameterTypes62;
-	private String _methodName63;
-	private String[] _methodParameterTypes63;
-	private String _methodName64;
-	private String[] _methodParameterTypes64;
-	private String _methodName65;
-	private String[] _methodParameterTypes65;
-	private String _methodName66;
-	private String[] _methodParameterTypes66;
-	private String _methodName67;
-	private String[] _methodParameterTypes67;
-	private String _methodName68;
-	private String[] _methodParameterTypes68;
-	private String _methodName69;
-	private String[] _methodParameterTypes69;
-	private String _methodName70;
-	private String[] _methodParameterTypes70;
-	private String _methodName71;
-	private String[] _methodParameterTypes71;
 	private String _methodName72;
 	private String[] _methodParameterTypes72;
 	private String _methodName73;
 	private String[] _methodParameterTypes73;
-	private String _methodName74;
-	private String[] _methodParameterTypes74;
-	private String _methodName75;
-	private String[] _methodParameterTypes75;
-	private String _methodName76;
-	private String[] _methodParameterTypes76;
-	private String _methodName77;
-	private String[] _methodParameterTypes77;
 	private String _methodName78;
 	private String[] _methodParameterTypes78;
 	private String _methodName79;
 	private String[] _methodParameterTypes79;
 	private String _methodName80;
 	private String[] _methodParameterTypes80;
+	private String _methodName81;
+	private String[] _methodParameterTypes81;
+	private String _methodName82;
+	private String[] _methodParameterTypes82;
+	private String _methodName83;
+	private String[] _methodParameterTypes83;
+	private String _methodName84;
+	private String[] _methodParameterTypes84;
+	private String _methodName85;
+	private String[] _methodParameterTypes85;
+	private String _methodName86;
+	private String[] _methodParameterTypes86;
+	private String _methodName87;
+	private String[] _methodParameterTypes87;
+	private String _methodName88;
+	private String[] _methodParameterTypes88;
+	private String _methodName89;
+	private String[] _methodParameterTypes89;
+	private String _methodName90;
+	private String[] _methodParameterTypes90;
+	private String _methodName91;
+	private String[] _methodParameterTypes91;
+	private String _methodName92;
+	private String[] _methodParameterTypes92;
+	private String _methodName93;
+	private String[] _methodParameterTypes93;
+	private String _methodName94;
+	private String[] _methodParameterTypes94;
+	private String _methodName95;
+	private String[] _methodParameterTypes95;
+	private String _methodName96;
+	private String[] _methodParameterTypes96;
+	private String _methodName97;
+	private String[] _methodParameterTypes97;
+	private String _methodName98;
+	private String[] _methodParameterTypes98;
 }
