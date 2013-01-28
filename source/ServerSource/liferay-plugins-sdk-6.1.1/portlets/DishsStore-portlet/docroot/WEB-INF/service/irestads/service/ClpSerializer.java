@@ -27,8 +27,11 @@ import com.liferay.portal.model.BaseModel;
 
 import irestads.model.CategoryClp;
 import irestads.model.DishClp;
+import irestads.model.DishTableClp;
 import irestads.model.MenuClp;
 import irestads.model.MenuLineClp;
+import irestads.model.OrderLineClp;
+import irestads.model.OrdersClp;
 import irestads.model.UVersionClp;
 
 import java.io.ObjectInputStream;
@@ -114,12 +117,24 @@ public class ClpSerializer {
 			return translateInputDish(oldModel);
 		}
 
+		if (oldModelClassName.equals(DishTableClp.class.getName())) {
+			return translateInputDishTable(oldModel);
+		}
+
 		if (oldModelClassName.equals(MenuClp.class.getName())) {
 			return translateInputMenu(oldModel);
 		}
 
 		if (oldModelClassName.equals(MenuLineClp.class.getName())) {
 			return translateInputMenuLine(oldModel);
+		}
+
+		if (oldModelClassName.equals(OrderLineClp.class.getName())) {
+			return translateInputOrderLine(oldModel);
+		}
+
+		if (oldModelClassName.equals(OrdersClp.class.getName())) {
+			return translateInputOrders(oldModel);
 		}
 
 		if (oldModelClassName.equals(UVersionClp.class.getName())) {
@@ -161,6 +176,16 @@ public class ClpSerializer {
 		return newModel;
 	}
 
+	public static Object translateInputDishTable(BaseModel<?> oldModel) {
+		DishTableClp oldClpModel = (DishTableClp)oldModel;
+
+		BaseModel<?> newModel = oldClpModel.getDishTableRemoteModel();
+
+		newModel.setModelAttributes(oldClpModel.getModelAttributes());
+
+		return newModel;
+	}
+
 	public static Object translateInputMenu(BaseModel<?> oldModel) {
 		MenuClp oldClpModel = (MenuClp)oldModel;
 
@@ -175,6 +200,26 @@ public class ClpSerializer {
 		MenuLineClp oldClpModel = (MenuLineClp)oldModel;
 
 		BaseModel<?> newModel = oldClpModel.getMenuLineRemoteModel();
+
+		newModel.setModelAttributes(oldClpModel.getModelAttributes());
+
+		return newModel;
+	}
+
+	public static Object translateInputOrderLine(BaseModel<?> oldModel) {
+		OrderLineClp oldClpModel = (OrderLineClp)oldModel;
+
+		BaseModel<?> newModel = oldClpModel.getOrderLineRemoteModel();
+
+		newModel.setModelAttributes(oldClpModel.getModelAttributes());
+
+		return newModel;
+	}
+
+	public static Object translateInputOrders(BaseModel<?> oldModel) {
+		OrdersClp oldClpModel = (OrdersClp)oldModel;
+
+		BaseModel<?> newModel = oldClpModel.getOrdersRemoteModel();
 
 		newModel.setModelAttributes(oldClpModel.getModelAttributes());
 
@@ -216,12 +261,24 @@ public class ClpSerializer {
 			return translateOutputDish(oldModel);
 		}
 
+		if (oldModelClassName.equals("irestads.model.impl.DishTableImpl")) {
+			return translateOutputDishTable(oldModel);
+		}
+
 		if (oldModelClassName.equals("irestads.model.impl.MenuImpl")) {
 			return translateOutputMenu(oldModel);
 		}
 
 		if (oldModelClassName.equals("irestads.model.impl.MenuLineImpl")) {
 			return translateOutputMenuLine(oldModel);
+		}
+
+		if (oldModelClassName.equals("irestads.model.impl.OrderLineImpl")) {
+			return translateOutputOrderLine(oldModel);
+		}
+
+		if (oldModelClassName.equals("irestads.model.impl.OrdersImpl")) {
+			return translateOutputOrders(oldModel);
 		}
 
 		if (oldModelClassName.equals("irestads.model.impl.UVersionImpl")) {
@@ -316,12 +373,24 @@ public class ClpSerializer {
 			return new irestads.NoSuchDishException();
 		}
 
+		if (className.equals("irestads.NoSuchDishTableException")) {
+			return new irestads.NoSuchDishTableException();
+		}
+
 		if (className.equals("irestads.NoSuchMenuException")) {
 			return new irestads.NoSuchMenuException();
 		}
 
 		if (className.equals("irestads.NoSuchMenuLineException")) {
 			return new irestads.NoSuchMenuLineException();
+		}
+
+		if (className.equals("irestads.NoSuchOrderLineException")) {
+			return new irestads.NoSuchOrderLineException();
+		}
+
+		if (className.equals("irestads.NoSuchOrdersException")) {
+			return new irestads.NoSuchOrdersException();
 		}
 
 		if (className.equals("irestads.NoSuchUVersionException")) {
@@ -351,6 +420,16 @@ public class ClpSerializer {
 		return newModel;
 	}
 
+	public static Object translateOutputDishTable(BaseModel<?> oldModel) {
+		DishTableClp newModel = new DishTableClp();
+
+		newModel.setModelAttributes(oldModel.getModelAttributes());
+
+		newModel.setDishTableRemoteModel(oldModel);
+
+		return newModel;
+	}
+
 	public static Object translateOutputMenu(BaseModel<?> oldModel) {
 		MenuClp newModel = new MenuClp();
 
@@ -367,6 +446,26 @@ public class ClpSerializer {
 		newModel.setModelAttributes(oldModel.getModelAttributes());
 
 		newModel.setMenuLineRemoteModel(oldModel);
+
+		return newModel;
+	}
+
+	public static Object translateOutputOrderLine(BaseModel<?> oldModel) {
+		OrderLineClp newModel = new OrderLineClp();
+
+		newModel.setModelAttributes(oldModel.getModelAttributes());
+
+		newModel.setOrderLineRemoteModel(oldModel);
+
+		return newModel;
+	}
+
+	public static Object translateOutputOrders(BaseModel<?> oldModel) {
+		OrdersClp newModel = new OrdersClp();
+
+		newModel.setModelAttributes(oldModel.getModelAttributes());
+
+		newModel.setOrdersRemoteModel(oldModel);
 
 		return newModel;
 	}

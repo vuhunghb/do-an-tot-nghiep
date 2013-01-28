@@ -12,19 +12,11 @@ public class CategoryBeans implements Serializable {
 	private List<Category> categorys;
 
 	public String getCategoryNameByID(long categoryId) {
-		System.out.println("Category ID " + categoryId);
-		int count = CategoryServiceUtil.countCategoryById(categoryId);
-		if (count != 0) {
-			System.out.println("co category");
-			Category c = CategoryServiceUtil.findByID(categoryId);
-			return c.getCategoryName();
-		}
-		return "";
-		// if(this.dishs.size()>0){
-		// Category c = CategoryServiceUtil.findByID(categoryId);
-		// return c.getCategoryName();
-		// }
-		// return "";
+		 Category c = CategoryServiceUtil.findByID(categoryId);
+		 if(c!=null){
+		 return c.getCategoryName();
+		 }
+		 return "";
 	}
 
 	public CategoryBeans() {

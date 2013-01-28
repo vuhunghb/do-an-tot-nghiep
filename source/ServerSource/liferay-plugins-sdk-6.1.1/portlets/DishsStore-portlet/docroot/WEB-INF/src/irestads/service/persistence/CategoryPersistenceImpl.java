@@ -1381,10 +1381,16 @@ public class CategoryPersistenceImpl extends BasePersistenceImpl<Category>
 	protected CategoryPersistence categoryPersistence;
 	@BeanReference(type = DishPersistence.class)
 	protected DishPersistence dishPersistence;
+	@BeanReference(type = DishTablePersistence.class)
+	protected DishTablePersistence dishTablePersistence;
 	@BeanReference(type = MenuPersistence.class)
 	protected MenuPersistence menuPersistence;
 	@BeanReference(type = MenuLinePersistence.class)
 	protected MenuLinePersistence menuLinePersistence;
+	@BeanReference(type = OrderLinePersistence.class)
+	protected OrderLinePersistence orderLinePersistence;
+	@BeanReference(type = OrdersPersistence.class)
+	protected OrdersPersistence ordersPersistence;
 	@BeanReference(type = UVersionPersistence.class)
 	protected UVersionPersistence uVersionPersistence;
 	@BeanReference(type = ResourcePersistence.class)

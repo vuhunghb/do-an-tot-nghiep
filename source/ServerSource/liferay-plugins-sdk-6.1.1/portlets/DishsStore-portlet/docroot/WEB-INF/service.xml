@@ -151,4 +151,75 @@
 			<finder-column name="menuName" />
 		</finder>
 	</entity>
+	<entity name="OrderLine" local-service="true" remote-service="true">
+		<!-- PK fields -->
+		<column name="orderLineId" type="long" primary="true" />
+		<!-- Audit fields -->
+		<column name="companyId" type="long" />
+		<column name="userId" type="long" />
+		<column name="userName" type="String" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+		<!-- Other fields -->
+		<column name="numOfDish" type="int" />
+		<column name="statusDish" type="int" />
+		<column name="dishId" type="long" />
+		<!-- Order -->
+		<order by="asc">
+			<order-column name="numOfDish" />
+		</order>
+		<!-- Finder methods -->
+		<finder name="StatusDish" return-type="Collection">
+			<finder-column name="statusDish" />
+		</finder>
+	</entity>
+	<entity name="Orders" local-service="true" remote-service="true">
+		<!-- PK fields -->
+		<column name="orderId" type="long" primary="true" />
+		<!-- Audit fields -->
+		<column name="companyId" type="long" />
+		<column name="userId" type="long" />
+		<column name="userName" type="String" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+		<!-- Other fields -->
+		<column name="charge" type="int" />
+		<column name="createdDate" type="Date" />
+		<column name="isPayMent" type="boolean" />
+		<column name="numOfDinner" type="int" />
+		<column name="orderLines" type="Collection" entity="OrderLine"
+			mapping-key="orderId" />
+		<column name="dishTableId" type="long"></column>
+		<!-- Order -->
+		
+		<!-- Finder methods -->
+		<finder name="IsPayMent" return-type="Collection">
+			<finder-column name="isPayMent" />
+		</finder>
+	</entity>
+	<entity name="DishTable" local-service="true" remote-service="true">
+		<!-- PK fields -->
+		<column name="dishTableId" type="long" primary="true" />
+		<!-- Audit fields -->
+		<column name="companyId" type="long" />
+		<column name="userId" type="long" />
+		<column name="userName" type="String" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+		<!-- Other fields -->
+		<column name="isAvalable" type="boolean" />
+		<column name="numChair" type="int" />
+		<column name="orders" type="Collection" entity="Orders"
+			mapping-key="dishTableId" />
+		<!-- Order -->
+		<order by="asc">
+			<order-column name="isAvalable" />
+		</order>
+		<!-- Finder methods -->
+		<finder name="IsAvalable" return-type="Collection">
+			<finder-column name="isAvalable" />
+		</finder>
+	</entity>
+	
+	
 </service-builder>

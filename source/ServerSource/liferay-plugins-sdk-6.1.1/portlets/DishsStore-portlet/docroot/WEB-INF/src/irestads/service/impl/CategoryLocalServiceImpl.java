@@ -80,17 +80,12 @@ public class CategoryLocalServiceImpl extends CategoryLocalServiceBaseImpl {
 		}
 	}
 	public Category findByID(long categoryId){
-		
-		try {
-			return CategoryUtil.findByPrimaryKey(categoryId);
-		} catch (NoSuchCategoryException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return null;
-		} catch (SystemException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return null;
-		}
+			try {
+				return CategoryUtil.fetchByPrimaryKey(categoryId);
+			} catch (SystemException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				return null;
+			}
 	}
 }

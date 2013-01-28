@@ -139,11 +139,8 @@ public class MenuLineLocalServiceImpl extends MenuLineLocalServiceBaseImpl {
 		Dish dishModel = DishLocalServiceUtil.createDish((Dish) ml.getDish());
 		// create MenuLine
 		ml.setDishId(dishModel.getDishId());
-		MenuLine menuLine = this.createMenuLine(ml); // da  tao version cho menuline
-		if (dishModel != null && menuLine != null) {
-			UVersionServiceUtil.createVersion(dishModel.getDishId(),
-					Dish.class.getName(), LogTypeEnum.CREATE.toString());
-		}
+		MenuLine menuLine = this.createMenuLine(ml); 
+		
 		return menuLine;
 
 	}
@@ -158,12 +155,16 @@ public class MenuLineLocalServiceImpl extends MenuLineLocalServiceBaseImpl {
 			menuLine.setStatus(status);
 			menuLine.setDishId(dishId);
 			menuLine = MenuLineUtil.update(menuLine, true);
-			// create version
+			// create version for dish and menuline
 			if (menuLine != null) {
 				UVersionServiceUtil
 						.createVersion(menuLine.getMenuLineId(),
 								MenuLine.class.getName(),
 								LogTypeEnum.CREATE.toString());
+				UVersionServiceUtil
+				.createVersion(menuLine.getCompanyId(),
+						Dish.class.getName(),
+						LogTypeEnum.CREATE.toString());
 			}
 			return menuLine;
 		} catch (SystemException e) {

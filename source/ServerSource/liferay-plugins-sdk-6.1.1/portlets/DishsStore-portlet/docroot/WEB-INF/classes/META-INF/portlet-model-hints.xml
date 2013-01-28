@@ -28,6 +28,16 @@
 		<field name="numOfDiner" type="int" />
 		<field name="categoryId" type="long" />
 	</model>
+	<model name="irestads.model.DishTable">
+		<field name="dishTableId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="userId" type="long" />
+		<field name="userName" type="String" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="isAvalable" type="boolean" />
+		<field name="numChair" type="int" />
+	</model>
 	<model name="irestads.model.Menu">
 		<field name="menuId" type="long" />
 		<field name="companyId" type="long" />
@@ -47,6 +57,30 @@
 		<field name="numOfDish" type="int" />
 		<field name="status" type="boolean" />
 		<field name="dishId" type="long" />
+	</model>
+	<model name="irestads.model.OrderLine">
+		<field name="orderLineId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="userId" type="long" />
+		<field name="userName" type="String" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="numOfDish" type="int" />
+		<field name="statusDish" type="int" />
+		<field name="dishId" type="long" />
+	</model>
+	<model name="irestads.model.Orders">
+		<field name="orderId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="userId" type="long" />
+		<field name="userName" type="String" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="charge" type="int" />
+		<field name="createdDate" type="Date" />
+		<field name="isPayMent" type="boolean" />
+		<field name="numOfDinner" type="int" />
+		<field name="dishTableId" type="long" />
 	</model>
 	<model name="irestads.model.UVersion">
 		<field name="versionId" type="long" />

@@ -23,32 +23,32 @@ import java.util.Arrays;
  */
 public class MenuServiceClpInvoker {
 	public MenuServiceClpInvoker() {
-		_methodName54 = "getBeanIdentifier";
+		_methodName72 = "getBeanIdentifier";
 
-		_methodParameterTypes54 = new String[] {  };
+		_methodParameterTypes72 = new String[] {  };
 
-		_methodName55 = "setBeanIdentifier";
+		_methodName73 = "setBeanIdentifier";
 
-		_methodParameterTypes55 = new String[] { "java.lang.String" };
+		_methodParameterTypes73 = new String[] { "java.lang.String" };
 	}
 
 	public Object invokeMethod(String name, String[] parameterTypes,
 		Object[] arguments) throws Throwable {
-		if (_methodName54.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes54, parameterTypes)) {
+		if (_methodName72.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes72, parameterTypes)) {
 			return MenuServiceUtil.getBeanIdentifier();
 		}
 
-		if (_methodName55.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes55, parameterTypes)) {
+		if (_methodName73.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes73, parameterTypes)) {
 			MenuServiceUtil.setBeanIdentifier((java.lang.String)arguments[0]);
 		}
 
 		throw new UnsupportedOperationException();
 	}
 
-	private String _methodName54;
-	private String[] _methodParameterTypes54;
-	private String _methodName55;
-	private String[] _methodParameterTypes55;
+	private String _methodName72;
+	private String[] _methodParameterTypes72;
+	private String _methodName73;
+	private String[] _methodParameterTypes73;
 }

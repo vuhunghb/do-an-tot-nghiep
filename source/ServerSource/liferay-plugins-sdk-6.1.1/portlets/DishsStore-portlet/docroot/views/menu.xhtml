@@ -35,22 +35,24 @@
 				action="#{menuBeans.findNextVersions()}">
 			</p:commandButton>
 
-			<h:panelGrid columns="7">
+			<h:panelGrid columns="8">
 				<h:outputText value="Từ khóa " />
 				<p:selectOneMenu id="searchType" value="#{menuBeans.searchType}"
-					valueChangeListener="#{menuBeans.searchTypeChanged()}" onchange="submit()" 
 					effect="fold">
 					<f:selectItem itemLabel="Select One" itemValue="2" />
 					<f:selectItems value="#{menuBeans.searchTypesValue}" />
+					<p:ajax update="gKeyWord" listener="#{menuBeans.searchTypeChanged()}" />
 				</p:selectOneMenu>
-				<h:outputText value="Nội dung" />
+				<h:outputText value="Nội dung"  />
+				<h:panelGroup  id="gKeyWord">
+				
 				<h:inputText id="keyWord" value="#{menuBeans.keyWords}"
 					rendered="#{not menuBeans.validateFlag}" />
-				<p:selectOneRadio id="options" value="#{menuBeans.keyWords}" rendered="#{menuBeans.validateFlag}">
+				<p:selectOneRadio id="options" value="#{menuBeans.keyWords}" rendered="#{menuBeans.validateFlag}" >
 					<f:selectItem itemLabel="Còn" itemValue="true" />
 					<f:selectItem itemLabel="Hết" itemValue="false" />
 				</p:selectOneRadio>
-
+				</h:panelGroup>
 				<p:commandButton value="Tìm Kiến" update="@form"
 					action="#{menuBeans.search}" />
 				<p:commandButton id="showAddDlgButton" type="button"
@@ -93,7 +95,7 @@
 					<h:outputText value="#{ml.dish.referPrice}" />
 				</p:column>
 				<p:column>
-					<h:outputText value="#{ml.dish.categoryId}" />
+					<h:outputText value="#{categoryBeans.getCategoryNameByID(ml.dish.categoryId)}" />
 
 				</p:column>
 				<p:column>
@@ -140,7 +142,7 @@
 
 					<h:outputText value="Loai" />
 					<h:outputText style="font-weight:bold"
-						value="#{menuBeans.menuLineSelected.dish.categoryId}" />
+						value="#{categoryBeans.getCategoryNameByID(menuBeans.menuLineSelected.dish.categoryId)}" />
 
 					<h:outputText value="Giá tha khảo:" />
 					<h:outputText style="font-weight:bold"
@@ -245,7 +247,7 @@
 
 		<h:form id="fAddDishFromStore">
 
-			<p:dialog header="Thêm mới Món ăn" widgetVar="storeDishsDlg"
+			<p:dialog header="Lấy món ăn từ kho" widgetVar="storeDishsDlg"
 				resizable="false" width="755" showEffect="clip" hideEffect="fold"
 				id="addFromDishStoreDlg">
 				<p:messages id="msgs" />
@@ -275,7 +277,7 @@
 							</p:column>
 
 							<p:column headerText="Loại" width="125">
-								<h:outputText value="#{dish.categoryId}" />
+								<h:outputText value="#{categoryBeans.getCategoryNameByID(dish.categoryId)}" />
 							</p:column>
 
 						</p:dataTable>
@@ -301,7 +303,7 @@
 							</p:column>
 
 							<p:column headerText="Loại" width="110">
-								<h:outputText value="#{ml.dish.categoryId}" />
+								<h:outputText value="#{categoryBeans.getCategoryNameByID(ml.dish.categoryId)}" />
 							</p:column>
 
 							<p:column headerText="Số lượng" width="150">

@@ -9,6 +9,9 @@
 	<bean id="irestads.service.DishService" class="irestads.service.impl.DishServiceImpl" />
 	<bean id="irestads.service.persistence.DishPersistence" class="irestads.service.persistence.DishPersistenceImpl" parent="basePersistence" />
 	<bean id="irestads.service.persistence.DishFinder" class="irestads.service.persistence.DishFinderImpl" parent="basePersistence" />
+	<bean id="irestads.service.DishTableLocalService" class="irestads.service.impl.DishTableLocalServiceImpl" />
+	<bean id="irestads.service.DishTableService" class="irestads.service.impl.DishTableServiceImpl" />
+	<bean id="irestads.service.persistence.DishTablePersistence" class="irestads.service.persistence.DishTablePersistenceImpl" parent="basePersistence" />
 	<bean id="irestads.service.MenuLocalService" class="irestads.service.impl.MenuLocalServiceImpl" />
 	<bean id="irestads.service.MenuService" class="irestads.service.impl.MenuServiceImpl" />
 	<bean id="irestads.service.persistence.MenuPersistence" class="irestads.service.persistence.MenuPersistenceImpl" parent="basePersistence" />
@@ -16,6 +19,12 @@
 	<bean id="irestads.service.MenuLineService" class="irestads.service.impl.MenuLineServiceImpl" />
 	<bean id="irestads.service.persistence.MenuLinePersistence" class="irestads.service.persistence.MenuLinePersistenceImpl" parent="basePersistence" />
 	<bean id="irestads.service.persistence.MenuLineFinder" class="irestads.service.persistence.MenuLineFinderImpl" parent="basePersistence" />
+	<bean id="irestads.service.OrderLineLocalService" class="irestads.service.impl.OrderLineLocalServiceImpl" />
+	<bean id="irestads.service.OrderLineService" class="irestads.service.impl.OrderLineServiceImpl" />
+	<bean id="irestads.service.persistence.OrderLinePersistence" class="irestads.service.persistence.OrderLinePersistenceImpl" parent="basePersistence" />
+	<bean id="irestads.service.OrdersLocalService" class="irestads.service.impl.OrdersLocalServiceImpl" />
+	<bean id="irestads.service.OrdersService" class="irestads.service.impl.OrdersServiceImpl" />
+	<bean id="irestads.service.persistence.OrdersPersistence" class="irestads.service.persistence.OrdersPersistenceImpl" parent="basePersistence" />
 	<bean id="irestads.service.UVersionLocalService" class="irestads.service.impl.UVersionLocalServiceImpl" />
 	<bean id="irestads.service.UVersionService" class="irestads.service.impl.UVersionServiceImpl" />
 	<bean id="irestads.service.persistence.UVersionPersistence" class="irestads.service.persistence.UVersionPersistenceImpl" parent="basePersistence" />

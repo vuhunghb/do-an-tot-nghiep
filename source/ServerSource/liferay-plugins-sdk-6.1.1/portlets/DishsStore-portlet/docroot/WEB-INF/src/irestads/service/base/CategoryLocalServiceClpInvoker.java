@@ -98,29 +98,29 @@ public class CategoryLocalServiceClpInvoker {
 				"irestads.model.Category", "boolean"
 			};
 
-		_methodName70 = "getBeanIdentifier";
+		_methodName88 = "getBeanIdentifier";
 
-		_methodParameterTypes70 = new String[] {  };
+		_methodParameterTypes88 = new String[] {  };
 
-		_methodName71 = "setBeanIdentifier";
+		_methodName89 = "setBeanIdentifier";
 
-		_methodParameterTypes71 = new String[] { "java.lang.String" };
+		_methodParameterTypes89 = new String[] { "java.lang.String" };
 
-		_methodName76 = "createCategory";
+		_methodName94 = "createCategory";
 
-		_methodParameterTypes76 = new String[] { "java.lang.String" };
+		_methodParameterTypes94 = new String[] { "java.lang.String" };
 
-		_methodName77 = "countCategoryById";
+		_methodName95 = "countCategoryById";
 
-		_methodParameterTypes77 = new String[] { "long" };
+		_methodParameterTypes95 = new String[] { "long" };
 
-		_methodName78 = "getAllCategorys";
+		_methodName96 = "getAllCategorys";
 
-		_methodParameterTypes78 = new String[] {  };
+		_methodParameterTypes96 = new String[] {  };
 
-		_methodName79 = "findByID";
+		_methodName97 = "findByID";
 
-		_methodParameterTypes79 = new String[] { "long" };
+		_methodParameterTypes97 = new String[] { "long" };
 	}
 
 	public Object invokeMethod(String name, String[] parameterTypes,
@@ -212,33 +212,33 @@ public class CategoryLocalServiceClpInvoker {
 				((Boolean)arguments[1]).booleanValue());
 		}
 
-		if (_methodName70.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes70, parameterTypes)) {
+		if (_methodName88.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes88, parameterTypes)) {
 			return CategoryLocalServiceUtil.getBeanIdentifier();
 		}
 
-		if (_methodName71.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes71, parameterTypes)) {
+		if (_methodName89.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes89, parameterTypes)) {
 			CategoryLocalServiceUtil.setBeanIdentifier((java.lang.String)arguments[0]);
 		}
 
-		if (_methodName76.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes76, parameterTypes)) {
+		if (_methodName94.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes94, parameterTypes)) {
 			return CategoryLocalServiceUtil.createCategory((java.lang.String)arguments[0]);
 		}
 
-		if (_methodName77.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes77, parameterTypes)) {
+		if (_methodName95.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes95, parameterTypes)) {
 			return CategoryLocalServiceUtil.countCategoryById(((Long)arguments[0]).longValue());
 		}
 
-		if (_methodName78.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes78, parameterTypes)) {
+		if (_methodName96.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes96, parameterTypes)) {
 			return CategoryLocalServiceUtil.getAllCategorys();
 		}
 
-		if (_methodName79.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes79, parameterTypes)) {
+		if (_methodName97.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes97, parameterTypes)) {
 			return CategoryLocalServiceUtil.findByID(((Long)arguments[0]).longValue());
 		}
 
@@ -277,16 +277,16 @@ public class CategoryLocalServiceClpInvoker {
 	private String[] _methodParameterTypes14;
 	private String _methodName15;
 	private String[] _methodParameterTypes15;
-	private String _methodName70;
-	private String[] _methodParameterTypes70;
-	private String _methodName71;
-	private String[] _methodParameterTypes71;
-	private String _methodName76;
-	private String[] _methodParameterTypes76;
-	private String _methodName77;
-	private String[] _methodParameterTypes77;
-	private String _methodName78;
-	private String[] _methodParameterTypes78;
-	private String _methodName79;
-	private String[] _methodParameterTypes79;
+	private String _methodName88;
+	private String[] _methodParameterTypes88;
+	private String _methodName89;
+	private String[] _methodParameterTypes89;
+	private String _methodName94;
+	private String[] _methodParameterTypes94;
+	private String _methodName95;
+	private String[] _methodParameterTypes95;
+	private String _methodName96;
+	private String[] _methodParameterTypes96;
+	private String _methodName97;
+	private String[] _methodParameterTypes97;
 }

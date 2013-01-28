@@ -35,10 +35,16 @@ import irestads.service.CategoryLocalService;
 import irestads.service.CategoryService;
 import irestads.service.DishLocalService;
 import irestads.service.DishService;
+import irestads.service.DishTableLocalService;
+import irestads.service.DishTableService;
 import irestads.service.MenuLineLocalService;
 import irestads.service.MenuLineService;
 import irestads.service.MenuLocalService;
 import irestads.service.MenuService;
+import irestads.service.OrderLineLocalService;
+import irestads.service.OrderLineService;
+import irestads.service.OrdersLocalService;
+import irestads.service.OrdersService;
 import irestads.service.UVersionLocalService;
 import irestads.service.UVersionService;
 
@@ -46,9 +52,12 @@ import irestads.service.persistence.CategoryFinder;
 import irestads.service.persistence.CategoryPersistence;
 import irestads.service.persistence.DishFinder;
 import irestads.service.persistence.DishPersistence;
+import irestads.service.persistence.DishTablePersistence;
 import irestads.service.persistence.MenuLineFinder;
 import irestads.service.persistence.MenuLinePersistence;
 import irestads.service.persistence.MenuPersistence;
+import irestads.service.persistence.OrderLinePersistence;
+import irestads.service.persistence.OrdersPersistence;
 import irestads.service.persistence.UVersionFinder;
 import irestads.service.persistence.UVersionPersistence;
 
@@ -220,6 +229,62 @@ public abstract class DishServiceBaseImpl extends BaseServiceImpl
 	}
 
 	/**
+	 * Returns the dish table local service.
+	 *
+	 * @return the dish table local service
+	 */
+	public DishTableLocalService getDishTableLocalService() {
+		return dishTableLocalService;
+	}
+
+	/**
+	 * Sets the dish table local service.
+	 *
+	 * @param dishTableLocalService the dish table local service
+	 */
+	public void setDishTableLocalService(
+		DishTableLocalService dishTableLocalService) {
+		this.dishTableLocalService = dishTableLocalService;
+	}
+
+	/**
+	 * Returns the dish table remote service.
+	 *
+	 * @return the dish table remote service
+	 */
+	public DishTableService getDishTableService() {
+		return dishTableService;
+	}
+
+	/**
+	 * Sets the dish table remote service.
+	 *
+	 * @param dishTableService the dish table remote service
+	 */
+	public void setDishTableService(DishTableService dishTableService) {
+		this.dishTableService = dishTableService;
+	}
+
+	/**
+	 * Returns the dish table persistence.
+	 *
+	 * @return the dish table persistence
+	 */
+	public DishTablePersistence getDishTablePersistence() {
+		return dishTablePersistence;
+	}
+
+	/**
+	 * Sets the dish table persistence.
+	 *
+	 * @param dishTablePersistence the dish table persistence
+	 */
+	public void setDishTablePersistence(
+		DishTablePersistence dishTablePersistence) {
+		this.dishTablePersistence = dishTablePersistence;
+	}
+
+	/**
 	 * Returns the menu local service.
 	 *
 	 * @return the menu local service
@@ -344,6 +409,116 @@ public abstract class DishServiceBaseImpl extends BaseServiceImpl
 	 */
 	public void setMenuLineFinder(MenuLineFinder menuLineFinder) {
 		this.menuLineFinder = menuLineFinder;
+	}
+
+	/**
+	 * Returns the order line local service.
+	 *
+	 * @return the order line local service
+	 */
+	public OrderLineLocalService getOrderLineLocalService() {
+		return orderLineLocalService;
+	}
+
+	/**
+	 * Sets the order line local service.
+	 *
+	 * @param orderLineLocalService the order line local service
+	 */
+	public void setOrderLineLocalService(
+		OrderLineLocalService orderLineLocalService) {
+		this.orderLineLocalService = orderLineLocalService;
+	}
+
+	/**
+	 * Returns the order line remote service.
+	 *
+	 * @return the order line remote service
+	 */
+	public OrderLineService getOrderLineService() {
+		return orderLineService;
+	}
+
+	/**
+	 * Sets the order line remote service.
+	 *
+	 * @param orderLineService the order line remote service
+	 */
+	public void setOrderLineService(OrderLineService orderLineService) {
+		this.orderLineService = orderLineService;
+	}
+
+	/**
+	 * Returns the order line persistence.
+	 *
+	 * @return the order line persistence
+	 */
+	public OrderLinePersistence getOrderLinePersistence() {
+		return orderLinePersistence;
+	}
+
+	/**
+	 * Sets the order line persistence.
+	 *
+	 * @param orderLinePersistence the order line persistence
+	 */
+	public void setOrderLinePersistence(
+		OrderLinePersistence orderLinePersistence) {
+		this.orderLinePersistence = orderLinePersistence;
+	}
+
+	/**
+	 * Returns the orders local service.
+	 *
+	 * @return the orders local service
+	 */
+	public OrdersLocalService getOrdersLocalService() {
+		return ordersLocalService;
+	}
+
+	/**
+	 * Sets the orders local service.
+	 *
+	 * @param ordersLocalService the orders local service
+	 */
+	public void setOrdersLocalService(OrdersLocalService ordersLocalService) {
+		this.ordersLocalService = ordersLocalService;
+	}
+
+	/**
+	 * Returns the orders remote service.
+	 *
+	 * @return the orders remote service
+	 */
+	public OrdersService getOrdersService() {
+		return ordersService;
+	}
+
+	/**
+	 * Sets the orders remote service.
+	 *
+	 * @param ordersService the orders remote service
+	 */
+	public void setOrdersService(OrdersService ordersService) {
+		this.ordersService = ordersService;
+	}
+
+	/**
+	 * Returns the orders persistence.
+	 *
+	 * @return the orders persistence
+	 */
+	public OrdersPersistence getOrdersPersistence() {
+		return ordersPersistence;
+	}
+
+	/**
+	 * Sets the orders persistence.
+	 *
+	 * @param ordersPersistence the orders persistence
+	 */
+	public void setOrdersPersistence(OrdersPersistence ordersPersistence) {
+		this.ordersPersistence = ordersPersistence;
 	}
 
 	/**
@@ -618,6 +793,12 @@ public abstract class DishServiceBaseImpl extends BaseServiceImpl
 	protected DishPersistence dishPersistence;
 	@BeanReference(type = DishFinder.class)
 	protected DishFinder dishFinder;
+	@BeanReference(type = DishTableLocalService.class)
+	protected DishTableLocalService dishTableLocalService;
+	@BeanReference(type = DishTableService.class)
+	protected DishTableService dishTableService;
+	@BeanReference(type = DishTablePersistence.class)
+	protected DishTablePersistence dishTablePersistence;
 	@BeanReference(type = MenuLocalService.class)
 	protected MenuLocalService menuLocalService;
 	@BeanReference(type = MenuService.class)
@@ -632,6 +813,18 @@ public abstract class DishServiceBaseImpl extends BaseServiceImpl
 	protected MenuLinePersistence menuLinePersistence;
 	@BeanReference(type = MenuLineFinder.class)
 	protected MenuLineFinder menuLineFinder;
+	@BeanReference(type = OrderLineLocalService.class)
+	protected OrderLineLocalService orderLineLocalService;
+	@BeanReference(type = OrderLineService.class)
+	protected OrderLineService orderLineService;
+	@BeanReference(type = OrderLinePersistence.class)
+	protected OrderLinePersistence orderLinePersistence;
+	@BeanReference(type = OrdersLocalService.class)
+	protected OrdersLocalService ordersLocalService;
+	@BeanReference(type = OrdersService.class)
+	protected OrdersService ordersService;
+	@BeanReference(type = OrdersPersistence.class)
+	protected OrdersPersistence ordersPersistence;
 	@BeanReference(type = UVersionLocalService.class)
 	protected UVersionLocalService uVersionLocalService;
 	@BeanReference(type = UVersionService.class)

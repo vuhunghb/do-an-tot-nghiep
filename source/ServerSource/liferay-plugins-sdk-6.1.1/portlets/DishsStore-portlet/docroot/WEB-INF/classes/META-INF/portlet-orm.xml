@@ -54,6 +54,26 @@
 			<transient name="userUuid" />
 		</attributes>
 	</mapped-superclass>
+	<mapped-superclass class="irestads.model.impl.DishTableModelImpl">
+		<attributes>
+			<id name="dishTableId" />
+			<basic name="companyId" />
+			<basic name="userId" />
+			<basic name="userName" />
+			<basic name="createDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="modifiedDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="isAvalable" />
+			<basic name="numChair" />
+			<transient name="modelAttributes" />
+			<transient name="primaryKey" />
+			<transient name="primaryKeyObj" />
+			<transient name="userUuid" />
+		</attributes>
+	</mapped-superclass>
 	<mapped-superclass class="irestads.model.impl.MenuModelImpl">
 		<attributes>
 			<id name="menuId" />
@@ -94,6 +114,52 @@
 			<transient name="userUuid" />
 		</attributes>
 	</mapped-superclass>
+	<mapped-superclass class="irestads.model.impl.OrderLineModelImpl">
+		<attributes>
+			<id name="orderLineId" />
+			<basic name="companyId" />
+			<basic name="userId" />
+			<basic name="userName" />
+			<basic name="createDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="modifiedDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="numOfDish" />
+			<basic name="statusDish" />
+			<basic name="dishId" />
+			<transient name="modelAttributes" />
+			<transient name="primaryKey" />
+			<transient name="primaryKeyObj" />
+			<transient name="userUuid" />
+		</attributes>
+	</mapped-superclass>
+	<mapped-superclass class="irestads.model.impl.OrdersModelImpl">
+		<attributes>
+			<id name="orderId" />
+			<basic name="companyId" />
+			<basic name="userId" />
+			<basic name="userName" />
+			<basic name="createDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="modifiedDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="charge" />
+			<basic name="createdDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="isPayMent" />
+			<basic name="numOfDinner" />
+			<basic name="dishTableId" />
+			<transient name="modelAttributes" />
+			<transient name="primaryKey" />
+			<transient name="primaryKeyObj" />
+			<transient name="userUuid" />
+		</attributes>
+	</mapped-superclass>
 	<mapped-superclass class="irestads.model.impl.UVersionModelImpl">
 		<attributes>
 			<id name="versionId" />
@@ -126,6 +192,10 @@
 		<table name="dishsstore_Dish" />
 		<attributes />
 	</entity>
+	<entity class="irestads.model.impl.DishTableImpl" name="DishTable">
+		<table name="dishsstore_DishTable" />
+		<attributes />
+	</entity>
 	<entity class="irestads.model.impl.MenuImpl" name="Menu">
 		<table name="dishsstore_Menu" />
 		<attributes />
@@ -135,6 +205,14 @@
 		<attributes>
 			<transient name="dish" />
 		</attributes>
+	</entity>
+	<entity class="irestads.model.impl.OrderLineImpl" name="OrderLine">
+		<table name="dishsstore_OrderLine" />
+		<attributes />
+	</entity>
+	<entity class="irestads.model.impl.OrdersImpl" name="Orders">
+		<table name="dishsstore_Orders" />
+		<attributes />
 	</entity>
 	<entity class="irestads.model.impl.UVersionImpl" name="UVersion">
 		<table name="dishsstore_UVersion" />
