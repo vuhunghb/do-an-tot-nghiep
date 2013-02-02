@@ -52,28 +52,29 @@ public interface DishTableModel extends AuditedModel, BaseModel<DishTable> {
 	 *
 	 * @return the primary key of this dish table
 	 */
-	public long getPrimaryKey();
+	public String getPrimaryKey();
 
 	/**
 	 * Sets the primary key of this dish table.
 	 *
 	 * @param primaryKey the primary key of this dish table
 	 */
-	public void setPrimaryKey(long primaryKey);
+	public void setPrimaryKey(String primaryKey);
 
 	/**
 	 * Returns the dish table ID of this dish table.
 	 *
 	 * @return the dish table ID of this dish table
 	 */
-	public long getDishTableId();
+	@AutoEscape
+	public String getDishTableId();
 
 	/**
 	 * Sets the dish table ID of this dish table.
 	 *
 	 * @param dishTableId the dish table ID of this dish table
 	 */
-	public void setDishTableId(long dishTableId);
+	public void setDishTableId(String dishTableId);
 
 	/**
 	 * Returns the company ID of this dish table.
@@ -160,6 +161,21 @@ public interface DishTableModel extends AuditedModel, BaseModel<DishTable> {
 	 * @param modifiedDate the modified date of this dish table
 	 */
 	public void setModifiedDate(Date modifiedDate);
+
+	/**
+	 * Returns the table name of this dish table.
+	 *
+	 * @return the table name of this dish table
+	 */
+	@AutoEscape
+	public String getTableName();
+
+	/**
+	 * Sets the table name of this dish table.
+	 *
+	 * @param tableName the table name of this dish table
+	 */
+	public void setTableName(String tableName);
 
 	/**
 	 * Returns the is avalable of this dish table.

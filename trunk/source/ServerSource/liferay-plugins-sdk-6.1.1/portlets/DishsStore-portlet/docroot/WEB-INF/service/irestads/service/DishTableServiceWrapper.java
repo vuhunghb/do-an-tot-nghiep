@@ -55,6 +55,10 @@ public class DishTableServiceWrapper implements DishTableService,
 		return _dishTableService.invokeMethod(name, parameterTypes, arguments);
 	}
 
+	public java.util.List<irestads.model.DishTable> getAllDishTables() {
+		return _dishTableService.getAllDishTables();
+	}
+
 	/**
 	 * @deprecated Renamed to {@link #getWrappedService}
 	 */

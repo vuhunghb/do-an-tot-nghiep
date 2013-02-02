@@ -162,7 +162,7 @@ public class MenuLineLocalServiceImpl extends MenuLineLocalServiceBaseImpl {
 								MenuLine.class.getName(),
 								LogTypeEnum.CREATE.toString());
 				UVersionServiceUtil
-				.createVersion(menuLine.getCompanyId(),
+				.createVersion(menuLine.getDishId(),
 						Dish.class.getName(),
 						LogTypeEnum.CREATE.toString());
 			}
@@ -217,10 +217,13 @@ public class MenuLineLocalServiceImpl extends MenuLineLocalServiceBaseImpl {
 		MenuLine menuLine = null;
 		try {
 			menuLine = MenuLineUtil.remove(ml.getPrimaryKey());
+			if(menuLine!=null){
+			UVersionLocalServiceUtil.checkDelete(menuLine.getMenuLineId());
 			UVersionServiceUtil
 			.createVersion(menuLine.getMenuLineId(),
 					MenuLine.class.getName(),
 					LogTypeEnum.DELETE.toString());
+			}
 		} catch (NoSuchMenuLineException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

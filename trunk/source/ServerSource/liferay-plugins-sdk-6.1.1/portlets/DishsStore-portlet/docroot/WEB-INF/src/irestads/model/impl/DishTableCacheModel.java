@@ -34,7 +34,7 @@ import java.util.Date;
 public class DishTableCacheModel implements CacheModel<DishTable>, Serializable {
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(17);
+		StringBundler sb = new StringBundler(19);
 
 		sb.append("{dishTableId=");
 		sb.append(dishTableId);
@@ -48,6 +48,8 @@ public class DishTableCacheModel implements CacheModel<DishTable>, Serializable 
 		sb.append(createDate);
 		sb.append(", modifiedDate=");
 		sb.append(modifiedDate);
+		sb.append(", tableName=");
+		sb.append(tableName);
 		sb.append(", isAvalable=");
 		sb.append(isAvalable);
 		sb.append(", numChair=");
@@ -60,7 +62,13 @@ public class DishTableCacheModel implements CacheModel<DishTable>, Serializable 
 	public DishTable toEntityModel() {
 		DishTableImpl dishTableImpl = new DishTableImpl();
 
-		dishTableImpl.setDishTableId(dishTableId);
+		if (dishTableId == null) {
+			dishTableImpl.setDishTableId(StringPool.BLANK);
+		}
+		else {
+			dishTableImpl.setDishTableId(dishTableId);
+		}
+
 		dishTableImpl.setCompanyId(companyId);
 		dishTableImpl.setUserId(userId);
 
@@ -85,6 +93,13 @@ public class DishTableCacheModel implements CacheModel<DishTable>, Serializable 
 			dishTableImpl.setModifiedDate(new Date(modifiedDate));
 		}
 
+		if (tableName == null) {
+			dishTableImpl.setTableName(StringPool.BLANK);
+		}
+		else {
+			dishTableImpl.setTableName(tableName);
+		}
+
 		dishTableImpl.setIsAvalable(isAvalable);
 		dishTableImpl.setNumChair(numChair);
 
@@ -93,12 +108,13 @@ public class DishTableCacheModel implements CacheModel<DishTable>, Serializable 
 		return dishTableImpl;
 	}
 
-	public long dishTableId;
+	public String dishTableId;
 	public long companyId;
 	public long userId;
 	public String userName;
 	public long createDate;
 	public long modifiedDate;
+	public String tableName;
 	public boolean isAvalable;
 	public int numChair;
 }

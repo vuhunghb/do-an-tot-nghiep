@@ -229,14 +229,15 @@ public interface OrdersModel extends AuditedModel, BaseModel<Orders> {
 	 *
 	 * @return the dish table ID of this orders
 	 */
-	public long getDishTableId();
+	@AutoEscape
+	public String getDishTableId();
 
 	/**
 	 * Sets the dish table ID of this orders.
 	 *
 	 * @param dishTableId the dish table ID of this orders
 	 */
-	public void setDishTableId(long dishTableId);
+	public void setDishTableId(String dishTableId);
 
 	public boolean isNew();
 

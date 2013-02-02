@@ -36,4 +36,5 @@ public class OrderLineLocalServiceImpl extends OrderLineLocalServiceBaseImpl {
 	 *
 	 * Never reference this interface directly. Always use {@link irestads.service.OrderLineLocalServiceUtil} to access the order line local service.
 	 */
+	
 }

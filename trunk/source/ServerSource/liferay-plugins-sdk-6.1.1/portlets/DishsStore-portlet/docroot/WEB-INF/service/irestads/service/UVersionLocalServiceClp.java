@@ -116,9 +116,13 @@ public class UVersionLocalServiceClp implements UVersionLocalService {
 				"long", "java.lang.String", "java.lang.String"
 			};
 
-		_methodName21 = "findNextVersions";
+		_methodName21 = "checkDelete";
 
 		_methodParameterTypes21 = new String[] { "long" };
+
+		_methodName22 = "findNextVersions";
+
+		_methodParameterTypes22 = new String[] { "long" };
 	}
 
 	public irestads.model.UVersion addUVersion(irestads.model.UVersion uVersion)
@@ -694,13 +698,31 @@ public class UVersionLocalServiceClp implements UVersionLocalService {
 		return (irestads.model.UVersion)ClpSerializer.translateOutput(returnObj);
 	}
 
+	public void checkDelete(long idObj) {
+		try {
+			_invokableLocalService.invokeMethod(_methodName21,
+				_methodParameterTypes21, new Object[] { idObj });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+	}
+
 	public java.util.List<irestads.model.UVersion> findNextVersions(
 		long uversionId) {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName21,
-					_methodParameterTypes21, new Object[] { uversionId });
+			returnObj = _invokableLocalService.invokeMethod(_methodName22,
+					_methodParameterTypes22, new Object[] { uversionId });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -760,4 +782,6 @@ public class UVersionLocalServiceClp implements UVersionLocalService {
 	private String[] _methodParameterTypes20;
 	private String _methodName21;
 	private String[] _methodParameterTypes21;
+	private String _methodName22;
+	private String[] _methodParameterTypes22;
 }

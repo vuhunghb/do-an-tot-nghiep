@@ -57,7 +57,8 @@ public class DishTableLocalServiceUtil {
 	* @param dishTableId the primary key for the new dish table
 	* @return the new dish table
 	*/
-	public static irestads.model.DishTable createDishTable(long dishTableId) {
+	public static irestads.model.DishTable createDishTable(
+		java.lang.String dishTableId) {
 		return getService().createDishTable(dishTableId);
 	}
 
@@ -69,7 +70,8 @@ public class DishTableLocalServiceUtil {
 	* @throws PortalException if a dish table with the primary key could not be found
 	* @throws SystemException if a system exception occurred
 	*/
-	public static irestads.model.DishTable deleteDishTable(long dishTableId)
+	public static irestads.model.DishTable deleteDishTable(
+		java.lang.String dishTableId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return getService().deleteDishTable(dishTableId);
@@ -163,7 +165,8 @@ public class DishTableLocalServiceUtil {
 		return getService().dynamicQueryCount(dynamicQuery);
 	}
 
-	public static irestads.model.DishTable fetchDishTable(long dishTableId)
+	public static irestads.model.DishTable fetchDishTable(
+		java.lang.String dishTableId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return getService().fetchDishTable(dishTableId);
 	}
@@ -176,7 +179,8 @@ public class DishTableLocalServiceUtil {
 	* @throws PortalException if a dish table with the primary key could not be found
 	* @throws SystemException if a system exception occurred
 	*/
-	public static irestads.model.DishTable getDishTable(long dishTableId)
+	public static irestads.model.DishTable getDishTable(
+		java.lang.String dishTableId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return getService().getDishTable(dishTableId);
@@ -267,6 +271,10 @@ public class DishTableLocalServiceUtil {
 		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
 		throws java.lang.Throwable {
 		return getService().invokeMethod(name, parameterTypes, arguments);
+	}
+
+	public static java.util.List<irestads.model.DishTable> getAllDishTables() {
+		return getService().getAllDishTables();
 	}
 
 	public static void clearService() {

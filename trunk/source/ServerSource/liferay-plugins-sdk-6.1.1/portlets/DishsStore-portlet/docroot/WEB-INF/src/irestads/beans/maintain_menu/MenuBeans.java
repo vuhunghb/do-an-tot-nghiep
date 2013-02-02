@@ -11,9 +11,11 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
 
 import org.primefaces.event.DragDropEvent;
+import org.primefaces.event.FileUploadEvent;
 import org.primefaces.event.FlowEvent;
 import org.primefaces.event.RowEditEvent;
 
+import irestads.defination.UploadUtils;
 import irestads.model.*;
 import irestads.service.DishServiceUtil;
 import irestads.service.MenuLineLocalServiceUtil;
@@ -31,35 +33,43 @@ public class MenuBeans {
 	private MenuLine menuLineAdd;
 	private String searchType;
 	private String keyWords;
-	private List<Dish> dishsNotInML=new ArrayList<Dish>();
-	private Dish [] selectedDishs;
-	private Map<String, Object> checkboxValue=new  LinkedHashMap<String, Object>();
-	private boolean skip;  
-    private static Logger logger = Logger.getLogger(MenuBeans.class.getName()); 
-	private boolean validateFlag=false;
-   
-	public void searchTypeChanged(){
-		keyWords="";
-		System.out.println("value "+searchType);
-		
-		//assign new value to localeCode
-	//	int st = (Integer) e.getNewValue();
-//		System.out.println("st "+st);
-		if(searchType.equals("10")){
-			validateFlag=true;
-		}else{
-			validateFlag=false;
-		}
- System.out.println("flag "+validateFlag);
+	private List<Dish> dishsNotInML = new ArrayList<Dish>();
+	private Dish[] selectedDishs;
+	private Map<String, Object> checkboxValue = new LinkedHashMap<String, Object>();
+	private boolean skip;
+	private static Logger logger = Logger.getLogger(MenuBeans.class.getName());
+	private boolean validateFlag = false;
+	private String base64ImgAvatar;
+
+	public void handleFileUpload(FileUploadEvent event)
+			throws InterruptedException {
+		System.out.println("danh dau");
+		this.base64ImgAvatar = UploadUtils.handleFileUpload(event);
 	}
-    public List<UVersion> findNextVersions() {
-    	List<UVersion> list =	UVersionLocalServiceUtil.findNextVersions(201);
-    	System.out.println("lisst "+list.size());
-    	for (UVersion uVersion : list) {
-			System.out.println(" v "+uVersion.getVersionId());
+
+	public void searchTypeChanged() {
+		keyWords = "";
+		System.out.println("value " + searchType);
+
+		// assign new value to localeCode
+		// int st = (Integer) e.getNewValue();
+		// System.out.println("st "+st);
+		if (searchType.equals("10")) {
+			validateFlag = true;
+		} else {
+			validateFlag = false;
 		}
-    	return list;
-    }
+		System.out.println("flag " + validateFlag);
+	}
+
+	public List<UVersion> findNextVersions() {
+		List<UVersion> list = UVersionLocalServiceUtil.findNextVersions(201);
+		System.out.println("lisst " + list.size());
+		for (UVersion uVersion : list) {
+			System.out.println(" v " + uVersion.getVersionId());
+		}
+		return list;
+	}
 
 	private Map<String, Object> searchTypesValue;
 	{
@@ -76,17 +86,16 @@ public class MenuBeans {
 		searchTypesValue.put("Số lượng", 9); // label, value
 		searchTypesValue.put("Trạng thái", 10); // label, value
 	}
-	public String onFlowProcess(FlowEvent event) {  
-        logger.info("Current wizard step:" + event.getOldStep());  
-        logger.info("Next step:" + event.getNewStep());  
-         
-       
-            
-            		String e=event.getNewStep();  
-            //		 System.out.println(e);
-           		return e;
-         
-    }  
+
+	public String onFlowProcess(FlowEvent event) {
+		logger.info("Current wizard step:" + event.getOldStep());
+		logger.info("Next step:" + event.getNewStep());
+
+		String e = event.getNewStep();
+		// System.out.println(e);
+		return e;
+
+	}
 
 	public boolean isSkip() {
 		return skip;
@@ -163,11 +172,10 @@ public class MenuBeans {
 				message = "Đã thay đổi thông tin thực đơn thành công";
 				MenuLineServiceUtil.setDishForMenuLine(menuLine);
 				this.getMenuLinesDB();
-				msg = new FacesMessage(message, menuLine.getDish()
-						.getDishId() + " : " + menuLine.getDish().getDishName());
+				msg = new FacesMessage(message, menuLine.getDish().getDishId()
+						+ " : " + menuLine.getDish().getDishName());
 			}
-			
-			
+
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 
 		} catch (Exception e) {
@@ -179,41 +187,37 @@ public class MenuBeans {
 
 	public String addMenuLine() {
 		FacesMessage msg = null;
-		DishModel dish = menuLineAdd.getDish();
-//	MenuLine menuLine=	 MenuLineServiceUtil.createMenuLine(dish.getDishName(),
-//				dish.getDecription(), dish.getAvatarImg(), dish.getDetailImg(),
-//				dish.getDetail(), dish.getReferPrice(),
-//				dish.getAvatarBaseCode(), dish.getDetailBaseCode(),
-//				dish.getCategoryId(), menuLineAdd.getNumOfDish(),
-//				true);
-		MenuLine menuLine=MenuLineServiceUtil.createMenuLineDish(menuLineAdd);
-		 String message = "Không thêm thực đơn";
-			if (menuLine != null) {
-				message = "Đã thêm  thực đơn thành công";
-				MenuLineServiceUtil.setDishForMenuLine(menuLine);
-				this.getMenuLinesDB();
-				msg = new FacesMessage(message, menuLine.getDish()
-						.getDishId() + " : " + menuLine.getDish().getDishName());
-			}
-			
-			
-			FacesContext.getCurrentInstance().addMessage(null, msg);
+		menuLineAdd.getDish().setAvatarBaseCode(base64ImgAvatar);
+		MenuLine menuLine = MenuLineServiceUtil.createMenuLineDish(menuLineAdd);
+		String message = "Không thêm thực đơn";
+		if (menuLine != null) {
+			message = "Đã thêm  thực đơn thành công";
+			MenuLineServiceUtil.setDishForMenuLine(menuLine);
+			this.getMenuLinesDB();
+			msg = new FacesMessage(message, menuLine.getDish().getDishId()
+					+ " : " + menuLine.getDish().getDishName());
+		}
+
+		FacesContext.getCurrentInstance().addMessage(null, msg);
 		return "menu.xhtml";
 	}
-	public String addMenuLines(){
+
+	public String addMenuLines() {
 		FacesMessage msg = null;
-		if(this.candidateMenuLine.size()>0){
-		
-		List<MenuLine> mlSaved=MenuLineServiceUtil.createMenuLine(this.candidateMenuLine);
-		 String message = "Thêm thực đơn không thành công";
-		if(mlSaved.size()>0){
-			message = "Đã thêm  thực đơn thành công";
-			msg = new FacesMessage(message,"Số lượng đã thêm là: "+mlSaved.size());
-			this.getMenuLinesDB();
-			this.findDishNotInMenu();
-		}
-		}else{
-			msg = new FacesMessage("Chưa chọn món ăn để thêm","");
+		if (this.candidateMenuLine.size() > 0) {
+
+			List<MenuLine> mlSaved = MenuLineServiceUtil
+					.createMenuLine(this.candidateMenuLine);
+			String message = "Thêm thực đơn không thành công";
+			if (mlSaved.size() > 0) {
+				message = "Đã thêm  thực đơn thành công";
+				msg = new FacesMessage(message, "Số lượng đã thêm là: "
+						+ mlSaved.size());
+				this.getMenuLinesDB();
+				this.findDishNotInMenu();
+			}
+		} else {
+			msg = new FacesMessage("Chưa chọn món ăn để thêm", "");
 		}
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 		return "menu.xhtml";
@@ -240,15 +244,18 @@ public class MenuBeans {
 	public void setMenuLineSelected(MenuLine menuLineSelected) {
 		this.menuLineSelected = menuLineSelected;
 	}
+
 	public List<Dish> findDishNotInMenu() {
-		
-		 this.dishsNotInML=DishServiceUtil.findDishNotInMenu();
-		 for (int i = 0; i <dishsNotInML.size(); i++) {
-			 checkboxValue.put(dishsNotInML.get(i).getDishId()+"", dishsNotInML.get(i).getDishId());
+
+		this.dishsNotInML = DishServiceUtil.findDishNotInMenu();
+		for (int i = 0; i < dishsNotInML.size(); i++) {
+			checkboxValue.put(dishsNotInML.get(i).getDishId() + "",
+					dishsNotInML.get(i).getDishId());
 		}
-		 
-		 return dishsNotInML;
+
+		return dishsNotInML;
 	}
+
 	public String search() {
 		System.out.println("ST:  " + searchType + " kw : " + keyWords);
 		switch (Integer.parseInt(searchType)) {
@@ -320,13 +327,14 @@ public class MenuBeans {
 	}
 
 	public List<Dish> getDishsNotInML() {
-		//this.findDishNotInMenu();
+		// this.findDishNotInMenu();
 		return dishsNotInML;
 	}
 
 	public void setDishsNotInML(List<Dish> dishsNotInML) {
 		this.dishsNotInML = dishsNotInML;
 	}
+
 	public String getSearchType() {
 		return searchType;
 	}
@@ -350,6 +358,7 @@ public class MenuBeans {
 	public void setSearchTypesValue(Map<String, Object> searchTypesValue) {
 		this.searchTypesValue = searchTypesValue;
 	}
+
 	public Map<String, Object> getCheckboxValue() {
 		return checkboxValue;
 	}
@@ -366,32 +375,41 @@ public class MenuBeans {
 		this.selectedDishs = selectedDishs;
 	}
 
-	public List<MenuLine> getCandidateMenuLine() { // 
-		//this.setCandidateMenuLine(candidateMenuLine)
-		List<MenuLine> temp=new ArrayList<MenuLine>();
+	public List<MenuLine> getCandidateMenuLine() { //
+		// this.setCandidateMenuLine(candidateMenuLine)
+		List<MenuLine> temp = new ArrayList<MenuLine>();
 		MenuLine m;
 		for (int i = 0; i < this.selectedDishs.length; i++) {
-			Dish d=this.selectedDishs[i];
-			m=MenuLineUtil.create(0);
+			Dish d = this.selectedDishs[i];
+			m = MenuLineUtil.create(0);
 			m.setDishId(d.getDishId());
 			m.setDish(d);
 			m.setStatus(true);
 			temp.add(m);
-		
+
 		}
-		this.candidateMenuLine=temp;
+		this.candidateMenuLine = temp;
 		return candidateMenuLine;
 	}
 
 	public void setCandidateMenuLine(List<MenuLine> candidateMenuLine) {
 		this.candidateMenuLine = candidateMenuLine;
 	}
+
 	public boolean isValidateFlag() {
 		return validateFlag;
 	}
+
 	public void setValidateFlag(boolean validateFlag) {
 		this.validateFlag = validateFlag;
 	}
 
-	
+	public String getBase64ImgAvatar() {
+		return base64ImgAvatar;
+	}
+
+	public void setBase64ImgAvatar(String base64ImgAvatar) {
+		this.base64ImgAvatar = base64ImgAvatar;
+	}
+
 }

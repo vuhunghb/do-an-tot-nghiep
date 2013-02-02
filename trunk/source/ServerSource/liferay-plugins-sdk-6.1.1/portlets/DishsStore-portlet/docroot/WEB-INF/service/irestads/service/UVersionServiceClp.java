@@ -44,6 +44,10 @@ public class UVersionServiceClp implements UVersionService {
 		_methodName5 = "findNextVersions";
 
 		_methodParameterTypes5 = new String[] { "long" };
+
+		_methodName6 = "checkDelete";
+
+		_methodParameterTypes6 = new String[] { "long" };
 	}
 
 	public java.lang.String getBeanIdentifier() {
@@ -169,6 +173,24 @@ public class UVersionServiceClp implements UVersionService {
 		return (java.util.List<irestads.model.UVersion>)ClpSerializer.translateOutput(returnObj);
 	}
 
+	public void checkDelete(long idObj) {
+		try {
+			_invokableService.invokeMethod(_methodName6,
+				_methodParameterTypes6, new Object[] { idObj });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+	}
+
 	private InvokableService _invokableService;
 	private String _methodName0;
 	private String[] _methodParameterTypes0;
@@ -180,4 +202,6 @@ public class UVersionServiceClp implements UVersionService {
 	private String[] _methodParameterTypes4;
 	private String _methodName5;
 	private String[] _methodParameterTypes5;
+	private String _methodName6;
+	private String[] _methodParameterTypes6;
 }

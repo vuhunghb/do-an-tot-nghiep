@@ -209,7 +209,7 @@
 				-->
 
 					<p:fileUpload id="avatarImgAdd"
-						fileUploadListener="#{fileUploadController.uploadImg}"
+						fileUploadListener="#{menuBeans.handleFileUpload}"
 						mode="advanced" update=":formTable:messages" sizeLimit="100000"
 						allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
 					<p:message for="avatarImgAdd" style="color:red"></p:message>

@@ -20,6 +20,7 @@ import java.util.List;
 import com.liferay.counter.service.CounterLocalServiceUtil;
 import com.liferay.portal.kernel.exception.SystemException;
 
+import irestads.NoSuchUVersionException;
 import irestads.defination.LogTypeEnum;
 import irestads.model.Dish;
 import irestads.model.MenuLine;
@@ -84,6 +85,20 @@ public class UVersionLocalServiceImpl extends UVersionLocalServiceBaseImpl {
 		
 		
 	}
+		public void checkDelete(long idObj){
+			try {
+				List<UVersion> list=UVersionUtil.findBylogObjId(idObj);
+				for (int i = 0; i < list.size(); i++) {
+					UVersionUtil.remove(list.get(i).getVersionId());
+				}
+			} catch (SystemException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (NoSuchUVersionException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		public List<UVersion> findNextVersions(long uversionId) {
 			return UVersionFinderUtil.findNextVersions(uversionId);
 		}

@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+
+<deployment xmlns="http://xml.apache.org/axis/wsdd/" xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+	<service name="Plugin_dishsstore_OrdersService" provider="java:RPC" style="rpc" use="encoded">
+		<typeMapping xmlns:ns="http://model.irestads" qname="ns:OrdersSoap" type="java:irestads.model.OrdersSoap" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"></typeMapping>
+		<operation xmlns:operNS="urn:http.service.irestads" xmlns:rtns="http://model.irestads" name="findCurrentOrder" qname="operNS:findCurrentOrder" returnQName="findCurrentOrderReturn" returnType="rtns:OrdersSoap" soapAction="">
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="isPayMent" type="tns:boolean"></parameter>
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="dishTableId" type="tns:string"></parameter>
+		</operation>
+		<parameter name="allowedMethods" value="findCurrentOrder" />
+		<parameter name="className" value="irestads.service.http.OrdersServiceSoap" />
+		<parameter name="schemaUnqualified" value="http://model.irestads" />
+		<parameter name="typeMappingVersion" value="1.2" />
+		<parameter name="wsdlPortType" value="OrdersServiceSoap" />
+		<parameter name="wsdlServiceElement" value="OrdersServiceSoapService" />
+		<parameter name="wsdlServicePort" value="Plugin_dishsstore_OrdersService" />
+		<parameter name="wsdlTargetNamespace" value="urn:http.service.irestads" />
+	</service>
+</deployment>

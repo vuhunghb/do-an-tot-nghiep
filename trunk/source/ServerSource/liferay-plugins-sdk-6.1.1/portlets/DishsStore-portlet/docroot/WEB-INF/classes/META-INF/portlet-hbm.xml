@@ -45,7 +45,7 @@
 	</class>
 	<class name="irestads.model.impl.DishTableImpl" table="dishsstore_DishTable">
 		<cache usage="read-write" />
-		<id name="dishTableId" type="long">
+		<id name="dishTableId" type="java.lang.String">
 			<generator class="assigned" />
 		</id>
 		<property name="companyId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
@@ -53,6 +53,7 @@
 		<property name="userName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="createDate" type="org.hibernate.type.TimestampType" />
 		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
+		<property name="tableName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="isAvalable" type="com.liferay.portal.dao.orm.hibernate.BooleanType" />
 		<property name="numChair" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
 	</class>
@@ -95,6 +96,7 @@
 		<property name="numOfDish" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
 		<property name="statusDish" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
 		<property name="dishId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="orderId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 	</class>
 	<class name="irestads.model.impl.OrdersImpl" table="dishsstore_Orders">
 		<cache usage="read-write" />
@@ -110,7 +112,7 @@
 		<property name="createdDate" type="org.hibernate.type.TimestampType" />
 		<property name="isPayMent" type="com.liferay.portal.dao.orm.hibernate.BooleanType" />
 		<property name="numOfDinner" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
-		<property name="dishTableId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="dishTableId" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 	</class>
 	<class name="irestads.model.impl.UVersionImpl" table="dishsstore_UVersion">
 		<cache usage="read-write" />

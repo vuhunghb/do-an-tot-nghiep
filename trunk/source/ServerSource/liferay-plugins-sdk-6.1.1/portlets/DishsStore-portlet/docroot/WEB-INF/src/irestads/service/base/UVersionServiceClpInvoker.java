@@ -44,6 +44,10 @@ public class UVersionServiceClpInvoker {
 		_methodName80 = "findNextVersions";
 
 		_methodParameterTypes80 = new String[] { "long" };
+
+		_methodName81 = "checkDelete";
+
+		_methodParameterTypes81 = new String[] { "long" };
 	}
 
 	public Object invokeMethod(String name, String[] parameterTypes,
@@ -74,6 +78,11 @@ public class UVersionServiceClpInvoker {
 			return UVersionServiceUtil.findNextVersions(((Long)arguments[0]).longValue());
 		}
 
+		if (_methodName81.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes81, parameterTypes)) {
+			UVersionServiceUtil.checkDelete(((Long)arguments[0]).longValue());
+		}
+
 		throw new UnsupportedOperationException();
 	}
 
@@ -87,4 +96,6 @@ public class UVersionServiceClpInvoker {
 	private String[] _methodParameterTypes79;
 	private String _methodName80;
 	private String[] _methodParameterTypes80;
+	private String _methodName81;
+	private String[] _methodParameterTypes81;
 }

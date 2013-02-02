@@ -14,7 +14,13 @@
 
 package irestads.service.impl;
 
+import java.util.List;
+
+import com.liferay.portal.kernel.exception.SystemException;
+
+import irestads.model.Orders;
 import irestads.service.base.OrdersLocalServiceBaseImpl;
+import irestads.service.persistence.OrdersUtil;
 
 /**
  * The implementation of the orders local service.
@@ -36,4 +42,22 @@ public class OrdersLocalServiceImpl extends OrdersLocalServiceBaseImpl {
 	 *
 	 * Never reference this interface directly. Always use {@link irestads.service.OrdersLocalServiceUtil} to access the orders local service.
 	 */
+//	public List<Orders> findByIsPayment(boolean isPayMent){
+//		try {
+//			return OrdersUtil.findByIsPayMent(isPayMent);
+//		} catch (SystemException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		return null;
+//	}
+	public Orders findCurrentOrder(boolean isPayMent, String dishTableId){
+		try {
+			return OrdersUtil.fetchBycurentOrder(isPayMent, dishTableId);
+		} catch (SystemException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
 }

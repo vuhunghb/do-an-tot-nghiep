@@ -29,11 +29,11 @@ public class DishTableLocalServiceClp implements DishTableLocalService {
 
 		_methodName1 = "createDishTable";
 
-		_methodParameterTypes1 = new String[] { "long" };
+		_methodParameterTypes1 = new String[] { "java.lang.String" };
 
 		_methodName2 = "deleteDishTable";
 
-		_methodParameterTypes2 = new String[] { "long" };
+		_methodParameterTypes2 = new String[] { "java.lang.String" };
 
 		_methodName3 = "deleteDishTable";
 
@@ -70,11 +70,11 @@ public class DishTableLocalServiceClp implements DishTableLocalService {
 
 		_methodName9 = "fetchDishTable";
 
-		_methodParameterTypes9 = new String[] { "long" };
+		_methodParameterTypes9 = new String[] { "java.lang.String" };
 
 		_methodName10 = "getDishTable";
 
-		_methodParameterTypes10 = new String[] { "long" };
+		_methodParameterTypes10 = new String[] { "java.lang.String" };
 
 		_methodName11 = "getPersistedModel";
 
@@ -105,6 +105,10 @@ public class DishTableLocalServiceClp implements DishTableLocalService {
 		_methodName17 = "setBeanIdentifier";
 
 		_methodParameterTypes17 = new String[] { "java.lang.String" };
+
+		_methodName19 = "getAllDishTables";
+
+		_methodParameterTypes19 = new String[] {  };
 	}
 
 	public irestads.model.DishTable addDishTable(
@@ -136,12 +140,14 @@ public class DishTableLocalServiceClp implements DishTableLocalService {
 		return (irestads.model.DishTable)ClpSerializer.translateOutput(returnObj);
 	}
 
-	public irestads.model.DishTable createDishTable(long dishTableId) {
+	public irestads.model.DishTable createDishTable(
+		java.lang.String dishTableId) {
 		Object returnObj = null;
 
 		try {
 			returnObj = _invokableLocalService.invokeMethod(_methodName1,
-					_methodParameterTypes1, new Object[] { dishTableId });
+					_methodParameterTypes1,
+					new Object[] { ClpSerializer.translateInput(dishTableId) });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -158,14 +164,16 @@ public class DishTableLocalServiceClp implements DishTableLocalService {
 		return (irestads.model.DishTable)ClpSerializer.translateOutput(returnObj);
 	}
 
-	public irestads.model.DishTable deleteDishTable(long dishTableId)
+	public irestads.model.DishTable deleteDishTable(
+		java.lang.String dishTableId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
 
 		try {
 			returnObj = _invokableLocalService.invokeMethod(_methodName2,
-					_methodParameterTypes2, new Object[] { dishTableId });
+					_methodParameterTypes2,
+					new Object[] { ClpSerializer.translateInput(dishTableId) });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -376,13 +384,14 @@ public class DishTableLocalServiceClp implements DishTableLocalService {
 		return ((Long)returnObj).longValue();
 	}
 
-	public irestads.model.DishTable fetchDishTable(long dishTableId)
+	public irestads.model.DishTable fetchDishTable(java.lang.String dishTableId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
 
 		try {
 			returnObj = _invokableLocalService.invokeMethod(_methodName9,
-					_methodParameterTypes9, new Object[] { dishTableId });
+					_methodParameterTypes9,
+					new Object[] { ClpSerializer.translateInput(dishTableId) });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -403,14 +412,15 @@ public class DishTableLocalServiceClp implements DishTableLocalService {
 		return (irestads.model.DishTable)ClpSerializer.translateOutput(returnObj);
 	}
 
-	public irestads.model.DishTable getDishTable(long dishTableId)
+	public irestads.model.DishTable getDishTable(java.lang.String dishTableId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
 
 		try {
 			returnObj = _invokableLocalService.invokeMethod(_methodName10,
-					_methodParameterTypes10, new Object[] { dishTableId });
+					_methodParameterTypes10,
+					new Object[] { ClpSerializer.translateInput(dishTableId) });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -628,6 +638,28 @@ public class DishTableLocalServiceClp implements DishTableLocalService {
 		throw new UnsupportedOperationException();
 	}
 
+	public java.util.List<irestads.model.DishTable> getAllDishTables() {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName19,
+					_methodParameterTypes19, new Object[] {  });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (java.util.List<irestads.model.DishTable>)ClpSerializer.translateOutput(returnObj);
+	}
+
 	private InvokableLocalService _invokableLocalService;
 	private String _methodName0;
 	private String[] _methodParameterTypes0;
@@ -665,4 +697,6 @@ public class DishTableLocalServiceClp implements DishTableLocalService {
 	private String[] _methodParameterTypes16;
 	private String _methodName17;
 	private String[] _methodParameterTypes17;
+	private String _methodName19;
+	private String[] _methodParameterTypes19;
 }

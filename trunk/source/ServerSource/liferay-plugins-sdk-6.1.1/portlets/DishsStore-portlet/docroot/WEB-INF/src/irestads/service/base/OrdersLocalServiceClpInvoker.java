@@ -105,6 +105,10 @@ public class OrdersLocalServiceClpInvoker {
 		_methodName89 = "setBeanIdentifier";
 
 		_methodParameterTypes89 = new String[] { "java.lang.String" };
+
+		_methodName94 = "findCurrentOrder";
+
+		_methodParameterTypes94 = new String[] { "boolean", "java.lang.String" };
 	}
 
 	public Object invokeMethod(String name, String[] parameterTypes,
@@ -206,6 +210,12 @@ public class OrdersLocalServiceClpInvoker {
 			OrdersLocalServiceUtil.setBeanIdentifier((java.lang.String)arguments[0]);
 		}
 
+		if (_methodName94.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes94, parameterTypes)) {
+			return OrdersLocalServiceUtil.findCurrentOrder(((Boolean)arguments[0]).booleanValue(),
+				(java.lang.String)arguments[1]);
+		}
+
 		throw new UnsupportedOperationException();
 	}
 
@@ -245,4 +255,6 @@ public class OrdersLocalServiceClpInvoker {
 	private String[] _methodParameterTypes88;
 	private String _methodName89;
 	private String[] _methodParameterTypes89;
+	private String _methodName94;
+	private String[] _methodParameterTypes94;
 }

@@ -37,6 +37,7 @@ public class DishTableSoap implements Serializable {
 		soapModel.setUserName(model.getUserName());
 		soapModel.setCreateDate(model.getCreateDate());
 		soapModel.setModifiedDate(model.getModifiedDate());
+		soapModel.setTableName(model.getTableName());
 		soapModel.setIsAvalable(model.getIsAvalable());
 		soapModel.setNumChair(model.getNumChair());
 
@@ -83,19 +84,19 @@ public class DishTableSoap implements Serializable {
 	public DishTableSoap() {
 	}
 
-	public long getPrimaryKey() {
+	public String getPrimaryKey() {
 		return _dishTableId;
 	}
 
-	public void setPrimaryKey(long pk) {
+	public void setPrimaryKey(String pk) {
 		setDishTableId(pk);
 	}
 
-	public long getDishTableId() {
+	public String getDishTableId() {
 		return _dishTableId;
 	}
 
-	public void setDishTableId(long dishTableId) {
+	public void setDishTableId(String dishTableId) {
 		_dishTableId = dishTableId;
 	}
 
@@ -139,6 +140,14 @@ public class DishTableSoap implements Serializable {
 		_modifiedDate = modifiedDate;
 	}
 
+	public String getTableName() {
+		return _tableName;
+	}
+
+	public void setTableName(String tableName) {
+		_tableName = tableName;
+	}
+
 	public boolean getIsAvalable() {
 		return _isAvalable;
 	}
@@ -159,12 +168,13 @@ public class DishTableSoap implements Serializable {
 		_numChair = numChair;
 	}
 
-	private long _dishTableId;
+	private String _dishTableId;
 	private long _companyId;
 	private long _userId;
 	private String _userName;
 	private Date _createDate;
 	private Date _modifiedDate;
+	private String _tableName;
 	private boolean _isAvalable;
 	private int _numChair;
 }

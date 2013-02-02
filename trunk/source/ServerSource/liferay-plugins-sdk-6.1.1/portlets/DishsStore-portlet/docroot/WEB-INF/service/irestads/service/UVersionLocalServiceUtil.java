@@ -279,6 +279,10 @@ public class UVersionLocalServiceUtil {
 		return getService().createVersion(idObj, nameObj, type);
 	}
 
+	public static void checkDelete(long idObj) {
+		getService().checkDelete(idObj);
+	}
+
 	public static java.util.List<irestads.model.UVersion> findNextVersions(
 		long uversionId) {
 		return getService().findNextVersions(uversionId);

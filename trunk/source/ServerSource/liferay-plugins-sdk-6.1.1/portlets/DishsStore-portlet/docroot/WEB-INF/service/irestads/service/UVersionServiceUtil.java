@@ -77,6 +77,10 @@ public class UVersionServiceUtil {
 		return getService().findNextVersions(uversionId);
 	}
 
+	public static void checkDelete(long idObj) {
+		getService().checkDelete(idObj);
+	}
+
 	public static void clearService() {
 		_service = null;
 	}

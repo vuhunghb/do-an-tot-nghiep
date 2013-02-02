@@ -258,6 +258,11 @@ public class OrdersLocalServiceWrapper implements OrdersLocalService,
 		return _ordersLocalService.invokeMethod(name, parameterTypes, arguments);
 	}
 
+	public irestads.model.Orders findCurrentOrder(boolean isPayMent,
+		java.lang.String dishTableId) {
+		return _ordersLocalService.findCurrentOrder(isPayMent, dishTableId);
+	}
+
 	/**
 	 * @deprecated Renamed to {@link #getWrappedService}
 	 */

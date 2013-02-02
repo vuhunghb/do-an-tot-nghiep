@@ -26,12 +26,25 @@
 		<managed-bean-class>irestads.beans.maintain_menu.MenuBeans</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>orderBeans</managed-bean-name>
+		<managed-bean-class>irestads.beans.order.OrderBeans</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
 	<navigation-rule>
 		<display-name>views/index.xhtml</display-name>
 		<from-view-id>/views/index.xhtml</from-view-id>
 		<navigation-case>
 			<from-outcome>goToMenu</from-outcome>
 			<to-view-id>/views/menu.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>views/index.xhtml</display-name>
+		<from-view-id>/views/index.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>goToOrder</from-outcome>
+			<to-view-id>/views/dish_tables.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 	<lifecycle>

@@ -196,7 +196,7 @@ public class DishTablePersistenceImpl extends BasePersistenceImpl<DishTable>
 	 * @param dishTableId the primary key for the new dish table
 	 * @return the new dish table
 	 */
-	public DishTable create(long dishTableId) {
+	public DishTable create(String dishTableId) {
 		DishTable dishTable = new DishTableImpl();
 
 		dishTable.setNew(true);
@@ -213,9 +213,9 @@ public class DishTablePersistenceImpl extends BasePersistenceImpl<DishTable>
 	 * @throws irestads.NoSuchDishTableException if a dish table with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
-	public DishTable remove(long dishTableId)
+	public DishTable remove(String dishTableId)
 		throws NoSuchDishTableException, SystemException {
-		return remove(Long.valueOf(dishTableId));
+		return remove((Serializable)dishTableId);
 	}
 
 	/**
@@ -359,6 +359,7 @@ public class DishTablePersistenceImpl extends BasePersistenceImpl<DishTable>
 		dishTableImpl.setUserName(dishTable.getUserName());
 		dishTableImpl.setCreateDate(dishTable.getCreateDate());
 		dishTableImpl.setModifiedDate(dishTable.getModifiedDate());
+		dishTableImpl.setTableName(dishTable.getTableName());
 		dishTableImpl.setIsAvalable(dishTable.isIsAvalable());
 		dishTableImpl.setNumChair(dishTable.getNumChair());
 
@@ -376,7 +377,7 @@ public class DishTablePersistenceImpl extends BasePersistenceImpl<DishTable>
 	@Override
 	public DishTable findByPrimaryKey(Serializable primaryKey)
 		throws NoSuchModelException, SystemException {
-		return findByPrimaryKey(((Long)primaryKey).longValue());
+		return findByPrimaryKey((String)primaryKey);
 	}
 
 	/**
@@ -387,7 +388,7 @@ public class DishTablePersistenceImpl extends BasePersistenceImpl<DishTable>
 	 * @throws irestads.NoSuchDishTableException if a dish table with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
-	public DishTable findByPrimaryKey(long dishTableId)
+	public DishTable findByPrimaryKey(String dishTableId)
 		throws NoSuchDishTableException, SystemException {
 		DishTable dishTable = fetchByPrimaryKey(dishTableId);
 
@@ -413,7 +414,7 @@ public class DishTablePersistenceImpl extends BasePersistenceImpl<DishTable>
 	@Override
 	public DishTable fetchByPrimaryKey(Serializable primaryKey)
 		throws SystemException {
-		return fetchByPrimaryKey(((Long)primaryKey).longValue());
+		return fetchByPrimaryKey((String)primaryKey);
 	}
 
 	/**
@@ -423,7 +424,7 @@ public class DishTablePersistenceImpl extends BasePersistenceImpl<DishTable>
 	 * @return the dish table, or <code>null</code> if a dish table with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
-	public DishTable fetchByPrimaryKey(long dishTableId)
+	public DishTable fetchByPrimaryKey(String dishTableId)
 		throws SystemException {
 		DishTable dishTable = (DishTable)EntityCacheUtil.getResult(DishTableModelImpl.ENTITY_CACHE_ENABLED,
 				DishTableImpl.class, dishTableId);
@@ -441,7 +442,7 @@ public class DishTablePersistenceImpl extends BasePersistenceImpl<DishTable>
 				session = openSession();
 
 				dishTable = (DishTable)session.get(DishTableImpl.class,
-						Long.valueOf(dishTableId));
+						dishTableId);
 			}
 			catch (Exception e) {
 				hasException = true;
@@ -711,7 +712,7 @@ public class DishTablePersistenceImpl extends BasePersistenceImpl<DishTable>
 	 * @throws irestads.NoSuchDishTableException if a dish table with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
-	public DishTable[] findByIsAvalable_PrevAndNext(long dishTableId,
+	public DishTable[] findByIsAvalable_PrevAndNext(String dishTableId,
 		boolean isAvalable, OrderByComparator orderByComparator)
 		throws NoSuchDishTableException, SystemException {
 		DishTable dishTable = findByPrimaryKey(dishTableId);
@@ -1084,7 +1085,7 @@ public class DishTablePersistenceImpl extends BasePersistenceImpl<DishTable>
 	 * @return the orderses associated with the dish table
 	 * @throws SystemException if a system exception occurred
 	 */
-	public List<irestads.model.Orders> getOrderses(long pk)
+	public List<irestads.model.Orders> getOrderses(String pk)
 		throws SystemException {
 		return getOrderses(pk, QueryUtil.ALL_POS, QueryUtil.ALL_POS);
 	}
@@ -1102,7 +1103,7 @@ public class DishTablePersistenceImpl extends BasePersistenceImpl<DishTable>
 	 * @return the range of orderses associated with the dish table
 	 * @throws SystemException if a system exception occurred
 	 */
-	public List<irestads.model.Orders> getOrderses(long pk, int start, int end)
+	public List<irestads.model.Orders> getOrderses(String pk, int start, int end)
 		throws SystemException {
 		return getOrderses(pk, start, end, null);
 	}
@@ -1113,7 +1114,7 @@ public class DishTablePersistenceImpl extends BasePersistenceImpl<DishTable>
 			irestads.service.persistence.OrdersPersistenceImpl.FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION,
 			"getOrderses",
 			new String[] {
-				Long.class.getName(), "java.lang.Integer", "java.lang.Integer",
+				String.class.getName(), "java.lang.Integer", "java.lang.Integer",
 				"com.liferay.portal.kernel.util.OrderByComparator"
 			});
 
@@ -1135,8 +1136,8 @@ public class DishTablePersistenceImpl extends BasePersistenceImpl<DishTable>
 	 * @return the ordered range of orderses associated with the dish table
 	 * @throws SystemException if a system exception occurred
 	 */
-	public List<irestads.model.Orders> getOrderses(long pk, int start, int end,
-		OrderByComparator orderByComparator) throws SystemException {
+	public List<irestads.model.Orders> getOrderses(String pk, int start,
+		int end, OrderByComparator orderByComparator) throws SystemException {
 		Object[] finderArgs = new Object[] { pk, start, end, orderByComparator };
 
 		List<irestads.model.Orders> list = (List<irestads.model.Orders>)FinderCacheUtil.getResult(FINDER_PATH_GET_ORDERSES,
@@ -1196,7 +1197,7 @@ public class DishTablePersistenceImpl extends BasePersistenceImpl<DishTable>
 			irestads.model.impl.OrdersModelImpl.FINDER_CACHE_ENABLED,
 			irestads.model.impl.OrdersImpl.class,
 			irestads.service.persistence.OrdersPersistenceImpl.FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION,
-			"getOrdersesSize", new String[] { Long.class.getName() });
+			"getOrdersesSize", new String[] { String.class.getName() });
 
 	static {
 		FINDER_PATH_GET_ORDERSES_SIZE.setCacheKeyGeneratorCacheName(null);
@@ -1209,7 +1210,7 @@ public class DishTablePersistenceImpl extends BasePersistenceImpl<DishTable>
 	 * @return the number of orderses associated with the dish table
 	 * @throws SystemException if a system exception occurred
 	 */
-	public int getOrdersesSize(long pk) throws SystemException {
+	public int getOrdersesSize(String pk) throws SystemException {
 		Object[] finderArgs = new Object[] { pk };
 
 		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_GET_ORDERSES_SIZE,
@@ -1255,7 +1256,7 @@ public class DishTablePersistenceImpl extends BasePersistenceImpl<DishTable>
 			irestads.model.impl.OrdersImpl.class,
 			irestads.service.persistence.OrdersPersistenceImpl.FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION,
 			"containsOrders",
-			new String[] { Long.class.getName(), Long.class.getName() });
+			new String[] { String.class.getName(), Long.class.getName() });
 
 	/**
 	 * Returns <code>true</code> if the orders is associated with the dish table.
@@ -1265,7 +1266,7 @@ public class DishTablePersistenceImpl extends BasePersistenceImpl<DishTable>
 	 * @return <code>true</code> if the orders is associated with the dish table; <code>false</code> otherwise
 	 * @throws SystemException if a system exception occurred
 	 */
-	public boolean containsOrders(long pk, long ordersPK)
+	public boolean containsOrders(String pk, long ordersPK)
 		throws SystemException {
 		Object[] finderArgs = new Object[] { pk, ordersPK };
 
@@ -1299,7 +1300,7 @@ public class DishTablePersistenceImpl extends BasePersistenceImpl<DishTable>
 	 * @return <code>true</code> if the dish table has any orderses associated with it; <code>false</code> otherwise
 	 * @throws SystemException if a system exception occurred
 	 */
-	public boolean containsOrderses(long pk) throws SystemException {
+	public boolean containsOrderses(String pk) throws SystemException {
 		if (getOrdersesSize(pk) > 0) {
 			return true;
 		}
@@ -1367,13 +1368,13 @@ public class DishTablePersistenceImpl extends BasePersistenceImpl<DishTable>
 		protected ContainsOrders() {
 			_mappingSqlQuery = MappingSqlQueryFactoryUtil.getMappingSqlQuery(getDataSource(),
 					_SQL_CONTAINSORDERS,
-					new int[] { java.sql.Types.BIGINT, java.sql.Types.BIGINT },
+					new int[] { java.sql.Types.VARCHAR, java.sql.Types.BIGINT },
 					RowMapper.COUNT);
 		}
 
-		protected boolean contains(long dishTableId, long orderId) {
+		protected boolean contains(String dishTableId, long orderId) {
 			List<Integer> results = _mappingSqlQuery.execute(new Object[] {
-						new Long(dishTableId), new Long(orderId)
+						dishTableId, new Long(orderId)
 					});
 
 			if (results.size() > 0) {

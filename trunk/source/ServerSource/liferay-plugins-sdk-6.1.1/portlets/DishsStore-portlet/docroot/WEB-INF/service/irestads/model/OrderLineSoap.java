@@ -40,6 +40,7 @@ public class OrderLineSoap implements Serializable {
 		soapModel.setNumOfDish(model.getNumOfDish());
 		soapModel.setStatusDish(model.getStatusDish());
 		soapModel.setDishId(model.getDishId());
+		soapModel.setOrderId(model.getOrderId());
 
 		return soapModel;
 	}
@@ -164,6 +165,14 @@ public class OrderLineSoap implements Serializable {
 		_dishId = dishId;
 	}
 
+	public long getOrderId() {
+		return _orderId;
+	}
+
+	public void setOrderId(long orderId) {
+		_orderId = orderId;
+	}
+
 	private long _orderLineId;
 	private long _companyId;
 	private long _userId;
@@ -173,4 +182,5 @@ public class OrderLineSoap implements Serializable {
 	private int _numOfDish;
 	private int _statusDish;
 	private long _dishId;
+	private long _orderId;
 }

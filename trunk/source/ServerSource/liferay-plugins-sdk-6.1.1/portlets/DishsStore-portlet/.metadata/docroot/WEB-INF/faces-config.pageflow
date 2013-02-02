@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf13580091369361" configfile="/DishsStore-portlet/docroot/WEB-INF/faces-config.xml">
-  <nodes xsi:type="pageflow:PFPage" name="views/index.xhtml" x="144" y="94" id="pf13590383723370" outlinks="pf13590383723371" path="/views/index.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="views/menu.xhtml" x="372" y="94" id="pf13590383723382" inlinks="pf13590383723371" path="/views/menu.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="views/index.xhtml" x="144" y="94" id="pf13590383723370" referenceLink="//@navigationRule.0/@fromViewId|" outlinks="pf13590383723371 pf13596465909510" path="/views/index.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="views/menu.xhtml" x="372" y="94" id="pf13590383723382" referenceLink="//@navigationRule.0/@navigationCase.0/@toViewId|" inlinks="pf13590383723371" path="/views/menu.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="views/dish_tables.xhtml" x="422" y="221" id="pf13596465909521" inlinks="pf13596465909510" path="/views/dish_tables.xhtml"/>
   <links id="pf13590383723371" target="pf13590383723382" source="pf13590383723370" outcome="goToMenu"/>
+  <links id="pf13596465909510" target="pf13596465909521" source="pf13590383723370" outcome="goToOrder"/>
 </pageflow:Pageflow>

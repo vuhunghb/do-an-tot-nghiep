@@ -14,6 +14,10 @@
 
 package irestads.service.impl;
 
+import java.util.List;
+
+import irestads.model.DishTable;
+import irestads.service.DishTableLocalServiceUtil;
 import irestads.service.base.DishTableServiceBaseImpl;
 
 /**
@@ -36,4 +40,7 @@ public class DishTableServiceImpl extends DishTableServiceBaseImpl {
 	 *
 	 * Never reference this interface directly. Always use {@link irestads.service.DishTableServiceUtil} to access the dish table remote service.
 	 */
+	public List<DishTable> getAllDishTables(){
+		return DishTableLocalServiceUtil.getAllDishTables();
+	}
 }

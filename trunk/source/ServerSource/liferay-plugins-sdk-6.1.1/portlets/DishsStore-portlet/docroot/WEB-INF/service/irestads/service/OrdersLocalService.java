@@ -238,4 +238,7 @@ public interface OrdersLocalService extends BaseLocalService,
 	public java.lang.Object invokeMethod(java.lang.String name,
 		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
 		throws java.lang.Throwable;
+
+	public irestads.model.Orders findCurrentOrder(boolean isPayMent,
+		java.lang.String dishTableId);
 }

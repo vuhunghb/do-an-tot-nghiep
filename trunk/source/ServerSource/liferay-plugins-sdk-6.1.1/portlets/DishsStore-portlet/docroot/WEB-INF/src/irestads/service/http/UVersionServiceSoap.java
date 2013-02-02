@@ -110,5 +110,16 @@ public class UVersionServiceSoap {
 		}
 	}
 
+	public static void checkDelete(long idObj) throws RemoteException {
+		try {
+			UVersionServiceUtil.checkDelete(idObj);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
 	private static Log _log = LogFactoryUtil.getLog(UVersionServiceSoap.class);
 }

@@ -39,6 +39,7 @@ import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
+import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.CacheModel;
 import com.liferay.portal.model.ModelListener;
 import com.liferay.portal.service.persistence.BatchSessionUtil;
@@ -83,26 +84,16 @@ public class OrdersPersistenceImpl extends BasePersistenceImpl<Orders>
 		".List1";
 	public static final String FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION = FINDER_CLASS_NAME_ENTITY +
 		".List2";
-	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_BY_ISPAYMENT =
-		new FinderPath(OrdersModelImpl.ENTITY_CACHE_ENABLED,
+	public static final FinderPath FINDER_PATH_FETCH_BY_CURENTORDER = new FinderPath(OrdersModelImpl.ENTITY_CACHE_ENABLED,
 			OrdersModelImpl.FINDER_CACHE_ENABLED, OrdersImpl.class,
-			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByIsPayMent",
-			new String[] {
-				Boolean.class.getName(),
-				
-			"java.lang.Integer", "java.lang.Integer",
-				"com.liferay.portal.kernel.util.OrderByComparator"
-			});
-	public static final FinderPath FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_ISPAYMENT =
-		new FinderPath(OrdersModelImpl.ENTITY_CACHE_ENABLED,
-			OrdersModelImpl.FINDER_CACHE_ENABLED, OrdersImpl.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByIsPayMent",
-			new String[] { Boolean.class.getName() },
-			OrdersModelImpl.ISPAYMENT_COLUMN_BITMASK);
-	public static final FinderPath FINDER_PATH_COUNT_BY_ISPAYMENT = new FinderPath(OrdersModelImpl.ENTITY_CACHE_ENABLED,
+			FINDER_CLASS_NAME_ENTITY, "fetchBycurentOrder",
+			new String[] { Boolean.class.getName(), String.class.getName() },
+			OrdersModelImpl.ISPAYMENT_COLUMN_BITMASK |
+			OrdersModelImpl.DISHTABLEID_COLUMN_BITMASK);
+	public static final FinderPath FINDER_PATH_COUNT_BY_CURENTORDER = new FinderPath(OrdersModelImpl.ENTITY_CACHE_ENABLED,
 			OrdersModelImpl.FINDER_CACHE_ENABLED, Long.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByIsPayMent",
-			new String[] { Boolean.class.getName() });
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countBycurentOrder",
+			new String[] { Boolean.class.getName(), String.class.getName() });
 	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_ALL = new FinderPath(OrdersModelImpl.ENTITY_CACHE_ENABLED,
 			OrdersModelImpl.FINDER_CACHE_ENABLED, OrdersImpl.class,
 			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findAll", new String[0]);
@@ -121,6 +112,13 @@ public class OrdersPersistenceImpl extends BasePersistenceImpl<Orders>
 	public void cacheResult(Orders orders) {
 		EntityCacheUtil.putResult(OrdersModelImpl.ENTITY_CACHE_ENABLED,
 			OrdersImpl.class, orders.getPrimaryKey(), orders);
+
+		FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_CURENTORDER,
+			new Object[] {
+				Boolean.valueOf(orders.getIsPayMent()),
+				
+			orders.getDishTableId()
+			}, orders);
 
 		orders.resetOriginalValues();
 	}
@@ -177,6 +175,8 @@ public class OrdersPersistenceImpl extends BasePersistenceImpl<Orders>
 
 		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
+
+		clearUniqueFindersCache(orders);
 	}
 
 	@Override
@@ -187,7 +187,18 @@ public class OrdersPersistenceImpl extends BasePersistenceImpl<Orders>
 		for (Orders orders : orderses) {
 			EntityCacheUtil.removeResult(OrdersModelImpl.ENTITY_CACHE_ENABLED,
 				OrdersImpl.class, orders.getPrimaryKey());
+
+			clearUniqueFindersCache(orders);
 		}
+	}
+
+	protected void clearUniqueFindersCache(Orders orders) {
+		FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_CURENTORDER,
+			new Object[] {
+				Boolean.valueOf(orders.getIsPayMent()),
+				
+			orders.getDishTableId()
+			});
 	}
 
 	/**
@@ -312,31 +323,40 @@ public class OrdersPersistenceImpl extends BasePersistenceImpl<Orders>
 			FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
 		}
 
-		else {
-			if ((ordersModelImpl.getColumnBitmask() &
-					FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_ISPAYMENT.getColumnBitmask()) != 0) {
-				Object[] args = new Object[] {
-						Boolean.valueOf(ordersModelImpl.getOriginalIsPayMent())
-					};
-
-				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_ISPAYMENT,
-					args);
-				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_ISPAYMENT,
-					args);
-
-				args = new Object[] {
-						Boolean.valueOf(ordersModelImpl.getIsPayMent())
-					};
-
-				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_ISPAYMENT,
-					args);
-				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_ISPAYMENT,
-					args);
-			}
-		}
-
 		EntityCacheUtil.putResult(OrdersModelImpl.ENTITY_CACHE_ENABLED,
 			OrdersImpl.class, orders.getPrimaryKey(), orders);
+
+		if (isNew) {
+			FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_CURENTORDER,
+				new Object[] {
+					Boolean.valueOf(orders.getIsPayMent()),
+					
+				orders.getDishTableId()
+				}, orders);
+		}
+		else {
+			if ((ordersModelImpl.getColumnBitmask() &
+					FINDER_PATH_FETCH_BY_CURENTORDER.getColumnBitmask()) != 0) {
+				Object[] args = new Object[] {
+						Boolean.valueOf(ordersModelImpl.getOriginalIsPayMent()),
+						
+						ordersModelImpl.getOriginalDishTableId()
+					};
+
+				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_CURENTORDER,
+					args);
+
+				FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_CURENTORDER,
+					args);
+
+				FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_CURENTORDER,
+					new Object[] {
+						Boolean.valueOf(orders.getIsPayMent()),
+						
+					orders.getDishTableId()
+					}, orders);
+			}
+		}
 
 		return orders;
 	}
@@ -465,96 +485,100 @@ public class OrdersPersistenceImpl extends BasePersistenceImpl<Orders>
 	}
 
 	/**
-	 * Returns all the orderses where isPayMent = &#63;.
+	 * Returns the orders where isPayMent = &#63; and dishTableId = &#63; or throws a {@link irestads.NoSuchOrdersException} if it could not be found.
 	 *
 	 * @param isPayMent the is pay ment
-	 * @return the matching orderses
+	 * @param dishTableId the dish table ID
+	 * @return the matching orders
+	 * @throws irestads.NoSuchOrdersException if a matching orders could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
-	public List<Orders> findByIsPayMent(boolean isPayMent)
-		throws SystemException {
-		return findByIsPayMent(isPayMent, QueryUtil.ALL_POS, QueryUtil.ALL_POS,
-			null);
+	public Orders findBycurentOrder(boolean isPayMent, String dishTableId)
+		throws NoSuchOrdersException, SystemException {
+		Orders orders = fetchBycurentOrder(isPayMent, dishTableId);
+
+		if (orders == null) {
+			StringBundler msg = new StringBundler(6);
+
+			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+			msg.append("isPayMent=");
+			msg.append(isPayMent);
+
+			msg.append(", dishTableId=");
+			msg.append(dishTableId);
+
+			msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+			if (_log.isWarnEnabled()) {
+				_log.warn(msg.toString());
+			}
+
+			throw new NoSuchOrdersException(msg.toString());
+		}
+
+		return orders;
 	}
 
 	/**
-	 * Returns a range of all the orderses where isPayMent = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
+	 * Returns the orders where isPayMent = &#63; and dishTableId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
 	 *
 	 * @param isPayMent the is pay ment
-	 * @param start the lower bound of the range of orderses
-	 * @param end the upper bound of the range of orderses (not inclusive)
-	 * @return the range of matching orderses
+	 * @param dishTableId the dish table ID
+	 * @return the matching orders, or <code>null</code> if a matching orders could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
-	public List<Orders> findByIsPayMent(boolean isPayMent, int start, int end)
+	public Orders fetchBycurentOrder(boolean isPayMent, String dishTableId)
 		throws SystemException {
-		return findByIsPayMent(isPayMent, start, end, null);
+		return fetchBycurentOrder(isPayMent, dishTableId, true);
 	}
 
 	/**
-	 * Returns an ordered range of all the orderses where isPayMent = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
+	 * Returns the orders where isPayMent = &#63; and dishTableId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
 	 *
 	 * @param isPayMent the is pay ment
-	 * @param start the lower bound of the range of orderses
-	 * @param end the upper bound of the range of orderses (not inclusive)
-	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @return the ordered range of matching orderses
+	 * @param dishTableId the dish table ID
+	 * @param retrieveFromCache whether to use the finder cache
+	 * @return the matching orders, or <code>null</code> if a matching orders could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
-	public List<Orders> findByIsPayMent(boolean isPayMent, int start, int end,
-		OrderByComparator orderByComparator) throws SystemException {
-		FinderPath finderPath = null;
-		Object[] finderArgs = null;
+	public Orders fetchBycurentOrder(boolean isPayMent, String dishTableId,
+		boolean retrieveFromCache) throws SystemException {
+		Object[] finderArgs = new Object[] { isPayMent, dishTableId };
 
-		if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
-				(orderByComparator == null)) {
-			finderPath = FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_ISPAYMENT;
-			finderArgs = new Object[] { isPayMent };
-		}
-		else {
-			finderPath = FINDER_PATH_WITH_PAGINATION_FIND_BY_ISPAYMENT;
-			finderArgs = new Object[] { isPayMent, start, end, orderByComparator };
+		Object result = null;
+
+		if (retrieveFromCache) {
+			result = FinderCacheUtil.getResult(FINDER_PATH_FETCH_BY_CURENTORDER,
+					finderArgs, this);
 		}
 
-		List<Orders> list = (List<Orders>)FinderCacheUtil.getResult(finderPath,
-				finderArgs, this);
+		if (result instanceof Orders) {
+			Orders orders = (Orders)result;
 
-		if ((list != null) && !list.isEmpty()) {
-			for (Orders orders : list) {
-				if ((isPayMent != orders.getIsPayMent())) {
-					list = null;
-
-					break;
-				}
+			if ((isPayMent != orders.getIsPayMent()) ||
+					!Validator.equals(dishTableId, orders.getDishTableId())) {
+				result = null;
 			}
 		}
 
-		if (list == null) {
-			StringBundler query = null;
-
-			if (orderByComparator != null) {
-				query = new StringBundler(3 +
-						(orderByComparator.getOrderByFields().length * 3));
-			}
-			else {
-				query = new StringBundler(2);
-			}
+		if (result == null) {
+			StringBundler query = new StringBundler(3);
 
 			query.append(_SQL_SELECT_ORDERS_WHERE);
 
-			query.append(_FINDER_COLUMN_ISPAYMENT_ISPAYMENT_2);
+			query.append(_FINDER_COLUMN_CURENTORDER_ISPAYMENT_2);
 
-			if (orderByComparator != null) {
-				appendOrderByComparator(query, _ORDER_BY_ENTITY_ALIAS,
-					orderByComparator);
+			if (dishTableId == null) {
+				query.append(_FINDER_COLUMN_CURENTORDER_DISHTABLEID_1);
+			}
+			else {
+				if (dishTableId.equals(StringPool.BLANK)) {
+					query.append(_FINDER_COLUMN_CURENTORDER_DISHTABLEID_3);
+				}
+				else {
+					query.append(_FINDER_COLUMN_CURENTORDER_DISHTABLEID_2);
+				}
 			}
 
 			String sql = query.toString();
@@ -570,267 +594,54 @@ public class OrdersPersistenceImpl extends BasePersistenceImpl<Orders>
 
 				qPos.add(isPayMent);
 
-				list = (List<Orders>)QueryUtil.list(q, getDialect(), start, end);
+				if (dishTableId != null) {
+					qPos.add(dishTableId);
+				}
+
+				List<Orders> list = q.list();
+
+				result = list;
+
+				Orders orders = null;
+
+				if (list.isEmpty()) {
+					FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_CURENTORDER,
+						finderArgs, list);
+				}
+				else {
+					orders = list.get(0);
+
+					cacheResult(orders);
+
+					if ((orders.getIsPayMent() != isPayMent) ||
+							(orders.getDishTableId() == null) ||
+							!orders.getDishTableId().equals(dishTableId)) {
+						FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_CURENTORDER,
+							finderArgs, orders);
+					}
+				}
+
+				return orders;
 			}
 			catch (Exception e) {
 				throw processException(e);
 			}
 			finally {
-				if (list == null) {
-					FinderCacheUtil.removeResult(finderPath, finderArgs);
-				}
-				else {
-					cacheResult(list);
-
-					FinderCacheUtil.putResult(finderPath, finderArgs, list);
+				if (result == null) {
+					FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_CURENTORDER,
+						finderArgs);
 				}
 
 				closeSession(session);
 			}
 		}
-
-		return list;
-	}
-
-	/**
-	 * Returns the first orders in the ordered set where isPayMent = &#63;.
-	 *
-	 * @param isPayMent the is pay ment
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the first matching orders
-	 * @throws irestads.NoSuchOrdersException if a matching orders could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public Orders findByIsPayMent_First(boolean isPayMent,
-		OrderByComparator orderByComparator)
-		throws NoSuchOrdersException, SystemException {
-		Orders orders = fetchByIsPayMent_First(isPayMent, orderByComparator);
-
-		if (orders != null) {
-			return orders;
-		}
-
-		StringBundler msg = new StringBundler(4);
-
-		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-		msg.append("isPayMent=");
-		msg.append(isPayMent);
-
-		msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-		throw new NoSuchOrdersException(msg.toString());
-	}
-
-	/**
-	 * Returns the first orders in the ordered set where isPayMent = &#63;.
-	 *
-	 * @param isPayMent the is pay ment
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the first matching orders, or <code>null</code> if a matching orders could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public Orders fetchByIsPayMent_First(boolean isPayMent,
-		OrderByComparator orderByComparator) throws SystemException {
-		List<Orders> list = findByIsPayMent(isPayMent, 0, 1, orderByComparator);
-
-		if (!list.isEmpty()) {
-			return list.get(0);
-		}
-
-		return null;
-	}
-
-	/**
-	 * Returns the last orders in the ordered set where isPayMent = &#63;.
-	 *
-	 * @param isPayMent the is pay ment
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the last matching orders
-	 * @throws irestads.NoSuchOrdersException if a matching orders could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public Orders findByIsPayMent_Last(boolean isPayMent,
-		OrderByComparator orderByComparator)
-		throws NoSuchOrdersException, SystemException {
-		Orders orders = fetchByIsPayMent_Last(isPayMent, orderByComparator);
-
-		if (orders != null) {
-			return orders;
-		}
-
-		StringBundler msg = new StringBundler(4);
-
-		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-		msg.append("isPayMent=");
-		msg.append(isPayMent);
-
-		msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-		throw new NoSuchOrdersException(msg.toString());
-	}
-
-	/**
-	 * Returns the last orders in the ordered set where isPayMent = &#63;.
-	 *
-	 * @param isPayMent the is pay ment
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the last matching orders, or <code>null</code> if a matching orders could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public Orders fetchByIsPayMent_Last(boolean isPayMent,
-		OrderByComparator orderByComparator) throws SystemException {
-		int count = countByIsPayMent(isPayMent);
-
-		List<Orders> list = findByIsPayMent(isPayMent, count - 1, count,
-				orderByComparator);
-
-		if (!list.isEmpty()) {
-			return list.get(0);
-		}
-
-		return null;
-	}
-
-	/**
-	 * Returns the orderses before and after the current orders in the ordered set where isPayMent = &#63;.
-	 *
-	 * @param orderId the primary key of the current orders
-	 * @param isPayMent the is pay ment
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the previous, current, and next orders
-	 * @throws irestads.NoSuchOrdersException if a orders with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public Orders[] findByIsPayMent_PrevAndNext(long orderId,
-		boolean isPayMent, OrderByComparator orderByComparator)
-		throws NoSuchOrdersException, SystemException {
-		Orders orders = findByPrimaryKey(orderId);
-
-		Session session = null;
-
-		try {
-			session = openSession();
-
-			Orders[] array = new OrdersImpl[3];
-
-			array[0] = getByIsPayMent_PrevAndNext(session, orders, isPayMent,
-					orderByComparator, true);
-
-			array[1] = orders;
-
-			array[2] = getByIsPayMent_PrevAndNext(session, orders, isPayMent,
-					orderByComparator, false);
-
-			return array;
-		}
-		catch (Exception e) {
-			throw processException(e);
-		}
-		finally {
-			closeSession(session);
-		}
-	}
-
-	protected Orders getByIsPayMent_PrevAndNext(Session session, Orders orders,
-		boolean isPayMent, OrderByComparator orderByComparator, boolean previous) {
-		StringBundler query = null;
-
-		if (orderByComparator != null) {
-			query = new StringBundler(6 +
-					(orderByComparator.getOrderByFields().length * 6));
-		}
 		else {
-			query = new StringBundler(3);
-		}
-
-		query.append(_SQL_SELECT_ORDERS_WHERE);
-
-		query.append(_FINDER_COLUMN_ISPAYMENT_ISPAYMENT_2);
-
-		if (orderByComparator != null) {
-			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
-
-			if (orderByConditionFields.length > 0) {
-				query.append(WHERE_AND);
+			if (result instanceof List<?>) {
+				return null;
 			}
-
-			for (int i = 0; i < orderByConditionFields.length; i++) {
-				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByConditionFields[i]);
-
-				if ((i + 1) < orderByConditionFields.length) {
-					if (orderByComparator.isAscending() ^ previous) {
-						query.append(WHERE_GREATER_THAN_HAS_NEXT);
-					}
-					else {
-						query.append(WHERE_LESSER_THAN_HAS_NEXT);
-					}
-				}
-				else {
-					if (orderByComparator.isAscending() ^ previous) {
-						query.append(WHERE_GREATER_THAN);
-					}
-					else {
-						query.append(WHERE_LESSER_THAN);
-					}
-				}
+			else {
+				return (Orders)result;
 			}
-
-			query.append(ORDER_BY_CLAUSE);
-
-			String[] orderByFields = orderByComparator.getOrderByFields();
-
-			for (int i = 0; i < orderByFields.length; i++) {
-				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
-
-				if ((i + 1) < orderByFields.length) {
-					if (orderByComparator.isAscending() ^ previous) {
-						query.append(ORDER_BY_ASC_HAS_NEXT);
-					}
-					else {
-						query.append(ORDER_BY_DESC_HAS_NEXT);
-					}
-				}
-				else {
-					if (orderByComparator.isAscending() ^ previous) {
-						query.append(ORDER_BY_ASC);
-					}
-					else {
-						query.append(ORDER_BY_DESC);
-					}
-				}
-			}
-		}
-
-		String sql = query.toString();
-
-		Query q = session.createQuery(sql);
-
-		q.setFirstResult(0);
-		q.setMaxResults(2);
-
-		QueryPos qPos = QueryPos.getInstance(q);
-
-		qPos.add(isPayMent);
-
-		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByConditionValues(orders);
-
-			for (Object value : values) {
-				qPos.add(value);
-			}
-		}
-
-		List<Orders> list = q.list();
-
-		if (list.size() == 2) {
-			return list.get(1);
-		}
-		else {
-			return null;
 		}
 	}
 
@@ -949,15 +760,18 @@ public class OrdersPersistenceImpl extends BasePersistenceImpl<Orders>
 	}
 
 	/**
-	 * Removes all the orderses where isPayMent = &#63; from the database.
+	 * Removes the orders where isPayMent = &#63; and dishTableId = &#63; from the database.
 	 *
 	 * @param isPayMent the is pay ment
+	 * @param dishTableId the dish table ID
+	 * @return the orders that was removed
 	 * @throws SystemException if a system exception occurred
 	 */
-	public void removeByIsPayMent(boolean isPayMent) throws SystemException {
-		for (Orders orders : findByIsPayMent(isPayMent)) {
-			remove(orders);
-		}
+	public Orders removeBycurentOrder(boolean isPayMent, String dishTableId)
+		throws NoSuchOrdersException, SystemException {
+		Orders orders = findBycurentOrder(isPayMent, dishTableId);
+
+		return remove(orders);
 	}
 
 	/**
@@ -972,24 +786,38 @@ public class OrdersPersistenceImpl extends BasePersistenceImpl<Orders>
 	}
 
 	/**
-	 * Returns the number of orderses where isPayMent = &#63;.
+	 * Returns the number of orderses where isPayMent = &#63; and dishTableId = &#63;.
 	 *
 	 * @param isPayMent the is pay ment
+	 * @param dishTableId the dish table ID
 	 * @return the number of matching orderses
 	 * @throws SystemException if a system exception occurred
 	 */
-	public int countByIsPayMent(boolean isPayMent) throws SystemException {
-		Object[] finderArgs = new Object[] { isPayMent };
+	public int countBycurentOrder(boolean isPayMent, String dishTableId)
+		throws SystemException {
+		Object[] finderArgs = new Object[] { isPayMent, dishTableId };
 
-		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_BY_ISPAYMENT,
+		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_BY_CURENTORDER,
 				finderArgs, this);
 
 		if (count == null) {
-			StringBundler query = new StringBundler(2);
+			StringBundler query = new StringBundler(3);
 
 			query.append(_SQL_COUNT_ORDERS_WHERE);
 
-			query.append(_FINDER_COLUMN_ISPAYMENT_ISPAYMENT_2);
+			query.append(_FINDER_COLUMN_CURENTORDER_ISPAYMENT_2);
+
+			if (dishTableId == null) {
+				query.append(_FINDER_COLUMN_CURENTORDER_DISHTABLEID_1);
+			}
+			else {
+				if (dishTableId.equals(StringPool.BLANK)) {
+					query.append(_FINDER_COLUMN_CURENTORDER_DISHTABLEID_3);
+				}
+				else {
+					query.append(_FINDER_COLUMN_CURENTORDER_DISHTABLEID_2);
+				}
+			}
 
 			String sql = query.toString();
 
@@ -1004,6 +832,10 @@ public class OrdersPersistenceImpl extends BasePersistenceImpl<Orders>
 
 				qPos.add(isPayMent);
 
+				if (dishTableId != null) {
+					qPos.add(dishTableId);
+				}
+
 				count = (Long)q.uniqueResult();
 			}
 			catch (Exception e) {
@@ -1014,7 +846,7 @@ public class OrdersPersistenceImpl extends BasePersistenceImpl<Orders>
 					count = Long.valueOf(0);
 				}
 
-				FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_ISPAYMENT,
+				FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_CURENTORDER,
 					finderArgs, count);
 
 				closeSession(session);
@@ -1383,7 +1215,10 @@ public class OrdersPersistenceImpl extends BasePersistenceImpl<Orders>
 	private static final String _SQL_GETORDERLINES = "SELECT {dishsstore_OrderLine.*} FROM dishsstore_OrderLine INNER JOIN dishsstore_Orders ON (dishsstore_Orders.orderId = dishsstore_OrderLine.orderId) WHERE (dishsstore_Orders.orderId = ?)";
 	private static final String _SQL_GETORDERLINESSIZE = "SELECT COUNT(*) AS COUNT_VALUE FROM dishsstore_OrderLine WHERE orderId = ?";
 	private static final String _SQL_CONTAINSORDERLINE = "SELECT COUNT(*) AS COUNT_VALUE FROM dishsstore_OrderLine WHERE orderId = ? AND orderLineId = ?";
-	private static final String _FINDER_COLUMN_ISPAYMENT_ISPAYMENT_2 = "orders.isPayMent = ?";
+	private static final String _FINDER_COLUMN_CURENTORDER_ISPAYMENT_2 = "orders.isPayMent = ? AND ";
+	private static final String _FINDER_COLUMN_CURENTORDER_DISHTABLEID_1 = "orders.dishTableId IS NULL";
+	private static final String _FINDER_COLUMN_CURENTORDER_DISHTABLEID_2 = "orders.dishTableId = ?";
+	private static final String _FINDER_COLUMN_CURENTORDER_DISHTABLEID_3 = "(orders.dishTableId IS NULL OR orders.dishTableId = ?)";
 	private static final String _ORDER_BY_ENTITY_ALIAS = "orders.";
 	private static final String _NO_SUCH_ENTITY_WITH_PRIMARY_KEY = "No Orders exists with the primary key ";
 	private static final String _NO_SUCH_ENTITY_WITH_KEY = "No Orders exists with the key {";

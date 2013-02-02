@@ -178,11 +178,11 @@ public class OrdersSoap implements Serializable {
 		_numOfDinner = numOfDinner;
 	}
 
-	public long getDishTableId() {
+	public String getDishTableId() {
 		return _dishTableId;
 	}
 
-	public void setDishTableId(long dishTableId) {
+	public void setDishTableId(String dishTableId) {
 		_dishTableId = dishTableId;
 	}
 
@@ -196,5 +196,5 @@ public class OrdersSoap implements Serializable {
 	private Date _createdDate;
 	private boolean _isPayMent;
 	private int _numOfDinner;
-	private long _dishTableId;
+	private String _dishTableId;
 }

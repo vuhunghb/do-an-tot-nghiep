@@ -121,7 +121,7 @@ public class OrdersWrapper implements Orders, ModelWrapper<Orders> {
 			setNumOfDinner(numOfDinner);
 		}
 
-		Long dishTableId = (Long)attributes.get("dishTableId");
+		String dishTableId = (String)attributes.get("dishTableId");
 
 		if (dishTableId != null) {
 			setDishTableId(dishTableId);
@@ -360,7 +360,7 @@ public class OrdersWrapper implements Orders, ModelWrapper<Orders> {
 	*
 	* @return the dish table ID of this orders
 	*/
-	public long getDishTableId() {
+	public java.lang.String getDishTableId() {
 		return _orders.getDishTableId();
 	}
 
@@ -369,7 +369,7 @@ public class OrdersWrapper implements Orders, ModelWrapper<Orders> {
 	*
 	* @param dishTableId the dish table ID of this orders
 	*/
-	public void setDishTableId(long dishTableId) {
+	public void setDishTableId(java.lang.String dishTableId) {
 		_orders.setDishTableId(dishTableId);
 	}
 

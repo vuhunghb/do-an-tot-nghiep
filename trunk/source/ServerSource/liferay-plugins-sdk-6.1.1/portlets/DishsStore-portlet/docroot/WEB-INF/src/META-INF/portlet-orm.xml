@@ -66,6 +66,7 @@
 			<basic name="modifiedDate">
 				<temporal>TIMESTAMP</temporal>
 			</basic>
+			<basic name="tableName" />
 			<basic name="isAvalable" />
 			<basic name="numChair" />
 			<transient name="modelAttributes" />
@@ -129,6 +130,7 @@
 			<basic name="numOfDish" />
 			<basic name="statusDish" />
 			<basic name="dishId" />
+			<basic name="orderId" />
 			<transient name="modelAttributes" />
 			<transient name="primaryKey" />
 			<transient name="primaryKeyObj" />

@@ -116,7 +116,7 @@ public abstract class DishTableLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @param dishTableId the primary key for the new dish table
 	 * @return the new dish table
 	 */
-	public DishTable createDishTable(long dishTableId) {
+	public DishTable createDishTable(String dishTableId) {
 		return dishTablePersistence.create(dishTableId);
 	}
 
@@ -129,7 +129,7 @@ public abstract class DishTableLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
-	public DishTable deleteDishTable(long dishTableId)
+	public DishTable deleteDishTable(String dishTableId)
 		throws PortalException, SystemException {
 		return dishTablePersistence.remove(dishTableId);
 	}
@@ -220,7 +220,8 @@ public abstract class DishTableLocalServiceBaseImpl extends BaseLocalServiceImpl
 		return dishTablePersistence.countWithDynamicQuery(dynamicQuery);
 	}
 
-	public DishTable fetchDishTable(long dishTableId) throws SystemException {
+	public DishTable fetchDishTable(String dishTableId)
+		throws SystemException {
 		return dishTablePersistence.fetchByPrimaryKey(dishTableId);
 	}
 
@@ -232,7 +233,7 @@ public abstract class DishTableLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws PortalException if a dish table with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
-	public DishTable getDishTable(long dishTableId)
+	public DishTable getDishTable(String dishTableId)
 		throws PortalException, SystemException {
 		return dishTablePersistence.findByPrimaryKey(dishTableId);
 	}

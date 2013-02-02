@@ -76,9 +76,9 @@ public class OrdersModelImpl extends BaseModelImpl<Orders>
 			{ "createdDate", Types.TIMESTAMP },
 			{ "isPayMent", Types.BOOLEAN },
 			{ "numOfDinner", Types.INTEGER },
-			{ "dishTableId", Types.BIGINT }
+			{ "dishTableId", Types.VARCHAR }
 		};
-	public static final String TABLE_SQL_CREATE = "create table dishsstore_Orders (orderId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,charge INTEGER,createdDate DATE null,isPayMent BOOLEAN,numOfDinner INTEGER,dishTableId LONG)";
+	public static final String TABLE_SQL_CREATE = "create table dishsstore_Orders (orderId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,charge INTEGER,createdDate DATE null,isPayMent BOOLEAN,numOfDinner INTEGER,dishTableId VARCHAR(75) null)";
 	public static final String TABLE_SQL_DROP = "drop table dishsstore_Orders";
 	public static final String DATA_SOURCE = "liferayDataSource";
 	public static final String SESSION_FACTORY = "liferaySessionFactory";
@@ -90,7 +90,8 @@ public class OrdersModelImpl extends BaseModelImpl<Orders>
 	public static final boolean COLUMN_BITMASK_ENABLED = GetterUtil.getBoolean(com.liferay.util.service.ServiceProps.get(
 				"value.object.column.bitmask.enabled.irestads.model.Orders"),
 			true);
-	public static long ISPAYMENT_COLUMN_BITMASK = 1L;
+	public static long DISHTABLEID_COLUMN_BITMASK = 1L;
+	public static long ISPAYMENT_COLUMN_BITMASK = 2L;
 
 	/**
 	 * Converts the soap model instance into a normal model instance.
@@ -251,7 +252,7 @@ public class OrdersModelImpl extends BaseModelImpl<Orders>
 			setNumOfDinner(numOfDinner);
 		}
 
-		Long dishTableId = (Long)attributes.get("dishTableId");
+		String dishTableId = (String)attributes.get("dishTableId");
 
 		if (dishTableId != null) {
 			setDishTableId(dishTableId);
@@ -378,12 +379,27 @@ public class OrdersModelImpl extends BaseModelImpl<Orders>
 	}
 
 	@JSON
-	public long getDishTableId() {
-		return _dishTableId;
+	public String getDishTableId() {
+		if (_dishTableId == null) {
+			return StringPool.BLANK;
+		}
+		else {
+			return _dishTableId;
+		}
 	}
 
-	public void setDishTableId(long dishTableId) {
+	public void setDishTableId(String dishTableId) {
+		_columnBitmask |= DISHTABLEID_COLUMN_BITMASK;
+
+		if (_originalDishTableId == null) {
+			_originalDishTableId = _dishTableId;
+		}
+
 		_dishTableId = dishTableId;
+	}
+
+	public String getOriginalDishTableId() {
+		return GetterUtil.getString(_originalDishTableId);
 	}
 
 	public long getColumnBitmask() {
@@ -487,6 +503,8 @@ public class OrdersModelImpl extends BaseModelImpl<Orders>
 
 		ordersModelImpl._setOriginalIsPayMent = false;
 
+		ordersModelImpl._originalDishTableId = ordersModelImpl._dishTableId;
+
 		ordersModelImpl._columnBitmask = 0;
 	}
 
@@ -542,6 +560,12 @@ public class OrdersModelImpl extends BaseModelImpl<Orders>
 		ordersCacheModel.numOfDinner = getNumOfDinner();
 
 		ordersCacheModel.dishTableId = getDishTableId();
+
+		String dishTableId = ordersCacheModel.dishTableId;
+
+		if ((dishTableId != null) && (dishTableId.length() == 0)) {
+			ordersCacheModel.dishTableId = null;
+		}
 
 		return ordersCacheModel;
 	}
@@ -651,7 +675,8 @@ public class OrdersModelImpl extends BaseModelImpl<Orders>
 	private boolean _originalIsPayMent;
 	private boolean _setOriginalIsPayMent;
 	private int _numOfDinner;
-	private long _dishTableId;
+	private String _dishTableId;
+	private String _originalDishTableId;
 	private long _columnBitmask;
 	private Orders _escapedModelProxy;
 }

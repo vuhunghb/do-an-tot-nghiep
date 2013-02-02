@@ -14,7 +14,13 @@
 
 package irestads.service.impl;
 
+import java.util.List;
+
+import com.liferay.portal.kernel.exception.SystemException;
+
+import irestads.model.DishTable;
 import irestads.service.base.DishTableLocalServiceBaseImpl;
+import irestads.service.persistence.DishTableUtil;
 
 /**
  * The implementation of the dish table local service.
@@ -36,4 +42,16 @@ public class DishTableLocalServiceImpl extends DishTableLocalServiceBaseImpl {
 	 *
 	 * Never reference this interface directly. Always use {@link irestads.service.DishTableLocalServiceUtil} to access the dish table local service.
 	 */
+	public List<DishTable> getAllDishTables(){
+		try {
+			
+			return DishTableUtil.findAll();
+			
+		} catch (SystemException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+		
+	}
 }

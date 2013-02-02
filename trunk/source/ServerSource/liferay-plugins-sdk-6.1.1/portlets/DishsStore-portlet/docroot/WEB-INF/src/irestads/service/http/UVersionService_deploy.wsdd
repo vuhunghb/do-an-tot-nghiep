@@ -2,8 +2,25 @@
 
 <deployment xmlns="http://xml.apache.org/axis/wsdd/" xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
 	<service name="Plugin_dishsstore_UVersionService" provider="java:RPC" style="rpc" use="encoded">
-		<parameter name="allowedMethods" value="*" />
+		<arrayMapping xmlns:ns="urn:http.service.irestads" xmlns:cmp-ns="http://model.irestads" qname="ns:ArrayOf_tns2_UVersionSoap" type="java:irestads.model.UVersionSoap[]" innerType="cmp-ns:UVersionSoap" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"></arrayMapping>
+		<typeMapping xmlns:ns="http://model.irestads" qname="ns:UVersionSoap" type="java:irestads.model.UVersionSoap" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"></typeMapping>
+		<operation xmlns:operNS="urn:http.service.irestads" name="checkDelete" qname="operNS:checkDelete" soapAction="">
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="idObj" type="tns:long"></parameter>
+		</operation>
+		<operation xmlns:operNS="urn:http.service.irestads" xmlns:rtns="http://model.irestads" name="createVersion" qname="operNS:createVersion" returnQName="createVersionReturn" returnType="rtns:UVersionSoap" soapAction="">
+			<parameter xmlns:tns="http://model.irestads" qname="v" type="tns:UVersionSoap"></parameter>
+		</operation>
+		<operation xmlns:operNS="urn:http.service.irestads" xmlns:rtns="http://model.irestads" name="createVersion" qname="operNS:createVersion" returnQName="createVersionReturn" returnType="rtns:UVersionSoap" soapAction="">
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="idObj" type="tns:long"></parameter>
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="nameObj" type="tns:string"></parameter>
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="type" type="tns:string"></parameter>
+		</operation>
+		<operation xmlns:operNS="urn:http.service.irestads" xmlns:rtns="urn:http.service.irestads" xmlns:tns2="http://model.irestads" name="findNextVersions" qname="operNS:findNextVersions" returnQName="findNextVersionsReturn" returnType="rtns:ArrayOf_tns2_UVersionSoap" returnItemType="tns2:UVersionSoap" soapAction="">
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="uversionId" type="tns:long"></parameter>
+		</operation>
+		<parameter name="allowedMethods" value="checkDelete createVersion findNextVersions" />
 		<parameter name="className" value="irestads.service.http.UVersionServiceSoap" />
+		<parameter name="schemaUnqualified" value="http://model.irestads,urn:http.service.irestads" />
 		<parameter name="typeMappingVersion" value="1.2" />
 		<parameter name="wsdlPortType" value="UVersionServiceSoap" />
 		<parameter name="wsdlServiceElement" value="UVersionServiceSoapService" />
