@@ -1,16 +1,20 @@
 package com.irestads;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 
 import com.irestads.client.VersionConnect;
+import com.irestads.util.GenericUtil;
 import com.irestads.util.StogeSettingsUtil;
+import com.irestads.util.UpdateTimerTask;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.StrictMode;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -46,7 +50,7 @@ public class SettingsUpdateFragment extends Fragment {
 		TextView currentVersionText = (TextView) getActivity().findViewById(
 				R.id.settings_update_current_version);
 		currentVersionText.setText("# "
-				+ MainActivity.settingsModel.getCurrentVersion());
+				+ GenericUtil.settingsModel.getCurrentVersion());
 
 		updateAutoTimeDisplay();
 
@@ -70,7 +74,7 @@ public class SettingsUpdateFragment extends Fragment {
 		timePicker.setIs24HourView(true);
 
 		Calendar calendar = new GregorianCalendar();
-		calendar.setTime(MainActivity.settingsModel.getAutoUpdateTime());
+		calendar.setTime(GenericUtil.settingsModel.getAutoUpdateTime());
 		timePicker.setCurrentHour(calendar.get(Calendar.HOUR_OF_DAY));
 		timePicker.setCurrentMinute(calendar.get(Calendar.MINUTE));
 	}
@@ -85,14 +89,18 @@ public class SettingsUpdateFragment extends Fragment {
 			String message = "";
 			switch (id) {
 			case R.id.settings_update_auto_save:
-				MainActivity.settingsModel.getAutoUpdateTime().setHours(
+				
+				GenericUtil.settingsModel.setAutoUpdateTime(new Date());
+				GenericUtil.settingsModel.getAutoUpdateTime().setHours(
 						timePicker.getCurrentHour());
-				MainActivity.settingsModel.getAutoUpdateTime().setMinutes(
+				GenericUtil.settingsModel.getAutoUpdateTime().setMinutes(
 						timePicker.getCurrentMinute());
 				// MainActivity.settingsModel.setMaxVersion(0);
 				StogeSettingsUtil settingsUtil = new StogeSettingsUtil();
-				settingsUtil.writeSettings(MainActivity.settingsModel);
-				MainActivity.runUpdateTimer();
+				settingsUtil.writeSettings(GenericUtil.settingsModel);
+				
+				GenericUtil.runUpdateTimer(getActivity());
+				
 				message = getResources().getString(
 						R.string.settings_update_auto_message_ok);
 				break;
@@ -132,9 +140,8 @@ public class SettingsUpdateFragment extends Fragment {
 
 								public void onClick(DialogInterface dialog,
 										int whichButton) {
-									VersionConnect connect = new VersionConnect();
-									String a = connect.callTestService();
-									Toast.makeText(getActivity(), a, Toast.LENGTH_LONG).show();
+									VersionConnect connect = new VersionConnect(getActivity());
+									connect.execute();
 								}
 							})
 					.setNegativeButton(

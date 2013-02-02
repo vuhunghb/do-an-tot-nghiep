@@ -39,7 +39,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingLeft="5dp"
-                        android:text="Kết nối"
+                        android:text="@string/settings_btn_connect_label"
                         android:textAppearance="?android:attr/textAppearanceLarge"
                         android:textColor="#ffffff" />
                 </LinearLayout>
@@ -60,43 +60,50 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingLeft="5dp"
-                        android:text="Cập nhật"
+                        android:text="@string/settings_btn_update_label"
                         android:textAppearance="?android:attr/textAppearanceLarge"
                         android:textColor="#ffffff" />
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/settings_btn_tableinf"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_marginBottom="2dp"
                     android:layout_marginRight="2dp"
                     android:background="#222222"
-                    android:gravity="center_vertical" >
+                    android:clickable="true"
+                    android:gravity="center_vertical"
+                    android:onClick="onClickSettingButton" >
 
                     <TextView
                         android:id="@+id/TextView02"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingLeft="5dp"
-                        android:text="Thông tin bàn"
+                        android:text="@string/settings_btn_table_label"
                         android:textAppearance="?android:attr/textAppearanceLarge"
                         android:textColor="#ffffff" />
+
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/settings_btn_resetdata"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_marginBottom="2dp"
                     android:layout_marginRight="2dp"
                     android:background="#222222"
-                    android:gravity="center_vertical" >
+                    android:clickable="true"
+                    android:gravity="center_vertical"
+                    android:onClick="onClickSettingButton" >
 
                     <TextView
                         android:id="@+id/TextView01"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingLeft="5dp"
-                        android:text="Large Text"
+                        android:text="@string/settings_btn_resetdata_label"
                         android:textAppearance="?android:attr/textAppearanceLarge"
                         android:textColor="#ffffff" />
                 </LinearLayout>

@@ -1,12 +1,16 @@
 package com.irestads;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.List;
 import java.util.Timer;
 import java.util.Vector;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.StrictMode;
 import android.annotation.SuppressLint;
 import android.app.ActionBar;
@@ -29,25 +33,23 @@ import org.ksoap2.serialization.SoapPrimitive;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
 import org.ksoap2.serialization.PropertyInfo;
+import org.xmlpull.v1.XmlPullParserException;
 
+import com.irestads.dao.CategoryDAO;
 import com.irestads.dao.DishDAO;
+import com.irestads.dao.MenuLineDAO;
+import com.irestads.dao.OrderDAO;
+import com.irestads.dao.OrderLineDAO;
 import com.irestads.marshal.MarshalLong;
+import com.irestads.model.CategoryModel;
 import com.irestads.model.DishModel;
 import com.irestads.model.SettingsModel;
+import com.irestads.util.GenericUtil;
 import com.irestads.util.StogeSettingsUtil;
 import com.irestads.util.UpdateTimerTask;
 
 @SuppressLint({ "NewApi", "UseValueOf" })
 public class MainActivity extends Activity {
-
-	public static final String NAMESPACE = "http://model.irestads/";
-	public static String URL = "http://test:test@192.168.15.100:8080/DishsStore-portlet/api/axis/Plugin_dishsstore_DishService?wsdl";
-	public static final String METHOD_NAME = "getAllDishs";
-	 private static final String SOAP_ACTION ="http://model.irestads/getAllDishs";
-	// "http://model.irestads/getSinhVienByLop";
-	public static final String PREFS_NAME = "iRestAdsPrefsFile";
-	public static SettingsModel settingsModel;
-	public static Timer timer;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -56,34 +58,57 @@ public class MainActivity extends Activity {
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_DITHER);
 
 		setContentView(R.layout.activity_main);
-		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
-				.permitAll().build();
+		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
 		StrictMode.setThreadPolicy(policy);
 
+		/*-------Create Generic link and property--------*/
+		
+		GenericUtil genericUtil = new GenericUtil();
+		GenericUtil.currentActivity = MainActivity.class.toString();
+		settupDB();
+		/*-------Create Generic link and property--------*/
+		createCategoryTest();
 		ActionBar actionBar = getActionBar();
 		actionBar.hide();
-
-		callServiceMethod();
+		GenericUtil.runUpdateTimer(this);
 		
-		StogeSettingsUtil settingsUtil = new StogeSettingsUtil();
-		settingsModel = settingsUtil.readSettings();
-		runUpdateTimer();
 	}
 
-	public static void runUpdateTimer() {
-		if (timer != null) {
-			timer.cancel();
+	/***
+	 * This method to setup DB Because DB is created in first time
+	 */
+	public void settupDB() {
+		CategoryDAO categoryDAO = new CategoryDAO(this);
+		categoryDAO.open();
+		categoryDAO.close();
+		DishDAO dishDAO = new DishDAO(this);
+		dishDAO.open();
+		dishDAO.close();
+		MenuLineDAO menuLineDAO = new MenuLineDAO(this);
+		menuLineDAO.open();
+		menuLineDAO.close();
+		OrderDAO orderDAO = new OrderDAO(this);
+		orderDAO.open();
+		orderDAO.close();
+		OrderLineDAO orderLineDAO = new OrderLineDAO(this);
+		orderLineDAO.open();
+		orderLineDAO.close();
+	}
+
+	public void createCategoryTest() {
+		String[] categories = getResources().getStringArray(R.array.category_name);
+		CategoryDAO categoryDAO = new CategoryDAO(this);
+		categoryDAO.open();
+		for (int i = 0; i < categories.length; i++) {
+			String string = categories[i];
+			CategoryModel categoryModel = new CategoryModel(i + 1, categories[i], new ArrayList<DishModel>());
+			categoryDAO.saveOrUpdateCategory(categoryModel);
 		}
-		timer = new Timer();
-		// Calendar calendar = new GregorianCalendar(2013, 0, 20, 17, 40);
-		Date date = settingsModel.getAutoUpdateTime();
-		UpdateTimerTask updateTimerTask = new UpdateTimerTask();
-		timer.scheduleAtFixedRate(updateTimerTask, date, 86400000);
+		categoryDAO.close();
 	}
 
 	public void setUserSession() {
-		SharedPreferences sharedPreferences = getSharedPreferences(
-				MainActivity.PREFS_NAME, 0);
+		SharedPreferences sharedPreferences = getSharedPreferences(GenericUtil.PREFS_NAME, 0);
 		SharedPreferences.Editor editor = sharedPreferences.edit();
 
 		editor.putLong("userSession", new Date().getTime());
@@ -92,10 +117,8 @@ public class MainActivity extends Activity {
 	}
 
 	public long getUserSession() {
-		SharedPreferences sharedPreferences = getSharedPreferences(
-				MainActivity.PREFS_NAME, 0);
-		long userSession = sharedPreferences.getLong("userSession",
-				new Date().getTime());
+		SharedPreferences sharedPreferences = getSharedPreferences(GenericUtil.PREFS_NAME, 0);
+		long userSession = sharedPreferences.getLong("userSession", new Date().getTime());
 		return userSession;
 	}
 
@@ -181,68 +204,45 @@ public class MainActivity extends Activity {
 	}
 
 	public void callServiceMethod() {
-		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
-				.permitAll().build();
 
-		StrictMode.setThreadPolicy(policy);
-
-		SoapObject request = new SoapObject(NAMESPACE, METHOD_NAME);
-
-		/*
-		 * Create a org.ksoap2.serialization.PropertyInfo object to contain
-		 * property information to be sent with the SOAP method call. Each
-		 * property requires a new PropertyInfo object. The hello method takes
-		 * only 1 argument for a name. Set the property name as "arg0", and
-		 * specify the type of the property as STRING_CLASS. Add the
-		 * PropertyInfo object to the SoapObject using the addProperty method.
-		 * 
-		 * PropertyInfo propInfo=new PropertyInfo(); propInfo.name="arg0";
-		 * propInfo.type=PropertyInfo.STRING_CLASS;
-		 * request.addProperty(propInfo, "John Smith");
-		 */
+		// SoapObject request = new SoapObject(NAMESPACE, METHOD_NAME);
+		// SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
+		// SoapEnvelope.VER11);
+		// envelope.setOutputSoapObject(request);
+		// String body = envelope.bodyOut.toString();
+		// System.out.println("body out : " + envelope.bodyOut.toString());
+		// request.addProperty("dishId", new Long(1));
+		// HttpTransportSE ht = new HttpTransportSE(URL);
 		//
-		// PropertyInfo propInfo = new PropertyInfo();
-		// propInfo.setName("lopId");
-		// propInfo.setType(PropertyInfo.LONG_CLASS);
-		Long id = new Long(1);
-		// propInfo.setValue(id);
-
-//		request.addProperty("lopID", new Long(1));
-		// request.addProperty(propInfo);
-		SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
-				SoapEnvelope.VER12);
-		envelope.setOutputSoapObject(request);
-		
-		MarshalLong mL = new MarshalLong();
-		mL.register(envelope);
-
-		HttpTransportSE androidHttpTransport = new HttpTransportSE(URL);
-
-		try {
-			androidHttpTransport.call(SOAP_ACTION, envelope);
-
-			// SoapPrimitive resultsRequestSOAP = (SoapPrimitive) envelope
-			// .getResponse();
-			String resultsRequestSOAP = "";
-
-			java.util.Vector<SoapObject> response = (java.util.Vector<SoapObject>) envelope
-					.getResponse();
-			Vector<SoapObject> rs = response;
-			if (rs != null) {
-				for (SoapObject cs : rs) {
-					resultsRequestSOAP = resultsRequestSOAP + "0 : "
-							+ cs.getProperty("dishName").toString(); // ok
-					resultsRequestSOAP = resultsRequestSOAP + "2 : "
-							+ cs.getProperty("dishId").toString();
-					resultsRequestSOAP = resultsRequestSOAP + "\n";
-				}
-			}
-
-			Toast.makeText(this, resultsRequestSOAP, Toast.LENGTH_LONG).show();
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		// try {
+		// ht.debug = true;
+		// String a = ht.requestDump;
+		// ht.call(SOAP_ACTION, envelope);
+		// String b = ht.responseDump;
+		//
+		// final List<SoapObject> response = (List<SoapObject>) envelope
+		// .getResponse();
+		// final List<SoapObject> rs = response;
+		// String resultsRequestSOAP = "";
+		// if (rs != null) {
+		// for (SoapObject cs : rs) {
+		// resultsRequestSOAP = resultsRequestSOAP + "0 : "
+		// + cs.getProperty("dishName").toString(); // ok
+		// resultsRequestSOAP = resultsRequestSOAP + "2 : "
+		// + cs.getProperty("dishId").toString();
+		// resultsRequestSOAP = resultsRequestSOAP + "\n";
+		// }
+		// }
+		// System.out.println("Result " + resultsRequestSOAP);
+		//
+		// } catch (IOException e) {
+		// // TODO Auto-generated catch block
+		// e.printStackTrace();
+		// } catch (XmlPullParserException e) {
+		// // TODO Auto-generated catch block
+		// String b = ht.responseDump;
+		// e.printStackTrace();
+		// }
 	}
 
 }

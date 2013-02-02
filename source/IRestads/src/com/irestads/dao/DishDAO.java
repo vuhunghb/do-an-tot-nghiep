@@ -28,8 +28,6 @@ public class DishDAO {
 	static String DISH_ID = "_dishID";
 	static String CATEGORY_ID = "categoryId";
 
-	static String DB_TABLE = "dish";
-
 	Context context;
 	DishDAOHelper dishDAOHelper;
 	SQLiteDatabase db;
@@ -50,12 +48,9 @@ public class DishDAO {
 		@Override
 		public void onCreate(SQLiteDatabase db) {
 			// TODO Auto-generated method stub
-			String createDishTableQuery = "CREATE TABLE dish (" + DISH_ID
-					+ " INTEGER PRIMARY KEY," + DISH_NAME + " TEXT, "
-					+ DESCRIPTION + " TEXT," + DETAIL + " TEXT," + AVATAR_IMG
-					+ " BLOB," + DETAIL_IMG + " TEXT," + REFER_PRICE
-					+ " NUMERIC," + NUM_OF_DINER + " NUMERIC," + CATEGORY_ID
-					+ " NUMERIC);";
+			String createDishTableQuery = "CREATE TABLE dish (" + DISH_ID + " INTEGER PRIMARY KEY," + DISH_NAME
+					+ " TEXT, " + DESCRIPTION + " TEXT," + DETAIL + " TEXT," + AVATAR_IMG + " BLOB," + DETAIL_IMG
+					+ " TEXT," + REFER_PRICE + " NUMERIC," + NUM_OF_DINER + " NUMERIC," + CATEGORY_ID + " NUMERIC);";
 			try {
 				db.execSQL(createDishTableQuery);
 			} catch (Exception e) {
@@ -67,9 +62,8 @@ public class DishDAO {
 		@Override
 		public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 			// TODO Auto-generated method stub
-			Log.w("DBDishAdapt", "Update Dish to " + oldVersion + " from "
-					+ newVersion);
-			db.execSQL("DROP TABLE IF EXISTS " + DB_TABLE);
+			Log.w("DBDishAdapt", "Update Dish to " + oldVersion + " from " + newVersion);
+			db.execSQL("DROP TABLE IF EXISTS " + ConfigDAO.DB_TABLE_DISH);
 			onCreate(db);
 		}
 	}
@@ -98,7 +92,7 @@ public class DishDAO {
 		contentValues.put(DETAIL_IMG, dish.getDetailImg());
 		contentValues.put(CATEGORY_ID, dish.getCategoryId());
 
-		return db.insert(DB_TABLE, null, contentValues);
+		return db.insert(ConfigDAO.DB_TABLE_DISH, null, contentValues);
 	}
 
 	public boolean updateDish(DishModel dish) {
@@ -111,8 +105,7 @@ public class DishDAO {
 		contentValues.put(AVATAR_IMG, dish.getAvatarImg());
 		contentValues.put(DETAIL_IMG, dish.getDetailImg());
 		contentValues.put(CATEGORY_ID, dish.getCategoryId());
-		return db.update(DB_TABLE, contentValues,
-				DISH_ID + "=" + dish.getDishID(), null) > 0;
+		return db.update(ConfigDAO.DB_TABLE_DISH, contentValues, DISH_ID + "=" + dish.getDishID(), null) > 0;
 	}
 
 	public long saveOrUpdateDish(DishModel dish) {
@@ -129,19 +122,17 @@ public class DishDAO {
 		boolean isExit = checkDishIsExist(id);
 		long result = -1;
 		if (isExit == true) {
-			result = db.update(DB_TABLE, contentValues, DISH_ID + "=" + id,
-					null);
+			result = db.update(ConfigDAO.DB_TABLE_DISH, contentValues, DISH_ID + "=" + id, null);
 		} else {
 			contentValues.put(DISH_ID, id);
-			result = db.insert(DB_TABLE, null, contentValues);
+			result = db.insert(ConfigDAO.DB_TABLE_DISH, null, contentValues);
 		}
 		return result;
 	}
 
 	@SuppressLint("NewApi")
 	public boolean checkDishIsExist(long _id) {
-		Long count = DatabaseUtils.queryNumEntries(db, DB_TABLE, DISH_ID + "="
-				+ _id);
+		Long count = DatabaseUtils.queryNumEntries(db, ConfigDAO.DB_TABLE_DISH, DISH_ID + "=" + _id);
 		boolean result = (count != null && count != 0) ? true : false;
 		return result;
 	}
@@ -149,19 +140,10 @@ public class DishDAO {
 	public List<DishModel> getDishsByCategoryId(long categoryId) {
 		List<DishModel> dishModels = new ArrayList<DishModel>();
 		DishModel model;
-		/*
-		 * static String DISH_NAME = "dishname"; static String DESCRIPTION =
-		 * "description"; static String DETAIL = "detail"; static String
-		 * AVATAR_IMG = "avatarimg"; static String DETAIL_IMG = "detailimg";
-		 * static String REFER_PRICE = "referPrice"; static String NUM_OF_DINER
-		 * = "numOfDiner"; static String DISH_ID = "_dishID"; static String
-		 * CATEGORY_ID = "categoryId";
-		 */
-
-		Cursor mcursor = db.query(DB_TABLE, new String[] { DISH_ID, DISH_NAME,
-				DESCRIPTION, DETAIL, REFER_PRICE, NUM_OF_DINER, CATEGORY_ID },
-				CATEGORY_ID + "=" + categoryId, null, null, null, null);
-		// int count = cursor.getColumnCount();
+		Cursor mcursor = db.rawQuery("select " + DISH_ID + "," + DISH_NAME + "," + DESCRIPTION + ", " + DETAIL + ","
+				+ REFER_PRICE + "," + NUM_OF_DINER + "," + CATEGORY_ID + " from " + ConfigDAO.DB_TABLE_DISH
+				+ ",menuline where " + CATEGORY_ID + " = ? and menuline.dishid = " + DISH_ID + " ORDER BY " + DISH_ID
+				+ " DESC", new String[] { categoryId + "" });
 		if (mcursor.moveToFirst()) {
 			try {
 				do {
@@ -173,15 +155,13 @@ public class DishDAO {
 				mcursor.close();
 			}
 		}
-		Log.w("TEST DISHY", dishModels.size() + "");
 		return dishModels;
 	}
 
 	public DishModel getDishById(long id) {
 		DishModel model = null;
-		Cursor mcursor = db.query(DB_TABLE, new String[] { DISH_ID, DISH_NAME,
-				DESCRIPTION, DETAIL,AVATAR_IMG, REFER_PRICE, NUM_OF_DINER, CATEGORY_ID }, DISH_ID + "=" + id, null,
-				null, null, null);
+		Cursor mcursor = db.query(ConfigDAO.DB_TABLE_DISH, new String[] { DISH_ID, DISH_NAME, DESCRIPTION, DETAIL,
+				AVATAR_IMG, REFER_PRICE, NUM_OF_DINER, CATEGORY_ID }, DISH_ID + "=" + id, null, null, null, null);
 		// int count = cursor.getColumnCount();
 		if (mcursor.moveToFirst()) {
 			try {
@@ -194,9 +174,25 @@ public class DishDAO {
 		return model;
 	}
 
+	public DishModel getDishByIdNoImage(long id) {
+		DishModel model = null;
+		Cursor mcursor = db.query(ConfigDAO.DB_TABLE_DISH, new String[] { DISH_ID, DISH_NAME, DESCRIPTION, DETAIL,
+				REFER_PRICE, NUM_OF_DINER, CATEGORY_ID }, DISH_ID + "=" + id, null, null, null, null);
+		// int count = cursor.getColumnCount();
+		if (mcursor.moveToFirst()) {
+			try {
+				model = convertDishFromCusorNoAvatar(mcursor);
+			} finally {
+				// TODO: handle exception
+				mcursor.close();
+			}
+		}
+		return model;
+	}
+
 	public byte[] getAvatarOfDish(long id) {
-		Cursor mcursor = db.query(DB_TABLE, new String[] { AVATAR_IMG },
-				DISH_ID + "=" + id, null, null, null, null);
+		Cursor mcursor = db.query(ConfigDAO.DB_TABLE_DISH, new String[] { AVATAR_IMG }, DISH_ID + "=" + id, null, null,
+				null, null);
 		// int count = cursor.getColumnCount();
 		byte[] result = new byte[] {};
 		if (mcursor.moveToFirst()) {
@@ -223,8 +219,8 @@ public class DishDAO {
 
 		byte[] avatarImg = new byte[] {};
 		String detailImg = "";
-		DishModel dish = new DishModel(dishId, dishName, decription, detail,
-				avatarImg, detailImg, referPrice, numOfDiners, categoryId);
+		DishModel dish = new DishModel(dishId, dishName, decription, detail, avatarImg, detailImg, referPrice,
+				numOfDiners, categoryId);
 		return dish;
 	}
 
@@ -239,8 +235,17 @@ public class DishDAO {
 		long categoryId = cursor.getLong(7);
 
 		String detailImg = "";
-		DishModel dish = new DishModel(dishId, dishName, decription, detail,
-				avatarImg, detailImg, referPrice, numOfDiners, categoryId);
+		DishModel dish = new DishModel(dishId, dishName, decription, detail, avatarImg, detailImg, referPrice,
+				numOfDiners, categoryId);
 		return dish;
+	}
+
+	public void deleteAllDish() {
+		db.delete(ConfigDAO.DB_TABLE_DISH, "1", null);
+	}
+
+	public long countDish() {
+		Long count = DatabaseUtils.queryNumEntries(db, ConfigDAO.DB_TABLE_DISH, null);
+		return count;
 	}
 }

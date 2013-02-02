@@ -1,5 +1,7 @@
 package com.irestads;
 
+import com.irestads.util.GenericUtil;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.FragmentManager;
@@ -19,9 +21,11 @@ public class SettingsActivity extends Activity {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_setting);
+
+		GenericUtil.currentActivity = SettingsActivity.class.toString();
+
 		fragmentManager = getFragmentManager();
-		FragmentTransaction fragmentTransaction = fragmentManager
-				.beginTransaction();
+		FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
 		SettingsUpdateFragment updateFragment = new SettingsUpdateFragment();
 		fragmentTransaction.replace(R.id.settings_content, updateFragment);
@@ -31,8 +35,7 @@ public class SettingsActivity extends Activity {
 	public void onClickSettingButton(View v) {
 		LinearLayout layout = (LinearLayout) v;
 		int id = layout.getId();
-		FragmentTransaction fragmentTransaction = fragmentManager
-				.beginTransaction();
+		FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
 		switch (id) {
 		case R.id.settings_btn_update:
@@ -43,10 +46,18 @@ public class SettingsActivity extends Activity {
 			SettingsConnectFragment connectFragment = new SettingsConnectFragment();
 			fragmentTransaction.replace(R.id.settings_content, connectFragment);
 			break;
+		case R.id.settings_btn_resetdata:
+			SettingsResetFragment restFragment = new SettingsResetFragment();
+			fragmentTransaction.replace(R.id.settings_content, restFragment);
+			break;
+		case R.id.settings_btn_tableinf:
+			SettingsTableInfFragment tabFragment = new SettingsTableInfFragment();
+			fragmentTransaction.replace(R.id.settings_content, tabFragment);
+			break;
 		default:
 			break;
 		}
 		fragmentTransaction.commit();
 	}
-	
+
 }
