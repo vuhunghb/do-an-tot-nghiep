@@ -14,6 +14,13 @@
 
 package irestads.service.http;
 
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+
+import irestads.service.DishTableServiceUtil;
+
+import java.rmi.RemoteException;
+
 /**
  * <p>
  * This class provides a SOAP utility for the
@@ -58,4 +65,19 @@ package irestads.service.http;
  * @generated
  */
 public class DishTableServiceSoap {
+	public static irestads.model.DishTableSoap[] getAllDishTables()
+		throws RemoteException {
+		try {
+			java.util.List<irestads.model.DishTable> returnValue = DishTableServiceUtil.getAllDishTables();
+
+			return irestads.model.DishTableSoap.toSoapModels(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	private static Log _log = LogFactoryUtil.getLog(DishTableServiceSoap.class);
 }

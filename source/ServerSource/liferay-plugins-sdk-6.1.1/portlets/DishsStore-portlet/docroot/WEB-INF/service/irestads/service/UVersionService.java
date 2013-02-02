@@ -70,4 +70,6 @@ public interface UVersionService extends BaseService, InvokableService {
 
 	public java.util.List<irestads.model.UVersion> findNextVersions(
 		long uversionId);
+
+	public void checkDelete(long idObj);
 }

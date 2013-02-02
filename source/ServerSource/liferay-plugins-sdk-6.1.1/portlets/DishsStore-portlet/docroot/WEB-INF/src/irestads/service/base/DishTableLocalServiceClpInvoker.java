@@ -29,11 +29,11 @@ public class DishTableLocalServiceClpInvoker {
 
 		_methodName1 = "createDishTable";
 
-		_methodParameterTypes1 = new String[] { "long" };
+		_methodParameterTypes1 = new String[] { "java.lang.String" };
 
 		_methodName2 = "deleteDishTable";
 
-		_methodParameterTypes2 = new String[] { "long" };
+		_methodParameterTypes2 = new String[] { "java.lang.String" };
 
 		_methodName3 = "deleteDishTable";
 
@@ -70,11 +70,11 @@ public class DishTableLocalServiceClpInvoker {
 
 		_methodName9 = "fetchDishTable";
 
-		_methodParameterTypes9 = new String[] { "long" };
+		_methodParameterTypes9 = new String[] { "java.lang.String" };
 
 		_methodName10 = "getDishTable";
 
-		_methodParameterTypes10 = new String[] { "long" };
+		_methodParameterTypes10 = new String[] { "java.lang.String" };
 
 		_methodName11 = "getPersistedModel";
 
@@ -105,6 +105,10 @@ public class DishTableLocalServiceClpInvoker {
 		_methodName89 = "setBeanIdentifier";
 
 		_methodParameterTypes89 = new String[] { "java.lang.String" };
+
+		_methodName94 = "getAllDishTables";
+
+		_methodParameterTypes94 = new String[] {  };
 	}
 
 	public Object invokeMethod(String name, String[] parameterTypes,
@@ -116,12 +120,12 @@ public class DishTableLocalServiceClpInvoker {
 
 		if (_methodName1.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes1, parameterTypes)) {
-			return DishTableLocalServiceUtil.createDishTable(((Long)arguments[0]).longValue());
+			return DishTableLocalServiceUtil.createDishTable((java.lang.String)arguments[0]);
 		}
 
 		if (_methodName2.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes2, parameterTypes)) {
-			return DishTableLocalServiceUtil.deleteDishTable(((Long)arguments[0]).longValue());
+			return DishTableLocalServiceUtil.deleteDishTable((java.lang.String)arguments[0]);
 		}
 
 		if (_methodName3.equals(name) &&
@@ -161,12 +165,12 @@ public class DishTableLocalServiceClpInvoker {
 
 		if (_methodName9.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes9, parameterTypes)) {
-			return DishTableLocalServiceUtil.fetchDishTable(((Long)arguments[0]).longValue());
+			return DishTableLocalServiceUtil.fetchDishTable((java.lang.String)arguments[0]);
 		}
 
 		if (_methodName10.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes10, parameterTypes)) {
-			return DishTableLocalServiceUtil.getDishTable(((Long)arguments[0]).longValue());
+			return DishTableLocalServiceUtil.getDishTable((java.lang.String)arguments[0]);
 		}
 
 		if (_methodName11.equals(name) &&
@@ -204,6 +208,11 @@ public class DishTableLocalServiceClpInvoker {
 		if (_methodName89.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes89, parameterTypes)) {
 			DishTableLocalServiceUtil.setBeanIdentifier((java.lang.String)arguments[0]);
+		}
+
+		if (_methodName94.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes94, parameterTypes)) {
+			return DishTableLocalServiceUtil.getAllDishTables();
 		}
 
 		throw new UnsupportedOperationException();
@@ -245,4 +254,6 @@ public class DishTableLocalServiceClpInvoker {
 	private String[] _methodParameterTypes88;
 	private String _methodName89;
 	private String[] _methodParameterTypes89;
+	private String _methodName94;
+	private String[] _methodParameterTypes94;
 }

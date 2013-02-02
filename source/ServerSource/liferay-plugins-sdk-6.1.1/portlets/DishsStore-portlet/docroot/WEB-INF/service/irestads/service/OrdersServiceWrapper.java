@@ -55,6 +55,11 @@ public class OrdersServiceWrapper implements OrdersService,
 		return _ordersService.invokeMethod(name, parameterTypes, arguments);
 	}
 
+	public irestads.model.Orders findCurrentOrder(boolean isPayMent,
+		java.lang.String dishTableId) {
+		return _ordersService.findCurrentOrder(isPayMent, dishTableId);
+	}
+
 	/**
 	 * @deprecated Renamed to {@link #getWrappedService}
 	 */

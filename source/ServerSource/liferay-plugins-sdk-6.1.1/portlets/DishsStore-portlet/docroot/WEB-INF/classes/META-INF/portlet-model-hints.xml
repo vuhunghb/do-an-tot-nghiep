@@ -20,7 +20,9 @@
 		<field name="dishName" type="String" />
 		<field name="decription" type="String" />
 		<field name="avatarImg" type="String" />
-		<field name="avatarBaseCode" type="String" />
+		<field name="avatarBaseCode" type="String">
+			<hint-collection name="CLOB" />
+		</field>
 		<field name="detailImg" type="String" />
 		<field name="detailBaseCode" type="String" />
 		<field name="detail" type="String" />
@@ -29,12 +31,13 @@
 		<field name="categoryId" type="long" />
 	</model>
 	<model name="irestads.model.DishTable">
-		<field name="dishTableId" type="long" />
+		<field name="dishTableId" type="String" />
 		<field name="companyId" type="long" />
 		<field name="userId" type="long" />
 		<field name="userName" type="String" />
 		<field name="createDate" type="Date" />
 		<field name="modifiedDate" type="Date" />
+		<field name="tableName" type="String" />
 		<field name="isAvalable" type="boolean" />
 		<field name="numChair" type="int" />
 	</model>
@@ -68,6 +71,7 @@
 		<field name="numOfDish" type="int" />
 		<field name="statusDish" type="int" />
 		<field name="dishId" type="long" />
+		<field name="orderId" type="long" />
 	</model>
 	<model name="irestads.model.Orders">
 		<field name="orderId" type="long" />
@@ -80,7 +84,7 @@
 		<field name="createdDate" type="Date" />
 		<field name="isPayMent" type="boolean" />
 		<field name="numOfDinner" type="int" />
-		<field name="dishTableId" type="long" />
+		<field name="dishTableId" type="String" />
 	</model>
 	<model name="irestads.model.UVersion">
 		<field name="versionId" type="long" />
@@ -94,4 +98,7 @@
 		<field name="logType" type="String" />
 		<field name="logDate" type="Date" />
 	</model>
+	<hint-collection name="CLOB">
+		<hint name="max-length">2000000</hint>
+	</hint-collection>
 </model-hints>

@@ -95,6 +95,7 @@ public class UVersionModelImpl extends BaseModelImpl<UVersion>
 				"value.object.column.bitmask.enabled.irestads.model.UVersion"),
 			true);
 	public static long LOGDATE_COLUMN_BITMASK = 1L;
+	public static long LOGOBJID_COLUMN_BITMASK = 2L;
 
 	/**
 	 * Converts the soap model instance into a normal model instance.
@@ -341,7 +342,19 @@ public class UVersionModelImpl extends BaseModelImpl<UVersion>
 	}
 
 	public void setLogObjId(long logObjId) {
+		_columnBitmask |= LOGOBJID_COLUMN_BITMASK;
+
+		if (!_setOriginalLogObjId) {
+			_setOriginalLogObjId = true;
+
+			_originalLogObjId = _logObjId;
+		}
+
 		_logObjId = logObjId;
+	}
+
+	public long getOriginalLogObjId() {
+		return _originalLogObjId;
 	}
 
 	@JSON
@@ -470,6 +483,10 @@ public class UVersionModelImpl extends BaseModelImpl<UVersion>
 	@Override
 	public void resetOriginalValues() {
 		UVersionModelImpl uVersionModelImpl = this;
+
+		uVersionModelImpl._originalLogObjId = uVersionModelImpl._logObjId;
+
+		uVersionModelImpl._setOriginalLogObjId = false;
 
 		uVersionModelImpl._originalLogDate = uVersionModelImpl._logDate;
 
@@ -637,6 +654,8 @@ public class UVersionModelImpl extends BaseModelImpl<UVersion>
 	private Date _modifiedDate;
 	private String _logObjName;
 	private long _logObjId;
+	private long _originalLogObjId;
+	private boolean _setOriginalLogObjId;
 	private String _logType;
 	private Date _logDate;
 	private Date _originalLogDate;

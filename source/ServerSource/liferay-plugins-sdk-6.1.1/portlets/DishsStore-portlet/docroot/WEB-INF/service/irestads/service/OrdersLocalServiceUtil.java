@@ -267,6 +267,11 @@ public class OrdersLocalServiceUtil {
 		return getService().invokeMethod(name, parameterTypes, arguments);
 	}
 
+	public static irestads.model.Orders findCurrentOrder(boolean isPayMent,
+		java.lang.String dishTableId) {
+		return getService().findCurrentOrder(isPayMent, dishTableId);
+	}
+
 	public static void clearService() {
 		_service = null;
 	}

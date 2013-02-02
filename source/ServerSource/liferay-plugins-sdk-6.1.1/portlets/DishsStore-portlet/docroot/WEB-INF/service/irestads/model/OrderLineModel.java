@@ -203,6 +203,20 @@ public interface OrderLineModel extends AuditedModel, BaseModel<OrderLine> {
 	 */
 	public void setDishId(long dishId);
 
+	/**
+	 * Returns the order ID of this order line.
+	 *
+	 * @return the order ID of this order line
+	 */
+	public long getOrderId();
+
+	/**
+	 * Sets the order ID of this order line.
+	 *
+	 * @param orderId the order ID of this order line
+	 */
+	public void setOrderId(long orderId);
+
 	public boolean isNew();
 
 	public void setNew(boolean n);

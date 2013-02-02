@@ -63,7 +63,8 @@ public interface DishTableLocalService extends BaseLocalService,
 	* @param dishTableId the primary key for the new dish table
 	* @return the new dish table
 	*/
-	public irestads.model.DishTable createDishTable(long dishTableId);
+	public irestads.model.DishTable createDishTable(
+		java.lang.String dishTableId);
 
 	/**
 	* Deletes the dish table with the primary key from the database. Also notifies the appropriate model listeners.
@@ -73,7 +74,8 @@ public interface DishTableLocalService extends BaseLocalService,
 	* @throws PortalException if a dish table with the primary key could not be found
 	* @throws SystemException if a system exception occurred
 	*/
-	public irestads.model.DishTable deleteDishTable(long dishTableId)
+	public irestads.model.DishTable deleteDishTable(
+		java.lang.String dishTableId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException;
 
@@ -153,7 +155,7 @@ public interface DishTableLocalService extends BaseLocalService,
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public irestads.model.DishTable fetchDishTable(long dishTableId)
+	public irestads.model.DishTable fetchDishTable(java.lang.String dishTableId)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
@@ -165,7 +167,7 @@ public interface DishTableLocalService extends BaseLocalService,
 	* @throws SystemException if a system exception occurred
 	*/
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public irestads.model.DishTable getDishTable(long dishTableId)
+	public irestads.model.DishTable getDishTable(java.lang.String dishTableId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException;
 
@@ -241,4 +243,7 @@ public interface DishTableLocalService extends BaseLocalService,
 	public java.lang.Object invokeMethod(java.lang.String name,
 		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
 		throws java.lang.Throwable;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public java.util.List<irestads.model.DishTable> getAllDishTables();
 }

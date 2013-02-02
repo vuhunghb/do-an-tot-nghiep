@@ -50,4 +50,7 @@ public class UVersionServiceImpl extends UVersionServiceBaseImpl {
 	public List<UVersion> findNextVersions(long uversionId) {
 		return UVersionLocalServiceUtil.findNextVersions(uversionId);
 	}
+	public void checkDelete(long idObj){
+		UVersionLocalServiceUtil.checkDelete(idObj);
+	}
 }

@@ -62,6 +62,10 @@ public class DishTableServiceUtil {
 		return getService().invokeMethod(name, parameterTypes, arguments);
 	}
 
+	public static java.util.List<irestads.model.DishTable> getAllDishTables() {
+		return getService().getAllDishTables();
+	}
+
 	public static void clearService() {
 		_service = null;
 	}

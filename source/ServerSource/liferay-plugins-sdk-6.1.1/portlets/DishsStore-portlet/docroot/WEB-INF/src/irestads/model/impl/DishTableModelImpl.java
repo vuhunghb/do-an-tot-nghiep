@@ -23,11 +23,7 @@ import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.model.CacheModel;
 import com.liferay.portal.model.impl.BaseModelImpl;
-import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.util.PortalUtil;
-
-import com.liferay.portlet.expando.model.ExpandoBridge;
-import com.liferay.portlet.expando.util.ExpandoBridgeFactoryUtil;
 
 import irestads.model.DishTable;
 import irestads.model.DishTableModel;
@@ -66,16 +62,17 @@ public class DishTableModelImpl extends BaseModelImpl<DishTable>
 	 */
 	public static final String TABLE_NAME = "dishsstore_DishTable";
 	public static final Object[][] TABLE_COLUMNS = {
-			{ "dishTableId", Types.BIGINT },
+			{ "dishTableId", Types.VARCHAR },
 			{ "companyId", Types.BIGINT },
 			{ "userId", Types.BIGINT },
 			{ "userName", Types.VARCHAR },
 			{ "createDate", Types.TIMESTAMP },
 			{ "modifiedDate", Types.TIMESTAMP },
+			{ "tableName", Types.VARCHAR },
 			{ "isAvalable", Types.BOOLEAN },
 			{ "numChair", Types.INTEGER }
 		};
-	public static final String TABLE_SQL_CREATE = "create table dishsstore_DishTable (dishTableId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,isAvalable BOOLEAN,numChair INTEGER)";
+	public static final String TABLE_SQL_CREATE = "create table dishsstore_DishTable (dishTableId VARCHAR(75) not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,tableName VARCHAR(75) null,isAvalable BOOLEAN,numChair INTEGER)";
 	public static final String TABLE_SQL_DROP = "drop table dishsstore_DishTable";
 	public static final String ORDER_BY_JPQL = " ORDER BY dishTable.isAvalable ASC";
 	public static final String ORDER_BY_SQL = " ORDER BY dishsstore_DishTable.isAvalable ASC";
@@ -112,6 +109,7 @@ public class DishTableModelImpl extends BaseModelImpl<DishTable>
 		model.setUserName(soapModel.getUserName());
 		model.setCreateDate(soapModel.getCreateDate());
 		model.setModifiedDate(soapModel.getModifiedDate());
+		model.setTableName(soapModel.getTableName());
 		model.setIsAvalable(soapModel.getIsAvalable());
 		model.setNumChair(soapModel.getNumChair());
 
@@ -144,20 +142,20 @@ public class DishTableModelImpl extends BaseModelImpl<DishTable>
 	public DishTableModelImpl() {
 	}
 
-	public long getPrimaryKey() {
+	public String getPrimaryKey() {
 		return _dishTableId;
 	}
 
-	public void setPrimaryKey(long primaryKey) {
+	public void setPrimaryKey(String primaryKey) {
 		setDishTableId(primaryKey);
 	}
 
 	public Serializable getPrimaryKeyObj() {
-		return new Long(_dishTableId);
+		return _dishTableId;
 	}
 
 	public void setPrimaryKeyObj(Serializable primaryKeyObj) {
-		setPrimaryKey(((Long)primaryKeyObj).longValue());
+		setPrimaryKey((String)primaryKeyObj);
 	}
 
 	public Class<?> getModelClass() {
@@ -178,6 +176,7 @@ public class DishTableModelImpl extends BaseModelImpl<DishTable>
 		attributes.put("userName", getUserName());
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
+		attributes.put("tableName", getTableName());
 		attributes.put("isAvalable", getIsAvalable());
 		attributes.put("numChair", getNumChair());
 
@@ -186,7 +185,7 @@ public class DishTableModelImpl extends BaseModelImpl<DishTable>
 
 	@Override
 	public void setModelAttributes(Map<String, Object> attributes) {
-		Long dishTableId = (Long)attributes.get("dishTableId");
+		String dishTableId = (String)attributes.get("dishTableId");
 
 		if (dishTableId != null) {
 			setDishTableId(dishTableId);
@@ -222,6 +221,12 @@ public class DishTableModelImpl extends BaseModelImpl<DishTable>
 			setModifiedDate(modifiedDate);
 		}
 
+		String tableName = (String)attributes.get("tableName");
+
+		if (tableName != null) {
+			setTableName(tableName);
+		}
+
 		Boolean isAvalable = (Boolean)attributes.get("isAvalable");
 
 		if (isAvalable != null) {
@@ -236,11 +241,16 @@ public class DishTableModelImpl extends BaseModelImpl<DishTable>
 	}
 
 	@JSON
-	public long getDishTableId() {
-		return _dishTableId;
+	public String getDishTableId() {
+		if (_dishTableId == null) {
+			return StringPool.BLANK;
+		}
+		else {
+			return _dishTableId;
+		}
 	}
 
-	public void setDishTableId(long dishTableId) {
+	public void setDishTableId(String dishTableId) {
 		_dishTableId = dishTableId;
 	}
 
@@ -303,6 +313,20 @@ public class DishTableModelImpl extends BaseModelImpl<DishTable>
 	}
 
 	@JSON
+	public String getTableName() {
+		if (_tableName == null) {
+			return StringPool.BLANK;
+		}
+		else {
+			return _tableName;
+		}
+	}
+
+	public void setTableName(String tableName) {
+		_tableName = tableName;
+	}
+
+	@JSON
 	public boolean getIsAvalable() {
 		return _isAvalable;
 	}
@@ -341,19 +365,6 @@ public class DishTableModelImpl extends BaseModelImpl<DishTable>
 	}
 
 	@Override
-	public ExpandoBridge getExpandoBridge() {
-		return ExpandoBridgeFactoryUtil.getExpandoBridge(getCompanyId(),
-			DishTable.class.getName(), getPrimaryKey());
-	}
-
-	@Override
-	public void setExpandoBridgeAttributes(ServiceContext serviceContext) {
-		ExpandoBridge expandoBridge = getExpandoBridge();
-
-		expandoBridge.setAttributes(serviceContext);
-	}
-
-	@Override
 	public DishTable toEscapedModel() {
 		if (_escapedModelProxy == null) {
 			_escapedModelProxy = (DishTable)ProxyUtil.newProxyInstance(_classLoader,
@@ -374,6 +385,7 @@ public class DishTableModelImpl extends BaseModelImpl<DishTable>
 		dishTableImpl.setUserName(getUserName());
 		dishTableImpl.setCreateDate(getCreateDate());
 		dishTableImpl.setModifiedDate(getModifiedDate());
+		dishTableImpl.setTableName(getTableName());
 		dishTableImpl.setIsAvalable(getIsAvalable());
 		dishTableImpl.setNumChair(getNumChair());
 
@@ -417,9 +429,9 @@ public class DishTableModelImpl extends BaseModelImpl<DishTable>
 			return false;
 		}
 
-		long primaryKey = dishTable.getPrimaryKey();
+		String primaryKey = dishTable.getPrimaryKey();
 
-		if (getPrimaryKey() == primaryKey) {
+		if (getPrimaryKey().equals(primaryKey)) {
 			return true;
 		}
 		else {
@@ -429,7 +441,7 @@ public class DishTableModelImpl extends BaseModelImpl<DishTable>
 
 	@Override
 	public int hashCode() {
-		return (int)getPrimaryKey();
+		return getPrimaryKey().hashCode();
 	}
 
 	@Override
@@ -448,6 +460,12 @@ public class DishTableModelImpl extends BaseModelImpl<DishTable>
 		DishTableCacheModel dishTableCacheModel = new DishTableCacheModel();
 
 		dishTableCacheModel.dishTableId = getDishTableId();
+
+		String dishTableId = dishTableCacheModel.dishTableId;
+
+		if ((dishTableId != null) && (dishTableId.length() == 0)) {
+			dishTableCacheModel.dishTableId = null;
+		}
 
 		dishTableCacheModel.companyId = getCompanyId();
 
@@ -479,6 +497,14 @@ public class DishTableModelImpl extends BaseModelImpl<DishTable>
 			dishTableCacheModel.modifiedDate = Long.MIN_VALUE;
 		}
 
+		dishTableCacheModel.tableName = getTableName();
+
+		String tableName = dishTableCacheModel.tableName;
+
+		if ((tableName != null) && (tableName.length() == 0)) {
+			dishTableCacheModel.tableName = null;
+		}
+
 		dishTableCacheModel.isAvalable = getIsAvalable();
 
 		dishTableCacheModel.numChair = getNumChair();
@@ -488,7 +514,7 @@ public class DishTableModelImpl extends BaseModelImpl<DishTable>
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(17);
+		StringBundler sb = new StringBundler(19);
 
 		sb.append("{dishTableId=");
 		sb.append(getDishTableId());
@@ -502,6 +528,8 @@ public class DishTableModelImpl extends BaseModelImpl<DishTable>
 		sb.append(getCreateDate());
 		sb.append(", modifiedDate=");
 		sb.append(getModifiedDate());
+		sb.append(", tableName=");
+		sb.append(getTableName());
 		sb.append(", isAvalable=");
 		sb.append(getIsAvalable());
 		sb.append(", numChair=");
@@ -512,7 +540,7 @@ public class DishTableModelImpl extends BaseModelImpl<DishTable>
 	}
 
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(28);
+		StringBundler sb = new StringBundler(31);
 
 		sb.append("<model><model-name>");
 		sb.append("irestads.model.DishTable");
@@ -543,6 +571,10 @@ public class DishTableModelImpl extends BaseModelImpl<DishTable>
 		sb.append(getModifiedDate());
 		sb.append("]]></column-value></column>");
 		sb.append(
+			"<column><column-name>tableName</column-name><column-value><![CDATA[");
+		sb.append(getTableName());
+		sb.append("]]></column-value></column>");
+		sb.append(
 			"<column><column-name>isAvalable</column-name><column-value><![CDATA[");
 		sb.append(getIsAvalable());
 		sb.append("]]></column-value></column>");
@@ -560,13 +592,14 @@ public class DishTableModelImpl extends BaseModelImpl<DishTable>
 	private static Class<?>[] _escapedModelProxyInterfaces = new Class[] {
 			DishTable.class
 		};
-	private long _dishTableId;
+	private String _dishTableId;
 	private long _companyId;
 	private long _userId;
 	private String _userUuid;
 	private String _userName;
 	private Date _createDate;
 	private Date _modifiedDate;
+	private String _tableName;
 	private boolean _isAvalable;
 	private boolean _originalIsAvalable;
 	private boolean _setOriginalIsAvalable;

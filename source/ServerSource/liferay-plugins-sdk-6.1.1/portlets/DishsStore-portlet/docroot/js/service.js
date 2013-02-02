@@ -32,6 +32,13 @@ Liferay.Service.registerClass(
 );
 
 Liferay.Service.registerClass(
+	Liferay.Service.dishsstore, "DishTable",
+	{
+		getAllDishTables: true
+	}
+);
+
+Liferay.Service.registerClass(
 	Liferay.Service.dishsstore, "MenuLine",
 	{
 		getAllMenuLine: true,
@@ -56,9 +63,17 @@ Liferay.Service.registerClass(
 );
 
 Liferay.Service.registerClass(
+	Liferay.Service.dishsstore, "Orders",
+	{
+		findCurrentOrder: true
+	}
+);
+
+Liferay.Service.registerClass(
 	Liferay.Service.dishsstore, "UVersion",
 	{
 		createVersion: true,
-		findNextVersions: true
+		findNextVersions: true,
+		checkDelete: true
 	}
 );

@@ -98,119 +98,43 @@ public interface OrdersPersistence extends BasePersistence<Orders> {
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
-	* Returns all the orderses where isPayMent = &#63;.
+	* Returns the orders where isPayMent = &#63; and dishTableId = &#63; or throws a {@link irestads.NoSuchOrdersException} if it could not be found.
 	*
 	* @param isPayMent the is pay ment
-	* @return the matching orderses
-	* @throws SystemException if a system exception occurred
-	*/
-	public java.util.List<irestads.model.Orders> findByIsPayMent(
-		boolean isPayMent)
-		throws com.liferay.portal.kernel.exception.SystemException;
-
-	/**
-	* Returns a range of all the orderses where isPayMent = &#63;.
-	*
-	* <p>
-	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	* </p>
-	*
-	* @param isPayMent the is pay ment
-	* @param start the lower bound of the range of orderses
-	* @param end the upper bound of the range of orderses (not inclusive)
-	* @return the range of matching orderses
-	* @throws SystemException if a system exception occurred
-	*/
-	public java.util.List<irestads.model.Orders> findByIsPayMent(
-		boolean isPayMent, int start, int end)
-		throws com.liferay.portal.kernel.exception.SystemException;
-
-	/**
-	* Returns an ordered range of all the orderses where isPayMent = &#63;.
-	*
-	* <p>
-	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	* </p>
-	*
-	* @param isPayMent the is pay ment
-	* @param start the lower bound of the range of orderses
-	* @param end the upper bound of the range of orderses (not inclusive)
-	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	* @return the ordered range of matching orderses
-	* @throws SystemException if a system exception occurred
-	*/
-	public java.util.List<irestads.model.Orders> findByIsPayMent(
-		boolean isPayMent, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
-		throws com.liferay.portal.kernel.exception.SystemException;
-
-	/**
-	* Returns the first orders in the ordered set where isPayMent = &#63;.
-	*
-	* @param isPayMent the is pay ment
-	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	* @return the first matching orders
+	* @param dishTableId the dish table ID
+	* @return the matching orders
 	* @throws irestads.NoSuchOrdersException if a matching orders could not be found
 	* @throws SystemException if a system exception occurred
 	*/
-	public irestads.model.Orders findByIsPayMent_First(boolean isPayMent,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+	public irestads.model.Orders findBycurentOrder(boolean isPayMent,
+		java.lang.String dishTableId)
 		throws com.liferay.portal.kernel.exception.SystemException,
 			irestads.NoSuchOrdersException;
 
 	/**
-	* Returns the first orders in the ordered set where isPayMent = &#63;.
+	* Returns the orders where isPayMent = &#63; and dishTableId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
 	*
 	* @param isPayMent the is pay ment
-	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	* @return the first matching orders, or <code>null</code> if a matching orders could not be found
+	* @param dishTableId the dish table ID
+	* @return the matching orders, or <code>null</code> if a matching orders could not be found
 	* @throws SystemException if a system exception occurred
 	*/
-	public irestads.model.Orders fetchByIsPayMent_First(boolean isPayMent,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+	public irestads.model.Orders fetchBycurentOrder(boolean isPayMent,
+		java.lang.String dishTableId)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
-	* Returns the last orders in the ordered set where isPayMent = &#63;.
+	* Returns the orders where isPayMent = &#63; and dishTableId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
 	*
 	* @param isPayMent the is pay ment
-	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	* @return the last matching orders
-	* @throws irestads.NoSuchOrdersException if a matching orders could not be found
+	* @param dishTableId the dish table ID
+	* @param retrieveFromCache whether to use the finder cache
+	* @return the matching orders, or <code>null</code> if a matching orders could not be found
 	* @throws SystemException if a system exception occurred
 	*/
-	public irestads.model.Orders findByIsPayMent_Last(boolean isPayMent,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
-		throws com.liferay.portal.kernel.exception.SystemException,
-			irestads.NoSuchOrdersException;
-
-	/**
-	* Returns the last orders in the ordered set where isPayMent = &#63;.
-	*
-	* @param isPayMent the is pay ment
-	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	* @return the last matching orders, or <code>null</code> if a matching orders could not be found
-	* @throws SystemException if a system exception occurred
-	*/
-	public irestads.model.Orders fetchByIsPayMent_Last(boolean isPayMent,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+	public irestads.model.Orders fetchBycurentOrder(boolean isPayMent,
+		java.lang.String dishTableId, boolean retrieveFromCache)
 		throws com.liferay.portal.kernel.exception.SystemException;
-
-	/**
-	* Returns the orderses before and after the current orders in the ordered set where isPayMent = &#63;.
-	*
-	* @param orderId the primary key of the current orders
-	* @param isPayMent the is pay ment
-	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	* @return the previous, current, and next orders
-	* @throws irestads.NoSuchOrdersException if a orders with the primary key could not be found
-	* @throws SystemException if a system exception occurred
-	*/
-	public irestads.model.Orders[] findByIsPayMent_PrevAndNext(long orderId,
-		boolean isPayMent,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
-		throws com.liferay.portal.kernel.exception.SystemException,
-			irestads.NoSuchOrdersException;
 
 	/**
 	* Returns all the orderses.
@@ -254,13 +178,17 @@ public interface OrdersPersistence extends BasePersistence<Orders> {
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
-	* Removes all the orderses where isPayMent = &#63; from the database.
+	* Removes the orders where isPayMent = &#63; and dishTableId = &#63; from the database.
 	*
 	* @param isPayMent the is pay ment
+	* @param dishTableId the dish table ID
+	* @return the orders that was removed
 	* @throws SystemException if a system exception occurred
 	*/
-	public void removeByIsPayMent(boolean isPayMent)
-		throws com.liferay.portal.kernel.exception.SystemException;
+	public irestads.model.Orders removeBycurentOrder(boolean isPayMent,
+		java.lang.String dishTableId)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			irestads.NoSuchOrdersException;
 
 	/**
 	* Removes all the orderses from the database.
@@ -271,13 +199,15 @@ public interface OrdersPersistence extends BasePersistence<Orders> {
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
-	* Returns the number of orderses where isPayMent = &#63;.
+	* Returns the number of orderses where isPayMent = &#63; and dishTableId = &#63;.
 	*
 	* @param isPayMent the is pay ment
+	* @param dishTableId the dish table ID
 	* @return the number of matching orderses
 	* @throws SystemException if a system exception occurred
 	*/
-	public int countByIsPayMent(boolean isPayMent)
+	public int countBycurentOrder(boolean isPayMent,
+		java.lang.String dishTableId)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**

@@ -102,7 +102,13 @@ public class OrdersCacheModel implements CacheModel<Orders>, Serializable {
 
 		ordersImpl.setIsPayMent(isPayMent);
 		ordersImpl.setNumOfDinner(numOfDinner);
-		ordersImpl.setDishTableId(dishTableId);
+
+		if (dishTableId == null) {
+			ordersImpl.setDishTableId(StringPool.BLANK);
+		}
+		else {
+			ordersImpl.setDishTableId(dishTableId);
+		}
 
 		ordersImpl.resetOriginalValues();
 
@@ -119,5 +125,5 @@ public class OrdersCacheModel implements CacheModel<Orders>, Serializable {
 	public long createdDate;
 	public boolean isPayMent;
 	public int numOfDinner;
-	public long dishTableId;
+	public String dishTableId;
 }

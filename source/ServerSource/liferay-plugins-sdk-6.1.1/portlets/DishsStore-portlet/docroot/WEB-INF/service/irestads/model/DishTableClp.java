@@ -46,20 +46,20 @@ public class DishTableClp extends BaseModelImpl<DishTable> implements DishTable 
 		return DishTable.class.getName();
 	}
 
-	public long getPrimaryKey() {
+	public String getPrimaryKey() {
 		return _dishTableId;
 	}
 
-	public void setPrimaryKey(long primaryKey) {
+	public void setPrimaryKey(String primaryKey) {
 		setDishTableId(primaryKey);
 	}
 
 	public Serializable getPrimaryKeyObj() {
-		return new Long(_dishTableId);
+		return _dishTableId;
 	}
 
 	public void setPrimaryKeyObj(Serializable primaryKeyObj) {
-		setPrimaryKey(((Long)primaryKeyObj).longValue());
+		setPrimaryKey((String)primaryKeyObj);
 	}
 
 	@Override
@@ -72,6 +72,7 @@ public class DishTableClp extends BaseModelImpl<DishTable> implements DishTable 
 		attributes.put("userName", getUserName());
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
+		attributes.put("tableName", getTableName());
 		attributes.put("isAvalable", getIsAvalable());
 		attributes.put("numChair", getNumChair());
 
@@ -80,7 +81,7 @@ public class DishTableClp extends BaseModelImpl<DishTable> implements DishTable 
 
 	@Override
 	public void setModelAttributes(Map<String, Object> attributes) {
-		Long dishTableId = (Long)attributes.get("dishTableId");
+		String dishTableId = (String)attributes.get("dishTableId");
 
 		if (dishTableId != null) {
 			setDishTableId(dishTableId);
@@ -116,6 +117,12 @@ public class DishTableClp extends BaseModelImpl<DishTable> implements DishTable 
 			setModifiedDate(modifiedDate);
 		}
 
+		String tableName = (String)attributes.get("tableName");
+
+		if (tableName != null) {
+			setTableName(tableName);
+		}
+
 		Boolean isAvalable = (Boolean)attributes.get("isAvalable");
 
 		if (isAvalable != null) {
@@ -129,11 +136,11 @@ public class DishTableClp extends BaseModelImpl<DishTable> implements DishTable 
 		}
 	}
 
-	public long getDishTableId() {
+	public String getDishTableId() {
 		return _dishTableId;
 	}
 
-	public void setDishTableId(long dishTableId) {
+	public void setDishTableId(String dishTableId) {
 		_dishTableId = dishTableId;
 	}
 
@@ -183,6 +190,14 @@ public class DishTableClp extends BaseModelImpl<DishTable> implements DishTable 
 
 	public void setModifiedDate(Date modifiedDate) {
 		_modifiedDate = modifiedDate;
+	}
+
+	public String getTableName() {
+		return _tableName;
+	}
+
+	public void setTableName(String tableName) {
+		_tableName = tableName;
 	}
 
 	public boolean getIsAvalable() {
@@ -238,6 +253,7 @@ public class DishTableClp extends BaseModelImpl<DishTable> implements DishTable 
 		clone.setUserName(getUserName());
 		clone.setCreateDate(getCreateDate());
 		clone.setModifiedDate(getModifiedDate());
+		clone.setTableName(getTableName());
 		clone.setIsAvalable(getIsAvalable());
 		clone.setNumChair(getNumChair());
 
@@ -279,9 +295,9 @@ public class DishTableClp extends BaseModelImpl<DishTable> implements DishTable 
 			return false;
 		}
 
-		long primaryKey = dishTable.getPrimaryKey();
+		String primaryKey = dishTable.getPrimaryKey();
 
-		if (getPrimaryKey() == primaryKey) {
+		if (getPrimaryKey().equals(primaryKey)) {
 			return true;
 		}
 		else {
@@ -291,12 +307,12 @@ public class DishTableClp extends BaseModelImpl<DishTable> implements DishTable 
 
 	@Override
 	public int hashCode() {
-		return (int)getPrimaryKey();
+		return getPrimaryKey().hashCode();
 	}
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(17);
+		StringBundler sb = new StringBundler(19);
 
 		sb.append("{dishTableId=");
 		sb.append(getDishTableId());
@@ -310,6 +326,8 @@ public class DishTableClp extends BaseModelImpl<DishTable> implements DishTable 
 		sb.append(getCreateDate());
 		sb.append(", modifiedDate=");
 		sb.append(getModifiedDate());
+		sb.append(", tableName=");
+		sb.append(getTableName());
 		sb.append(", isAvalable=");
 		sb.append(getIsAvalable());
 		sb.append(", numChair=");
@@ -320,7 +338,7 @@ public class DishTableClp extends BaseModelImpl<DishTable> implements DishTable 
 	}
 
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(28);
+		StringBundler sb = new StringBundler(31);
 
 		sb.append("<model><model-name>");
 		sb.append("irestads.model.DishTable");
@@ -351,6 +369,10 @@ public class DishTableClp extends BaseModelImpl<DishTable> implements DishTable 
 		sb.append(getModifiedDate());
 		sb.append("]]></column-value></column>");
 		sb.append(
+			"<column><column-name>tableName</column-name><column-value><![CDATA[");
+		sb.append(getTableName());
+		sb.append("]]></column-value></column>");
+		sb.append(
 			"<column><column-name>isAvalable</column-name><column-value><![CDATA[");
 		sb.append(getIsAvalable());
 		sb.append("]]></column-value></column>");
@@ -364,13 +386,14 @@ public class DishTableClp extends BaseModelImpl<DishTable> implements DishTable 
 		return sb.toString();
 	}
 
-	private long _dishTableId;
+	private String _dishTableId;
 	private long _companyId;
 	private long _userId;
 	private String _userUuid;
 	private String _userName;
 	private Date _createDate;
 	private Date _modifiedDate;
+	private String _tableName;
 	private boolean _isAvalable;
 	private int _numChair;
 	private BaseModel<?> _dishTableRemoteModel;

@@ -15,5 +15,7 @@ create index IX_242A9A36 on dishsstore_MenuLine (status);
 create index IX_E3402AD1 on dishsstore_OrderLine (statusDish);
 
 create index IX_1DF0278A on dishsstore_Orders (isPayMent);
+create index IX_4307F3B5 on dishsstore_Orders (isPayMent, dishTableId);
 
 create index IX_888F73C2 on dishsstore_UVersion (logDate);
+create index IX_D05F9F02 on dishsstore_UVersion (logObjId);

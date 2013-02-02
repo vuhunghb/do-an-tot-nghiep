@@ -246,6 +246,8 @@ public interface UVersionLocalService extends BaseLocalService,
 	public irestads.model.UVersion createVersion(long idObj,
 		java.lang.String nameObj, java.lang.String type);
 
+	public void checkDelete(long idObj);
+
 	public java.util.List<irestads.model.UVersion> findNextVersions(
 		long uversionId);
 }

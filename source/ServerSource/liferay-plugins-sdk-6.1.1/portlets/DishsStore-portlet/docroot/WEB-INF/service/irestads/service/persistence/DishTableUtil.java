@@ -135,7 +135,7 @@ public class DishTableUtil {
 	* @param dishTableId the primary key for the new dish table
 	* @return the new dish table
 	*/
-	public static irestads.model.DishTable create(long dishTableId) {
+	public static irestads.model.DishTable create(java.lang.String dishTableId) {
 		return getPersistence().create(dishTableId);
 	}
 
@@ -147,7 +147,7 @@ public class DishTableUtil {
 	* @throws irestads.NoSuchDishTableException if a dish table with the primary key could not be found
 	* @throws SystemException if a system exception occurred
 	*/
-	public static irestads.model.DishTable remove(long dishTableId)
+	public static irestads.model.DishTable remove(java.lang.String dishTableId)
 		throws com.liferay.portal.kernel.exception.SystemException,
 			irestads.NoSuchDishTableException {
 		return getPersistence().remove(dishTableId);
@@ -167,7 +167,8 @@ public class DishTableUtil {
 	* @throws irestads.NoSuchDishTableException if a dish table with the primary key could not be found
 	* @throws SystemException if a system exception occurred
 	*/
-	public static irestads.model.DishTable findByPrimaryKey(long dishTableId)
+	public static irestads.model.DishTable findByPrimaryKey(
+		java.lang.String dishTableId)
 		throws com.liferay.portal.kernel.exception.SystemException,
 			irestads.NoSuchDishTableException {
 		return getPersistence().findByPrimaryKey(dishTableId);
@@ -180,7 +181,8 @@ public class DishTableUtil {
 	* @return the dish table, or <code>null</code> if a dish table with the primary key could not be found
 	* @throws SystemException if a system exception occurred
 	*/
-	public static irestads.model.DishTable fetchByPrimaryKey(long dishTableId)
+	public static irestads.model.DishTable fetchByPrimaryKey(
+		java.lang.String dishTableId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return getPersistence().fetchByPrimaryKey(dishTableId);
 	}
@@ -318,7 +320,7 @@ public class DishTableUtil {
 	* @throws SystemException if a system exception occurred
 	*/
 	public static irestads.model.DishTable[] findByIsAvalable_PrevAndNext(
-		long dishTableId, boolean isAvalable,
+		java.lang.String dishTableId, boolean isAvalable,
 		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
 		throws com.liferay.portal.kernel.exception.SystemException,
 			irestads.NoSuchDishTableException {
@@ -426,7 +428,8 @@ public class DishTableUtil {
 	* @return the orderses associated with the dish table
 	* @throws SystemException if a system exception occurred
 	*/
-	public static java.util.List<irestads.model.Orders> getOrderses(long pk)
+	public static java.util.List<irestads.model.Orders> getOrderses(
+		java.lang.String pk)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return getPersistence().getOrderses(pk);
 	}
@@ -444,8 +447,8 @@ public class DishTableUtil {
 	* @return the range of orderses associated with the dish table
 	* @throws SystemException if a system exception occurred
 	*/
-	public static java.util.List<irestads.model.Orders> getOrderses(long pk,
-		int start, int end)
+	public static java.util.List<irestads.model.Orders> getOrderses(
+		java.lang.String pk, int start, int end)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return getPersistence().getOrderses(pk, start, end);
 	}
@@ -464,8 +467,8 @@ public class DishTableUtil {
 	* @return the ordered range of orderses associated with the dish table
 	* @throws SystemException if a system exception occurred
 	*/
-	public static java.util.List<irestads.model.Orders> getOrderses(long pk,
-		int start, int end,
+	public static java.util.List<irestads.model.Orders> getOrderses(
+		java.lang.String pk, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return getPersistence().getOrderses(pk, start, end, orderByComparator);
@@ -478,7 +481,7 @@ public class DishTableUtil {
 	* @return the number of orderses associated with the dish table
 	* @throws SystemException if a system exception occurred
 	*/
-	public static int getOrdersesSize(long pk)
+	public static int getOrdersesSize(java.lang.String pk)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return getPersistence().getOrdersesSize(pk);
 	}
@@ -491,7 +494,7 @@ public class DishTableUtil {
 	* @return <code>true</code> if the orders is associated with the dish table; <code>false</code> otherwise
 	* @throws SystemException if a system exception occurred
 	*/
-	public static boolean containsOrders(long pk, long ordersPK)
+	public static boolean containsOrders(java.lang.String pk, long ordersPK)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return getPersistence().containsOrders(pk, ordersPK);
 	}
@@ -503,7 +506,7 @@ public class DishTableUtil {
 	* @return <code>true</code> if the dish table has any orderses associated with it; <code>false</code> otherwise
 	* @throws SystemException if a system exception occurred
 	*/
-	public static boolean containsOrderses(long pk)
+	public static boolean containsOrderses(java.lang.String pk)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return getPersistence().containsOrderses(pk);
 	}

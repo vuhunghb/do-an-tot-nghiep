@@ -74,9 +74,10 @@ public class OrderLineModelImpl extends BaseModelImpl<OrderLine>
 			{ "modifiedDate", Types.TIMESTAMP },
 			{ "numOfDish", Types.INTEGER },
 			{ "statusDish", Types.INTEGER },
-			{ "dishId", Types.BIGINT }
+			{ "dishId", Types.BIGINT },
+			{ "orderId", Types.BIGINT }
 		};
-	public static final String TABLE_SQL_CREATE = "create table dishsstore_OrderLine (orderLineId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,numOfDish INTEGER,statusDish INTEGER,dishId LONG)";
+	public static final String TABLE_SQL_CREATE = "create table dishsstore_OrderLine (orderLineId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,numOfDish INTEGER,statusDish INTEGER,dishId LONG,orderId LONG)";
 	public static final String TABLE_SQL_DROP = "drop table dishsstore_OrderLine";
 	public static final String ORDER_BY_JPQL = " ORDER BY orderLine.numOfDish ASC";
 	public static final String ORDER_BY_SQL = " ORDER BY dishsstore_OrderLine.numOfDish ASC";
@@ -116,6 +117,7 @@ public class OrderLineModelImpl extends BaseModelImpl<OrderLine>
 		model.setNumOfDish(soapModel.getNumOfDish());
 		model.setStatusDish(soapModel.getStatusDish());
 		model.setDishId(soapModel.getDishId());
+		model.setOrderId(soapModel.getOrderId());
 
 		return model;
 	}
@@ -183,6 +185,7 @@ public class OrderLineModelImpl extends BaseModelImpl<OrderLine>
 		attributes.put("numOfDish", getNumOfDish());
 		attributes.put("statusDish", getStatusDish());
 		attributes.put("dishId", getDishId());
+		attributes.put("orderId", getOrderId());
 
 		return attributes;
 	}
@@ -241,6 +244,12 @@ public class OrderLineModelImpl extends BaseModelImpl<OrderLine>
 
 		if (dishId != null) {
 			setDishId(dishId);
+		}
+
+		Long orderId = (Long)attributes.get("orderId");
+
+		if (orderId != null) {
+			setOrderId(orderId);
 		}
 	}
 
@@ -352,6 +361,15 @@ public class OrderLineModelImpl extends BaseModelImpl<OrderLine>
 		_dishId = dishId;
 	}
 
+	@JSON
+	public long getOrderId() {
+		return _orderId;
+	}
+
+	public void setOrderId(long orderId) {
+		_orderId = orderId;
+	}
+
 	public long getColumnBitmask() {
 		return _columnBitmask;
 	}
@@ -393,6 +411,7 @@ public class OrderLineModelImpl extends BaseModelImpl<OrderLine>
 		orderLineImpl.setNumOfDish(getNumOfDish());
 		orderLineImpl.setStatusDish(getStatusDish());
 		orderLineImpl.setDishId(getDishId());
+		orderLineImpl.setOrderId(getOrderId());
 
 		orderLineImpl.resetOriginalValues();
 
@@ -502,12 +521,14 @@ public class OrderLineModelImpl extends BaseModelImpl<OrderLine>
 
 		orderLineCacheModel.dishId = getDishId();
 
+		orderLineCacheModel.orderId = getOrderId();
+
 		return orderLineCacheModel;
 	}
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(19);
+		StringBundler sb = new StringBundler(21);
 
 		sb.append("{orderLineId=");
 		sb.append(getOrderLineId());
@@ -527,13 +548,15 @@ public class OrderLineModelImpl extends BaseModelImpl<OrderLine>
 		sb.append(getStatusDish());
 		sb.append(", dishId=");
 		sb.append(getDishId());
+		sb.append(", orderId=");
+		sb.append(getOrderId());
 		sb.append("}");
 
 		return sb.toString();
 	}
 
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(31);
+		StringBundler sb = new StringBundler(34);
 
 		sb.append("<model><model-name>");
 		sb.append("irestads.model.OrderLine");
@@ -575,6 +598,10 @@ public class OrderLineModelImpl extends BaseModelImpl<OrderLine>
 			"<column><column-name>dishId</column-name><column-value><![CDATA[");
 		sb.append(getDishId());
 		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>orderId</column-name><column-value><![CDATA[");
+		sb.append(getOrderId());
+		sb.append("]]></column-value></column>");
 
 		sb.append("</model>");
 
@@ -597,6 +624,7 @@ public class OrderLineModelImpl extends BaseModelImpl<OrderLine>
 	private int _originalStatusDish;
 	private boolean _setOriginalStatusDish;
 	private long _dishId;
+	private long _orderId;
 	private long _columnBitmask;
 	private OrderLine _escapedModelProxy;
 }

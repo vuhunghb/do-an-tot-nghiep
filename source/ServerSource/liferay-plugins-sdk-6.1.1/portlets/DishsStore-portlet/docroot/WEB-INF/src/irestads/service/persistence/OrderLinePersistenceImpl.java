@@ -358,6 +358,7 @@ public class OrderLinePersistenceImpl extends BasePersistenceImpl<OrderLine>
 		orderLineImpl.setNumOfDish(orderLine.getNumOfDish());
 		orderLineImpl.setStatusDish(orderLine.getStatusDish());
 		orderLineImpl.setDishId(orderLine.getDishId());
+		orderLineImpl.setOrderId(orderLine.getOrderId());
 
 		return orderLineImpl;
 	}

@@ -5,6 +5,9 @@
 		<arrayMapping xmlns:ns="urn:http.service.irestads" xmlns:cmp-ns="http://model.irestads" qname="ns:ArrayOf_tns2_DishSoap" type="java:irestads.model.DishSoap[]" innerType="cmp-ns:DishSoap" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"></arrayMapping>
 		<typeMapping xmlns:ns="http://model.irestads" qname="ns:DishSoap" type="java:irestads.model.DishSoap" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"></typeMapping>
 		<operation xmlns:operNS="urn:http.service.irestads" xmlns:rtns="http://model.irestads" name="createDish" qname="operNS:createDish" returnQName="createDishReturn" returnType="rtns:DishSoap" soapAction="">
+			<parameter xmlns:tns="http://model.irestads" qname="d" type="tns:DishSoap"></parameter>
+		</operation>
+		<operation xmlns:operNS="urn:http.service.irestads" xmlns:rtns="http://model.irestads" name="createDish" qname="operNS:createDish" returnQName="createDishReturn" returnType="rtns:DishSoap" soapAction="">
 			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="dishName" type="tns:string"></parameter>
 			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="decription" type="tns:string"></parameter>
 			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="avatarImg" type="tns:string"></parameter>
@@ -18,6 +21,7 @@
 		<operation xmlns:operNS="urn:http.service.irestads" xmlns:rtns="http://model.irestads" name="deleteDish" qname="operNS:deleteDish" returnQName="deleteDishReturn" returnType="rtns:DishSoap" soapAction="">
 			<parameter xmlns:tns="http://model.irestads" qname="dish" type="tns:DishSoap"></parameter>
 		</operation>
+		<operation xmlns:operNS="urn:http.service.irestads" xmlns:rtns="urn:http.service.irestads" xmlns:tns2="http://model.irestads" name="findDishNotInMenu" qname="operNS:findDishNotInMenu" returnQName="findDishNotInMenuReturn" returnType="rtns:ArrayOf_tns2_DishSoap" returnItemType="tns2:DishSoap" soapAction=""> </operation>
 		<operation xmlns:operNS="urn:http.service.irestads" xmlns:rtns="urn:http.service.irestads" xmlns:tns2="http://model.irestads" name="findDishsByAvatarImg" qname="operNS:findDishsByAvatarImg" returnQName="findDishsByAvatarImgReturn" returnType="rtns:ArrayOf_tns2_DishSoap" returnItemType="tns2:DishSoap" soapAction="">
 			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="avatarImg" type="tns:string"></parameter>
 		</operation>
@@ -58,7 +62,7 @@
 		<operation xmlns:operNS="urn:http.service.irestads" xmlns:rtns="http://model.irestads" name="updateDish" qname="operNS:updateDish" returnQName="updateDishReturn" returnType="rtns:DishSoap" soapAction="">
 			<parameter xmlns:tns="http://model.irestads" qname="dish" type="tns:DishSoap"></parameter>
 		</operation>
-		<parameter name="allowedMethods" value="createDish deleteDish findDishsByAvatarImg findDishsByCategoryName findDishsByDecription findDishsByDetail findDishsByDetailImg findDishsById findDishsByName findDishsByReferPrice findDishsBySomeField getAllDishs getDishsByCategory updateDish" />
+		<parameter name="allowedMethods" value="createDish deleteDish findDishNotInMenu findDishsByAvatarImg findDishsByCategoryName findDishsByDecription findDishsByDetail findDishsByDetailImg findDishsById findDishsByName findDishsByReferPrice findDishsBySomeField getAllDishs getDishsByCategory updateDish" />
 		<parameter name="className" value="irestads.service.http.DishServiceSoap" />
 		<parameter name="schemaUnqualified" value="http://model.irestads,urn:http.service.irestads" />
 		<parameter name="typeMappingVersion" value="1.2" />

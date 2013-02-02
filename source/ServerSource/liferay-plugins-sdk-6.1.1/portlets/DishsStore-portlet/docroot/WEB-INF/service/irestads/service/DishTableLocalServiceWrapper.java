@@ -51,7 +51,8 @@ public class DishTableLocalServiceWrapper implements DishTableLocalService,
 	* @param dishTableId the primary key for the new dish table
 	* @return the new dish table
 	*/
-	public irestads.model.DishTable createDishTable(long dishTableId) {
+	public irestads.model.DishTable createDishTable(
+		java.lang.String dishTableId) {
 		return _dishTableLocalService.createDishTable(dishTableId);
 	}
 
@@ -63,7 +64,8 @@ public class DishTableLocalServiceWrapper implements DishTableLocalService,
 	* @throws PortalException if a dish table with the primary key could not be found
 	* @throws SystemException if a system exception occurred
 	*/
-	public irestads.model.DishTable deleteDishTable(long dishTableId)
+	public irestads.model.DishTable deleteDishTable(
+		java.lang.String dishTableId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return _dishTableLocalService.deleteDishTable(dishTableId);
@@ -157,7 +159,7 @@ public class DishTableLocalServiceWrapper implements DishTableLocalService,
 		return _dishTableLocalService.dynamicQueryCount(dynamicQuery);
 	}
 
-	public irestads.model.DishTable fetchDishTable(long dishTableId)
+	public irestads.model.DishTable fetchDishTable(java.lang.String dishTableId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _dishTableLocalService.fetchDishTable(dishTableId);
 	}
@@ -170,7 +172,7 @@ public class DishTableLocalServiceWrapper implements DishTableLocalService,
 	* @throws PortalException if a dish table with the primary key could not be found
 	* @throws SystemException if a system exception occurred
 	*/
-	public irestads.model.DishTable getDishTable(long dishTableId)
+	public irestads.model.DishTable getDishTable(java.lang.String dishTableId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return _dishTableLocalService.getDishTable(dishTableId);
@@ -261,6 +263,10 @@ public class DishTableLocalServiceWrapper implements DishTableLocalService,
 		throws java.lang.Throwable {
 		return _dishTableLocalService.invokeMethod(name, parameterTypes,
 			arguments);
+	}
+
+	public java.util.List<irestads.model.DishTable> getAllDishTables() {
+		return _dishTableLocalService.getAllDishTables();
 	}
 
 	/**

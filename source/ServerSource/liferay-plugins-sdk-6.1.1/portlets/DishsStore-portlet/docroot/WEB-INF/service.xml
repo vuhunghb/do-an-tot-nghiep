@@ -24,7 +24,8 @@
 		<column name="dishName" type="String" />
 		<column name="decription" type="String" />
 		<column name="avatarImg" type="String" />
-		<column name="avatarBaseCode" type="String" />
+		<column name="avatarBaseCode" type="String" >
+		</column>
 		<column name="detailImg" type="String" />
 		<column name="detailBaseCode" type="String" />
 		<column name="detail" type="String" />
@@ -95,6 +96,9 @@
 		<finder name="LogDate" return-type="Collection">
 			<finder-column name="logDate" />
 		</finder>
+		<finder name="logObjId" return-type="Collection">
+			<finder-column name="logObjId" />
+		</finder>
 	</entity>
 	
 	<entity name="MenuLine" local-service="true" remote-service="true">
@@ -164,6 +168,7 @@
 		<column name="numOfDish" type="int" />
 		<column name="statusDish" type="int" />
 		<column name="dishId" type="long" />
+		<column name="orderId" type="long" />
 		<!-- Order -->
 		<order by="asc">
 			<order-column name="numOfDish" />
@@ -189,17 +194,18 @@
 		<column name="numOfDinner" type="int" />
 		<column name="orderLines" type="Collection" entity="OrderLine"
 			mapping-key="orderId" />
-		<column name="dishTableId" type="long"></column>
+		<column name="dishTableId" type="String"></column>
 		<!-- Order -->
 		
 		<!-- Finder methods -->
-		<finder name="IsPayMent" return-type="Collection">
+		<finder name="curentOrder" return-type="Orders">
 			<finder-column name="isPayMent" />
+			<finder-column name="dishTableId" />
 		</finder>
 	</entity>
 	<entity name="DishTable" local-service="true" remote-service="true">
 		<!-- PK fields -->
-		<column name="dishTableId" type="long" primary="true" />
+		<column name="dishTableId" type="String" primary="true" />
 		<!-- Audit fields -->
 		<column name="companyId" type="long" />
 		<column name="userId" type="long" />
@@ -207,6 +213,7 @@
 		<column name="createDate" type="Date" />
 		<column name="modifiedDate" type="Date" />
 		<!-- Other fields -->
+		<column name="tableName" type="String"></column>
 		<column name="isAvalable" type="boolean" />
 		<column name="numChair" type="int" />
 		<column name="orders" type="Collection" entity="Orders"

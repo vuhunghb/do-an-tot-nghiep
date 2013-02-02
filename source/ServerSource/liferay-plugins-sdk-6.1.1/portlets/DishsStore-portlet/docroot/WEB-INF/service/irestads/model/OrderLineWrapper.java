@@ -54,6 +54,7 @@ public class OrderLineWrapper implements OrderLine, ModelWrapper<OrderLine> {
 		attributes.put("numOfDish", getNumOfDish());
 		attributes.put("statusDish", getStatusDish());
 		attributes.put("dishId", getDishId());
+		attributes.put("orderId", getOrderId());
 
 		return attributes;
 	}
@@ -111,6 +112,12 @@ public class OrderLineWrapper implements OrderLine, ModelWrapper<OrderLine> {
 
 		if (dishId != null) {
 			setDishId(dishId);
+		}
+
+		Long orderId = (Long)attributes.get("orderId");
+
+		if (orderId != null) {
+			setOrderId(orderId);
 		}
 	}
 
@@ -312,6 +319,24 @@ public class OrderLineWrapper implements OrderLine, ModelWrapper<OrderLine> {
 	*/
 	public void setDishId(long dishId) {
 		_orderLine.setDishId(dishId);
+	}
+
+	/**
+	* Returns the order ID of this order line.
+	*
+	* @return the order ID of this order line
+	*/
+	public long getOrderId() {
+		return _orderLine.getOrderId();
+	}
+
+	/**
+	* Sets the order ID of this order line.
+	*
+	* @param orderId the order ID of this order line
+	*/
+	public void setOrderId(long orderId) {
+		_orderLine.setOrderId(orderId);
 	}
 
 	public boolean isNew() {

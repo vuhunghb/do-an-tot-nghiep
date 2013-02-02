@@ -30,6 +30,10 @@ public class DishTableServiceClpInvoker {
 		_methodName73 = "setBeanIdentifier";
 
 		_methodParameterTypes73 = new String[] { "java.lang.String" };
+
+		_methodName78 = "getAllDishTables";
+
+		_methodParameterTypes78 = new String[] {  };
 	}
 
 	public Object invokeMethod(String name, String[] parameterTypes,
@@ -44,6 +48,11 @@ public class DishTableServiceClpInvoker {
 			DishTableServiceUtil.setBeanIdentifier((java.lang.String)arguments[0]);
 		}
 
+		if (_methodName78.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes78, parameterTypes)) {
+			return DishTableServiceUtil.getAllDishTables();
+		}
+
 		throw new UnsupportedOperationException();
 	}
 
@@ -51,4 +60,6 @@ public class DishTableServiceClpInvoker {
 	private String[] _methodParameterTypes72;
 	private String _methodName73;
 	private String[] _methodParameterTypes73;
+	private String _methodName78;
+	private String[] _methodParameterTypes78;
 }

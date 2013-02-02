@@ -4,6 +4,9 @@
 	<service name="Plugin_dishsstore_CategoryService" provider="java:RPC" style="rpc" use="encoded">
 		<arrayMapping xmlns:ns="urn:http.service.irestads" xmlns:cmp-ns="http://model.irestads" qname="ns:ArrayOf_tns2_CategorySoap" type="java:irestads.model.CategorySoap[]" innerType="cmp-ns:CategorySoap" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"></arrayMapping>
 		<typeMapping xmlns:ns="http://model.irestads" qname="ns:CategorySoap" type="java:irestads.model.CategorySoap" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"></typeMapping>
+		<operation xmlns:operNS="urn:http.service.irestads" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="countCategoryById" qname="operNS:countCategoryById" returnQName="countCategoryByIdReturn" returnType="rtns:int" soapAction="">
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="categoryId" type="tns:long"></parameter>
+		</operation>
 		<operation xmlns:operNS="urn:http.service.irestads" xmlns:rtns="http://model.irestads" name="createCategory" qname="operNS:createCategory" returnQName="createCategoryReturn" returnType="rtns:CategorySoap" soapAction="">
 			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="categoryName" type="tns:string"></parameter>
 		</operation>
@@ -11,7 +14,7 @@
 			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="categoryId" type="tns:long"></parameter>
 		</operation>
 		<operation xmlns:operNS="urn:http.service.irestads" xmlns:rtns="urn:http.service.irestads" xmlns:tns2="http://model.irestads" name="getAllCategorys" qname="operNS:getAllCategorys" returnQName="getAllCategorysReturn" returnType="rtns:ArrayOf_tns2_CategorySoap" returnItemType="tns2:CategorySoap" soapAction=""> </operation>
-		<parameter name="allowedMethods" value="createCategory findByID getAllCategorys" />
+		<parameter name="allowedMethods" value="countCategoryById createCategory findByID getAllCategorys" />
 		<parameter name="className" value="irestads.service.http.CategoryServiceSoap" />
 		<parameter name="schemaUnqualified" value="http://model.irestads,urn:http.service.irestads" />
 		<parameter name="typeMappingVersion" value="1.2" />

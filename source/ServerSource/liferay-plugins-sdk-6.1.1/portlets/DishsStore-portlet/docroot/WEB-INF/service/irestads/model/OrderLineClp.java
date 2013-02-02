@@ -75,6 +75,7 @@ public class OrderLineClp extends BaseModelImpl<OrderLine> implements OrderLine 
 		attributes.put("numOfDish", getNumOfDish());
 		attributes.put("statusDish", getStatusDish());
 		attributes.put("dishId", getDishId());
+		attributes.put("orderId", getOrderId());
 
 		return attributes;
 	}
@@ -133,6 +134,12 @@ public class OrderLineClp extends BaseModelImpl<OrderLine> implements OrderLine 
 
 		if (dishId != null) {
 			setDishId(dishId);
+		}
+
+		Long orderId = (Long)attributes.get("orderId");
+
+		if (orderId != null) {
+			setOrderId(orderId);
 		}
 	}
 
@@ -216,6 +223,14 @@ public class OrderLineClp extends BaseModelImpl<OrderLine> implements OrderLine 
 		_dishId = dishId;
 	}
 
+	public long getOrderId() {
+		return _orderId;
+	}
+
+	public void setOrderId(long orderId) {
+		_orderId = orderId;
+	}
+
 	public BaseModel<?> getOrderLineRemoteModel() {
 		return _orderLineRemoteModel;
 	}
@@ -252,6 +267,7 @@ public class OrderLineClp extends BaseModelImpl<OrderLine> implements OrderLine 
 		clone.setNumOfDish(getNumOfDish());
 		clone.setStatusDish(getStatusDish());
 		clone.setDishId(getDishId());
+		clone.setOrderId(getOrderId());
 
 		return clone;
 	}
@@ -308,7 +324,7 @@ public class OrderLineClp extends BaseModelImpl<OrderLine> implements OrderLine 
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(19);
+		StringBundler sb = new StringBundler(21);
 
 		sb.append("{orderLineId=");
 		sb.append(getOrderLineId());
@@ -328,13 +344,15 @@ public class OrderLineClp extends BaseModelImpl<OrderLine> implements OrderLine 
 		sb.append(getStatusDish());
 		sb.append(", dishId=");
 		sb.append(getDishId());
+		sb.append(", orderId=");
+		sb.append(getOrderId());
 		sb.append("}");
 
 		return sb.toString();
 	}
 
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(31);
+		StringBundler sb = new StringBundler(34);
 
 		sb.append("<model><model-name>");
 		sb.append("irestads.model.OrderLine");
@@ -376,6 +394,10 @@ public class OrderLineClp extends BaseModelImpl<OrderLine> implements OrderLine 
 			"<column><column-name>dishId</column-name><column-value><![CDATA[");
 		sb.append(getDishId());
 		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>orderId</column-name><column-value><![CDATA[");
+		sb.append(getOrderId());
+		sb.append("]]></column-value></column>");
 
 		sb.append("</model>");
 
@@ -392,5 +414,6 @@ public class OrderLineClp extends BaseModelImpl<OrderLine> implements OrderLine 
 	private int _numOfDish;
 	private int _statusDish;
 	private long _dishId;
+	private long _orderId;
 	private BaseModel<?> _orderLineRemoteModel;
 }

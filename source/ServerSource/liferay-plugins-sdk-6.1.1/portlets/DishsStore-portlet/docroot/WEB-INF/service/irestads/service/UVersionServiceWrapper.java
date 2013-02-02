@@ -69,6 +69,10 @@ public class UVersionServiceWrapper implements UVersionService,
 		return _uVersionService.findNextVersions(uversionId);
 	}
 
+	public void checkDelete(long idObj) {
+		_uVersionService.checkDelete(idObj);
+	}
+
 	/**
 	 * @deprecated Renamed to {@link #getWrappedService}
 	 */

@@ -116,9 +116,13 @@ public class UVersionLocalServiceClpInvoker {
 				"long", "java.lang.String", "java.lang.String"
 			};
 
-		_methodName96 = "findNextVersions";
+		_methodName96 = "checkDelete";
 
 		_methodParameterTypes96 = new String[] { "long" };
+
+		_methodName97 = "findNextVersions";
+
+		_methodParameterTypes97 = new String[] { "long" };
 	}
 
 	public Object invokeMethod(String name, String[] parameterTypes,
@@ -233,6 +237,11 @@ public class UVersionLocalServiceClpInvoker {
 
 		if (_methodName96.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes96, parameterTypes)) {
+			UVersionLocalServiceUtil.checkDelete(((Long)arguments[0]).longValue());
+		}
+
+		if (_methodName97.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes97, parameterTypes)) {
 			return UVersionLocalServiceUtil.findNextVersions(((Long)arguments[0]).longValue());
 		}
 
@@ -281,4 +290,6 @@ public class UVersionLocalServiceClpInvoker {
 	private String[] _methodParameterTypes95;
 	private String _methodName96;
 	private String[] _methodParameterTypes96;
+	private String _methodName97;
+	private String[] _methodParameterTypes97;
 }

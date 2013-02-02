@@ -143,7 +143,7 @@ public class OrdersClp extends BaseModelImpl<Orders> implements Orders {
 			setNumOfDinner(numOfDinner);
 		}
 
-		Long dishTableId = (Long)attributes.get("dishTableId");
+		String dishTableId = (String)attributes.get("dishTableId");
 
 		if (dishTableId != null) {
 			setDishTableId(dishTableId);
@@ -242,11 +242,11 @@ public class OrdersClp extends BaseModelImpl<Orders> implements Orders {
 		_numOfDinner = numOfDinner;
 	}
 
-	public long getDishTableId() {
+	public String getDishTableId() {
 		return _dishTableId;
 	}
 
-	public void setDishTableId(long dishTableId) {
+	public void setDishTableId(String dishTableId) {
 		_dishTableId = dishTableId;
 	}
 
@@ -435,6 +435,6 @@ public class OrdersClp extends BaseModelImpl<Orders> implements Orders {
 	private Date _createdDate;
 	private boolean _isPayMent;
 	private int _numOfDinner;
-	private long _dishTableId;
+	private String _dishTableId;
 	private BaseModel<?> _ordersRemoteModel;
 }

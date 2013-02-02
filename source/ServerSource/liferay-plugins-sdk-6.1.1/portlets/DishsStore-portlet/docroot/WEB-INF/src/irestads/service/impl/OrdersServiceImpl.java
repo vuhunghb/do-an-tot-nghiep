@@ -14,6 +14,8 @@
 
 package irestads.service.impl;
 
+import irestads.model.Orders;
+import irestads.service.OrdersLocalServiceUtil;
 import irestads.service.base.OrdersServiceBaseImpl;
 
 /**
@@ -36,4 +38,8 @@ public class OrdersServiceImpl extends OrdersServiceBaseImpl {
 	 *
 	 * Never reference this interface directly. Always use {@link irestads.service.OrdersServiceUtil} to access the orders remote service.
 	 */
+	public Orders findCurrentOrder(boolean isPayMent, String dishTableId){
+		return OrdersLocalServiceUtil.findCurrentOrder(isPayMent, dishTableId);
+		
+	}
 }

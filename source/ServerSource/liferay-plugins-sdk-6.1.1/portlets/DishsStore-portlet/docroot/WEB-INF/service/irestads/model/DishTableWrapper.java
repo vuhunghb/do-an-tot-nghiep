@@ -51,6 +51,7 @@ public class DishTableWrapper implements DishTable, ModelWrapper<DishTable> {
 		attributes.put("userName", getUserName());
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
+		attributes.put("tableName", getTableName());
 		attributes.put("isAvalable", getIsAvalable());
 		attributes.put("numChair", getNumChair());
 
@@ -58,7 +59,7 @@ public class DishTableWrapper implements DishTable, ModelWrapper<DishTable> {
 	}
 
 	public void setModelAttributes(Map<String, Object> attributes) {
-		Long dishTableId = (Long)attributes.get("dishTableId");
+		String dishTableId = (String)attributes.get("dishTableId");
 
 		if (dishTableId != null) {
 			setDishTableId(dishTableId);
@@ -94,6 +95,12 @@ public class DishTableWrapper implements DishTable, ModelWrapper<DishTable> {
 			setModifiedDate(modifiedDate);
 		}
 
+		String tableName = (String)attributes.get("tableName");
+
+		if (tableName != null) {
+			setTableName(tableName);
+		}
+
 		Boolean isAvalable = (Boolean)attributes.get("isAvalable");
 
 		if (isAvalable != null) {
@@ -112,7 +119,7 @@ public class DishTableWrapper implements DishTable, ModelWrapper<DishTable> {
 	*
 	* @return the primary key of this dish table
 	*/
-	public long getPrimaryKey() {
+	public java.lang.String getPrimaryKey() {
 		return _dishTable.getPrimaryKey();
 	}
 
@@ -121,7 +128,7 @@ public class DishTableWrapper implements DishTable, ModelWrapper<DishTable> {
 	*
 	* @param primaryKey the primary key of this dish table
 	*/
-	public void setPrimaryKey(long primaryKey) {
+	public void setPrimaryKey(java.lang.String primaryKey) {
 		_dishTable.setPrimaryKey(primaryKey);
 	}
 
@@ -130,7 +137,7 @@ public class DishTableWrapper implements DishTable, ModelWrapper<DishTable> {
 	*
 	* @return the dish table ID of this dish table
 	*/
-	public long getDishTableId() {
+	public java.lang.String getDishTableId() {
 		return _dishTable.getDishTableId();
 	}
 
@@ -139,7 +146,7 @@ public class DishTableWrapper implements DishTable, ModelWrapper<DishTable> {
 	*
 	* @param dishTableId the dish table ID of this dish table
 	*/
-	public void setDishTableId(long dishTableId) {
+	public void setDishTableId(java.lang.String dishTableId) {
 		_dishTable.setDishTableId(dishTableId);
 	}
 
@@ -251,6 +258,24 @@ public class DishTableWrapper implements DishTable, ModelWrapper<DishTable> {
 	*/
 	public void setModifiedDate(java.util.Date modifiedDate) {
 		_dishTable.setModifiedDate(modifiedDate);
+	}
+
+	/**
+	* Returns the table name of this dish table.
+	*
+	* @return the table name of this dish table
+	*/
+	public java.lang.String getTableName() {
+		return _dishTable.getTableName();
+	}
+
+	/**
+	* Sets the table name of this dish table.
+	*
+	* @param tableName the table name of this dish table
+	*/
+	public void setTableName(java.lang.String tableName) {
+		_dishTable.setTableName(tableName);
 	}
 
 	/**
