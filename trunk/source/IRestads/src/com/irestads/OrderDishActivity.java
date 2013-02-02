@@ -40,12 +40,15 @@ import org.ksoap2.transport.HttpTransportSE;
 import org.ksoap2.serialization.PropertyInfo;
 
 import com.irestads.dao.DishDAO;
+import com.irestads.dao.OrderDAO;
+import com.irestads.dao.OrderLineDAO;
 import com.irestads.marshal.MarshalLong;
 import com.irestads.model.CategoryModel;
 import com.irestads.model.DishModel;
 import com.irestads.model.OrderLineModel;
 import com.irestads.model.OrderModel;
 import com.irestads.util.FormatOutputUtils;
+import com.irestads.util.GenericUtil;
 import com.irestads.util.ImageUtils;
 
 @SuppressLint({ "NewApi", "UseValueOf" })
@@ -60,7 +63,8 @@ public class OrderDishActivity extends Activity {
 	OrderModel orderModel;
 	String[] orderLineStatus;
 	DishDAO dishDAO;
-	
+	OrderDAO orderDAO;
+	OrderLineDAO orderLineDAO;
 	TableLayout tableLayout;
 
 	@Override
@@ -71,13 +75,14 @@ public class OrderDishActivity extends Activity {
 
 		setContentView(R.layout.activity_order_dish);
 
-		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
-				.permitAll().build();
+		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
 		StrictMode.setThreadPolicy(policy);
 
 		ActionBar actionBar = getActionBar();
 		actionBar.hide();
 		dishDAO = new DishDAO(this);
+		orderLineDAO = new OrderLineDAO(this);
+		orderDAO = new OrderDAO(this);
 
 		initOrder();
 
@@ -88,26 +93,43 @@ public class OrderDishActivity extends Activity {
 		this.updateOrderView();
 	}
 
+	@Override
+	protected void onPause() {
+		// TODO Auto-generated method stub
+		super.onPause();
+		if (orderModel.getListOrderLine().size() > 0) {
+
+			orderDAO.open();
+			orderDAO.saveOrUpdateOrder(orderModel);
+			orderDAO.close();
+		}
+	}
+
 	public void initTestData() {
 		long userSession = getUserSession();
 		/*----This Data will get from DB by userSession----*/
-		orderModel = new OrderModel(0, new Date(), false,
-				new ArrayList<OrderLineModel>(), userSession);
-//		DishModel dish = CategoryModel.testData().get(0).getDishs().get(2);
-//		/*-----Test Data-----*/
-//		currentOrderLineModel = new OrderLineModel(dish, 1, 0, new Date(), 1);
-//		orderModel.getListOrderLine().add(currentOrderLineModel);
+		orderModel = new OrderModel(0, new Date(), false, new ArrayList<OrderLineModel>(), userSession);
+		// DishModel dish = CategoryModel.testData().get(0).getDishs().get(2);
+		// /*-----Test Data-----*/
+		// currentOrderLineModel = new OrderLineModel(dish, 1, 0, new Date(),
+		// 1);
+		// orderModel.getListOrderLine().add(currentOrderLineModel);
 
 	}
 
 	public void initOrder() {
-		initTestData();
+		// initTestData();
+		orderDAO.open();
+		orderModel = orderDAO.getCurrentOrder();
+		orderDAO.close();
 
-		orderLineStatus = getResources().getStringArray(
-				R.array.order_line_status);
+		if (orderModel.getOrderId() == 0) {
+			orderModel = new OrderModel(0, new Date(), false, new ArrayList<OrderLineModel>(), new Date().getTime());
+		}
 
-		SharedPreferences sharedPreferences = getSharedPreferences(
-				MainActivity.PREFS_NAME, 0);
+		orderLineStatus = getResources().getStringArray(R.array.order_line_status);
+
+		SharedPreferences sharedPreferences = getSharedPreferences(GenericUtil.PREFS_NAME, 0);
 		selectedDishId = sharedPreferences.getLong("scr1CurrentDishId", 0);
 
 		getCurrentOrderline(selectedDishId);
@@ -119,18 +141,18 @@ public class OrderDishActivity extends Activity {
 		int currentIndex = getCurrentOrderlineIndex(dishID);
 
 		if (currentIndex != -1) {
-			currentOrderLineModel = orderModel.getListOrderLine().get(
-					currentIndex);
+			currentOrderLineModel = orderModel.getListOrderLine().get(currentIndex);
 			currentOrderLineIndex = currentIndex;
 		} else {
 			/*-----Test Data-----*/
 			dishDAO.open();
 			DishModel dish = dishDAO.getDishById(dishID);
 			dishDAO.close();
-			
 			/*-----Test Data-----*/
-			currentOrderLineModel = new OrderLineModel(dish, 1, 0, new Date(),
-					0);
+			currentOrderLineModel = new OrderLineModel(new Date().getTime(), 1, 0, new Date(), 0, dish.getDishID(),
+					orderModel.getOrderId());
+			currentOrderLineModel.setDish(dish);
+
 		}
 		currentNumOfDish = currentOrderLineModel.getNumOfDish();
 	}
@@ -151,7 +173,7 @@ public class OrderDishActivity extends Activity {
 	}
 
 	public void updateDishSelectedView() {
-		
+
 		DishModel currentDishModel = this.currentOrderLineModel.getDish();
 		TextView rightDishName = (TextView) findViewById(R.id.scr2_current_dish_name);
 		rightDishName.setText(currentDishModel.getDishName());
@@ -161,20 +183,16 @@ public class OrderDishActivity extends Activity {
 
 		TextView rightNumOfDiner = (TextView) findViewById(R.id.scr2_current_numofdiner_value);
 		int numOfDiner = currentDishModel.getNumOfDiner();
-		String numOfDinerText = FormatOutputUtils.formatIntToString(numOfDiner,
-				1);
-		rightNumOfDiner.setText(numOfDinerText + " "
-				+ getResources().getString(R.string.sc1_dinner_title));
+		String numOfDinerText = FormatOutputUtils.formatIntToString(numOfDiner, 1);
+		rightNumOfDiner.setText(numOfDinerText + " " + getResources().getString(R.string.sc1_dinner_title));
 
 		ImageView avatarView = (ImageView) findViewById(R.id.scr2_dish_avatar);
-		Bitmap bm = ImageUtils.getImageByDishAvatar(
-				currentDishModel.getAvatarImg(), this.getResources(),
+		Bitmap bm = ImageUtils.getImageByDishAvatar(currentDishModel.getAvatarImg(), this.getResources(),
 				R.drawable.cantfoundish);
 		avatarView.setImageBitmap(bm);
 
 		TextView numOfDish = (TextView) findViewById(R.id.scr2_current_numofdish);
-		numOfDish.setText(FormatOutputUtils.formatIntToString(currentNumOfDish,
-				1));
+		numOfDish.setText(FormatOutputUtils.formatIntToString(currentNumOfDish, 1));
 
 		TextView currentOrderLineStt = (TextView) findViewById(R.id.scr2_current_orderline_stt);
 		int currentStt = currentOrderLineModel.getStatus();
@@ -183,8 +201,7 @@ public class OrderDishActivity extends Activity {
 		TextView currentDishFinish = (TextView) findViewById(R.id.scr2_current_orderline_finish_stt);
 
 		if (currentStt != 0) {
-			currentDishFinish.setText("("
-					+ currentOrderLineModel.getNumOfFinishDish() + "/"
+			currentDishFinish.setText("(" + currentOrderLineModel.getNumOfFinishDish() + "/"
 					+ currentOrderLineModel.getNumOfDish() + ")");
 		} else {
 			currentDishFinish.setText("");
@@ -207,20 +224,17 @@ public class OrderDishActivity extends Activity {
 			TextView tableCellNumber, tableCellDishName, tableCellDishPrice, tableCellNumberDish, tableCellPrice;
 
 			TableLayout.LayoutParams tableRowLayout = new TableLayout.LayoutParams(
-					TableLayout.LayoutParams.WRAP_CONTENT,
-					TableLayout.LayoutParams.WRAP_CONTENT, 1f);
+					TableLayout.LayoutParams.WRAP_CONTENT, TableLayout.LayoutParams.WRAP_CONTENT, 1f);
 			tableRowLayout.setMargins(1, 1, 1, 1);
 
-			TableRow.LayoutParams textRowNumber = new TableRow.LayoutParams(0,
-					TableRow.LayoutParams.MATCH_PARENT, 0.08f);
-			TableRow.LayoutParams textDishName = new TableRow.LayoutParams(0,
-					TableRow.LayoutParams.MATCH_PARENT, 0.55f);
-			TableRow.LayoutParams textDishPrice = new TableRow.LayoutParams(0,
-					TableRow.LayoutParams.MATCH_PARENT, 0.15f);
-			TableRow.LayoutParams textNumberDish = new TableRow.LayoutParams(0,
-					TableRow.LayoutParams.MATCH_PARENT, 0.08f);
-			TableRow.LayoutParams textPrice = new TableRow.LayoutParams(0,
-					TableRow.LayoutParams.MATCH_PARENT, 0.15f);
+			TableRow.LayoutParams textRowNumber = new TableRow.LayoutParams(0, TableRow.LayoutParams.MATCH_PARENT,
+					0.08f);
+			TableRow.LayoutParams textDishName = new TableRow.LayoutParams(0, TableRow.LayoutParams.MATCH_PARENT, 0.55f);
+			TableRow.LayoutParams textDishPrice = new TableRow.LayoutParams(0, TableRow.LayoutParams.MATCH_PARENT,
+					0.15f);
+			TableRow.LayoutParams textNumberDish = new TableRow.LayoutParams(0, TableRow.LayoutParams.MATCH_PARENT,
+					0.08f);
+			TableRow.LayoutParams textPrice = new TableRow.LayoutParams(0, TableRow.LayoutParams.MATCH_PARENT, 0.15f);
 
 			for (int i = listOrderLine.size() - 1; i >= 0; i--) {
 				OrderLineModel orderLine = listOrderLine.get(i);
@@ -235,40 +249,32 @@ public class OrderDishActivity extends Activity {
 				tableCellNumber = new TextView(this);
 				tableCellNumber.setLayoutParams(textRowNumber);
 				tableCellNumber.setGravity(Gravity.CENTER_VERTICAL);
-				tableCellNumber.setTextAppearance(this,
-						android.R.style.TextAppearance_Medium);
+				tableCellNumber.setTextAppearance(this, android.R.style.TextAppearance_Medium);
 				tableCellNumber.setText("#" + (i + 1));
 
 				tableCellDishName = new TextView(this);
 				tableCellDishName.setLayoutParams(textDishName);
 				tableCellDishName.setGravity(Gravity.CENTER_VERTICAL);
-				tableCellDishName.setTextAppearance(this,
-						android.R.style.TextAppearance_Medium);
+				tableCellDishName.setTextAppearance(this, android.R.style.TextAppearance_Medium);
 				tableCellDishName.setText(orderLine.getDish().getDishName());
 
 				tableCellDishPrice = new TextView(this);
 				tableCellDishPrice.setLayoutParams(textDishPrice);
 				tableCellDishPrice.setGravity(Gravity.CENTER_VERTICAL);
-				tableCellDishPrice.setTextAppearance(this,
-						android.R.style.TextAppearance_Medium);
-				tableCellDishPrice.setText(orderLine.getDish().getReferPrice()
-						+ "");
+				tableCellDishPrice.setTextAppearance(this, android.R.style.TextAppearance_Medium);
+				tableCellDishPrice.setText(orderLine.getDish().getReferPrice() + "");
 
 				tableCellNumberDish = new TextView(this);
 				tableCellNumberDish.setLayoutParams(textNumberDish);
-				tableCellNumberDish.setGravity(Gravity.CENTER_VERTICAL
-						| Gravity.CENTER);
-				tableCellNumberDish.setTextAppearance(this,
-						android.R.style.TextAppearance_Medium);
+				tableCellNumberDish.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER);
+				tableCellNumberDish.setTextAppearance(this, android.R.style.TextAppearance_Medium);
 				tableCellNumberDish.setText("X " + orderLine.getNumOfDish());
 				tableCellNumberDish.setTextColor(Color.parseColor("#1e48e7"));
 
 				tableCellPrice = new TextView(this);
 				tableCellPrice.setLayoutParams(textPrice);
-				tableCellPrice.setGravity(Gravity.CENTER_VERTICAL
-						| Gravity.RIGHT);
-				tableCellPrice.setTextAppearance(this,
-						android.R.style.TextAppearance_Medium);
+				tableCellPrice.setGravity(Gravity.CENTER_VERTICAL | Gravity.RIGHT);
+				tableCellPrice.setTextAppearance(this, android.R.style.TextAppearance_Medium);
 				tableCellPrice.setText(orderLine.getOrderLinePrice() + "");
 				tableCellPrice.setTextColor(Color.parseColor("#c20e0e"));
 
@@ -277,7 +283,7 @@ public class OrderDishActivity extends Activity {
 				tableRow.addView(tableCellDishPrice);
 				tableRow.addView(tableCellNumberDish);
 				tableRow.addView(tableCellPrice);
-				
+
 				tableRow.setClickable(true);
 				tableRow.setOnClickListener(onClickScr2OrderLineItem);
 				tableLayout.addView(tableRow);
@@ -285,7 +291,7 @@ public class OrderDishActivity extends Activity {
 		}
 
 	}
-	
+
 	/***
 	 * listening when user click on dish item when Scr1
 	 */
@@ -294,7 +300,7 @@ public class OrderDishActivity extends Activity {
 		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
-			TableRow tbRow = (TableRow)v;
+			TableRow tbRow = (TableRow) v;
 			int id = tbRow.getId();
 			currentOrderLineIndex = id;
 			currentOrderLineModel = orderModel.getListOrderLine().get(id);
@@ -311,58 +317,37 @@ public class OrderDishActivity extends Activity {
 			currentNumOfDish = currentNumOfDish - 1;
 		}
 		TextView numOfDish = (TextView) findViewById(R.id.scr2_current_numofdish);
-		numOfDish.setText(FormatOutputUtils.formatIntToString(currentNumOfDish,
-				1));
+		numOfDish.setText(FormatOutputUtils.formatIntToString(currentNumOfDish, 1));
 	}
 
 	public void onClickScr2AcceptOrder(View v) {
 		new AlertDialog.Builder(this)
-				.setTitle(
-						getResources().getString(
-								R.string.scr2_comfirm_accept_title))
-				.setMessage(
-						getResources().getString(
-								R.string.scr2_comfirm_accept_massage))
+				.setTitle(getResources().getString(R.string.scr2_comfirm_accept_title))
+				.setMessage(getResources().getString(R.string.scr2_comfirm_accept_massage))
 				.setIcon(android.R.drawable.ic_dialog_alert)
-				.setPositiveButton(
-						getResources().getString(
-								R.string.scr2_comfirm_accept_ok),
+				.setPositiveButton(getResources().getString(R.string.scr2_comfirm_accept_ok),
 						new DialogInterface.OnClickListener() {
 
-							public void onClick(DialogInterface dialog,
-									int whichButton) {
+							public void onClick(DialogInterface dialog, int whichButton) {
 								addOrderLine();
 							}
-						})
-				.setNegativeButton(
-						getResources().getString(
-								R.string.scr2_comfirm_accept_cancel), null)
+						}).setNegativeButton(getResources().getString(R.string.scr2_comfirm_accept_cancel), null)
 				.show();
 
 	}
 
 	public void onClieckScr2CancelOrder(View v) {
 		new AlertDialog.Builder(this)
-				.setTitle(
-						getResources().getString(
-								R.string.scr2_comfirm_cancel_title))
-				.setMessage(
-						getResources().getString(
-								R.string.scr2_comfirm_cancel_massage))
+				.setTitle(getResources().getString(R.string.scr2_comfirm_cancel_title))
+				.setMessage(getResources().getString(R.string.scr2_comfirm_cancel_massage))
 				.setIcon(android.R.drawable.ic_dialog_alert)
-				.setPositiveButton(
-						getResources().getString(
-								R.string.scr2_comfirm_accept_ok),
+				.setPositiveButton(getResources().getString(R.string.scr2_comfirm_accept_ok),
 						new DialogInterface.OnClickListener() {
 
-							public void onClick(DialogInterface dialog,
-									int whichButton) {
+							public void onClick(DialogInterface dialog, int whichButton) {
 								removeOrderLine();
 							}
-						})
-				.setNegativeButton(
-						getResources().getString(
-								R.string.scr2_comfirm_accept_cancel), null)
+						}).setNegativeButton(getResources().getString(R.string.scr2_comfirm_accept_cancel), null)
 				.show();
 
 	}
@@ -374,9 +359,7 @@ public class OrderDishActivity extends Activity {
 		if (stt == 0) {
 			startActivity(new Intent("android.intent.action.MainListActivity"));
 		} else if (stt == 1) {
-			int index = this
-					.getCurrentOrderlineIndex(this.currentOrderLineModel
-							.getDish().getDishID());
+			int index = this.getCurrentOrderlineIndex(this.currentOrderLineModel.getDish().getDishID());
 
 			if (index != -1) {
 				this.orderModel.getListOrderLine().remove(index);
@@ -384,31 +367,31 @@ public class OrderDishActivity extends Activity {
 
 			this.orderModel.getTotalCharge();
 
+			orderLineDAO.open();
+			orderLineDAO.deleteOrderLine(currentOrderLineModel.getOrderLineId());
+			orderLineDAO.close();
+
 			this.updateDishSelectedView();
 			this.updateOrderView();
-			Toast.makeText(this,
-					getResources().getString(R.string.scr2_comfirm_cancel_1),
-					Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, getResources().getString(R.string.scr2_comfirm_cancel_1), Toast.LENGTH_SHORT).show();
 		} else {
-			Toast.makeText(this,
-					getResources().getString(R.string.scr2_comfirm_cancel_2),
-					Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, getResources().getString(R.string.scr2_comfirm_cancel_2), Toast.LENGTH_SHORT).show();
 		}
 	}
 
 	public void addOrderLine() {
 		this.currentOrderLineModel.setNumOfDish(currentNumOfDish);
 		this.currentOrderLineModel.setStatus(1);
-		int index = this.getCurrentOrderlineIndex(this.currentOrderLineModel
-				.getDish().getDishID());
+		int index = this.getCurrentOrderlineIndex(this.currentOrderLineModel.getDish().getDishID());
 
 		if (index != -1) {
-			this.orderModel.getListOrderLine()
-					.set(index, currentOrderLineModel);
+			this.orderModel.getListOrderLine().set(index, currentOrderLineModel);
 		} else {
 			this.orderModel.getListOrderLine().add(currentOrderLineModel);
 		}
-
+		orderLineDAO.open();
+		orderLineDAO.saveOrUpdateOrder(currentOrderLineModel);
+		orderLineDAO.close();
 		this.orderModel.getTotalCharge();
 
 		this.updateDishSelectedView();
@@ -423,10 +406,8 @@ public class OrderDishActivity extends Activity {
 	}
 
 	public long getUserSession() {
-		SharedPreferences sharedPreferences = getSharedPreferences(
-				MainActivity.PREFS_NAME, 0);
-		long userSession = sharedPreferences.getLong("userSession",
-				new Date().getTime());
+		SharedPreferences sharedPreferences = getSharedPreferences(GenericUtil.PREFS_NAME, 0);
+		long userSession = sharedPreferences.getLong("userSession", new Date().getTime());
 		return userSession;
 	}
 

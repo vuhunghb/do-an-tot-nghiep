@@ -10,14 +10,20 @@ public class OrderModel {
 	List<OrderLineModel> listOrderLine;
 	long orderId, userSession;
 
+	
+	public OrderModel() {
+		super();
+		orderId = 0;
+	}
+
 	public OrderModel(int charge, Date createDate, boolean isPayment,
-			List<OrderLineModel> listOrderLine, long userSession) {
+			List<OrderLineModel> listOrderLine, long orderID) {
 		super();
 		this.charge = charge;
 		this.createDate = createDate;
 		this.isPayment = isPayment;
 		this.listOrderLine = listOrderLine;
-		this.userSession = userSession;
+		this.orderId = orderID;
 	}
 
 	public int getCharge() {

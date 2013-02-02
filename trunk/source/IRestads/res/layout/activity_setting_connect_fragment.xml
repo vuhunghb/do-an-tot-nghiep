@@ -31,7 +31,7 @@
                 android:id="@+id/textView1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="THIẾT LẬP KẾT NỐI"
+                android:text="@string/settings_connect_title"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="#ffffff" />
         </LinearLayout>
@@ -57,17 +57,16 @@
                         android:id="@+id/textView2"
                         android:layout_width="150dp"
                         android:layout_height="wrap_content"
-                        android:text="Địa chỉ máy chủ"
+                        android:text="@string/settings_connect_serveraddress_label"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:textColor="#ffffff" />
 
                     <EditText
-                        android:id="@+id/editText1"
+                        android:id="@+id/settings_connect_serveraddress"
                         android:layout_width="200dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:ems="10"
-                        android:text="ABC"
                         android:textColor="#ffffff" >
 
                         <requestFocus />
@@ -83,17 +82,16 @@
                         android:id="@+id/TextView02"
                         android:layout_width="150dp"
                         android:layout_height="wrap_content"
-                        android:text="Tài khoản kết nối"
+                        android:text="@string/settings_connect_account_label"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:textColor="#ffffff" />
 
                     <EditText
-                        android:id="@+id/EditText02"
+                        android:id="@+id/settings_connect_account"
                         android:layout_width="200dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:ems="10"
-                        android:text="DEF"
                         android:textColor="#ffffff" />
 
                 </LinearLayout>
@@ -107,18 +105,17 @@
                         android:id="@+id/TextView01"
                         android:layout_width="150dp"
                         android:layout_height="wrap_content"
-                        android:text="Mật khẩu kết nối"
+                        android:text="@string/settings_connect_pass_label"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:textColor="#ffffff" />
 
                     <EditText
-                        android:id="@+id/EditText01"
+                        android:id="@+id/settings_connect_pass"
                         android:layout_width="200dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:ems="10"
                         android:inputType="textPassword"
-                        android:text="ABC"
                         android:textColor="#ffffff" />
 
                 </LinearLayout>
@@ -131,22 +128,22 @@
                     android:gravity="center" >
 
                     <Button
-                        android:id="@+id/Button03"
+                        android:id="@+id/settings_connect_btn_check"
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
-                        android:text="Kiểm tra" />
+                        android:text="@string/btn_check" />
 
                     <Button
-                        android:id="@+id/Button01"
+                        android:id="@+id/settings_connect_btn_store"
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
-                        android:text="Lưu" />
+                        android:text="@string/btn_stoge_label" />
 
                     <Button
-                        android:id="@+id/Button02"
+                        android:id="@+id/settings_connect_btn_cancel"
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
-                        android:text="Hủy" />
+                        android:text="@string/btn_canel" />
                 </LinearLayout>
 
             </LinearLayout>

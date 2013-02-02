@@ -21,7 +21,6 @@
     <string-array name="menu_src1_item_title">
         <item>Đặt món</item>
         <item>Chi tiết món ăn</item>
-        <item>Hóa đơn</item>
         <item>Thanh toán</item>
         <item>Quảng cáo</item>
     </string-array>
@@ -44,19 +43,56 @@
         <item>Kết nối</item>
         <item>Cập nhật</item>
     </string-array>
+    <string-array name="category_name">
+        <item>Khai vị</item>
+        <item>Món chính</item>
+        <item>Nước giải khát</item>
+        <item>Bia</item>
+    </string-array>
 
     <string name="settings_update_title">THIẾT LẬP CẬP NHẬT</string>
     <string name="settings_update_current_version">"Phiên bản hiển tại : "</string>
     <string name="settings_update_auto_title">CẬP NHẬT TỰ ĐỘNG</string>
     <string name="settings_update_manual_title">CẬP NHẬT BẰNG TAY</string>
     <string name="settings_update_newest_version">"Phiên bản mới nhất : "</string>
-    <string name="settings_update_auto_message_ok">"Đã cập nhật thiết lập mới"</string>    
+    <string name="settings_update_auto_message_ok">"Đã cập nhật thiết lập mới"</string>
     <string name="settings_update_auto_message_cancel">"Đã hủy thiết lập mới"</string>
     <string name="settings_update_manual_confim_title">"Xác nhận cập nhật bằng tay"</string>
     <string name="settings_update_manual_confim_message">"Bạn có chắc chắn muốn cập nhật phiên bản này ?"</string>
-    
     <string name="btn_stoge_label">Lưu</string>
     <string name="btn_canel">Hủy</string>
     <string name="btn_update">Cập nhật</string>
+    <string name="message_notfoundata">Chưa có dữ liệu xin vui lòng cập nhật lại dữ liệu</string>
+    <string name="version_update_title">Cập nhật dữ liệu</string>
+    <string name="version_update_message">Kiểm tra phiên bản cập nhật</string>
+    <string name="version_update_message_download">Đang tiến hành cập nhật phiên bản</string>
+    <string name="version_update_message_download_max">Đã cập nhất dữ liệu mới nhất</string>
+    <string name="version_update_message_disconnect">Không thể kết nối đến máy chủ ! \n Xin vui lòng kiểm tra lại mạng hoặc thiết lập lại địa chỉ máy chủ \n HỆ THỐNG CHẠY CHẾ ĐỘ OFFLINE</string>
+    <string name="settings_connect_title">THIẾT LẬP KẾT NỐI</string>
+    <string name="settings_connect_serveraddress_label">Địa chỉ máy chủ</string>
+    <string name="settings_connect_account_label">Tài khoản kết nối</string>
+    <string name="settings_connect_pass_label">Mật khẩu kết nối</string>
+    <string name="settings_connect_storge_mesage">Đã lưu cấu hình mới</string>
+    <string name="btn_check">Kiểm tra</string>
+    <string name="btn_do_action">Thực hiện</string>
+    <string name="settings_btn_connect_label">Kết nối</string>
+    <string name="settings_btn_update_label">Cập nhật</string>
+    <string name="settings_btn_table_label">Thông tin bàn</string>
+    <string name="settings_btn_resetdata_label">Xóa dữ liệu</string>
+    <string name="settings_resetdata_note">Khi sử dụng thiết lập này toàn bộ cơ sở dữ liệu và version của chương tình sẽ xóa bỏ.</string>
+    <string name="settings_resetdata_message_title">Xác nhận xóa dữ liệu</string>
+    <string name="settings_resetdata_message">Bạn có chắc chắn muốn xóa dữ liệu ?</string>
+    <string name="btn_delete">Xóa</string>
+    <string name="settings_resetdata_orderline_title">Chi tiết hóa đơn :</string>
+    <string name="settings_resetdata_order_title">Hóa đơn :</string>
+    <string name="settings_resetdata_title">THIẾT LẬP LẠI DỮ LIỆU</string>
+    <string name="settings_tableinf_title">THIỆT LẬP THÔNG TIN BÀN</string>
+    <string name="settings_tableinf_note">Thiết lập này cần thực hiện chính xác với thông tin của bàn đã được đăng ký trên máy chủ để đảm báo các chức thanh toán và quản lý hóa đơn</string>
+    <string name="settings_tableinf_name_label">Tên bàn :</string>
+    <string name="settings_tableinf_message_title">Xác nhận lưu thiết lập</string>
+    <string name="settings_tableinf_message">Bạn có chắc chắn muốn thiết lập tên của bàn này ?</string>
+    <string name="settings_tableinf_message_stored">Đã lưu lại thiết lập</string>
+    <string name="scr3_left_title">Thanh toán</string>
+    <string name="scr3_left_function">«« Tính tiền »»</string>
 
 </resources>

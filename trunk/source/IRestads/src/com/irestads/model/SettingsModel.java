@@ -4,24 +4,32 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class SettingsModel implements Serializable {
-	int currentVersion, maxVersion;
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1910535642840573764L;
+
+	long currentVersion, maxVersion;
 	Date autoUpdateTime;
 	String serverAddress;
 	String userConnect;
 	String passConnect;
+	String tableName;
 
 	public SettingsModel() {
 		super();
-		this.currentVersion = 0 ;
+		this.currentVersion = 0;
 		this.maxVersion = 0;
 		this.autoUpdateTime = new Date();
-		this.serverAddress = "localhost";
+		this.serverAddress = "127.0.0.1";
 		this.userConnect = "test";
 		this.passConnect = "test";
+		tableName = "";
 	}
 
-	public SettingsModel(int currentVersion, Date autoUpdateTime,
-			String serverAddress, String userConnect, String passConnect, int maxVersion) {
+	public SettingsModel(long currentVersion, Date autoUpdateTime, String serverAddress, String userConnect,
+			String passConnect, long maxVersion, String tableName) {
 		super();
 		this.currentVersion = currentVersion;
 		this.autoUpdateTime = autoUpdateTime;
@@ -29,15 +37,23 @@ public class SettingsModel implements Serializable {
 		this.userConnect = userConnect;
 		this.passConnect = passConnect;
 		this.maxVersion = maxVersion;
+		this.tableName = tableName;
 	}
-	
 
-	public int getCurrentVersion() {
+	public long getCurrentVersion() {
 		return currentVersion;
 	}
 
-	public void setCurrentVersion(int currentVersion) {
+	public void setCurrentVersion(long currentVersion) {
 		this.currentVersion = currentVersion;
+	}
+
+	public long getMaxVersion() {
+		return maxVersion;
+	}
+
+	public void setMaxVersion(long maxVersion) {
+		this.maxVersion = maxVersion;
 	}
 
 	public Date getAutoUpdateTime() {
@@ -67,18 +83,17 @@ public class SettingsModel implements Serializable {
 	public String getPassConnect() {
 		return passConnect;
 	}
-	
-
-	public int getMaxVersion() {
-		return maxVersion;
-	}
-
-	public void setMaxVersion(int maxVersion) {
-		this.maxVersion = maxVersion;
-	}
 
 	public void setPassConnect(String passConnect) {
 		this.passConnect = passConnect;
+	}
+
+	public String getTableName() {
+		return tableName;
+	}
+
+	public void setTableName(String tableName) {
+		this.tableName = tableName;
 	}
 
 }
