@@ -220,6 +220,14 @@ public class DishTableClp extends BaseModelImpl<DishTable> implements DishTable 
 		_numChair = numChair;
 	}
 
+	public void setCurentOrder(irestads.model.Orders curentOrder) {
+		throw new UnsupportedOperationException();
+	}
+
+	public irestads.model.Orders getCurentOrder() {
+		throw new UnsupportedOperationException();
+	}
+
 	public BaseModel<?> getDishTableRemoteModel() {
 		return _dishTableRemoteModel;
 	}

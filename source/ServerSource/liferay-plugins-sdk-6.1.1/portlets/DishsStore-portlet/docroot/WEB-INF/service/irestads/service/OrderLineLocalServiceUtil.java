@@ -269,6 +269,14 @@ public class OrderLineLocalServiceUtil {
 		return getService().invokeMethod(name, parameterTypes, arguments);
 	}
 
+	public static irestads.model.OrderLine createOrderLine(
+		java.lang.Long orderLineId, int numOfDish, int capacity,
+		boolean statusDish, long dishId, long orderId) {
+		return getService()
+				   .createOrderLine(orderLineId, numOfDish, capacity,
+			statusDish, dishId, orderId);
+	}
+
 	public static void clearService() {
 		_service = null;
 	}

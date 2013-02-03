@@ -73,11 +73,12 @@ public class OrderLineModelImpl extends BaseModelImpl<OrderLine>
 			{ "createDate", Types.TIMESTAMP },
 			{ "modifiedDate", Types.TIMESTAMP },
 			{ "numOfDish", Types.INTEGER },
-			{ "statusDish", Types.INTEGER },
+			{ "capacity", Types.INTEGER },
+			{ "statusDish", Types.BOOLEAN },
 			{ "dishId", Types.BIGINT },
 			{ "orderId", Types.BIGINT }
 		};
-	public static final String TABLE_SQL_CREATE = "create table dishsstore_OrderLine (orderLineId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,numOfDish INTEGER,statusDish INTEGER,dishId LONG,orderId LONG)";
+	public static final String TABLE_SQL_CREATE = "create table dishsstore_OrderLine (orderLineId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,numOfDish INTEGER,capacity INTEGER,statusDish BOOLEAN,dishId LONG,orderId LONG)";
 	public static final String TABLE_SQL_DROP = "drop table dishsstore_OrderLine";
 	public static final String ORDER_BY_JPQL = " ORDER BY orderLine.numOfDish ASC";
 	public static final String ORDER_BY_SQL = " ORDER BY dishsstore_OrderLine.numOfDish ASC";
@@ -115,6 +116,7 @@ public class OrderLineModelImpl extends BaseModelImpl<OrderLine>
 		model.setCreateDate(soapModel.getCreateDate());
 		model.setModifiedDate(soapModel.getModifiedDate());
 		model.setNumOfDish(soapModel.getNumOfDish());
+		model.setCapacity(soapModel.getCapacity());
 		model.setStatusDish(soapModel.getStatusDish());
 		model.setDishId(soapModel.getDishId());
 		model.setOrderId(soapModel.getOrderId());
@@ -183,6 +185,7 @@ public class OrderLineModelImpl extends BaseModelImpl<OrderLine>
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
 		attributes.put("numOfDish", getNumOfDish());
+		attributes.put("capacity", getCapacity());
 		attributes.put("statusDish", getStatusDish());
 		attributes.put("dishId", getDishId());
 		attributes.put("orderId", getOrderId());
@@ -234,7 +237,13 @@ public class OrderLineModelImpl extends BaseModelImpl<OrderLine>
 			setNumOfDish(numOfDish);
 		}
 
-		Integer statusDish = (Integer)attributes.get("statusDish");
+		Integer capacity = (Integer)attributes.get("capacity");
+
+		if (capacity != null) {
+			setCapacity(capacity);
+		}
+
+		Boolean statusDish = (Boolean)attributes.get("statusDish");
 
 		if (statusDish != null) {
 			setStatusDish(statusDish);
@@ -332,11 +341,24 @@ public class OrderLineModelImpl extends BaseModelImpl<OrderLine>
 	}
 
 	@JSON
-	public int getStatusDish() {
+	public int getCapacity() {
+		return _capacity;
+	}
+
+	public void setCapacity(int capacity) {
+		_capacity = capacity;
+	}
+
+	@JSON
+	public boolean getStatusDish() {
 		return _statusDish;
 	}
 
-	public void setStatusDish(int statusDish) {
+	public boolean isStatusDish() {
+		return _statusDish;
+	}
+
+	public void setStatusDish(boolean statusDish) {
 		_columnBitmask |= STATUSDISH_COLUMN_BITMASK;
 
 		if (!_setOriginalStatusDish) {
@@ -348,7 +370,7 @@ public class OrderLineModelImpl extends BaseModelImpl<OrderLine>
 		_statusDish = statusDish;
 	}
 
-	public int getOriginalStatusDish() {
+	public boolean getOriginalStatusDish() {
 		return _originalStatusDish;
 	}
 
@@ -409,6 +431,7 @@ public class OrderLineModelImpl extends BaseModelImpl<OrderLine>
 		orderLineImpl.setCreateDate(getCreateDate());
 		orderLineImpl.setModifiedDate(getModifiedDate());
 		orderLineImpl.setNumOfDish(getNumOfDish());
+		orderLineImpl.setCapacity(getCapacity());
 		orderLineImpl.setStatusDish(getStatusDish());
 		orderLineImpl.setDishId(getDishId());
 		orderLineImpl.setOrderId(getOrderId());
@@ -517,6 +540,8 @@ public class OrderLineModelImpl extends BaseModelImpl<OrderLine>
 
 		orderLineCacheModel.numOfDish = getNumOfDish();
 
+		orderLineCacheModel.capacity = getCapacity();
+
 		orderLineCacheModel.statusDish = getStatusDish();
 
 		orderLineCacheModel.dishId = getDishId();
@@ -528,7 +553,7 @@ public class OrderLineModelImpl extends BaseModelImpl<OrderLine>
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(21);
+		StringBundler sb = new StringBundler(23);
 
 		sb.append("{orderLineId=");
 		sb.append(getOrderLineId());
@@ -544,6 +569,8 @@ public class OrderLineModelImpl extends BaseModelImpl<OrderLine>
 		sb.append(getModifiedDate());
 		sb.append(", numOfDish=");
 		sb.append(getNumOfDish());
+		sb.append(", capacity=");
+		sb.append(getCapacity());
 		sb.append(", statusDish=");
 		sb.append(getStatusDish());
 		sb.append(", dishId=");
@@ -556,7 +583,7 @@ public class OrderLineModelImpl extends BaseModelImpl<OrderLine>
 	}
 
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(34);
+		StringBundler sb = new StringBundler(37);
 
 		sb.append("<model><model-name>");
 		sb.append("irestads.model.OrderLine");
@@ -591,6 +618,10 @@ public class OrderLineModelImpl extends BaseModelImpl<OrderLine>
 		sb.append(getNumOfDish());
 		sb.append("]]></column-value></column>");
 		sb.append(
+			"<column><column-name>capacity</column-name><column-value><![CDATA[");
+		sb.append(getCapacity());
+		sb.append("]]></column-value></column>");
+		sb.append(
 			"<column><column-name>statusDish</column-name><column-value><![CDATA[");
 		sb.append(getStatusDish());
 		sb.append("]]></column-value></column>");
@@ -620,8 +651,9 @@ public class OrderLineModelImpl extends BaseModelImpl<OrderLine>
 	private Date _createDate;
 	private Date _modifiedDate;
 	private int _numOfDish;
-	private int _statusDish;
-	private int _originalStatusDish;
+	private int _capacity;
+	private boolean _statusDish;
+	private boolean _originalStatusDish;
 	private boolean _setOriginalStatusDish;
 	private long _dishId;
 	private long _orderId;

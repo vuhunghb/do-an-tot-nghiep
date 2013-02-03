@@ -83,7 +83,8 @@
 					</p:row>
 				</p:columnGroup>
 				<p:column>
-					<h:outputText value="#{ml.dish.dishId}" />
+				<!-- <h:outputText value="#{ml.dish.dishId}" /> -->	
+				<p:graphicImage value="#{menuBeans.img}" style="width: 60px; height: 60px"></p:graphicImage>
 				</p:column>
 				<p:column>
 					<h:outputText value="#{ml.dish.dishName}" />
@@ -128,7 +129,7 @@
 				</p:column>
 			</p:dataTable>
 			<p:dialog header="Thông tin chi tiết" widgetVar="dishDialog"
-				resizable="false" width="200" showEffect="clip" hideEffect="fold"
+				resizable="false" width="300" showEffect="clip" hideEffect="fold"
 				id="viewDialog">
 
 				<h:panelGrid id="display" columns="2" cellpadding="4">
@@ -152,8 +153,9 @@
 					<h:outputText style="font-weight:bold"
 						value="#{menuBeans.menuLineSelected.dish.decription}" />
 					<h:outputText value="Ảnh đại diện:" />
-					<h:outputText style="font-weight:bold"
-						value="#{menuBeans.menuLineSelected.dish.avatarImg}" />
+			<!-- 		<h:outputText style="font-weight:bold"
+						value="#{menuBeans.menuLineSelected.dish.avatarImg}" /> -->
+				   <p:graphicImage value="#{menuBeans.img}" style="width: 60px; height: 60px"></p:graphicImage>		
 					<h:outputText value="Mô tả:" />
 					<h:outputText style="font-weight:bold"
 						value="#{menuBeans.menuLineSelected.dish.detailImg}" />

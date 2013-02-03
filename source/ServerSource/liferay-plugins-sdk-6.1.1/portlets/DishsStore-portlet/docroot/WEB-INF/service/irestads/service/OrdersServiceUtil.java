@@ -67,6 +67,13 @@ public class OrdersServiceUtil {
 		return getService().findCurrentOrder(isPayMent, dishTableId);
 	}
 
+	public static irestads.model.Orders createOrders(long orderId, int charge,
+		boolean isPayment, int numOfDinner, java.lang.String dishTableId) {
+		return getService()
+				   .createOrders(orderId, charge, isPayment, numOfDinner,
+			dishTableId);
+	}
+
 	public static void clearService() {
 		_service = null;
 	}

@@ -14,7 +14,16 @@
 
 package irestads.service.impl;
 
+import com.liferay.counter.service.CounterLocalServiceUtil;
+import com.liferay.portal.kernel.exception.SystemException;
+
+import irestads.model.Dish;
+import irestads.model.OrderLine;
+import irestads.model.Orders;
 import irestads.service.base.OrderLineLocalServiceBaseImpl;
+import irestads.service.persistence.DishUtil;
+import irestads.service.persistence.OrderLineUtil;
+import irestads.service.persistence.OrdersUtil;
 
 /**
  * The implementation of the order line local service.
@@ -36,5 +45,27 @@ public class OrderLineLocalServiceImpl extends OrderLineLocalServiceBaseImpl {
 	 *
 	 * Never reference this interface directly. Always use {@link irestads.service.OrderLineLocalServiceUtil} to access the order line local service.
 	 */
-	
+	public OrderLine createOrderLine(Long orderLineId, int numOfDish,int capacity, boolean statusDish, long dishId, long orderId) {
+		try {
+			OrderLine orderLineModel=OrderLineUtil.create(0);
+			orderLineModel.setNumOfDish(numOfDish);
+			orderLineModel.setStatusDish(statusDish);
+			orderLineModel.setDishId(dishId);
+			orderLineModel.setOrderId(orderId);
+			orderLineModel.setCapacity(capacity);
+			//orderModel.set
+
+			// System.out.println("categoryId--------------------------------"+categoryId);
+			orderLineModel = OrderLineUtil.update(orderLineModel, true);
+
+			return orderLineModel;
+		} catch (SystemException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+		
+		
+	}
+		
 }

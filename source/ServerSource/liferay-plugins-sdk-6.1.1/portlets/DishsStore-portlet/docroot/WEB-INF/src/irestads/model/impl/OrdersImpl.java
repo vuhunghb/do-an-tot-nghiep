@@ -29,6 +29,8 @@ public class OrdersImpl extends OrdersBaseImpl {
 	 *
 	 * Never reference this class directly. All methods that expect a orders model instance should use the {@link irestads.model.Orders} interface instead.
 	 */
+	
 	public OrdersImpl() {
+		
 	}
 }

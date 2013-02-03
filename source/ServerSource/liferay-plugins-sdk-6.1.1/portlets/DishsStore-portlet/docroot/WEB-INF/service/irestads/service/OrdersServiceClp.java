@@ -34,6 +34,12 @@ public class OrdersServiceClp implements OrdersService {
 		_methodName3 = "findCurrentOrder";
 
 		_methodParameterTypes3 = new String[] { "boolean", "java.lang.String" };
+
+		_methodName4 = "createOrders";
+
+		_methodParameterTypes4 = new String[] {
+				"long", "int", "boolean", "int", "java.lang.String"
+			};
 	}
 
 	public java.lang.String getBeanIdentifier() {
@@ -111,6 +117,40 @@ public class OrdersServiceClp implements OrdersService {
 		return (irestads.model.Orders)ClpSerializer.translateOutput(returnObj);
 	}
 
+	public irestads.model.Orders createOrders(long orderId, int charge,
+		boolean isPayment, int numOfDinner, java.lang.String dishTableId) {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableService.invokeMethod(_methodName4,
+					_methodParameterTypes4,
+					new Object[] {
+						orderId,
+						
+					charge,
+						
+					isPayment,
+						
+					numOfDinner,
+						
+					ClpSerializer.translateInput(dishTableId)
+					});
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (irestads.model.Orders)ClpSerializer.translateOutput(returnObj);
+	}
+
 	private InvokableService _invokableService;
 	private String _methodName0;
 	private String[] _methodParameterTypes0;
@@ -118,4 +158,6 @@ public class OrdersServiceClp implements OrdersService {
 	private String[] _methodParameterTypes1;
 	private String _methodName3;
 	private String[] _methodParameterTypes3;
+	private String _methodName4;
+	private String[] _methodParameterTypes4;
 }

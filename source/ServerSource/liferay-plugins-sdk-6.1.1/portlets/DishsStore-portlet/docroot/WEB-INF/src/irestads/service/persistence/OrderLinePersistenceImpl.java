@@ -84,7 +84,7 @@ public class OrderLinePersistenceImpl extends BasePersistenceImpl<OrderLine>
 			OrderLineModelImpl.FINDER_CACHE_ENABLED, OrderLineImpl.class,
 			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByStatusDish",
 			new String[] {
-				Integer.class.getName(),
+				Boolean.class.getName(),
 				
 			"java.lang.Integer", "java.lang.Integer",
 				"com.liferay.portal.kernel.util.OrderByComparator"
@@ -93,12 +93,12 @@ public class OrderLinePersistenceImpl extends BasePersistenceImpl<OrderLine>
 		new FinderPath(OrderLineModelImpl.ENTITY_CACHE_ENABLED,
 			OrderLineModelImpl.FINDER_CACHE_ENABLED, OrderLineImpl.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByStatusDish",
-			new String[] { Integer.class.getName() },
+			new String[] { Boolean.class.getName() },
 			OrderLineModelImpl.STATUSDISH_COLUMN_BITMASK);
 	public static final FinderPath FINDER_PATH_COUNT_BY_STATUSDISH = new FinderPath(OrderLineModelImpl.ENTITY_CACHE_ENABLED,
 			OrderLineModelImpl.FINDER_CACHE_ENABLED, Long.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByStatusDish",
-			new String[] { Integer.class.getName() });
+			new String[] { Boolean.class.getName() });
 	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_ALL = new FinderPath(OrderLineModelImpl.ENTITY_CACHE_ENABLED,
 			OrderLineModelImpl.FINDER_CACHE_ENABLED, OrderLineImpl.class,
 			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findAll", new String[0]);
@@ -314,7 +314,7 @@ public class OrderLinePersistenceImpl extends BasePersistenceImpl<OrderLine>
 			if ((orderLineModelImpl.getColumnBitmask() &
 					FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_STATUSDISH.getColumnBitmask()) != 0) {
 				Object[] args = new Object[] {
-						Integer.valueOf(orderLineModelImpl.getOriginalStatusDish())
+						Boolean.valueOf(orderLineModelImpl.getOriginalStatusDish())
 					};
 
 				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_STATUSDISH,
@@ -323,7 +323,7 @@ public class OrderLinePersistenceImpl extends BasePersistenceImpl<OrderLine>
 					args);
 
 				args = new Object[] {
-						Integer.valueOf(orderLineModelImpl.getStatusDish())
+						Boolean.valueOf(orderLineModelImpl.getStatusDish())
 					};
 
 				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_STATUSDISH,
@@ -356,7 +356,8 @@ public class OrderLinePersistenceImpl extends BasePersistenceImpl<OrderLine>
 		orderLineImpl.setCreateDate(orderLine.getCreateDate());
 		orderLineImpl.setModifiedDate(orderLine.getModifiedDate());
 		orderLineImpl.setNumOfDish(orderLine.getNumOfDish());
-		orderLineImpl.setStatusDish(orderLine.getStatusDish());
+		orderLineImpl.setCapacity(orderLine.getCapacity());
+		orderLineImpl.setStatusDish(orderLine.isStatusDish());
 		orderLineImpl.setDishId(orderLine.getDishId());
 		orderLineImpl.setOrderId(orderLine.getOrderId());
 
@@ -469,7 +470,7 @@ public class OrderLinePersistenceImpl extends BasePersistenceImpl<OrderLine>
 	 * @return the matching order lines
 	 * @throws SystemException if a system exception occurred
 	 */
-	public List<OrderLine> findByStatusDish(int statusDish)
+	public List<OrderLine> findByStatusDish(boolean statusDish)
 		throws SystemException {
 		return findByStatusDish(statusDish, QueryUtil.ALL_POS,
 			QueryUtil.ALL_POS, null);
@@ -488,8 +489,8 @@ public class OrderLinePersistenceImpl extends BasePersistenceImpl<OrderLine>
 	 * @return the range of matching order lines
 	 * @throws SystemException if a system exception occurred
 	 */
-	public List<OrderLine> findByStatusDish(int statusDish, int start, int end)
-		throws SystemException {
+	public List<OrderLine> findByStatusDish(boolean statusDish, int start,
+		int end) throws SystemException {
 		return findByStatusDish(statusDish, start, end, null);
 	}
 
@@ -507,8 +508,8 @@ public class OrderLinePersistenceImpl extends BasePersistenceImpl<OrderLine>
 	 * @return the ordered range of matching order lines
 	 * @throws SystemException if a system exception occurred
 	 */
-	public List<OrderLine> findByStatusDish(int statusDish, int start, int end,
-		OrderByComparator orderByComparator) throws SystemException {
+	public List<OrderLine> findByStatusDish(boolean statusDish, int start,
+		int end, OrderByComparator orderByComparator) throws SystemException {
 		FinderPath finderPath = null;
 		Object[] finderArgs = null;
 
@@ -604,7 +605,7 @@ public class OrderLinePersistenceImpl extends BasePersistenceImpl<OrderLine>
 	 * @throws irestads.NoSuchOrderLineException if a matching order line could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
-	public OrderLine findByStatusDish_First(int statusDish,
+	public OrderLine findByStatusDish_First(boolean statusDish,
 		OrderByComparator orderByComparator)
 		throws NoSuchOrderLineException, SystemException {
 		OrderLine orderLine = fetchByStatusDish_First(statusDish,
@@ -634,7 +635,7 @@ public class OrderLinePersistenceImpl extends BasePersistenceImpl<OrderLine>
 	 * @return the first matching order line, or <code>null</code> if a matching order line could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
-	public OrderLine fetchByStatusDish_First(int statusDish,
+	public OrderLine fetchByStatusDish_First(boolean statusDish,
 		OrderByComparator orderByComparator) throws SystemException {
 		List<OrderLine> list = findByStatusDish(statusDish, 0, 1,
 				orderByComparator);
@@ -655,7 +656,7 @@ public class OrderLinePersistenceImpl extends BasePersistenceImpl<OrderLine>
 	 * @throws irestads.NoSuchOrderLineException if a matching order line could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
-	public OrderLine findByStatusDish_Last(int statusDish,
+	public OrderLine findByStatusDish_Last(boolean statusDish,
 		OrderByComparator orderByComparator)
 		throws NoSuchOrderLineException, SystemException {
 		OrderLine orderLine = fetchByStatusDish_Last(statusDish,
@@ -685,7 +686,7 @@ public class OrderLinePersistenceImpl extends BasePersistenceImpl<OrderLine>
 	 * @return the last matching order line, or <code>null</code> if a matching order line could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
-	public OrderLine fetchByStatusDish_Last(int statusDish,
+	public OrderLine fetchByStatusDish_Last(boolean statusDish,
 		OrderByComparator orderByComparator) throws SystemException {
 		int count = countByStatusDish(statusDish);
 
@@ -710,7 +711,7 @@ public class OrderLinePersistenceImpl extends BasePersistenceImpl<OrderLine>
 	 * @throws SystemException if a system exception occurred
 	 */
 	public OrderLine[] findByStatusDish_PrevAndNext(long orderLineId,
-		int statusDish, OrderByComparator orderByComparator)
+		boolean statusDish, OrderByComparator orderByComparator)
 		throws NoSuchOrderLineException, SystemException {
 		OrderLine orderLine = findByPrimaryKey(orderLineId);
 
@@ -740,7 +741,7 @@ public class OrderLinePersistenceImpl extends BasePersistenceImpl<OrderLine>
 	}
 
 	protected OrderLine getByStatusDish_PrevAndNext(Session session,
-		OrderLine orderLine, int statusDish,
+		OrderLine orderLine, boolean statusDish,
 		OrderByComparator orderByComparator, boolean previous) {
 		StringBundler query = null;
 
@@ -966,7 +967,8 @@ public class OrderLinePersistenceImpl extends BasePersistenceImpl<OrderLine>
 	 * @param statusDish the status dish
 	 * @throws SystemException if a system exception occurred
 	 */
-	public void removeByStatusDish(int statusDish) throws SystemException {
+	public void removeByStatusDish(boolean statusDish)
+		throws SystemException {
 		for (OrderLine orderLine : findByStatusDish(statusDish)) {
 			remove(orderLine);
 		}
@@ -990,7 +992,7 @@ public class OrderLinePersistenceImpl extends BasePersistenceImpl<OrderLine>
 	 * @return the number of matching order lines
 	 * @throws SystemException if a system exception occurred
 	 */
-	public int countByStatusDish(int statusDish) throws SystemException {
+	public int countByStatusDish(boolean statusDish) throws SystemException {
 		Object[] finderArgs = new Object[] { statusDish };
 
 		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_BY_STATUSDISH,

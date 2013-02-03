@@ -105,6 +105,12 @@ public class OrderLineLocalServiceClp implements OrderLineLocalService {
 		_methodName17 = "setBeanIdentifier";
 
 		_methodParameterTypes17 = new String[] { "java.lang.String" };
+
+		_methodName19 = "createOrderLine";
+
+		_methodParameterTypes19 = new String[] {
+				"java.lang.Long", "int", "int", "boolean", "long", "long"
+			};
 	}
 
 	public irestads.model.OrderLine addOrderLine(
@@ -628,6 +634,43 @@ public class OrderLineLocalServiceClp implements OrderLineLocalService {
 		throw new UnsupportedOperationException();
 	}
 
+	public irestads.model.OrderLine createOrderLine(
+		java.lang.Long orderLineId, int numOfDish, int capacity,
+		boolean statusDish, long dishId, long orderId) {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName19,
+					_methodParameterTypes19,
+					new Object[] {
+						ClpSerializer.translateInput(orderLineId),
+						
+					numOfDish,
+						
+					capacity,
+						
+					statusDish,
+						
+					dishId,
+						
+					orderId
+					});
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (irestads.model.OrderLine)ClpSerializer.translateOutput(returnObj);
+	}
+
 	private InvokableLocalService _invokableLocalService;
 	private String _methodName0;
 	private String[] _methodParameterTypes0;
@@ -665,4 +708,6 @@ public class OrderLineLocalServiceClp implements OrderLineLocalService {
 	private String[] _methodParameterTypes16;
 	private String _methodName17;
 	private String[] _methodParameterTypes17;
+	private String _methodName19;
+	private String[] _methodParameterTypes19;
 }

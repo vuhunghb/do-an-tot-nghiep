@@ -14,6 +14,13 @@
 
 package irestads.service.http;
 
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+
+import irestads.service.OrderLineServiceUtil;
+
+import java.rmi.RemoteException;
+
 /**
  * <p>
  * This class provides a SOAP utility for the
@@ -58,4 +65,22 @@ package irestads.service.http;
  * @generated
  */
 public class OrderLineServiceSoap {
+	public static irestads.model.OrderLineSoap createOrderLine(
+		java.lang.Long orderLineId, int numOfDish, int capacity,
+		boolean statusDish, long dishId, long orderId)
+		throws RemoteException {
+		try {
+			irestads.model.OrderLine returnValue = OrderLineServiceUtil.createOrderLine(orderLineId,
+					numOfDish, capacity, statusDish, dishId, orderId);
+
+			return irestads.model.OrderLineSoap.toSoapModel(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	private static Log _log = LogFactoryUtil.getLog(OrderLineServiceSoap.class);
 }

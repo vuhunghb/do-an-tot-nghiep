@@ -60,6 +60,12 @@ public class OrdersServiceWrapper implements OrdersService,
 		return _ordersService.findCurrentOrder(isPayMent, dishTableId);
 	}
 
+	public irestads.model.Orders createOrders(long orderId, int charge,
+		boolean isPayment, int numOfDinner, java.lang.String dishTableId) {
+		return _ordersService.createOrders(orderId, charge, isPayment,
+			numOfDinner, dishTableId);
+	}
+
 	/**
 	 * @deprecated Renamed to {@link #getWrappedService}
 	 */

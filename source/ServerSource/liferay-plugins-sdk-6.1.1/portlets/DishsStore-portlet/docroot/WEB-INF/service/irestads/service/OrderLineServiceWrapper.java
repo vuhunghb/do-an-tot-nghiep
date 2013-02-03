@@ -55,6 +55,13 @@ public class OrderLineServiceWrapper implements OrderLineService,
 		return _orderLineService.invokeMethod(name, parameterTypes, arguments);
 	}
 
+	public irestads.model.OrderLine createOrderLine(
+		java.lang.Long orderLineId, int numOfDish, int capacity,
+		boolean statusDish, long dishId, long orderId) {
+		return _orderLineService.createOrderLine(orderLineId, numOfDish,
+			capacity, statusDish, dishId, orderId);
+	}
+
 	/**
 	 * @deprecated Renamed to {@link #getWrappedService}
 	 */

@@ -63,9 +63,17 @@ Liferay.Service.registerClass(
 );
 
 Liferay.Service.registerClass(
+	Liferay.Service.dishsstore, "OrderLine",
+	{
+		createOrderLine: true
+	}
+);
+
+Liferay.Service.registerClass(
 	Liferay.Service.dishsstore, "Orders",
 	{
-		findCurrentOrder: true
+		findCurrentOrder: true,
+		createOrders: true
 	}
 );
 

@@ -73,6 +73,7 @@ public class OrderLineClp extends BaseModelImpl<OrderLine> implements OrderLine 
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
 		attributes.put("numOfDish", getNumOfDish());
+		attributes.put("capacity", getCapacity());
 		attributes.put("statusDish", getStatusDish());
 		attributes.put("dishId", getDishId());
 		attributes.put("orderId", getOrderId());
@@ -124,7 +125,13 @@ public class OrderLineClp extends BaseModelImpl<OrderLine> implements OrderLine 
 			setNumOfDish(numOfDish);
 		}
 
-		Integer statusDish = (Integer)attributes.get("statusDish");
+		Integer capacity = (Integer)attributes.get("capacity");
+
+		if (capacity != null) {
+			setCapacity(capacity);
+		}
+
+		Boolean statusDish = (Boolean)attributes.get("statusDish");
 
 		if (statusDish != null) {
 			setStatusDish(statusDish);
@@ -207,11 +214,23 @@ public class OrderLineClp extends BaseModelImpl<OrderLine> implements OrderLine 
 		_numOfDish = numOfDish;
 	}
 
-	public int getStatusDish() {
+	public int getCapacity() {
+		return _capacity;
+	}
+
+	public void setCapacity(int capacity) {
+		_capacity = capacity;
+	}
+
+	public boolean getStatusDish() {
 		return _statusDish;
 	}
 
-	public void setStatusDish(int statusDish) {
+	public boolean isStatusDish() {
+		return _statusDish;
+	}
+
+	public void setStatusDish(boolean statusDish) {
 		_statusDish = statusDish;
 	}
 
@@ -265,6 +284,7 @@ public class OrderLineClp extends BaseModelImpl<OrderLine> implements OrderLine 
 		clone.setCreateDate(getCreateDate());
 		clone.setModifiedDate(getModifiedDate());
 		clone.setNumOfDish(getNumOfDish());
+		clone.setCapacity(getCapacity());
 		clone.setStatusDish(getStatusDish());
 		clone.setDishId(getDishId());
 		clone.setOrderId(getOrderId());
@@ -324,7 +344,7 @@ public class OrderLineClp extends BaseModelImpl<OrderLine> implements OrderLine 
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(21);
+		StringBundler sb = new StringBundler(23);
 
 		sb.append("{orderLineId=");
 		sb.append(getOrderLineId());
@@ -340,6 +360,8 @@ public class OrderLineClp extends BaseModelImpl<OrderLine> implements OrderLine 
 		sb.append(getModifiedDate());
 		sb.append(", numOfDish=");
 		sb.append(getNumOfDish());
+		sb.append(", capacity=");
+		sb.append(getCapacity());
 		sb.append(", statusDish=");
 		sb.append(getStatusDish());
 		sb.append(", dishId=");
@@ -352,7 +374,7 @@ public class OrderLineClp extends BaseModelImpl<OrderLine> implements OrderLine 
 	}
 
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(34);
+		StringBundler sb = new StringBundler(37);
 
 		sb.append("<model><model-name>");
 		sb.append("irestads.model.OrderLine");
@@ -387,6 +409,10 @@ public class OrderLineClp extends BaseModelImpl<OrderLine> implements OrderLine 
 		sb.append(getNumOfDish());
 		sb.append("]]></column-value></column>");
 		sb.append(
+			"<column><column-name>capacity</column-name><column-value><![CDATA[");
+		sb.append(getCapacity());
+		sb.append("]]></column-value></column>");
+		sb.append(
 			"<column><column-name>statusDish</column-name><column-value><![CDATA[");
 		sb.append(getStatusDish());
 		sb.append("]]></column-value></column>");
@@ -412,7 +438,8 @@ public class OrderLineClp extends BaseModelImpl<OrderLine> implements OrderLine 
 	private Date _createDate;
 	private Date _modifiedDate;
 	private int _numOfDish;
-	private int _statusDish;
+	private int _capacity;
+	private boolean _statusDish;
 	private long _dishId;
 	private long _orderId;
 	private BaseModel<?> _orderLineRemoteModel;

@@ -396,6 +396,14 @@ public class DishTableWrapper implements DishTable, ModelWrapper<DishTable> {
 		_dishTable.persist();
 	}
 
+	public irestads.model.Orders getCurentOrder() {
+		return _dishTable.getCurentOrder();
+	}
+
+	public void setCurentOrder(irestads.model.Orders curentOrder) {
+		_dishTable.setCurentOrder(curentOrder);
+	}
+
 	/**
 	 * @deprecated Renamed to {@link #getWrappedModel}
 	 */

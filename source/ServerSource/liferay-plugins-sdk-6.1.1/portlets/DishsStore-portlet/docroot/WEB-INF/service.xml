@@ -166,7 +166,8 @@
 		<column name="modifiedDate" type="Date" />
 		<!-- Other fields -->
 		<column name="numOfDish" type="int" />
-		<column name="statusDish" type="int" />
+		<column name="capacity" type="int" />
+		<column name="statusDish" type="boolean" />
 		<column name="dishId" type="long" />
 		<column name="orderId" type="long" />
 		<!-- Order -->

@@ -263,6 +263,13 @@ public class OrderLineLocalServiceWrapper implements OrderLineLocalService,
 			arguments);
 	}
 
+	public irestads.model.OrderLine createOrderLine(
+		java.lang.Long orderLineId, int numOfDish, int capacity,
+		boolean statusDish, long dishId, long orderId) {
+		return _orderLineLocalService.createOrderLine(orderLineId, numOfDish,
+			capacity, statusDish, dishId, orderId);
+	}
+
 	/**
 	 * @deprecated Renamed to {@link #getWrappedService}
 	 */

@@ -14,6 +14,10 @@
 
 package irestads.model.impl;
 
+import irestads.model.Orders;
+
+import com.liferay.portal.kernel.dao.orm.Order;
+
 /**
  * The extended model implementation for the DishTable service. Represents a row in the &quot;dishsstore_DishTable&quot; database table, with each column mapped to a property of this class.
  *
@@ -29,6 +33,15 @@ public class DishTableImpl extends DishTableBaseImpl {
 	 *
 	 * Never reference this class directly. All methods that expect a dish table model instance should use the {@link irestads.model.DishTable} interface instead.
 	 */
+	Orders curentOrder;
 	public DishTableImpl() {
 	}
+	public Orders getCurentOrder() {
+		return curentOrder;
+	}
+	public void setCurentOrder(Orders curentOrder) {
+		this.curentOrder = curentOrder;
+	}
+	
+	
 }

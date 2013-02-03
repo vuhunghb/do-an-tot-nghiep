@@ -9,4 +9,5 @@ public class UploadUtils {
 		byte [] byteContent =event.getFile().getContents();
        return Base64.encodeBytes(byteContent);
 	}
+	
 }

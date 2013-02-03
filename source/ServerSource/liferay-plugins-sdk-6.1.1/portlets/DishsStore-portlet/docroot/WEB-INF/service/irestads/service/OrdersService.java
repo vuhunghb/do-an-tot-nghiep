@@ -65,4 +65,7 @@ public interface OrdersService extends BaseService, InvokableService {
 
 	public irestads.model.Orders findCurrentOrder(boolean isPayMent,
 		java.lang.String dishTableId);
+
+	public irestads.model.Orders createOrders(long orderId, int charge,
+		boolean isPayment, int numOfDinner, java.lang.String dishTableId);
 }
