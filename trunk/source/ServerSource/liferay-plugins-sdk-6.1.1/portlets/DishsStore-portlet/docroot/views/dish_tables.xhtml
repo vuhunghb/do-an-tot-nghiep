@@ -15,7 +15,8 @@
 				rowsPerPageTemplate="9,12,15">
 
 				<p:column>
-					<p:panel header="#{dishTable.dishTableId}" style="text-align:center">
+					<p:panel header="#{dishTable.dishTableId}"
+						style="text-align:center">
 						<h:panelGrid columns="1" style="width:100%">
 							<p:graphicImage value="/img/1.jpg" />
 
@@ -38,19 +39,27 @@
 					layout="block">
 
 					<!--   <p:graphicImage value="/images/cars/#{tableBean.selectedCar.manufacturer}.jpg"/>  -->
-				
 
+					
 					<h:panelGrid columns="2" cellpadding="5">
-					<h:outputLabel for="tableId" value="Mã bàn: " />
+						<h:outputLabel for="tableId" value="Mã bàn: " />
 						<h:outputText id="tableId"
 							value="#{orderBeans.dishTableSelected.dishTableId}" />
 						<h:outputLabel for="status" value="Trạng thái: " />
 						<h:outputText id="status"
 							value="#{orderBeans.dishTableSelected.isAvalable}" />
-						
-
-
 					</h:panelGrid>
+					<p:separator id="customSeparator" style="width:100%;height:2px" />  
+						<h:panelGrid columns="2" cellpadding="5" rendered="#{orderBeans.dishTableSelected.isAvalable}">
+						<h:outputLabel for="numOfDiner" value="Số lượng thực khách: " />
+						<h:outputText id="numOfDiner"
+							value="#{orderBeans.dishTableSelected.curentOrder.numOfDinner}" />
+						<h:outputLabel for="charge" value="Tổng tiền " />
+						<h:outputText id="charge"
+							value="#{orderBeans.dishTableSelected.curentOrder.charge}" />
+					</h:panelGrid>
+					<h:outputLabel value="Bàn chưa có thực khách "  rendered="#{not orderBeans.dishTableSelected.isAvalable}"/>
+						
 				</p:outputPanel>
 			</p:dialog>
 		</h:form>

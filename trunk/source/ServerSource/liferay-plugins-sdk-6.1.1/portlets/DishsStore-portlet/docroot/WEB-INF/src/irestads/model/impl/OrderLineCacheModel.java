@@ -34,7 +34,7 @@ import java.util.Date;
 public class OrderLineCacheModel implements CacheModel<OrderLine>, Serializable {
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(21);
+		StringBundler sb = new StringBundler(23);
 
 		sb.append("{orderLineId=");
 		sb.append(orderLineId);
@@ -50,6 +50,8 @@ public class OrderLineCacheModel implements CacheModel<OrderLine>, Serializable 
 		sb.append(modifiedDate);
 		sb.append(", numOfDish=");
 		sb.append(numOfDish);
+		sb.append(", capacity=");
+		sb.append(capacity);
 		sb.append(", statusDish=");
 		sb.append(statusDish);
 		sb.append(", dishId=");
@@ -90,6 +92,7 @@ public class OrderLineCacheModel implements CacheModel<OrderLine>, Serializable 
 		}
 
 		orderLineImpl.setNumOfDish(numOfDish);
+		orderLineImpl.setCapacity(capacity);
 		orderLineImpl.setStatusDish(statusDish);
 		orderLineImpl.setDishId(dishId);
 		orderLineImpl.setOrderId(orderId);
@@ -106,7 +109,8 @@ public class OrderLineCacheModel implements CacheModel<OrderLine>, Serializable 
 	public long createDate;
 	public long modifiedDate;
 	public int numOfDish;
-	public int statusDish;
+	public int capacity;
+	public boolean statusDish;
 	public long dishId;
 	public long orderId;
 }

@@ -176,18 +176,39 @@ public interface OrderLineModel extends AuditedModel, BaseModel<OrderLine> {
 	public void setNumOfDish(int numOfDish);
 
 	/**
+	 * Returns the capacity of this order line.
+	 *
+	 * @return the capacity of this order line
+	 */
+	public int getCapacity();
+
+	/**
+	 * Sets the capacity of this order line.
+	 *
+	 * @param capacity the capacity of this order line
+	 */
+	public void setCapacity(int capacity);
+
+	/**
 	 * Returns the status dish of this order line.
 	 *
 	 * @return the status dish of this order line
 	 */
-	public int getStatusDish();
+	public boolean getStatusDish();
 
 	/**
-	 * Sets the status dish of this order line.
+	 * Returns <code>true</code> if this order line is status dish.
+	 *
+	 * @return <code>true</code> if this order line is status dish; <code>false</code> otherwise
+	 */
+	public boolean isStatusDish();
+
+	/**
+	 * Sets whether this order line is status dish.
 	 *
 	 * @param statusDish the status dish of this order line
 	 */
-	public void setStatusDish(int statusDish);
+	public void setStatusDish(boolean statusDish);
 
 	/**
 	 * Returns the dish ID of this order line.

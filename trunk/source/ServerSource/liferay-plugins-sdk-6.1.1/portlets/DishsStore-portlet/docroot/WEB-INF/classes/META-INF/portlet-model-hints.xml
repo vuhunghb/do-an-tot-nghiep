@@ -69,7 +69,8 @@
 		<field name="createDate" type="Date" />
 		<field name="modifiedDate" type="Date" />
 		<field name="numOfDish" type="int" />
-		<field name="statusDish" type="int" />
+		<field name="capacity" type="int" />
+		<field name="statusDish" type="boolean" />
 		<field name="dishId" type="long" />
 		<field name="orderId" type="long" />
 	</model>

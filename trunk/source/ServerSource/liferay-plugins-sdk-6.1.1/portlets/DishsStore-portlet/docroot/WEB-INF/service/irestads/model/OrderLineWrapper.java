@@ -52,6 +52,7 @@ public class OrderLineWrapper implements OrderLine, ModelWrapper<OrderLine> {
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
 		attributes.put("numOfDish", getNumOfDish());
+		attributes.put("capacity", getCapacity());
 		attributes.put("statusDish", getStatusDish());
 		attributes.put("dishId", getDishId());
 		attributes.put("orderId", getOrderId());
@@ -102,7 +103,13 @@ public class OrderLineWrapper implements OrderLine, ModelWrapper<OrderLine> {
 			setNumOfDish(numOfDish);
 		}
 
-		Integer statusDish = (Integer)attributes.get("statusDish");
+		Integer capacity = (Integer)attributes.get("capacity");
+
+		if (capacity != null) {
+			setCapacity(capacity);
+		}
+
+		Boolean statusDish = (Boolean)attributes.get("statusDish");
 
 		if (statusDish != null) {
 			setStatusDish(statusDish);
@@ -286,20 +293,47 @@ public class OrderLineWrapper implements OrderLine, ModelWrapper<OrderLine> {
 	}
 
 	/**
+	* Returns the capacity of this order line.
+	*
+	* @return the capacity of this order line
+	*/
+	public int getCapacity() {
+		return _orderLine.getCapacity();
+	}
+
+	/**
+	* Sets the capacity of this order line.
+	*
+	* @param capacity the capacity of this order line
+	*/
+	public void setCapacity(int capacity) {
+		_orderLine.setCapacity(capacity);
+	}
+
+	/**
 	* Returns the status dish of this order line.
 	*
 	* @return the status dish of this order line
 	*/
-	public int getStatusDish() {
+	public boolean getStatusDish() {
 		return _orderLine.getStatusDish();
 	}
 
 	/**
-	* Sets the status dish of this order line.
+	* Returns <code>true</code> if this order line is status dish.
+	*
+	* @return <code>true</code> if this order line is status dish; <code>false</code> otherwise
+	*/
+	public boolean isStatusDish() {
+		return _orderLine.isStatusDish();
+	}
+
+	/**
+	* Sets whether this order line is status dish.
 	*
 	* @param statusDish the status dish of this order line
 	*/
-	public void setStatusDish(int statusDish) {
+	public void setStatusDish(boolean statusDish) {
 		_orderLine.setStatusDish(statusDish);
 	}
 

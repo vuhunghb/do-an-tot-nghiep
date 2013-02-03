@@ -31,4 +31,7 @@ public interface DishTable extends DishTableModel, PersistedModel {
 	 *
 	 * Never modify this interface directly. Add methods to {@link irestads.model.impl.DishTableImpl} and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
+	public irestads.model.Orders getCurentOrder();
+
+	public void setCurentOrder(irestads.model.Orders curentOrder);
 }

@@ -105,6 +105,12 @@ public class OrderLineLocalServiceClpInvoker {
 		_methodName89 = "setBeanIdentifier";
 
 		_methodParameterTypes89 = new String[] { "java.lang.String" };
+
+		_methodName94 = "createOrderLine";
+
+		_methodParameterTypes94 = new String[] {
+				"java.lang.Long", "int", "int", "boolean", "long", "long"
+			};
 	}
 
 	public Object invokeMethod(String name, String[] parameterTypes,
@@ -206,6 +212,16 @@ public class OrderLineLocalServiceClpInvoker {
 			OrderLineLocalServiceUtil.setBeanIdentifier((java.lang.String)arguments[0]);
 		}
 
+		if (_methodName94.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes94, parameterTypes)) {
+			return OrderLineLocalServiceUtil.createOrderLine((java.lang.Long)arguments[0],
+				((Integer)arguments[1]).intValue(),
+				((Integer)arguments[2]).intValue(),
+				((Boolean)arguments[3]).booleanValue(),
+				((Long)arguments[4]).longValue(),
+				((Long)arguments[5]).longValue());
+		}
+
 		throw new UnsupportedOperationException();
 	}
 
@@ -245,4 +261,6 @@ public class OrderLineLocalServiceClpInvoker {
 	private String[] _methodParameterTypes88;
 	private String _methodName89;
 	private String[] _methodParameterTypes89;
+	private String _methodName94;
+	private String[] _methodParameterTypes94;
 }

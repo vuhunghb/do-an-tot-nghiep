@@ -69,7 +69,8 @@ create table dishsstore_OrderLine (
 	createDate DATE null,
 	modifiedDate DATE null,
 	numOfDish INTEGER,
-	statusDish INTEGER,
+	capacity INTEGER,
+	statusDish BOOLEAN,
 	dishId LONG,
 	orderId LONG
 );

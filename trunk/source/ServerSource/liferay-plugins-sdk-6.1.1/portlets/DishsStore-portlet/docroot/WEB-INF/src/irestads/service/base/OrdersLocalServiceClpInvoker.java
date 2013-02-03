@@ -109,6 +109,12 @@ public class OrdersLocalServiceClpInvoker {
 		_methodName94 = "findCurrentOrder";
 
 		_methodParameterTypes94 = new String[] { "boolean", "java.lang.String" };
+
+		_methodName95 = "createOrders";
+
+		_methodParameterTypes95 = new String[] {
+				"long", "int", "boolean", "int", "java.lang.String"
+			};
 	}
 
 	public Object invokeMethod(String name, String[] parameterTypes,
@@ -216,6 +222,15 @@ public class OrdersLocalServiceClpInvoker {
 				(java.lang.String)arguments[1]);
 		}
 
+		if (_methodName95.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes95, parameterTypes)) {
+			return OrdersLocalServiceUtil.createOrders(((Long)arguments[0]).longValue(),
+				((Integer)arguments[1]).intValue(),
+				((Boolean)arguments[2]).booleanValue(),
+				((Integer)arguments[3]).intValue(),
+				(java.lang.String)arguments[4]);
+		}
+
 		throw new UnsupportedOperationException();
 	}
 
@@ -257,4 +272,6 @@ public class OrdersLocalServiceClpInvoker {
 	private String[] _methodParameterTypes89;
 	private String _methodName94;
 	private String[] _methodParameterTypes94;
+	private String _methodName95;
+	private String[] _methodParameterTypes95;
 }

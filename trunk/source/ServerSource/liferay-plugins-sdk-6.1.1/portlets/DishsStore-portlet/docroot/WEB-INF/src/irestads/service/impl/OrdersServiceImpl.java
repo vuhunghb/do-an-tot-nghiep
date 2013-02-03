@@ -14,7 +14,11 @@
 
 package irestads.service.impl;
 
+import java.util.List;
+
+import irestads.model.OrderLine;
 import irestads.model.Orders;
+import irestads.service.MenuLineLocalServiceUtil;
 import irestads.service.OrdersLocalServiceUtil;
 import irestads.service.base.OrdersServiceBaseImpl;
 
@@ -42,4 +46,10 @@ public class OrdersServiceImpl extends OrdersServiceBaseImpl {
 		return OrdersLocalServiceUtil.findCurrentOrder(isPayMent, dishTableId);
 		
 	}
+	public Orders createOrders(long orderId, int charge, boolean isPayment,int numOfDinner, String dishTableId ){
+		return OrdersLocalServiceUtil.createOrders(orderId, charge, isPayment, numOfDinner, dishTableId);
+	}
+//	public List<OrderLine> getOrderLines(long pk){
+//	return OrdersLocalServiceUtil.getOrderLines(pk);
+//	}
 }

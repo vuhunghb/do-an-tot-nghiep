@@ -30,6 +30,12 @@ public class OrderLineServiceClpInvoker {
 		_methodName73 = "setBeanIdentifier";
 
 		_methodParameterTypes73 = new String[] { "java.lang.String" };
+
+		_methodName78 = "createOrderLine";
+
+		_methodParameterTypes78 = new String[] {
+				"java.lang.Long", "int", "int", "boolean", "long", "long"
+			};
 	}
 
 	public Object invokeMethod(String name, String[] parameterTypes,
@@ -44,6 +50,16 @@ public class OrderLineServiceClpInvoker {
 			OrderLineServiceUtil.setBeanIdentifier((java.lang.String)arguments[0]);
 		}
 
+		if (_methodName78.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes78, parameterTypes)) {
+			return OrderLineServiceUtil.createOrderLine((java.lang.Long)arguments[0],
+				((Integer)arguments[1]).intValue(),
+				((Integer)arguments[2]).intValue(),
+				((Boolean)arguments[3]).booleanValue(),
+				((Long)arguments[4]).longValue(),
+				((Long)arguments[5]).longValue());
+		}
+
 		throw new UnsupportedOperationException();
 	}
 
@@ -51,4 +67,6 @@ public class OrderLineServiceClpInvoker {
 	private String[] _methodParameterTypes72;
 	private String _methodName73;
 	private String[] _methodParameterTypes73;
+	private String _methodName78;
+	private String[] _methodParameterTypes78;
 }

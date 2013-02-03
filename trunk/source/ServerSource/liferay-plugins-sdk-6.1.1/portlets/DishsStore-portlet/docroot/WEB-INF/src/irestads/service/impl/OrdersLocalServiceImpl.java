@@ -18,6 +18,7 @@ import java.util.List;
 
 import com.liferay.portal.kernel.exception.SystemException;
 
+import irestads.model.OrderLine;
 import irestads.model.Orders;
 import irestads.service.base.OrdersLocalServiceBaseImpl;
 import irestads.service.persistence.OrdersUtil;
@@ -60,4 +61,30 @@ public class OrdersLocalServiceImpl extends OrdersLocalServiceBaseImpl {
 		}
 		return null;
 	}
+	public Orders createOrders(long orderId, int charge, boolean isPayment,int numOfDinner, String dishTableId ){
+		Orders o= OrdersUtil.create(orderId);
+		o.setCharge(charge);
+		o.setIsPayMent(isPayment);
+		o.setNumOfDinner(numOfDinner);
+		o.setDishTableId(dishTableId);
+	   
+		try {
+			o=OrdersUtil.update(o, true);
+			return o;
+		} catch (SystemException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+		
+	}
+//	public List<OrderLine> getOrderLines(long pk){
+//	try {
+//		return 	OrdersUtil.getOrderLines(pk);
+//	} catch (SystemException e) {
+//		// TODO Auto-generated catch block
+//		e.printStackTrace();
+//		return null;
+//	}
+//	}
 }

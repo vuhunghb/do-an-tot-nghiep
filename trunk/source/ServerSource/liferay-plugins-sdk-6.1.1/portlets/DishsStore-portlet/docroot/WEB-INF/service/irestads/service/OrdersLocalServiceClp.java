@@ -109,6 +109,12 @@ public class OrdersLocalServiceClp implements OrdersLocalService {
 		_methodName19 = "findCurrentOrder";
 
 		_methodParameterTypes19 = new String[] { "boolean", "java.lang.String" };
+
+		_methodName20 = "createOrders";
+
+		_methodParameterTypes20 = new String[] {
+				"long", "int", "boolean", "int", "java.lang.String"
+			};
 	}
 
 	public irestads.model.Orders addOrders(irestads.model.Orders orders)
@@ -657,6 +663,40 @@ public class OrdersLocalServiceClp implements OrdersLocalService {
 		return (irestads.model.Orders)ClpSerializer.translateOutput(returnObj);
 	}
 
+	public irestads.model.Orders createOrders(long orderId, int charge,
+		boolean isPayment, int numOfDinner, java.lang.String dishTableId) {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName20,
+					_methodParameterTypes20,
+					new Object[] {
+						orderId,
+						
+					charge,
+						
+					isPayment,
+						
+					numOfDinner,
+						
+					ClpSerializer.translateInput(dishTableId)
+					});
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (irestads.model.Orders)ClpSerializer.translateOutput(returnObj);
+	}
+
 	private InvokableLocalService _invokableLocalService;
 	private String _methodName0;
 	private String[] _methodParameterTypes0;
@@ -696,4 +736,6 @@ public class OrdersLocalServiceClp implements OrdersLocalService {
 	private String[] _methodParameterTypes17;
 	private String _methodName19;
 	private String[] _methodParameterTypes19;
+	private String _methodName20;
+	private String[] _methodParameterTypes20;
 }

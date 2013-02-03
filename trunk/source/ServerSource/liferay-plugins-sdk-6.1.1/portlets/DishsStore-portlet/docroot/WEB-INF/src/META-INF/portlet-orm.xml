@@ -128,6 +128,7 @@
 				<temporal>TIMESTAMP</temporal>
 			</basic>
 			<basic name="numOfDish" />
+			<basic name="capacity" />
 			<basic name="statusDish" />
 			<basic name="dishId" />
 			<basic name="orderId" />
@@ -196,7 +197,9 @@
 	</entity>
 	<entity class="irestads.model.impl.DishTableImpl" name="DishTable">
 		<table name="dishsstore_DishTable" />
-		<attributes />
+		<attributes>
+			<transient name="curentOrder" />
+		</attributes>
 	</entity>
 	<entity class="irestads.model.impl.MenuImpl" name="Menu">
 		<table name="dishsstore_Menu" />

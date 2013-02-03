@@ -105,7 +105,7 @@ public interface OrderLinePersistence extends BasePersistence<OrderLine> {
 	* @throws SystemException if a system exception occurred
 	*/
 	public java.util.List<irestads.model.OrderLine> findByStatusDish(
-		int statusDish)
+		boolean statusDish)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
@@ -122,7 +122,7 @@ public interface OrderLinePersistence extends BasePersistence<OrderLine> {
 	* @throws SystemException if a system exception occurred
 	*/
 	public java.util.List<irestads.model.OrderLine> findByStatusDish(
-		int statusDish, int start, int end)
+		boolean statusDish, int start, int end)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
@@ -140,7 +140,7 @@ public interface OrderLinePersistence extends BasePersistence<OrderLine> {
 	* @throws SystemException if a system exception occurred
 	*/
 	public java.util.List<irestads.model.OrderLine> findByStatusDish(
-		int statusDish, int start, int end,
+		boolean statusDish, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
@@ -153,7 +153,7 @@ public interface OrderLinePersistence extends BasePersistence<OrderLine> {
 	* @throws irestads.NoSuchOrderLineException if a matching order line could not be found
 	* @throws SystemException if a system exception occurred
 	*/
-	public irestads.model.OrderLine findByStatusDish_First(int statusDish,
+	public irestads.model.OrderLine findByStatusDish_First(boolean statusDish,
 		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
 		throws com.liferay.portal.kernel.exception.SystemException,
 			irestads.NoSuchOrderLineException;
@@ -166,7 +166,8 @@ public interface OrderLinePersistence extends BasePersistence<OrderLine> {
 	* @return the first matching order line, or <code>null</code> if a matching order line could not be found
 	* @throws SystemException if a system exception occurred
 	*/
-	public irestads.model.OrderLine fetchByStatusDish_First(int statusDish,
+	public irestads.model.OrderLine fetchByStatusDish_First(
+		boolean statusDish,
 		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
@@ -179,7 +180,7 @@ public interface OrderLinePersistence extends BasePersistence<OrderLine> {
 	* @throws irestads.NoSuchOrderLineException if a matching order line could not be found
 	* @throws SystemException if a system exception occurred
 	*/
-	public irestads.model.OrderLine findByStatusDish_Last(int statusDish,
+	public irestads.model.OrderLine findByStatusDish_Last(boolean statusDish,
 		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
 		throws com.liferay.portal.kernel.exception.SystemException,
 			irestads.NoSuchOrderLineException;
@@ -192,7 +193,7 @@ public interface OrderLinePersistence extends BasePersistence<OrderLine> {
 	* @return the last matching order line, or <code>null</code> if a matching order line could not be found
 	* @throws SystemException if a system exception occurred
 	*/
-	public irestads.model.OrderLine fetchByStatusDish_Last(int statusDish,
+	public irestads.model.OrderLine fetchByStatusDish_Last(boolean statusDish,
 		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
@@ -207,7 +208,7 @@ public interface OrderLinePersistence extends BasePersistence<OrderLine> {
 	* @throws SystemException if a system exception occurred
 	*/
 	public irestads.model.OrderLine[] findByStatusDish_PrevAndNext(
-		long orderLineId, int statusDish,
+		long orderLineId, boolean statusDish,
 		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
 		throws com.liferay.portal.kernel.exception.SystemException,
 			irestads.NoSuchOrderLineException;
@@ -259,7 +260,7 @@ public interface OrderLinePersistence extends BasePersistence<OrderLine> {
 	* @param statusDish the status dish
 	* @throws SystemException if a system exception occurred
 	*/
-	public void removeByStatusDish(int statusDish)
+	public void removeByStatusDish(boolean statusDish)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
@@ -277,7 +278,7 @@ public interface OrderLinePersistence extends BasePersistence<OrderLine> {
 	* @return the number of matching order lines
 	* @throws SystemException if a system exception occurred
 	*/
-	public int countByStatusDish(int statusDish)
+	public int countByStatusDish(boolean statusDish)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**

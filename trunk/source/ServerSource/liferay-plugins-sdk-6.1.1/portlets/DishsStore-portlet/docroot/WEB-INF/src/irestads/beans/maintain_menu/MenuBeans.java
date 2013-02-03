@@ -1,5 +1,9 @@
 package irestads.beans.maintain_menu;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.sql.Blob;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -7,14 +11,22 @@ import java.util.Map;
 import java.util.logging.Logger;
 
 import javax.faces.application.FacesMessage;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
+import javax.servlet.http.HttpServletRequest;
+import javax.sql.rowset.serial.SerialBlob;
+import javax.sql.rowset.serial.SerialException;
 
 import org.primefaces.event.DragDropEvent;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.event.FlowEvent;
 import org.primefaces.event.RowEditEvent;
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
 
+import irestads.defination.Base64;
+import irestads.defination.Base64.InputStream;
 import irestads.defination.UploadUtils;
 import irestads.model.*;
 import irestads.service.DishServiceUtil;
@@ -40,11 +52,81 @@ public class MenuBeans {
 	private static Logger logger = Logger.getLogger(MenuBeans.class.getName());
 	private boolean validateFlag = false;
 	private String base64ImgAvatar;
+	private StreamedContent img;
+
+	public MenuBeans() {
+
+		// TODO Auto-generated constructor stub
+		this.getMenuLinesDB();
+		this.innitAdd();
+		this.findDishNotInMenu();
+		Dish d = DishServiceUtil.findDishsById(3204);
+		this.img = this.getImage(d.getAvatarBaseCode());
+	}
+
+	public StreamedContent getImg() {
+		Dish d = DishServiceUtil.findDishsById(3201);
+		this.img = this.getImage(d.getAvatarBaseCode());
+		return img;
+	}
+
+	public void setImg(StreamedContent img) {
+		this.img = img;
+	}
 
 	public void handleFileUpload(FileUploadEvent event)
 			throws InterruptedException {
-		System.out.println("danh dau");
 		this.base64ImgAvatar = UploadUtils.handleFileUpload(event);
+	}
+
+	// public StreamedContent getImages() throws IOException {
+	//
+	// ExternalContext context =
+	// FacesContext.getCurrentInstance().getExternalContext();
+	// HttpServletRequest request = (HttpServletRequest) context.getRequest();
+	// String id = request.getParameter("idImg");
+	// System.out.println("id img" + id);
+	// if (id != null) {
+	// Dish d=DishServiceUtil.findDishsById(Long.parseLong(id));
+	// byte[] imageDB = Base64.decode(d.getAvatarBaseCode());
+	// System.out.println(imageDB);
+	// InputStream is = new ByteArrayInputStream(imageDB);
+	// streamContent = new DefaultStreamedContent(is, "image/jpeg");
+	// return streamContent;
+	// }
+	//
+	// }
+	// } else {
+	// return new DefaultStreamedContent();
+	// }
+	// return new DefaultStreamedContent();
+	//
+	// }
+	public StreamedContent getImage(String baseCode) {
+
+		StreamedContent streamContent = null;
+		if (baseCode != null) {
+			byte decodeByte[] = null;
+			try {
+				
+				decodeByte = Base64.decode(baseCode); // do
+				 Blob bild;
+				  bild = new SerialBlob(decodeByte);
+				  java.io.InputStream stream = bild.getBinaryStream();
+				//java.io.InputStream is = new ByteArrayInputStream(decodeByte);
+				streamContent = new DefaultStreamedContent(stream, "image/jpeg");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SerialException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return streamContent;
 	}
 
 	public void searchTypeChanged() {
@@ -111,14 +193,6 @@ public class MenuBeans {
 
 	public static void setLogger(Logger logger) {
 		MenuBeans.logger = logger;
-	}
-
-	public MenuBeans() {
-
-		// TODO Auto-generated constructor stub
-		this.getMenuLinesDB();
-		this.innitAdd();
-		this.findDishNotInMenu();
 	}
 
 	public void innitAdd() {

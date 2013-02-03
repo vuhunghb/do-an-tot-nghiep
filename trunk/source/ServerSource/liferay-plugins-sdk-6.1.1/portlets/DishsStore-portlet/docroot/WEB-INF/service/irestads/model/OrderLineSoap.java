@@ -38,6 +38,7 @@ public class OrderLineSoap implements Serializable {
 		soapModel.setCreateDate(model.getCreateDate());
 		soapModel.setModifiedDate(model.getModifiedDate());
 		soapModel.setNumOfDish(model.getNumOfDish());
+		soapModel.setCapacity(model.getCapacity());
 		soapModel.setStatusDish(model.getStatusDish());
 		soapModel.setDishId(model.getDishId());
 		soapModel.setOrderId(model.getOrderId());
@@ -149,11 +150,23 @@ public class OrderLineSoap implements Serializable {
 		_numOfDish = numOfDish;
 	}
 
-	public int getStatusDish() {
+	public int getCapacity() {
+		return _capacity;
+	}
+
+	public void setCapacity(int capacity) {
+		_capacity = capacity;
+	}
+
+	public boolean getStatusDish() {
 		return _statusDish;
 	}
 
-	public void setStatusDish(int statusDish) {
+	public boolean isStatusDish() {
+		return _statusDish;
+	}
+
+	public void setStatusDish(boolean statusDish) {
 		_statusDish = statusDish;
 	}
 
@@ -180,7 +193,8 @@ public class OrderLineSoap implements Serializable {
 	private Date _createDate;
 	private Date _modifiedDate;
 	private int _numOfDish;
-	private int _statusDish;
+	private int _capacity;
+	private boolean _statusDish;
 	private long _dishId;
 	private long _orderId;
 }

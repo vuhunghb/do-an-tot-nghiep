@@ -14,6 +14,8 @@
 
 package irestads.service.impl;
 
+import irestads.model.OrderLine;
+import irestads.service.OrderLineLocalServiceUtil;
 import irestads.service.base.OrderLineServiceBaseImpl;
 
 /**
@@ -36,4 +38,7 @@ public class OrderLineServiceImpl extends OrderLineServiceBaseImpl {
 	 *
 	 * Never reference this interface directly. Always use {@link irestads.service.OrderLineServiceUtil} to access the order line remote service.
 	 */
+	public OrderLine createOrderLine(Long orderLineId, int numOfDish,int capacity, boolean statusDish, long dishId, long orderId) {
+		return OrderLineLocalServiceUtil.createOrderLine(orderLineId, numOfDish,capacity, statusDish, dishId, orderId);
+	}
 }

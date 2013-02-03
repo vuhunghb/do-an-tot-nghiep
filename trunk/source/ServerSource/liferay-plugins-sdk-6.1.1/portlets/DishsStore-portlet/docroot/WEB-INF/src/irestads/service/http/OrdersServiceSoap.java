@@ -81,5 +81,21 @@ public class OrdersServiceSoap {
 		}
 	}
 
+	public static irestads.model.OrdersSoap createOrders(long orderId,
+		int charge, boolean isPayment, int numOfDinner,
+		java.lang.String dishTableId) throws RemoteException {
+		try {
+			irestads.model.Orders returnValue = OrdersServiceUtil.createOrders(orderId,
+					charge, isPayment, numOfDinner, dishTableId);
+
+			return irestads.model.OrdersSoap.toSoapModel(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
 	private static Log _log = LogFactoryUtil.getLog(OrdersServiceSoap.class);
 }

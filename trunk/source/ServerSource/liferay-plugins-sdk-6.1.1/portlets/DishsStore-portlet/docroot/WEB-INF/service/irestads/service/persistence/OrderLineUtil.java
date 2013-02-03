@@ -193,7 +193,7 @@ public class OrderLineUtil {
 	* @throws SystemException if a system exception occurred
 	*/
 	public static java.util.List<irestads.model.OrderLine> findByStatusDish(
-		int statusDish)
+		boolean statusDish)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return getPersistence().findByStatusDish(statusDish);
 	}
@@ -212,7 +212,7 @@ public class OrderLineUtil {
 	* @throws SystemException if a system exception occurred
 	*/
 	public static java.util.List<irestads.model.OrderLine> findByStatusDish(
-		int statusDish, int start, int end)
+		boolean statusDish, int start, int end)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return getPersistence().findByStatusDish(statusDish, start, end);
 	}
@@ -232,7 +232,7 @@ public class OrderLineUtil {
 	* @throws SystemException if a system exception occurred
 	*/
 	public static java.util.List<irestads.model.OrderLine> findByStatusDish(
-		int statusDish, int start, int end,
+		boolean statusDish, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return getPersistence()
@@ -249,7 +249,7 @@ public class OrderLineUtil {
 	* @throws SystemException if a system exception occurred
 	*/
 	public static irestads.model.OrderLine findByStatusDish_First(
-		int statusDish,
+		boolean statusDish,
 		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
 		throws com.liferay.portal.kernel.exception.SystemException,
 			irestads.NoSuchOrderLineException {
@@ -266,7 +266,7 @@ public class OrderLineUtil {
 	* @throws SystemException if a system exception occurred
 	*/
 	public static irestads.model.OrderLine fetchByStatusDish_First(
-		int statusDish,
+		boolean statusDish,
 		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return getPersistence()
@@ -283,7 +283,7 @@ public class OrderLineUtil {
 	* @throws SystemException if a system exception occurred
 	*/
 	public static irestads.model.OrderLine findByStatusDish_Last(
-		int statusDish,
+		boolean statusDish,
 		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
 		throws com.liferay.portal.kernel.exception.SystemException,
 			irestads.NoSuchOrderLineException {
@@ -300,7 +300,7 @@ public class OrderLineUtil {
 	* @throws SystemException if a system exception occurred
 	*/
 	public static irestads.model.OrderLine fetchByStatusDish_Last(
-		int statusDish,
+		boolean statusDish,
 		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return getPersistence()
@@ -318,7 +318,7 @@ public class OrderLineUtil {
 	* @throws SystemException if a system exception occurred
 	*/
 	public static irestads.model.OrderLine[] findByStatusDish_PrevAndNext(
-		long orderLineId, int statusDish,
+		long orderLineId, boolean statusDish,
 		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
 		throws com.liferay.portal.kernel.exception.SystemException,
 			irestads.NoSuchOrderLineException {
@@ -381,7 +381,7 @@ public class OrderLineUtil {
 	* @param statusDish the status dish
 	* @throws SystemException if a system exception occurred
 	*/
-	public static void removeByStatusDish(int statusDish)
+	public static void removeByStatusDish(boolean statusDish)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		getPersistence().removeByStatusDish(statusDish);
 	}
@@ -403,7 +403,7 @@ public class OrderLineUtil {
 	* @return the number of matching order lines
 	* @throws SystemException if a system exception occurred
 	*/
-	public static int countByStatusDish(int statusDish)
+	public static int countByStatusDish(boolean statusDish)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return getPersistence().countByStatusDish(statusDish);
 	}
