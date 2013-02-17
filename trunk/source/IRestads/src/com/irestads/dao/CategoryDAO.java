@@ -40,15 +40,16 @@ public class CategoryDAO {
 		@Override
 		public void onCreate(SQLiteDatabase db) {
 			// TODO Auto-generated method stub
-			String stringQuery = "CREATE TABLE " + ConfigDAO.DB_TABLE_CATEGORY + " (" + CATEGORY_ID + " INTEGER PRIMARY KEY, "
-					+ CATEGORY_NAME + " TEXT);";
+			String stringQuery = "CREATE TABLE " + ConfigDAO.DB_TABLE_CATEGORY + " (" + CATEGORY_ID
+					+ " INTEGER PRIMARY KEY, " + CATEGORY_NAME + " TEXT);";
 			db.execSQL(stringQuery);
 		}
 
 		@Override
 		public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 			// TODO Auto-generated method stub
-			Log.w("UPDATE " + ConfigDAO.DB_TABLE_CATEGORY, "UPDATE " + ConfigDAO.DB_TABLE_CATEGORY + " FROM " + oldVersion + " TO " + newVersion);
+			Log.w("UPDATE " + ConfigDAO.DB_TABLE_CATEGORY, "UPDATE " + ConfigDAO.DB_TABLE_CATEGORY + " FROM "
+					+ oldVersion + " TO " + newVersion);
 			String stringQuery = "DROP TABLE IF EXISTS " + ConfigDAO.DB_TABLE_CATEGORY;
 			db.execSQL(stringQuery);
 			onCreate(db);
@@ -76,7 +77,8 @@ public class CategoryDAO {
 		ContentValues contentValues = new ContentValues();
 		contentValues.put(CATEGORY_NAME, category.getCategoryName());
 
-		long id = db.update(ConfigDAO.DB_TABLE_CATEGORY, contentValues, CATEGORY_ID + "=" + category.getCategoryId(), null);
+		long id = db.update(ConfigDAO.DB_TABLE_CATEGORY, contentValues, CATEGORY_ID + "=" + category.getCategoryId(),
+				null);
 		return id > 0;
 	}
 
@@ -86,7 +88,8 @@ public class CategoryDAO {
 		boolean isExits = checkCategoryIsExist(category.getCategoryId());
 		long id = -1;
 		if (isExits == true) {
-			id = db.update(ConfigDAO.DB_TABLE_CATEGORY, contentValues, CATEGORY_ID + "=" + category.getCategoryId(), null);
+			id = db.update(ConfigDAO.DB_TABLE_CATEGORY, contentValues, CATEGORY_ID + "=" + category.getCategoryId(),
+					null);
 		} else {
 			contentValues.put(CATEGORY_ID, category.getCategoryId());
 			id = db.insert(ConfigDAO.DB_TABLE_CATEGORY, null, contentValues);
@@ -101,8 +104,10 @@ public class CategoryDAO {
 
 	public List<CategoryModel> getAllCategory() {
 		List<CategoryModel> categories = new ArrayList<CategoryModel>();
-		Cursor cursor = db.rawQuery("SELECT " + ConfigDAO.DB_TABLE_CATEGORY + "." + CATEGORY_ID + ", " + CATEGORY_NAME + " from "
-				+ ConfigDAO.DB_TABLE_CATEGORY + ", dish where " + ConfigDAO.DB_TABLE_CATEGORY + "." + CATEGORY_ID + " = dish.categoryId", null);
+		Cursor cursor = db.rawQuery("SELECT " + CATEGORY_ID + ", " + CATEGORY_NAME + " from "
+				+ ConfigDAO.DB_TABLE_CATEGORY + " WHERE " + CATEGORY_ID + " IN " + "( SELECT categoryId"
+				+ " FROM "+ConfigDAO.DB_TABLE_DISH+" )", null);
+
 		if (cursor.moveToFirst()) {
 			CategoryModel category;
 			try {
@@ -124,8 +129,8 @@ public class CategoryDAO {
 
 		return categoryModel;
 	}
-	
-	public boolean deleteAllCategory(){
+
+	public boolean deleteAllCategory() {
 		db.delete(ConfigDAO.DB_TABLE_CATEGORY, "1", null);
 		return false;
 	}

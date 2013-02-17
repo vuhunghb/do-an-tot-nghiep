@@ -1,6 +1,7 @@
 package com.irestads;
 
 import com.irestads.client.VersionConnect;
+import com.irestads.dao.AdsItemDAO;
 import com.irestads.dao.DishDAO;
 import com.irestads.dao.MenuLineDAO;
 import com.irestads.dao.OrderDAO;
@@ -29,6 +30,7 @@ public class SettingsResetFragment extends Fragment {
 	MenuLineDAO menuLineDAO;
 	OrderDAO orderDAO;
 	OrderLineDAO orderLineDAO;
+	AdsItemDAO adsItemDAO;
 	long countDish;
 
 	@Override
@@ -38,6 +40,8 @@ public class SettingsResetFragment extends Fragment {
 		menuLineDAO = new MenuLineDAO(getActivity());
 		orderDAO = new OrderDAO(getActivity());
 		orderLineDAO = new OrderLineDAO(getActivity());
+		adsItemDAO = new AdsItemDAO(getActivity());
+
 		return inflater.inflate(R.layout.activity_setting_resetdata_fragment, container, false);
 	}
 
@@ -58,23 +62,29 @@ public class SettingsResetFragment extends Fragment {
 		dishDAO.open();
 		countDish = dishDAO.countDish();
 		dishDAO.close();
-		
+
 		orderDAO.open();
 		long countOrder = orderDAO.countOrder();
 		orderDAO.close();
-		
+
 		orderLineDAO.open();
 		long countOrderline = orderLineDAO.countOrderline();
 		orderLineDAO.close();
-		
+
+		adsItemDAO.open();
+		long countAdsItem = adsItemDAO.countAdsItem();
+		adsItemDAO.close();
+
 		TextView version = (TextView) getActivity().findViewById(R.id.settings_resetdata_version);
 		version.setText("# " + GenericUtil.settingsModel.getCurrentVersion());
 		TextView numDishs = (TextView) getActivity().findViewById(R.id.settings_resetdata_numdish);
 		numDishs.setText("# " + countDish);
-		TextView numOrder = (TextView)getActivity().findViewById(R.id.settings_resetdata_numorder);
-		numOrder.setText("# "+countOrder);
-		TextView numOrderline = (TextView)getActivity().findViewById(R.id.settings_resetdata_numorderline);
-		numOrderline.setText("# "+countOrderline);
+		TextView numOrder = (TextView) getActivity().findViewById(R.id.settings_resetdata_numorder);
+		numOrder.setText("# " + countOrder);
+		TextView numOrderline = (TextView) getActivity().findViewById(R.id.settings_resetdata_numorderline);
+		numOrderline.setText("# " + countOrderline);
+		TextView numAdsItem = (TextView) getActivity().findViewById(R.id.settings_resetdata_numadsitem);
+		numAdsItem.setText("# " + countAdsItem);
 	}
 
 	private OnClickListener onClickSettingsButton = new OnClickListener() {
@@ -98,6 +108,7 @@ public class SettingsResetFragment extends Fragment {
 									}
 								})
 						.setNegativeButton(getResources().getString(R.string.scr2_comfirm_accept_cancel), null).show();
+
 				break;
 
 			case R.id.settings_resetdata_btn_cancel:
@@ -109,7 +120,7 @@ public class SettingsResetFragment extends Fragment {
 			}
 		}
 
-		public void doResetData() {
+		public void doResetData() { 
 			menuLineDAO.open();
 			menuLineDAO.deleteAllMenuLine();
 			menuLineDAO.close();
@@ -122,7 +133,11 @@ public class SettingsResetFragment extends Fragment {
 			orderLineDAO.open();
 			orderLineDAO.deleteAllOrderLine();
 			orderLineDAO.close();
-			
+
+			adsItemDAO.open();
+			adsItemDAO.deleteAllAdsItem();
+			adsItemDAO.close();
+
 			GenericUtil.settingsModel.setCurrentVersion(0);
 			StogeSettingsUtil settingsUtil = new StogeSettingsUtil();
 			settingsUtil.writeSettings(GenericUtil.settingsModel);

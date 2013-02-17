@@ -354,7 +354,7 @@ public class MainListActivity extends Activity {
 		rightDescription.setText(currentDishModel.getDecription());
 
 		ImageView img = (ImageView) findViewById(R.id.scr1_right_dish_img);
-		Bitmap bm = ImageUtils.getImageByDishAvatar(currentDishModel.getAvatarImg(), this.getResources(),
+		Bitmap bm = ImageUtils.getImageFromByteArray(currentDishModel.getAvatarImg(), this.getResources(),
 				R.drawable.cantfoundish);
 
 		img.setImageBitmap(bm);

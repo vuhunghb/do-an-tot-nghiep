@@ -145,6 +145,27 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="#222222" >
+
+                    <TextView
+                        android:id="@+id/TextView01"
+                        android:layout_width="160dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/settings_resetdata_adsitem_title"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="#ffffff" />
+
+                    <TextView
+                        android:id="@+id/settings_resetdata_numadsitem"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="#ffffff" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginBottom="2dp"
                     android:background="#222222"
                     android:gravity="center" >

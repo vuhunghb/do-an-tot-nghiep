@@ -12,10 +12,15 @@ import java.util.Vector;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.StrictMode;
+import android.provider.Settings;
 import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.KeyguardManager;
+import android.app.KeyguardManager.KeyguardLock;
+import android.content.BroadcastReceiver;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.graphics.BitmapFactory;
 import android.graphics.PixelFormat;
@@ -35,12 +40,15 @@ import org.ksoap2.transport.HttpTransportSE;
 import org.ksoap2.serialization.PropertyInfo;
 import org.xmlpull.v1.XmlPullParserException;
 
+import com.irestads.dao.AdsItemDAO;
+import com.irestads.dao.CategoryAdsDAO;
 import com.irestads.dao.CategoryDAO;
 import com.irestads.dao.DishDAO;
 import com.irestads.dao.MenuLineDAO;
 import com.irestads.dao.OrderDAO;
 import com.irestads.dao.OrderLineDAO;
 import com.irestads.marshal.MarshalLong;
+import com.irestads.model.AdsItemModel;
 import com.irestads.model.CategoryModel;
 import com.irestads.model.DishModel;
 import com.irestads.model.SettingsModel;
@@ -51,6 +59,7 @@ import com.irestads.util.UpdateTimerTask;
 @SuppressLint({ "NewApi", "UseValueOf" })
 public class MainActivity extends Activity {
 
+	@SuppressWarnings("deprecation")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -62,7 +71,7 @@ public class MainActivity extends Activity {
 		StrictMode.setThreadPolicy(policy);
 
 		/*-------Create Generic link and property--------*/
-		
+
 		GenericUtil genericUtil = new GenericUtil();
 		GenericUtil.currentActivity = MainActivity.class.toString();
 		settupDB();
@@ -71,7 +80,28 @@ public class MainActivity extends Activity {
 		ActionBar actionBar = getActionBar();
 		actionBar.hide();
 		GenericUtil.runUpdateTimer(this);
-		
+
+		/*---------- Register Broadcast Lock Screen-----------*/
+		/*-- Set timeout Lockscreen decrease 1 minute--
+		 * -- Remember add permission android:name="android.permission.WRITE_SETTINGS" */
+		GenericUtil.DEFTIMEOUT = Settings.System.getInt(getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT,
+				GenericUtil.DELAY);
+		Settings.System.putInt(getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, GenericUtil.DELAY);
+
+		IntentFilter filter = new IntentFilter(Intent.ACTION_SCREEN_ON);
+		filter.addAction(Intent.ACTION_SCREEN_OFF);
+		BroadcastReceiver mReceiver = new LockScreenReceiver();
+		registerReceiver(mReceiver, filter);
+		/*---------- Register Broadcast Lock Screen-----------*/
+
+	}
+
+	@Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		super.onDestroy();
+		Settings.System.putInt(getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, GenericUtil.DEFTIMEOUT);
+
 	}
 
 	/***
@@ -93,6 +123,12 @@ public class MainActivity extends Activity {
 		OrderLineDAO orderLineDAO = new OrderLineDAO(this);
 		orderLineDAO.open();
 		orderLineDAO.close();
+		AdsItemDAO adsItemDAO = new AdsItemDAO(this);
+		adsItemDAO.open();
+		adsItemDAO.close();
+		CategoryAdsDAO categoryAdsDAO = new CategoryAdsDAO(this);
+		categoryAdsDAO.open();
+		categoryAdsDAO.close();
 	}
 
 	public void createCategoryTest() {
@@ -141,40 +177,41 @@ public class MainActivity extends Activity {
 		startActivity(new Intent("android.intent.action.MainListActivity"));
 	}
 
-	public void createMenu(Menu menu) {
-		// SigninDialog signinDialog = new SigninDialog();
-		// signinDialog.show(getFragmentManager(), "dialog");
+	public void onClickAds(View view) {
+		startActivity(new Intent("android.intent.action.AdsBookActivity"));
+	}
 
-		MenuItem mnu1 = menu.add(0, 0, 0, "Thiết lập");
+	public void createMenu(Menu menu) {
+		MenuItem mnu1 = menu.add(0, 0, 0, getResources().getString(R.string.menu_item_settings));
 		{
 			mnu1.setAlphabeticShortcut('a');
 			mnu1.setIcon(R.drawable.ic_launcher);
 
 		}
-		MenuItem mnu2 = menu.add(0, 1, 1, "Item 2");
-		{
-			mnu2.setAlphabeticShortcut('b');
-			mnu2.setIcon(R.drawable.ic_launcher);
-
-		}
-		MenuItem mnu3 = menu.add(0, 2, 2, "Item 3");
-		{
-			mnu3.setAlphabeticShortcut('c');
-			mnu3.setIcon(R.drawable.ic_launcher);
-
-		}
-		MenuItem mnu4 = menu.add(0, 3, 3, "Item 4");
-		{
-			mnu4.setAlphabeticShortcut('d');
-			mnu4.setIcon(R.drawable.ic_launcher);
-
-		}
-		MenuItem mnu5 = menu.add(0, 4, 4, "Item 5");
-		{
-			mnu5.setAlphabeticShortcut('e');
-			mnu5.setIcon(R.drawable.ic_launcher);
-
-		}
+//		MenuItem mnu2 = menu.add(0, 1, 1, "Item 2");
+//		{
+//			mnu2.setAlphabeticShortcut('b');
+//			mnu2.setIcon(R.drawable.ic_launcher);
+//
+//		}
+//		MenuItem mnu3 = menu.add(0, 2, 2, "Item 3");
+//		{
+//			mnu3.setAlphabeticShortcut('c');
+//			mnu3.setIcon(R.drawable.ic_launcher);
+//
+//		}
+//		MenuItem mnu4 = menu.add(0, 3, 3, "Item 4");
+//		{
+//			mnu4.setAlphabeticShortcut('d');
+//			mnu4.setIcon(R.drawable.ic_launcher);
+//
+//		}
+//		MenuItem mnu5 = menu.add(0, 4, 4, "Item 5");
+//		{
+//			mnu5.setAlphabeticShortcut('e');
+//			mnu5.setIcon(R.drawable.ic_launcher);
+//
+//		}
 	}
 
 	public boolean menuChoice(MenuItem item) {

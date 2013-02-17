@@ -116,6 +116,21 @@ public class OrderLineDAO {
 		}
 	}
 
+	public OrderLineModel getOrderLineByIdNotDish(long orderLineId) {
+		Cursor cursor = db.query(ConfigDAO.DB_TABLE_ORDERLINE, queryColumns, ORDER_LINE_ID + "= ?",
+				new String[] { orderLineId + "" }, null, null, null);
+		OrderLineModel model = new OrderLineModel();
+		if (cursor.moveToFirst()) {
+			try {
+				model = convertOrderLineNotDish(cursor);
+			} finally {
+				// TODO: handle exception
+				cursor.close();
+			}
+		}
+		return model;
+	}
+
 	public List<OrderLineModel> getOrderLineByOrder(long orderId) {
 		List<OrderLineModel> orderLineModels = new ArrayList<OrderLineModel>();
 		Cursor cursor = db.query(ConfigDAO.DB_TABLE_ORDERLINE, queryColumns, ORDER_ID + "= ?", new String[] { orderId
@@ -151,6 +166,21 @@ public class OrderLineDAO {
 		DishModel dishModel = dishDAO.getDishById(dishId);
 		dishDAO.close();
 		orderLineModel.setDish(dishModel);
+		return orderLineModel;
+	}
+
+	private OrderLineModel convertOrderLineNotDish(Cursor cursor) {
+		// TODO Auto-generated method stub
+		long orderLineId = cursor.getLong(cursor.getColumnIndex(ORDER_LINE_ID));
+		int numOfDish = cursor.getInt(cursor.getColumnIndex(NUM_OF_DISH));
+		int numOfFinishDish = cursor.getInt(cursor.getColumnIndex(NUM_OF_FINISH_DISH));
+		String orderDateString = cursor.getString(cursor.getColumnIndex(ORDER_DATE));
+		Date orderDate = GenericUtil.convertDateFromStringSQL(orderDateString);
+		int status = cursor.getInt(cursor.getColumnIndex(STATUS));
+		long dishId = cursor.getLong(cursor.getColumnIndex(DISH_ID));
+		long orderId = cursor.getLong(cursor.getColumnIndex(ORDER_ID));
+		OrderLineModel orderLineModel = new OrderLineModel(orderLineId, numOfDish, numOfFinishDish, orderDate, status,
+				dishId, orderId);
 		return orderLineModel;
 	}
 
