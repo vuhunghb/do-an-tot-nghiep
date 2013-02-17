@@ -1,5 +1,10 @@
 eclipse.preferences.version=1
+encoding//src/com/irestads/AdsMainActivity.java=UTF-8
 encoding//src/com/irestads/MainActivity.java=UTF-8
 encoding//src/com/irestads/MainListActivity.java=UTF-8
+encoding//src/com/irestads/PaymentActivity.java=UTF-8
+encoding//src/com/irestads/client/OrderUpdateConnect.java=UTF-8
 encoding//src/com/irestads/client/VersionConnect.java=UTF-8
+encoding//src/com/irestads/model/AdsItemModel.java=UTF-8
+encoding//src/com/irestads/model/CategoryAdsModel.java=UTF-8
 encoding//src/com/irestads/model/CategoryModel.java=UTF-8

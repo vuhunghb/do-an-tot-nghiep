@@ -36,7 +36,7 @@ public class UpdateTimerTask extends TimerTask {
 					Log.w("TIMER TASK", "This Task is fire ");
 					versionConnect = new VersionConnect(activity);
 					versionConnect.execute();
-				}
+				} 
 			});
 		}
 	}

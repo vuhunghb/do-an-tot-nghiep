@@ -20,6 +20,7 @@ import android.graphics.Color;
 import android.graphics.PixelFormat;
 import android.view.Gravity;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -39,6 +40,7 @@ import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
 import org.ksoap2.serialization.PropertyInfo;
 
+import com.irestads.client.OrderConnect;
 import com.irestads.dao.DishDAO;
 import com.irestads.dao.OrderDAO;
 import com.irestads.dao.OrderLineDAO;
@@ -66,6 +68,7 @@ public class OrderDishActivity extends Activity {
 	OrderDAO orderDAO;
 	OrderLineDAO orderLineDAO;
 	TableLayout tableLayout;
+	OrderConnect orderConnect;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +77,7 @@ public class OrderDishActivity extends Activity {
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_DITHER);
 
 		setContentView(R.layout.activity_order_dish);
+		GenericUtil.currentActivity = OrderDishActivity.class.toString();
 
 		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
 		StrictMode.setThreadPolicy(policy);
@@ -83,7 +87,8 @@ public class OrderDishActivity extends Activity {
 		dishDAO = new DishDAO(this);
 		orderLineDAO = new OrderLineDAO(this);
 		orderDAO = new OrderDAO(this);
-
+		orderConnect = new OrderConnect(this);
+		orderLineStatus = getResources().getStringArray(R.array.order_line_status);
 		initOrder();
 
 		/*-----------Test Data-----------*/
@@ -91,17 +96,36 @@ public class OrderDishActivity extends Activity {
 
 		this.updateDishSelectedView();
 		this.updateOrderView();
+
+		GenericUtil.runOrderUpdateTimer(this, orderModel.getOrderId());
+	}
+
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		GenericUtil.runOrderUpdateTimer(this, orderModel.getOrderId());
 	}
 
 	@Override
 	protected void onPause() {
 		// TODO Auto-generated method stub
 		super.onPause();
+		orderConnect = new OrderConnect(this);
 		if (orderModel.getListOrderLine().size() > 0) {
-
+			orderConnect.execute(OrderModel.class.toString(), orderModel, 0);
 			orderDAO.open();
 			orderDAO.saveOrUpdateOrder(orderModel);
 			orderDAO.close();
+		} else {
+			orderConnect.execute(OrderModel.class.toString(), orderModel, 1);
+			orderDAO.open();
+			orderDAO.deleteOrder(orderModel.getOrderId());
+			orderDAO.close();
+		}
+
+		if (GenericUtil.timerAutoOrderUpdate != null) {
+			GenericUtil.timerAutoOrderUpdate.cancel();
 		}
 	}
 
@@ -124,11 +148,17 @@ public class OrderDishActivity extends Activity {
 		orderDAO.close();
 
 		if (orderModel.getOrderId() == 0) {
-			orderModel = new OrderModel(0, new Date(), false, new ArrayList<OrderLineModel>(), new Date().getTime());
+			try {
+				orderModel = new OrderModel(0, new Date(), false, new ArrayList<OrderLineModel>(), new Date().getTime());
+				orderConnect.execute(OrderModel.class.toString(), orderModel, 0);
+				orderDAO.open();
+				orderDAO.saveOrUpdateOrder(orderModel);
+				orderDAO.close();
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+			}
 		}
-
-		orderLineStatus = getResources().getStringArray(R.array.order_line_status);
-
 		SharedPreferences sharedPreferences = getSharedPreferences(GenericUtil.PREFS_NAME, 0);
 		selectedDishId = sharedPreferences.getLong("scr1CurrentDishId", 0);
 
@@ -187,7 +217,7 @@ public class OrderDishActivity extends Activity {
 		rightNumOfDiner.setText(numOfDinerText + " " + getResources().getString(R.string.sc1_dinner_title));
 
 		ImageView avatarView = (ImageView) findViewById(R.id.scr2_dish_avatar);
-		Bitmap bm = ImageUtils.getImageByDishAvatar(currentDishModel.getAvatarImg(), this.getResources(),
+		Bitmap bm = ImageUtils.getImageFromByteArray(currentDishModel.getAvatarImg(), this.getResources(),
 				R.drawable.cantfoundish);
 		avatarView.setImageBitmap(bm);
 
@@ -305,6 +335,12 @@ public class OrderDishActivity extends Activity {
 			currentOrderLineIndex = id;
 			currentOrderLineModel = orderModel.getListOrderLine().get(id);
 			currentNumOfDish = currentOrderLineModel.getNumOfDish();
+			SharedPreferences sharedPreferences = getSharedPreferences(GenericUtil.PREFS_NAME, 0);
+			SharedPreferences.Editor editor = sharedPreferences.edit();
+			editor.putLong("scr1CurrentCategoryId", currentOrderLineModel.getDish().getCategoryId());
+			editor.putLong("scr1CurrentDishId", currentOrderLineModel.getDish().getDishID());
+			editor.commit();
+
 			updateDishSelectedView();
 		}
 	};
@@ -353,8 +389,6 @@ public class OrderDishActivity extends Activity {
 	}
 
 	public void removeOrderLine() {
-		String massage = "";
-
 		int stt = this.currentOrderLineModel.getStatus();
 		if (stt == 0) {
 			startActivity(new Intent("android.intent.action.MainListActivity"));
@@ -366,7 +400,8 @@ public class OrderDishActivity extends Activity {
 			}
 
 			this.orderModel.getTotalCharge();
-
+			orderConnect = new OrderConnect(this);
+			orderConnect.execute(OrderLineModel.class.toString(), currentOrderLineModel, 1);
 			orderLineDAO.open();
 			orderLineDAO.deleteOrderLine(currentOrderLineModel.getOrderLineId());
 			orderLineDAO.close();
@@ -389,6 +424,9 @@ public class OrderDishActivity extends Activity {
 		} else {
 			this.orderModel.getListOrderLine().add(currentOrderLineModel);
 		}
+
+		orderConnect = new OrderConnect(this);
+		orderConnect.execute(OrderLineModel.class.toString(), currentOrderLineModel, 0);
 		orderLineDAO.open();
 		orderLineDAO.saveOrUpdateOrder(currentOrderLineModel);
 		orderLineDAO.close();
@@ -398,17 +436,74 @@ public class OrderDishActivity extends Activity {
 		this.updateOrderView();
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.activity_main, menu);
-		return true;
-	}
-
 	public long getUserSession() {
 		SharedPreferences sharedPreferences = getSharedPreferences(GenericUtil.PREFS_NAME, 0);
 		long userSession = sharedPreferences.getLong("userSession", new Date().getTime());
 		return userSession;
 	}
 
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		// getMenuInflater().inflate(R.menu.activity_main, menu);
+		super.onCreateOptionsMenu(menu);
+		createMenu(menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// TODO Auto-generated method stub
+		return menuChoice(item);
+	}
+
+	public void createMenu(Menu menu) {
+
+		String[] function = getResources().getStringArray(R.array.menu_src1_item_title);
+		MenuItem mnu1 = menu.add(0, 0, 0, getResources().getString(R.string.menu_item_listdish));
+		{
+			mnu1.setAlphabeticShortcut('a');
+			mnu1.setIcon(R.drawable.ic_launcher);
+
+		}
+		MenuItem mnu3 = menu.add(0, 2, 2, function[1]);
+		{
+			mnu3.setAlphabeticShortcut('c');
+			mnu3.setIcon(R.drawable.ic_launcher);
+
+		}
+		MenuItem mnu4 = menu.add(0, 3, 3, function[2]);
+		{
+			mnu4.setAlphabeticShortcut('d');
+			mnu4.setIcon(R.drawable.ic_launcher);
+
+		}
+		MenuItem mnu5 = menu.add(0, 4, 4, function[3]);
+		{
+			mnu5.setAlphabeticShortcut('e');
+			mnu5.setIcon(R.drawable.ic_launcher);
+
+		}
+	}
+
+	public boolean menuChoice(MenuItem item) {
+
+		switch (item.getItemId()) {
+		case 0:
+			startActivity(new Intent("android.intent.action.MainListActivity"));
+			return true;
+		case 2:
+			Toast.makeText(this, "Choice 2", Toast.LENGTH_SHORT).show();
+			return true;
+		case 3:
+			startActivity(new Intent("android.intent.action.PaymentActivity"));
+			return true;
+		case 4:
+			startActivity(new Intent("android.intent.action.AdsBookActivity"));
+			return true;
+
+		default:
+			return false;
+		}
+	}
 }

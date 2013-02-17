@@ -116,6 +116,29 @@ public class OrderDAO {
 		return orderModel;
 	}
 
+	public OrderModel getOrderById(long orderId, boolean isLoadOrderLine) {
+		OrderModel orderModel = new OrderModel();
+		Cursor cursor = db.query(ConfigDAO.DB_TABLE_ORDER, new String[] { ORDER_ID, ORDER_CHARGE, CREATE_DATE,
+				IS_PAYMENT }, ORDER_ID + "= " + orderId, null, null, null, null);
+		if (cursor.moveToFirst()) {
+			if (isLoadOrderLine == false) {
+				orderModel = convertOrderNoOrderLine(cursor);
+			} else {
+				orderModel = convertOrderFromCusor(cursor);
+			}
+		}
+		cursor.close();
+		return orderModel;
+	}
+
+	public void updateOrderStatus(long orderId, boolean isPayment) {
+	
+		String sqlUpdate = "UPDATE " + ConfigDAO.DB_TABLE_ORDER + " SET " + IS_PAYMENT + "= ? WHERE " + ORDER_ID
+				+ "= ?";
+		db.rawQuery(sqlUpdate, new String[] { isPayment + "", orderId + "" });
+
+	}
+
 	public OrderModel convertOrderFromCusor(Cursor cursor) {
 		OrderModel orderModel;
 		long orderId = cursor.getLong(cursor.getColumnIndex(ORDER_ID));
@@ -129,8 +152,19 @@ public class OrderDAO {
 		orderLineDAO.close();
 		return orderModel;
 	}
-	
-	public long countOrder(){
+
+	public OrderModel convertOrderNoOrderLine(Cursor cursor) {
+		OrderModel orderModel;
+		long orderId = cursor.getLong(cursor.getColumnIndex(ORDER_ID));
+		int orderCharge = cursor.getInt(cursor.getColumnIndex(ORDER_CHARGE));
+		String dateString = cursor.getString(cursor.getColumnIndex(CREATE_DATE));
+		Date createDate = GenericUtil.convertDateFromStringSQL(dateString);
+		boolean isPayment = (cursor.getInt(cursor.getColumnIndex(IS_PAYMENT)) == 1) ? true : false;
+		orderModel = new OrderModel(orderCharge, createDate, isPayment, new ArrayList<OrderLineModel>(), orderId);
+		return orderModel;
+	}
+
+	public long countOrder() {
 		long count = DatabaseUtils.queryNumEntries(db, ConfigDAO.DB_TABLE_ORDER);
 		return count;
 	}

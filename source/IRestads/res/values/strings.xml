@@ -24,7 +24,7 @@
         <item>Thanh toán</item>
         <item>Quảng cáo</item>
     </string-array>
-
+	<string name="menu_item_listdish">Danh sách món ăn</string>
     <string name="menu_function_title">Chức năng</string>
     <string name="menu_dialog_type_list">Menu type list</string>
     <string name="menu_dialog_type_view">Menu type view</string>
@@ -92,7 +92,30 @@
     <string name="settings_tableinf_message_title">Xác nhận lưu thiết lập</string>
     <string name="settings_tableinf_message">Bạn có chắc chắn muốn thiết lập tên của bàn này ?</string>
     <string name="settings_tableinf_message_stored">Đã lưu lại thiết lập</string>
-    <string name="scr3_left_title">Thanh toán</string>
+    <string name="scr3_left_title">Hóa đơn</string>
     <string name="scr3_left_function">«« Tính tiền »»</string>
+    <string name="scr3_totalprice">Tổng tiền</string>
+    <string name="scr3_numberdis_title">Số lượng món ăn</string>
+    <string name="scr3_orderstatus_title">Trạng thái hóa đơn</string>
+    <string name="scr3_paymenttime_title">Thời gian thanh toán</string>
+    <string name="scr3_paymenttime_context_title">Món ăn : </string>
+    <string name="scr3_comfirm_payment_title">Xác nhận yêu cầu thanh toán</string>
+    <string name="scr3_comfirm_payment_message">Bạn có chắc chắn muốn yêu cầu thanh toán hóa đơn ? \n Sau khi xác nhận xin vui lòng chờ nhân viên đến thanh toán.</string>
+
+    <string-array name="order_status">
+        <item>Chưa thanh toán</item>
+        <item>Đã thanh toán</item>
+    </string-array>
+
+    <string name="scr4_ads_main_company_name_title">Đơn vị cung cấp</string>
+    <string name="scr4_ads_main_contact_title">Liên hệ</string>
+    <string name="scr4_ads_main_contact_address_title">Địa chỉ</string>
+    <string name="scr4_ads_main_product_title">Thông tin sản phẩm</string>
+    <string name="ads_contact_subject">[iRestAds]Thông tin liên lạc với khách hàng</string>
+    <string name="ads_contact_report">Đã tiến hành gửi thông tin liên hệ đến đơn vị cung câp</string>
+    <string name="ads_contact_report_faild">Quá trình gửi yêu cầu thất bại, xin kiểm tra kết nối mạng và thông tin đã điền</string>
+    <string name="settings_resetdata_adsitem_title">Mục quảng cáo :</string>
+    
+    <string name="menu_item_settings">Thiết lập</string>
 
 </resources>

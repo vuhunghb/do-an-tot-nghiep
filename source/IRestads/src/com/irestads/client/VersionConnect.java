@@ -51,7 +51,8 @@ public class VersionConnect extends AsyncTask<Void, String, Long> {
 
 	private static String[] className = { MainActivity.class.toString(), SettingsActivity.class.toString() };
 	public static List<String> listClassName = Arrays.asList(className);
-	boolean check = false;
+
+	 boolean check = false;
 
 	public VersionConnect(Activity activity) {
 		super();
@@ -61,7 +62,7 @@ public class VersionConnect extends AsyncTask<Void, String, Long> {
 		GenericUtil.isConnected = true;
 		check = listClassName.contains(GenericUtil.currentActivity);
 		versionModels = checkIsMaxVersion();
-		// versionModels = new ArrayList<SoapObject>();
+//		versionModels = new ArrayList<SoapObject>();
 	}
 
 	@Override

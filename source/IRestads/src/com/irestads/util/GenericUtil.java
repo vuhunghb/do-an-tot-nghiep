@@ -31,14 +31,29 @@ public class GenericUtil {
 	public static String DISH_URL;
 	public static String DISH_METHOD_GET = "findDishsById";
 
+	public static String ORDER_URL;
+	public static String ORDER_METHOD_CREATE = "createOrders";
+	public static String ORDER_METHOD_DELETE = "deleteOrderById";
+	public static String ORDER_METHOD_GET = "findOrderById";
+	public static String ORDER_METHOD_SETWAITING = "setWaitingStatus";
+
+	public static String ORDERLINE_URL;
+	public static String ORDERLINE_METHOD_CREATE = "createOrderLine";
+	public static String ORDERLINE_METHOD_DELETE = "deleteOrderLineById";
+	public static String ORDERLINE_METHOD_GET_BY_ORDER = "getOrderLineByOrder";
+
 	public static SettingsModel settingsModel;
 
 	public static Timer timerAutoUpdate;
+	public static Timer timerAutoOrderUpdate;
 	public static String[] classNames = { "irestads.model.MenuLine", "irestads.model.Dish" };
 
 	public static boolean isConnected = true;
 
 	public static String currentActivity = "";
+
+	public static final int DELAY = 60000;
+	public static int DEFTIMEOUT = 0;
 
 	public GenericUtil() {
 		StogeSettingsUtil settingsUtil = new StogeSettingsUtil();
@@ -52,6 +67,8 @@ public class GenericUtil {
 		VERSION_URL = URL + "/DishsStore-portlet/api/axis/Plugin_dishsstore_UVersionService?wsdl";
 		MENULINE_URL = URL + "/DishsStore-portlet/api/axis/Plugin_dishsstore_MenuLineService?wsdl";
 		DISH_URL = URL + "/DishsStore-portlet/api/axis/Plugin_dishsstore_DishService?wsdl";
+		ORDER_URL = URL + "/DishsStore-portlet/api/axis/Plugin_dishsstore_OrdersService?wsdl";
+		ORDERLINE_URL = URL + "/DishsStore-portlet/api/axis/Plugin_dishsstore_OrderLineService?wsdl";
 	}
 
 	@SuppressLint("SimpleDateFormat")
@@ -70,6 +87,18 @@ public class GenericUtil {
 		Date date = settingsModel.getAutoUpdateTime();
 
 		timerAutoUpdate.scheduleAtFixedRate(updateTimerTask, date, 86400000);
+	}
+
+	public static void runOrderUpdateTimer(Activity activity, long orderId) {
+		if (timerAutoOrderUpdate != null) {
+			timerAutoOrderUpdate.cancel();
+		}
+
+		Handler handler = new Handler();
+		OrderUpdateTimerTask updateTimerTask = new OrderUpdateTimerTask(activity, handler, orderId);
+
+		timerAutoOrderUpdate = new Timer();
+		timerAutoOrderUpdate.scheduleAtFixedRate(updateTimerTask, new Date(), 60000);
 	}
 
 	public static int getTypeClass(String className) {

@@ -14,6 +14,7 @@ import com.irestads.model.DishModel;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 
 //import android.util.Base64;
 
@@ -34,8 +35,7 @@ public class ImageUtils {
 		return bitmap;
 	}
 
-	public static InputStream OpenHttpConnection(String strURL)
-			throws IOException {
+	public static InputStream OpenHttpConnection(String strURL) throws IOException {
 		InputStream inputStream = null;
 		URL url = new URL(strURL);
 		URLConnection conn = url.openConnection();
@@ -70,15 +70,41 @@ public class ImageUtils {
 	 * @param defautImage
 	 * @return
 	 */
-	public static Bitmap getImageByDishAvatar(byte[] avatar, Resources res,
-			int defautImage) {
+	public static Bitmap getImageFromByteArray(byte[] avatar, Resources res, int defautImage) {
 		Bitmap bm = null;
-		if (avatar != null && avatar.length !=0) {
+		if (avatar != null && avatar.length != 0) {
 			bm = BitmapFactory.decodeByteArray(avatar, 0, avatar.length);
 		} else {
 			bm = BitmapFactory.decodeResource(res, defautImage);
 		}
 		return bm;
+	}
+
+	public static Bitmap resizeBitmap(Bitmap bm, int newWidth, int newHeight) {
+		int width = bm.getWidth();
+
+		int height = bm.getHeight();
+
+		float scaleWidth = ((float) newWidth) / width;
+
+		float scaleHeight = ((float) newHeight) / height;
+
+		// create a matrix for the manipulation
+
+		Matrix matrix = new Matrix();
+
+		// resize the bit map
+
+		matrix.postScale(scaleWidth, scaleHeight);
+
+		// recreate the new Bitmap
+
+		Bitmap resizedBitmap = Bitmap.createBitmap(bm, 0, 0, width, height, matrix, false);
+
+		System.out.println("in getresizebitmap" + resizedBitmap.toString());
+
+		return resizedBitmap;
+
 	}
 
 	public static byte[] convertBitmapToArrayBite(Bitmap bmp) {
