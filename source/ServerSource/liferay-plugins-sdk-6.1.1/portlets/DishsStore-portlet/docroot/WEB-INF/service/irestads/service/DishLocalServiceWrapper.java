@@ -332,6 +332,10 @@ public class DishLocalServiceWrapper implements DishLocalService,
 			dishName, decription, avatarImg, detailImg, detail);
 	}
 
+	public boolean isDeleteDish(long dishId) {
+		return _dishLocalService.isDeleteDish(dishId);
+	}
+
 	/**
 	 * @deprecated Renamed to {@link #getWrappedService}
 	 */

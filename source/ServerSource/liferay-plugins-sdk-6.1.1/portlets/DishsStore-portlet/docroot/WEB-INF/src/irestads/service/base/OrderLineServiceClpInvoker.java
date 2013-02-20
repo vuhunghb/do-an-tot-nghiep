@@ -34,8 +34,24 @@ public class OrderLineServiceClpInvoker {
 		_methodName78 = "createOrderLine";
 
 		_methodParameterTypes78 = new String[] {
-				"java.lang.Long", "int", "int", "boolean", "long", "long"
+				"java.lang.Long", "int", "int", "long", "long", "long"
 			};
+
+		_methodName79 = "deleteOrderLineById";
+
+		_methodParameterTypes79 = new String[] { "long" };
+
+		_methodName80 = "getOrderLineByOrder";
+
+		_methodParameterTypes80 = new String[] { "long" };
+
+		_methodName81 = "updateOrderLine";
+
+		_methodParameterTypes81 = new String[] { "long", "int", "int" };
+
+		_methodName82 = "synchStatusOrderLine";
+
+		_methodParameterTypes82 = new String[] { "irestads.model.OrderLine" };
 	}
 
 	public Object invokeMethod(String name, String[] parameterTypes,
@@ -55,9 +71,31 @@ public class OrderLineServiceClpInvoker {
 			return OrderLineServiceUtil.createOrderLine((java.lang.Long)arguments[0],
 				((Integer)arguments[1]).intValue(),
 				((Integer)arguments[2]).intValue(),
-				((Boolean)arguments[3]).booleanValue(),
+				((Long)arguments[3]).longValue(),
 				((Long)arguments[4]).longValue(),
 				((Long)arguments[5]).longValue());
+		}
+
+		if (_methodName79.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes79, parameterTypes)) {
+			return OrderLineServiceUtil.deleteOrderLineById(((Long)arguments[0]).longValue());
+		}
+
+		if (_methodName80.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes80, parameterTypes)) {
+			return OrderLineServiceUtil.getOrderLineByOrder(((Long)arguments[0]).longValue());
+		}
+
+		if (_methodName81.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes81, parameterTypes)) {
+			return OrderLineServiceUtil.updateOrderLine(((Long)arguments[0]).longValue(),
+				((Integer)arguments[1]).intValue(),
+				((Integer)arguments[2]).intValue());
+		}
+
+		if (_methodName82.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes82, parameterTypes)) {
+			return OrderLineServiceUtil.synchStatusOrderLine((irestads.model.OrderLine)arguments[0]);
 		}
 
 		throw new UnsupportedOperationException();
@@ -69,4 +107,12 @@ public class OrderLineServiceClpInvoker {
 	private String[] _methodParameterTypes73;
 	private String _methodName78;
 	private String[] _methodParameterTypes78;
+	private String _methodName79;
+	private String[] _methodParameterTypes79;
+	private String _methodName80;
+	private String[] _methodParameterTypes80;
+	private String _methodName81;
+	private String[] _methodParameterTypes81;
+	private String _methodName82;
+	private String[] _methodParameterTypes82;
 }

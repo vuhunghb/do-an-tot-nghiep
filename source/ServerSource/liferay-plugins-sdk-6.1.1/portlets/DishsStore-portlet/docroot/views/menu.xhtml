@@ -31,9 +31,7 @@
 					update=":formTable:menuLineTable :formTable:messages :fAddDishFromStore:addFromDishStoreDlg"
 					icon="ui-icon-close" actionListener="#{menuBeans.deleteMenuLine()}" />
 			</p:contextMenu>
-			<p:commandButton value="Test"
-				action="#{menuBeans.findNextVersions()}">
-			</p:commandButton>
+			
 
 			<h:panelGrid columns="8">
 				<h:outputText value="Từ khóa " />
@@ -83,8 +81,8 @@
 					</p:row>
 				</p:columnGroup>
 				<p:column>
-				<!-- <h:outputText value="#{ml.dish.dishId}" /> -->	
-				<p:graphicImage value="#{menuBeans.img}" style="width: 60px; height: 60px"></p:graphicImage>
+				<h:outputText value="#{ml.dish.dishId}" /> 
+				
 				</p:column>
 				<p:column>
 					<h:outputText value="#{ml.dish.dishName}" />
@@ -178,7 +176,7 @@
 		<h:form id="formAdd">
 
 			<p:dialog header="Thêm mới Món ăn" widgetVar="addMenuLineDlg"
-				resizable="false" width="500" showEffect="clip" hideEffect="fold"
+				resizable="false" width="600" showEffect="clip" hideEffect="fold"
 				id="addDialog">
 				<h:panelGrid id="pAdd" columns="3">
 
@@ -204,21 +202,18 @@
 					<p:message for="dishDecriptionAdd" style="color:red" display="icon"></p:message>
 		
 		Hình đại diện: 
-	<!--  	<p:inputText id="avatarImgAdd" size="47"
-				value="#{menuBeans.menuLineAdd.dish.avatarImg}" required="false"
-				label="Avatar Img" />
-				
-				-->
 
 					<p:fileUpload id="avatarImgAdd"
-						fileUploadListener="#{menuBeans.handleFileUpload}"
+						fileUploadListener="#{menuBeans.uploadAvatarImg}"
 						mode="advanced" update=":formTable:messages" sizeLimit="100000"
 						allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
 					<p:message for="avatarImgAdd" style="color:red"></p:message>
 		Hình chi tiết: 
-		<p:inputText id="detailImgAdd" size="47"
-						value="#{menuBeans.menuLineAdd.dish.detailImg}" required="false"
-						label="Detail Img" />
+		
+						<p:fileUpload id="detailImgAdd"
+						fileUploadListener="#{menuBeans.uploadDetailImg}"
+						mode="advanced" update=":formTable:messages" sizeLimit="100000"
+						allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
 					<p:message for="detailImgAdd" style="color:red"></p:message>
 		Giá tham khảo: 
 		<p:inputText id="referPriceAdd" size="47"

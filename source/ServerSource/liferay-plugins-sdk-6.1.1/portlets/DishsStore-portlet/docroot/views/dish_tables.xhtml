@@ -6,62 +6,146 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
+	<style type="text/css">
+.waiting {
+	display: none;
+}
+</style>
 	<h:head />
 	<h:body>
+
 		<h:form id="tableForm">
-			<p:dataGrid value="#{orderBeans.dishTables}" var="dishTable"
-				columns="3" rows="12" paginator="true"
+			<p:dataGrid id="dgDishTable" value="#{orderBeans.dishTables}"
+				var="dishTable" columns="3" rows="12" paginator="true"
 				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 				rowsPerPageTemplate="9,12,15">
 
 				<p:column>
 					<p:panel header="#{dishTable.dishTableId}"
 						style="text-align:center">
-						<h:panelGrid columns="1" style="width:100%">
-							<p:graphicImage value="/img/1.jpg" />
-
+						<p:graphicImage id="img" value="#{orderBeans.loadImg(dishTable.isAvalable)}" />
+						<h:panelGrid columns="2" style="width:100%">
+							Số lượng ghế:
 							<h:outputText value="#{dishTable.numChair}" />
-							<p:commandLink update=":tableForm:tableDetail"
-								oncomplete="tableDialog.show()" title="View Detail">
-								<h:outputText styleClass="ui-icon ui-icon-search"
-									style="margin:0 auto;" />
-								<f:setPropertyActionListener value="#{dishTable}"
-									target="#{orderBeans.dishTableSelected}" />
-							</p:commandLink>
-
+							<h:outputText
+								value="#{orderBeans.toStringTableAvailable(dishTable.isAvalable)}" />
 						</h:panelGrid>
+						<p:commandLink update=":tableForm:tableDetail"
+							oncomplete="tableDialog.show()" title="View Detail"
+							action="#{orderBeans.loadCurrentOrderLine(dishTable.curentOrder.orderId)}">
+							<h:outputText styleClass="ui-icon ui-icon-search"
+								style="margin:0 auto;" />
+							<f:setPropertyActionListener value="#{dishTable}"
+								target="#{orderBeans.dishTableSelected}" />
+							<f:ajax render="orderLineTable" />
+						</p:commandLink>
 					</p:panel>
 				</p:column>
 			</p:dataGrid>
 			<p:dialog header="Table Detail" widgetVar="tableDialog" modal="true"
 				id="dlg">
+				<p:growl id="messages" showDetail="true" life="3000" />
 				<p:outputPanel id="tableDetail" style="text-align:left;"
 					layout="block">
-
-					<!--   <p:graphicImage value="/images/cars/#{tableBean.selectedCar.manufacturer}.jpg"/>  -->
-
-					
-					<h:panelGrid columns="2" cellpadding="5">
-						<h:outputLabel for="tableId" value="Mã bàn: " />
-						<h:outputText id="tableId"
-							value="#{orderBeans.dishTableSelected.dishTableId}" />
-						<h:outputLabel for="status" value="Trạng thái: " />
-						<h:outputText id="status"
-							value="#{orderBeans.dishTableSelected.isAvalable}" />
-					</h:panelGrid>
-					<p:separator id="customSeparator" style="width:100%;height:2px" />  
-						<h:panelGrid columns="2" cellpadding="5" rendered="#{orderBeans.dishTableSelected.isAvalable}">
+					<h:panelGrid columns="2" cellpadding="5" id="orderGid"
+						rendered="#{orderBeans.dishTableSelected.isAvalable}">
 						<h:outputLabel for="numOfDiner" value="Số lượng thực khách: " />
 						<h:outputText id="numOfDiner"
 							value="#{orderBeans.dishTableSelected.curentOrder.numOfDinner}" />
-						<h:outputLabel for="charge" value="Tổng tiền " />
+						<h:outputLabel for="charge" value="Tổng tiền: " />
 						<h:outputText id="charge"
 							value="#{orderBeans.dishTableSelected.curentOrder.charge}" />
+						<h:outputLabel for="status" value="Trạng thái: " />
+						<h:outputText id="status" rendered="#{not orderBeans.editLable}"
+							value="#{orderBeans.toStrIsPaymentOrder(orderBeans.dishTableSelected.curentOrder.isPayMent)}" />
+						<h:selectOneMenu value="#{orderBeans.dishTableSelected.curentOrder.isPayMent}" rendered="#{orderBeans.editLable}">
+						<f:selectItem itemLabel="Chưa Thanh Toán" itemValue="0"/>
+						<f:selectItem itemLabel="Đợi Thanh Toán" itemValue="1"/>
+						<f:selectItem itemLabel="Đã Thanh Toán" itemValue="2"/>
+						</h:selectOneMenu>
+						<h:commandButton value="Sửa" action="#{orderBeans.editStatusOrdAct}"  rendered="#{not orderBeans.editLable}" >
+                    <f:ajax render="orderGid" />
+                    </h:commandButton>
+                    <h:commandButton value="Save"   action="#{orderBeans.updateOrders}" rendered="#{orderBeans.editLable}" >
+                     <f:ajax render="tableDetail" />
+                    </h:commandButton>
 					</h:panelGrid>
-					<h:outputLabel value="Bàn chưa có thực khách "  rendered="#{not orderBeans.dishTableSelected.isAvalable}"/>
-						
+					
+                    
+					
+					<p:separator id="customSeparator" style="width:100%;height:2px"
+						rendered="#{orderBeans.dishTableSelected.isAvalable}" />
+					<p:dataTable id="orderLineTable" var="ol"
+						value="#{orderBeans.orderLinesCurrent}" paginator="true" rows="10"
+						paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+						rowsPerPageTemplate="1,2,5,10,15" sortBy="#{ol.orderLineId}"
+						rowKey="#{ol.orderLineId}" selectionMode="single" editable="true"
+						rendered="#{orderBeans.dishTableSelected.isAvalable}">
+						<p:ajax event="rowEdit" listener="#{orderBeans.onEdit}"
+							update=":tableForm:orderLineTable :tableForm:messages" />
+						<p:columnGroup type="header">
+							<p:row>
+								<p:column width="50" headerText="Mã" />
+								<p:column headerText="Món ăn" />
+								<p:column width="100" headerText="Số món đã đặt" />
+								<p:column headerText="Số đã hoàn thành" />
+								<p:column headerText="Trạng thái" />
+
+								<p:column headerText="Chỉnh sửa" />
+							</p:row>
+						</p:columnGroup>
+						<p:column>
+							<h:outputText value="#{ol.orderLineId}" />
+						</p:column>
+						<p:column>
+							<h:outputText value="#{orderBeans.getDishNameById(ol.dishId)}" />
+						</p:column>
+						<p:column>
+							<h:outputText value="#{ol.numOfDish}" />
+						</p:column>
+						<p:column>
+							<p:cellEditor>
+								<f:facet name="output">
+									<h:outputText value="#{ol.numOfFinishDish}" />
+								</f:facet>
+								<f:facet name="input">
+									<p:inputText value="#{ol.numOfFinishDish}"></p:inputText>
+								</f:facet>
+							</p:cellEditor>
+						</p:column>
+
+						<p:column>
+							<p:cellEditor>
+								<f:facet name="output">
+									<h:outputText
+										value="#{orderBeans.toStringStatus(ol.statusDish)}" />
+								</f:facet>
+								<f:facet name="input">
+
+									<h:selectOneMenu value="#{ol.statusDish}">
+										<f:selectItem itemLabel="Món mới gọi" itemValue="0" />
+										<f:selectItem itemLabel="Đang thực hiện" itemValue="1" />
+										<f:selectItem itemLabel="Đã hoàn tất" itemValue="2" />
+									</h:selectOneMenu>
+								</f:facet>
+							</p:cellEditor>
+						</p:column>
+
+						<p:column>
+							<p:rowEditor />
+						</p:column>
+
+					</p:dataTable>
+					<h:outputLabel value="Bàn chưa có thực khách "
+						rendered="#{not orderBeans.dishTableSelected.isAvalable}" />
 				</p:outputPanel>
+
+
 			</p:dialog>
+			<p:poll interval="4" listener="#{orderBeans.getAllDishTable()}"
+				update="dgDishTable" widgetVar="poll" autoStart="true" />
+
+			<h:outputText id="test" value="#{orderBeans.count}" />
 		</h:form>
 	</h:body>
 </f:view>

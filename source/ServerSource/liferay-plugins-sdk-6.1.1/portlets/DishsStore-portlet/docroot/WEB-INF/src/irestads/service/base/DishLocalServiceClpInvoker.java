@@ -174,6 +174,10 @@ public class DishLocalServiceClpInvoker {
 				"long", "int", "java.lang.String", "java.lang.String",
 				"java.lang.String", "java.lang.String", "java.lang.String"
 			};
+
+		_methodName110 = "isDeleteDish";
+
+		_methodParameterTypes110 = new String[] { "long" };
 	}
 
 	public Object invokeMethod(String name, String[] parameterTypes,
@@ -364,6 +368,11 @@ public class DishLocalServiceClpInvoker {
 				(java.lang.String)arguments[6]);
 		}
 
+		if (_methodName110.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes110, parameterTypes)) {
+			return DishLocalServiceUtil.isDeleteDish(((Long)arguments[0]).longValue());
+		}
+
 		throw new UnsupportedOperationException();
 	}
 
@@ -435,4 +444,6 @@ public class DishLocalServiceClpInvoker {
 	private String[] _methodParameterTypes108;
 	private String _methodName109;
 	private String[] _methodParameterTypes109;
+	private String _methodName110;
+	private String[] _methodParameterTypes110;
 }

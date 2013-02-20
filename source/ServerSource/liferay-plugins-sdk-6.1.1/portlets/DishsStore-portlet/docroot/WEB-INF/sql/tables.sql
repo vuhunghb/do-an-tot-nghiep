@@ -20,7 +20,7 @@ create table dishsstore_Dish (
 	avatarImg VARCHAR(75) null,
 	avatarBaseCode TEXT null,
 	detailImg VARCHAR(75) null,
-	detailBaseCode VARCHAR(75) null,
+	detailBaseCode TEXT null,
 	detail VARCHAR(75) null,
 	referPrice INTEGER,
 	numOfDiner INTEGER,
@@ -36,7 +36,8 @@ create table dishsstore_DishTable (
 	modifiedDate DATE null,
 	tableName VARCHAR(75) null,
 	isAvalable BOOLEAN,
-	numChair INTEGER
+	numChair INTEGER,
+	currentOrderId LONG
 );
 
 create table dishsstore_Menu (
@@ -57,6 +58,7 @@ create table dishsstore_MenuLine (
 	createDate DATE null,
 	modifiedDate DATE null,
 	numOfDish INTEGER,
+	capacity INTEGER,
 	status BOOLEAN,
 	dishId LONG
 );
@@ -69,9 +71,10 @@ create table dishsstore_OrderLine (
 	createDate DATE null,
 	modifiedDate DATE null,
 	numOfDish INTEGER,
-	capacity INTEGER,
-	statusDish BOOLEAN,
+	numOfFinishDish INTEGER,
+	statusDish INTEGER,
 	dishId LONG,
+	orderDate DATE null,
 	orderId LONG
 );
 
@@ -84,7 +87,7 @@ create table dishsstore_Orders (
 	modifiedDate DATE null,
 	charge INTEGER,
 	createdDate DATE null,
-	isPayMent BOOLEAN,
+	isPayMent INTEGER,
 	numOfDinner INTEGER,
 	dishTableId VARCHAR(75) null
 );

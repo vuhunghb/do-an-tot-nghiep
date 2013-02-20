@@ -56,10 +56,30 @@ public class OrderLineServiceWrapper implements OrderLineService,
 	}
 
 	public irestads.model.OrderLine createOrderLine(
-		java.lang.Long orderLineId, int numOfDish, int capacity,
-		boolean statusDish, long dishId, long orderId) {
+		java.lang.Long orderLineId, int numOfDish, int statusDish, long dishId,
+		long orderId, long orderDate) {
 		return _orderLineService.createOrderLine(orderLineId, numOfDish,
-			capacity, statusDish, dishId, orderId);
+			statusDish, dishId, orderId, orderDate);
+	}
+
+	public boolean deleteOrderLineById(long orderLineId) {
+		return _orderLineService.deleteOrderLineById(orderLineId);
+	}
+
+	public java.util.List<irestads.model.OrderLine> getOrderLineByOrder(
+		long orderId) {
+		return _orderLineService.getOrderLineByOrder(orderId);
+	}
+
+	public irestads.model.OrderLine updateOrderLine(long orderLineId,
+		int numOfFinishDish, int status) {
+		return _orderLineService.updateOrderLine(orderLineId, numOfFinishDish,
+			status);
+	}
+
+	public irestads.model.OrderLine synchStatusOrderLine(
+		irestads.model.OrderLine ol) {
+		return _orderLineService.synchStatusOrderLine(ol);
 	}
 
 	/**

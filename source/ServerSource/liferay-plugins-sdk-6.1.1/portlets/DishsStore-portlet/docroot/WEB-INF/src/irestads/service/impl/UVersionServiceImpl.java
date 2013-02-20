@@ -24,10 +24,14 @@ import irestads.service.base.UVersionServiceBaseImpl;
  * The implementation of the u version remote service.
  *
  * <p>
- * All custom service methods should be put in this class. Whenever methods are added, rerun ServiceBuilder to copy their definitions into the {@link irestads.service.UVersionService} interface.
+ * All custom service methods should be put in this class. Whenever methods are
+ * added, rerun ServiceBuilder to copy their definitions into the
+ * {@link irestads.service.UVersionService} interface.
  *
  * <p>
- * This is a remote service. Methods of this service are expected to have security checks based on the propagated JAAS credentials because this service can be accessed remotely.
+ * This is a remote service. Methods of this service are expected to have
+ * security checks based on the propagated JAAS credentials because this service
+ * can be accessed remotely.
  * </p>
  *
  * @author Be
@@ -38,15 +42,19 @@ public class UVersionServiceImpl extends UVersionServiceBaseImpl {
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never reference this interface directly. Always use {@link irestads.service.UVersionServiceUtil} to access the u version remote service.
+	 * Never reference this interface directly. Always use {@link
+	 * irestads.service.UVersionServiceUtil} to access the u version remote
+	 * service.
 	 */
 	public UVersion createVersion(UVersion v){
 		
 		return UVersionLocalServiceUtil.createVersion(v);
 	}
+
 	public UVersion createVersion(long idObj, String nameObj,String type){
 		return UVersionLocalServiceUtil.createVersion(idObj, nameObj, type);
 	}
+
 	public List<UVersion> findNextVersions(long uversionId) {
 		return UVersionLocalServiceUtil.findNextVersions(uversionId);
 	}

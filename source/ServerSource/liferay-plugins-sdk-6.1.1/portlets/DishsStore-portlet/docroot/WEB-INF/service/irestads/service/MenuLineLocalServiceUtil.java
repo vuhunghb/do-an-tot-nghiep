@@ -319,8 +319,7 @@ public class MenuLineLocalServiceUtil {
 		return getService().setDishForMenuLine(menuLines);
 	}
 
-	public static java.util.List<irestads.model.MenuLine> findMenuLinesByDishId(
-		long dishId) {
+	public static irestads.model.MenuLine findMenuLinesByDishId(long dishId) {
 		return getService().findMenuLinesByDishId(dishId);
 	}
 

@@ -3,11 +3,28 @@
 <deployment xmlns="http://xml.apache.org/axis/wsdd/" xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
 	<service name="Plugin_dishsstore_OrdersService" provider="java:RPC" style="rpc" use="encoded">
 		<typeMapping xmlns:ns="http://model.irestads" qname="ns:OrdersSoap" type="java:irestads.model.OrdersSoap" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"></typeMapping>
+		<operation xmlns:operNS="urn:http.service.irestads" xmlns:rtns="http://model.irestads" name="createOrders" qname="operNS:createOrders" returnQName="createOrdersReturn" returnType="rtns:OrdersSoap" soapAction="">
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="orderId" type="tns:long"></parameter>
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="charge" type="tns:int"></parameter>
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="isPayment" type="tns:boolean"></parameter>
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="numOfDinner" type="tns:int"></parameter>
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="dishTableId" type="tns:string"></parameter>
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="createdDate" type="tns:long"></parameter>
+		</operation>
+		<operation xmlns:operNS="urn:http.service.irestads" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="deleteOrderById" qname="operNS:deleteOrderById" returnQName="deleteOrderByIdReturn" returnType="rtns:boolean" soapAction="">
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="orderId" type="tns:long"></parameter>
+		</operation>
 		<operation xmlns:operNS="urn:http.service.irestads" xmlns:rtns="http://model.irestads" name="findCurrentOrder" qname="operNS:findCurrentOrder" returnQName="findCurrentOrderReturn" returnType="rtns:OrdersSoap" soapAction="">
 			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="isPayMent" type="tns:boolean"></parameter>
 			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="dishTableId" type="tns:string"></parameter>
 		</operation>
-		<parameter name="allowedMethods" value="findCurrentOrder" />
+		<operation xmlns:operNS="urn:http.service.irestads" xmlns:rtns="http://model.irestads" name="findOrderById" qname="operNS:findOrderById" returnQName="findOrderByIdReturn" returnType="rtns:OrdersSoap" soapAction="">
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="orderId" type="tns:long"></parameter>
+		</operation>
+		<operation xmlns:operNS="urn:http.service.irestads" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="setWaitingStatus" qname="operNS:setWaitingStatus" returnQName="setWaitingStatusReturn" returnType="rtns:boolean" soapAction="">
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="orderId" type="tns:long"></parameter>
+		</operation>
+		<parameter name="allowedMethods" value="createOrders deleteOrderById findCurrentOrder findOrderById setWaitingStatus" />
 		<parameter name="className" value="irestads.service.http.OrdersServiceSoap" />
 		<parameter name="schemaUnqualified" value="http://model.irestads" />
 		<parameter name="typeMappingVersion" value="1.2" />

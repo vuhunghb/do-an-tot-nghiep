@@ -340,6 +340,10 @@ public class DishLocalServiceUtil {
 			decription, avatarImg, detailImg, detail);
 	}
 
+	public static boolean isDeleteDish(long dishId) {
+		return getService().isDeleteDish(dishId);
+	}
+
 	public static void clearService() {
 		_service = null;
 	}

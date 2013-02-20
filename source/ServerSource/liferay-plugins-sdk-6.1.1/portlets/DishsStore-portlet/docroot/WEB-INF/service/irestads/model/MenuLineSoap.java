@@ -38,6 +38,7 @@ public class MenuLineSoap implements Serializable {
 		soapModel.setCreateDate(model.getCreateDate());
 		soapModel.setModifiedDate(model.getModifiedDate());
 		soapModel.setNumOfDish(model.getNumOfDish());
+		soapModel.setCapacity(model.getCapacity());
 		soapModel.setStatus(model.getStatus());
 		soapModel.setDishId(model.getDishId());
 
@@ -148,6 +149,14 @@ public class MenuLineSoap implements Serializable {
 		_numOfDish = numOfDish;
 	}
 
+	public int getCapacity() {
+		return _capacity;
+	}
+
+	public void setCapacity(int capacity) {
+		_capacity = capacity;
+	}
+
 	public boolean getStatus() {
 		return _status;
 	}
@@ -175,6 +184,7 @@ public class MenuLineSoap implements Serializable {
 	private Date _createDate;
 	private Date _modifiedDate;
 	private int _numOfDish;
+	private int _capacity;
 	private boolean _status;
 	private long _dishId;
 }

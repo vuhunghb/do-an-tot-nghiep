@@ -193,7 +193,7 @@ public class OrdersUtil {
 	* @throws irestads.NoSuchOrdersException if a matching orders could not be found
 	* @throws SystemException if a system exception occurred
 	*/
-	public static irestads.model.Orders findBycurentOrder(boolean isPayMent,
+	public static irestads.model.Orders findBycurentOrder(int isPayMent,
 		java.lang.String dishTableId)
 		throws com.liferay.portal.kernel.exception.SystemException,
 			irestads.NoSuchOrdersException {
@@ -208,7 +208,7 @@ public class OrdersUtil {
 	* @return the matching orders, or <code>null</code> if a matching orders could not be found
 	* @throws SystemException if a system exception occurred
 	*/
-	public static irestads.model.Orders fetchBycurentOrder(boolean isPayMent,
+	public static irestads.model.Orders fetchBycurentOrder(int isPayMent,
 		java.lang.String dishTableId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return getPersistence().fetchBycurentOrder(isPayMent, dishTableId);
@@ -223,7 +223,7 @@ public class OrdersUtil {
 	* @return the matching orders, or <code>null</code> if a matching orders could not be found
 	* @throws SystemException if a system exception occurred
 	*/
-	public static irestads.model.Orders fetchBycurentOrder(boolean isPayMent,
+	public static irestads.model.Orders fetchBycurentOrder(int isPayMent,
 		java.lang.String dishTableId, boolean retrieveFromCache)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return getPersistence()
@@ -286,7 +286,7 @@ public class OrdersUtil {
 	* @return the orders that was removed
 	* @throws SystemException if a system exception occurred
 	*/
-	public static irestads.model.Orders removeBycurentOrder(boolean isPayMent,
+	public static irestads.model.Orders removeBycurentOrder(int isPayMent,
 		java.lang.String dishTableId)
 		throws com.liferay.portal.kernel.exception.SystemException,
 			irestads.NoSuchOrdersException {
@@ -311,7 +311,7 @@ public class OrdersUtil {
 	* @return the number of matching orderses
 	* @throws SystemException if a system exception occurred
 	*/
-	public static int countBycurentOrder(boolean isPayMent,
+	public static int countBycurentOrder(int isPayMent,
 		java.lang.String dishTableId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return getPersistence().countBycurentOrder(isPayMent, dishTableId);

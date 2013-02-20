@@ -73,10 +73,11 @@ public class MenuLineModelImpl extends BaseModelImpl<MenuLine>
 			{ "createDate", Types.TIMESTAMP },
 			{ "modifiedDate", Types.TIMESTAMP },
 			{ "numOfDish", Types.INTEGER },
+			{ "capacity", Types.INTEGER },
 			{ "status", Types.BOOLEAN },
 			{ "dishId", Types.BIGINT }
 		};
-	public static final String TABLE_SQL_CREATE = "create table dishsstore_MenuLine (menuLineId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,numOfDish INTEGER,status BOOLEAN,dishId LONG)";
+	public static final String TABLE_SQL_CREATE = "create table dishsstore_MenuLine (menuLineId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,numOfDish INTEGER,capacity INTEGER,status BOOLEAN,dishId LONG)";
 	public static final String TABLE_SQL_DROP = "drop table dishsstore_MenuLine";
 	public static final String ORDER_BY_JPQL = " ORDER BY menuLine.menuLineId ASC";
 	public static final String ORDER_BY_SQL = " ORDER BY dishsstore_MenuLine.menuLineId ASC";
@@ -116,6 +117,7 @@ public class MenuLineModelImpl extends BaseModelImpl<MenuLine>
 		model.setCreateDate(soapModel.getCreateDate());
 		model.setModifiedDate(soapModel.getModifiedDate());
 		model.setNumOfDish(soapModel.getNumOfDish());
+		model.setCapacity(soapModel.getCapacity());
 		model.setStatus(soapModel.getStatus());
 		model.setDishId(soapModel.getDishId());
 
@@ -183,6 +185,7 @@ public class MenuLineModelImpl extends BaseModelImpl<MenuLine>
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
 		attributes.put("numOfDish", getNumOfDish());
+		attributes.put("capacity", getCapacity());
 		attributes.put("status", getStatus());
 		attributes.put("dishId", getDishId());
 
@@ -231,6 +234,12 @@ public class MenuLineModelImpl extends BaseModelImpl<MenuLine>
 
 		if (numOfDish != null) {
 			setNumOfDish(numOfDish);
+		}
+
+		Integer capacity = (Integer)attributes.get("capacity");
+
+		if (capacity != null) {
+			setCapacity(capacity);
 		}
 
 		Boolean status = (Boolean)attributes.get("status");
@@ -337,6 +346,15 @@ public class MenuLineModelImpl extends BaseModelImpl<MenuLine>
 	}
 
 	@JSON
+	public int getCapacity() {
+		return _capacity;
+	}
+
+	public void setCapacity(int capacity) {
+		_capacity = capacity;
+	}
+
+	@JSON
 	public boolean getStatus() {
 		return _status;
 	}
@@ -421,6 +439,7 @@ public class MenuLineModelImpl extends BaseModelImpl<MenuLine>
 		menuLineImpl.setCreateDate(getCreateDate());
 		menuLineImpl.setModifiedDate(getModifiedDate());
 		menuLineImpl.setNumOfDish(getNumOfDish());
+		menuLineImpl.setCapacity(getCapacity());
 		menuLineImpl.setStatus(getStatus());
 		menuLineImpl.setDishId(getDishId());
 
@@ -536,6 +555,8 @@ public class MenuLineModelImpl extends BaseModelImpl<MenuLine>
 
 		menuLineCacheModel.numOfDish = getNumOfDish();
 
+		menuLineCacheModel.capacity = getCapacity();
+
 		menuLineCacheModel.status = getStatus();
 
 		menuLineCacheModel.dishId = getDishId();
@@ -545,7 +566,7 @@ public class MenuLineModelImpl extends BaseModelImpl<MenuLine>
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(19);
+		StringBundler sb = new StringBundler(21);
 
 		sb.append("{menuLineId=");
 		sb.append(getMenuLineId());
@@ -561,6 +582,8 @@ public class MenuLineModelImpl extends BaseModelImpl<MenuLine>
 		sb.append(getModifiedDate());
 		sb.append(", numOfDish=");
 		sb.append(getNumOfDish());
+		sb.append(", capacity=");
+		sb.append(getCapacity());
 		sb.append(", status=");
 		sb.append(getStatus());
 		sb.append(", dishId=");
@@ -571,7 +594,7 @@ public class MenuLineModelImpl extends BaseModelImpl<MenuLine>
 	}
 
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(31);
+		StringBundler sb = new StringBundler(34);
 
 		sb.append("<model><model-name>");
 		sb.append("irestads.model.MenuLine");
@@ -606,6 +629,10 @@ public class MenuLineModelImpl extends BaseModelImpl<MenuLine>
 		sb.append(getNumOfDish());
 		sb.append("]]></column-value></column>");
 		sb.append(
+			"<column><column-name>capacity</column-name><column-value><![CDATA[");
+		sb.append(getCapacity());
+		sb.append("]]></column-value></column>");
+		sb.append(
 			"<column><column-name>status</column-name><column-value><![CDATA[");
 		sb.append(getStatus());
 		sb.append("]]></column-value></column>");
@@ -633,6 +660,7 @@ public class MenuLineModelImpl extends BaseModelImpl<MenuLine>
 	private int _numOfDish;
 	private int _originalNumOfDish;
 	private boolean _setOriginalNumOfDish;
+	private int _capacity;
 	private boolean _status;
 	private boolean _originalStatus;
 	private boolean _setOriginalStatus;

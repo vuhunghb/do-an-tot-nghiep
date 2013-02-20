@@ -2,8 +2,25 @@
 
 <deployment xmlns="http://xml.apache.org/axis/wsdd/" xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
 	<service name="Plugin_dishsstore_OrderLineService" provider="java:RPC" style="rpc" use="encoded">
-		<parameter name="allowedMethods" value="*" />
+		<arrayMapping xmlns:ns="urn:http.service.irestads" xmlns:cmp-ns="http://model.irestads" qname="ns:ArrayOf_tns2_OrderLineSoap" type="java:irestads.model.OrderLineSoap[]" innerType="cmp-ns:OrderLineSoap" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"></arrayMapping>
+		<typeMapping xmlns:ns="http://model.irestads" qname="ns:OrderLineSoap" type="java:irestads.model.OrderLineSoap" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"></typeMapping>
+		<operation xmlns:operNS="urn:http.service.irestads" xmlns:rtns="http://model.irestads" name="createOrderLine" qname="operNS:createOrderLine" returnQName="createOrderLineReturn" returnType="rtns:OrderLineSoap" soapAction="">
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="orderLineId" type="tns:long"></parameter>
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="numOfDish" type="tns:int"></parameter>
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="statusDish" type="tns:int"></parameter>
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="dishId" type="tns:long"></parameter>
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="orderId" type="tns:long"></parameter>
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="orderDate" type="tns:long"></parameter>
+		</operation>
+		<operation xmlns:operNS="urn:http.service.irestads" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="deleteOrderLineById" qname="operNS:deleteOrderLineById" returnQName="deleteOrderLineByIdReturn" returnType="rtns:boolean" soapAction="">
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="orderLineId" type="tns:long"></parameter>
+		</operation>
+		<operation xmlns:operNS="urn:http.service.irestads" xmlns:rtns="urn:http.service.irestads" xmlns:tns2="http://model.irestads" name="getOrderLineByOrder" qname="operNS:getOrderLineByOrder" returnQName="getOrderLineByOrderReturn" returnType="rtns:ArrayOf_tns2_OrderLineSoap" returnItemType="tns2:OrderLineSoap" soapAction="">
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="orderId" type="tns:long"></parameter>
+		</operation>
+		<parameter name="allowedMethods" value="createOrderLine deleteOrderLineById getOrderLineByOrder" />
 		<parameter name="className" value="irestads.service.http.OrderLineServiceSoap" />
+		<parameter name="schemaUnqualified" value="http://model.irestads,urn:http.service.irestads" />
 		<parameter name="typeMappingVersion" value="1.2" />
 		<parameter name="wsdlPortType" value="OrderLineServiceSoap" />
 		<parameter name="wsdlServiceElement" value="OrderLineServiceSoapService" />

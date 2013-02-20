@@ -34,7 +34,7 @@ import java.util.Date;
 public class DishTableCacheModel implements CacheModel<DishTable>, Serializable {
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(19);
+		StringBundler sb = new StringBundler(21);
 
 		sb.append("{dishTableId=");
 		sb.append(dishTableId);
@@ -54,6 +54,8 @@ public class DishTableCacheModel implements CacheModel<DishTable>, Serializable 
 		sb.append(isAvalable);
 		sb.append(", numChair=");
 		sb.append(numChair);
+		sb.append(", currentOrderId=");
+		sb.append(currentOrderId);
 		sb.append("}");
 
 		return sb.toString();
@@ -102,6 +104,7 @@ public class DishTableCacheModel implements CacheModel<DishTable>, Serializable 
 
 		dishTableImpl.setIsAvalable(isAvalable);
 		dishTableImpl.setNumChair(numChair);
+		dishTableImpl.setCurrentOrderId(currentOrderId);
 
 		dishTableImpl.resetOriginalValues();
 
@@ -117,4 +120,5 @@ public class DishTableCacheModel implements CacheModel<DishTable>, Serializable 
 	public String tableName;
 	public boolean isAvalable;
 	public int numChair;
+	public long currentOrderId;
 }

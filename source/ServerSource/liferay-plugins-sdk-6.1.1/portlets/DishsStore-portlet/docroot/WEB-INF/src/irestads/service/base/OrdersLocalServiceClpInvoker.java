@@ -106,15 +106,27 @@ public class OrdersLocalServiceClpInvoker {
 
 		_methodParameterTypes89 = new String[] { "java.lang.String" };
 
-		_methodName94 = "findCurrentOrder";
+		_methodName94 = "findOrderById";
 
-		_methodParameterTypes94 = new String[] { "boolean", "java.lang.String" };
+		_methodParameterTypes94 = new String[] { "long" };
 
 		_methodName95 = "createOrders";
 
 		_methodParameterTypes95 = new String[] {
-				"long", "int", "boolean", "int", "java.lang.String"
+				"long", "int", "int", "int", "java.lang.String", "long"
 			};
+
+		_methodName96 = "updateOrder";
+
+		_methodParameterTypes96 = new String[] { "irestads.model.Orders" };
+
+		_methodName97 = "deleteOrderById";
+
+		_methodParameterTypes97 = new String[] { "long" };
+
+		_methodName98 = "setWaitingStatus";
+
+		_methodParameterTypes98 = new String[] { "long" };
 	}
 
 	public Object invokeMethod(String name, String[] parameterTypes,
@@ -218,17 +230,31 @@ public class OrdersLocalServiceClpInvoker {
 
 		if (_methodName94.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes94, parameterTypes)) {
-			return OrdersLocalServiceUtil.findCurrentOrder(((Boolean)arguments[0]).booleanValue(),
-				(java.lang.String)arguments[1]);
+			return OrdersLocalServiceUtil.findOrderById(((Long)arguments[0]).longValue());
 		}
 
 		if (_methodName95.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes95, parameterTypes)) {
 			return OrdersLocalServiceUtil.createOrders(((Long)arguments[0]).longValue(),
 				((Integer)arguments[1]).intValue(),
-				((Boolean)arguments[2]).booleanValue(),
+				((Integer)arguments[2]).intValue(),
 				((Integer)arguments[3]).intValue(),
-				(java.lang.String)arguments[4]);
+				(java.lang.String)arguments[4], ((Long)arguments[5]).longValue());
+		}
+
+		if (_methodName96.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes96, parameterTypes)) {
+			return OrdersLocalServiceUtil.updateOrder((irestads.model.Orders)arguments[0]);
+		}
+
+		if (_methodName97.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes97, parameterTypes)) {
+			return OrdersLocalServiceUtil.deleteOrderById(((Long)arguments[0]).longValue());
+		}
+
+		if (_methodName98.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes98, parameterTypes)) {
+			return OrdersLocalServiceUtil.setWaitingStatus(((Long)arguments[0]).longValue());
 		}
 
 		throw new UnsupportedOperationException();
@@ -274,4 +300,10 @@ public class OrdersLocalServiceClpInvoker {
 	private String[] _methodParameterTypes94;
 	private String _methodName95;
 	private String[] _methodParameterTypes95;
+	private String _methodName96;
+	private String[] _methodParameterTypes96;
+	private String _methodName97;
+	private String[] _methodParameterTypes97;
+	private String _methodName98;
+	private String[] _methodParameterTypes98;
 }

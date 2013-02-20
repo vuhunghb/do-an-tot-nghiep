@@ -17,16 +17,12 @@ package irestads.service.persistence;
 import com.liferay.portal.NoSuchModelException;
 import com.liferay.portal.kernel.bean.BeanReference;
 import com.liferay.portal.kernel.cache.CacheRegistryUtil;
-import com.liferay.portal.kernel.dao.jdbc.MappingSqlQuery;
-import com.liferay.portal.kernel.dao.jdbc.MappingSqlQueryFactoryUtil;
-import com.liferay.portal.kernel.dao.jdbc.RowMapper;
 import com.liferay.portal.kernel.dao.orm.EntityCacheUtil;
 import com.liferay.portal.kernel.dao.orm.FinderCacheUtil;
 import com.liferay.portal.kernel.dao.orm.FinderPath;
 import com.liferay.portal.kernel.dao.orm.Query;
 import com.liferay.portal.kernel.dao.orm.QueryPos;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
-import com.liferay.portal.kernel.dao.orm.SQLQuery;
 import com.liferay.portal.kernel.dao.orm.Session;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.log.Log;
@@ -362,6 +358,7 @@ public class DishTablePersistenceImpl extends BasePersistenceImpl<DishTable>
 		dishTableImpl.setTableName(dishTable.getTableName());
 		dishTableImpl.setIsAvalable(dishTable.isIsAvalable());
 		dishTableImpl.setNumChair(dishTable.getNumChair());
+		dishTableImpl.setCurrentOrderId(dishTable.getCurrentOrderId());
 
 		return dishTableImpl;
 	}
@@ -1079,237 +1076,6 @@ public class DishTablePersistenceImpl extends BasePersistenceImpl<DishTable>
 	}
 
 	/**
-	 * Returns all the orderses associated with the dish table.
-	 *
-	 * @param pk the primary key of the dish table
-	 * @return the orderses associated with the dish table
-	 * @throws SystemException if a system exception occurred
-	 */
-	public List<irestads.model.Orders> getOrderses(String pk)
-		throws SystemException {
-		return getOrderses(pk, QueryUtil.ALL_POS, QueryUtil.ALL_POS);
-	}
-
-	/**
-	 * Returns a range of all the orderses associated with the dish table.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
-	 *
-	 * @param pk the primary key of the dish table
-	 * @param start the lower bound of the range of dish tables
-	 * @param end the upper bound of the range of dish tables (not inclusive)
-	 * @return the range of orderses associated with the dish table
-	 * @throws SystemException if a system exception occurred
-	 */
-	public List<irestads.model.Orders> getOrderses(String pk, int start, int end)
-		throws SystemException {
-		return getOrderses(pk, start, end, null);
-	}
-
-	public static final FinderPath FINDER_PATH_GET_ORDERSES = new FinderPath(irestads.model.impl.OrdersModelImpl.ENTITY_CACHE_ENABLED,
-			irestads.model.impl.OrdersModelImpl.FINDER_CACHE_ENABLED,
-			irestads.model.impl.OrdersImpl.class,
-			irestads.service.persistence.OrdersPersistenceImpl.FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION,
-			"getOrderses",
-			new String[] {
-				String.class.getName(), "java.lang.Integer", "java.lang.Integer",
-				"com.liferay.portal.kernel.util.OrderByComparator"
-			});
-
-	static {
-		FINDER_PATH_GET_ORDERSES.setCacheKeyGeneratorCacheName(null);
-	}
-
-	/**
-	 * Returns an ordered range of all the orderses associated with the dish table.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
-	 *
-	 * @param pk the primary key of the dish table
-	 * @param start the lower bound of the range of dish tables
-	 * @param end the upper bound of the range of dish tables (not inclusive)
-	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @return the ordered range of orderses associated with the dish table
-	 * @throws SystemException if a system exception occurred
-	 */
-	public List<irestads.model.Orders> getOrderses(String pk, int start,
-		int end, OrderByComparator orderByComparator) throws SystemException {
-		Object[] finderArgs = new Object[] { pk, start, end, orderByComparator };
-
-		List<irestads.model.Orders> list = (List<irestads.model.Orders>)FinderCacheUtil.getResult(FINDER_PATH_GET_ORDERSES,
-				finderArgs, this);
-
-		if (list == null) {
-			Session session = null;
-
-			try {
-				session = openSession();
-
-				String sql = null;
-
-				if (orderByComparator != null) {
-					sql = _SQL_GETORDERSES.concat(ORDER_BY_CLAUSE)
-										  .concat(orderByComparator.getOrderBy());
-				}
-				else {
-					sql = _SQL_GETORDERSES;
-				}
-
-				SQLQuery q = session.createSQLQuery(sql);
-
-				q.addEntity("dishsstore_Orders",
-					irestads.model.impl.OrdersImpl.class);
-
-				QueryPos qPos = QueryPos.getInstance(q);
-
-				qPos.add(pk);
-
-				list = (List<irestads.model.Orders>)QueryUtil.list(q,
-						getDialect(), start, end);
-			}
-			catch (Exception e) {
-				throw processException(e);
-			}
-			finally {
-				if (list == null) {
-					FinderCacheUtil.removeResult(FINDER_PATH_GET_ORDERSES,
-						finderArgs);
-				}
-				else {
-					ordersPersistence.cacheResult(list);
-
-					FinderCacheUtil.putResult(FINDER_PATH_GET_ORDERSES,
-						finderArgs, list);
-				}
-
-				closeSession(session);
-			}
-		}
-
-		return list;
-	}
-
-	public static final FinderPath FINDER_PATH_GET_ORDERSES_SIZE = new FinderPath(irestads.model.impl.OrdersModelImpl.ENTITY_CACHE_ENABLED,
-			irestads.model.impl.OrdersModelImpl.FINDER_CACHE_ENABLED,
-			irestads.model.impl.OrdersImpl.class,
-			irestads.service.persistence.OrdersPersistenceImpl.FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION,
-			"getOrdersesSize", new String[] { String.class.getName() });
-
-	static {
-		FINDER_PATH_GET_ORDERSES_SIZE.setCacheKeyGeneratorCacheName(null);
-	}
-
-	/**
-	 * Returns the number of orderses associated with the dish table.
-	 *
-	 * @param pk the primary key of the dish table
-	 * @return the number of orderses associated with the dish table
-	 * @throws SystemException if a system exception occurred
-	 */
-	public int getOrdersesSize(String pk) throws SystemException {
-		Object[] finderArgs = new Object[] { pk };
-
-		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_GET_ORDERSES_SIZE,
-				finderArgs, this);
-
-		if (count == null) {
-			Session session = null;
-
-			try {
-				session = openSession();
-
-				SQLQuery q = session.createSQLQuery(_SQL_GETORDERSESSIZE);
-
-				q.addScalar(COUNT_COLUMN_NAME,
-					com.liferay.portal.kernel.dao.orm.Type.LONG);
-
-				QueryPos qPos = QueryPos.getInstance(q);
-
-				qPos.add(pk);
-
-				count = (Long)q.uniqueResult();
-			}
-			catch (Exception e) {
-				throw processException(e);
-			}
-			finally {
-				if (count == null) {
-					count = Long.valueOf(0);
-				}
-
-				FinderCacheUtil.putResult(FINDER_PATH_GET_ORDERSES_SIZE,
-					finderArgs, count);
-
-				closeSession(session);
-			}
-		}
-
-		return count.intValue();
-	}
-
-	public static final FinderPath FINDER_PATH_CONTAINS_ORDERS = new FinderPath(irestads.model.impl.OrdersModelImpl.ENTITY_CACHE_ENABLED,
-			irestads.model.impl.OrdersModelImpl.FINDER_CACHE_ENABLED,
-			irestads.model.impl.OrdersImpl.class,
-			irestads.service.persistence.OrdersPersistenceImpl.FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION,
-			"containsOrders",
-			new String[] { String.class.getName(), Long.class.getName() });
-
-	/**
-	 * Returns <code>true</code> if the orders is associated with the dish table.
-	 *
-	 * @param pk the primary key of the dish table
-	 * @param ordersPK the primary key of the orders
-	 * @return <code>true</code> if the orders is associated with the dish table; <code>false</code> otherwise
-	 * @throws SystemException if a system exception occurred
-	 */
-	public boolean containsOrders(String pk, long ordersPK)
-		throws SystemException {
-		Object[] finderArgs = new Object[] { pk, ordersPK };
-
-		Boolean value = (Boolean)FinderCacheUtil.getResult(FINDER_PATH_CONTAINS_ORDERS,
-				finderArgs, this);
-
-		if (value == null) {
-			try {
-				value = Boolean.valueOf(containsOrders.contains(pk, ordersPK));
-			}
-			catch (Exception e) {
-				throw processException(e);
-			}
-			finally {
-				if (value == null) {
-					value = Boolean.FALSE;
-				}
-
-				FinderCacheUtil.putResult(FINDER_PATH_CONTAINS_ORDERS,
-					finderArgs, value);
-			}
-		}
-
-		return value.booleanValue();
-	}
-
-	/**
-	 * Returns <code>true</code> if the dish table has any orderses associated with it.
-	 *
-	 * @param pk the primary key of the dish table to check for associations with orderses
-	 * @return <code>true</code> if the dish table has any orderses associated with it; <code>false</code> otherwise
-	 * @throws SystemException if a system exception occurred
-	 */
-	public boolean containsOrderses(String pk) throws SystemException {
-		if (getOrdersesSize(pk) > 0) {
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
-
-	/**
 	 * Initializes the dish table persistence.
 	 */
 	public void afterPropertiesSet() {
@@ -1332,8 +1098,6 @@ public class DishTablePersistenceImpl extends BasePersistenceImpl<DishTable>
 				_log.error(e);
 			}
 		}
-
-		containsOrders = new ContainsOrders();
 	}
 
 	public void destroy() {
@@ -1362,42 +1126,10 @@ public class DishTablePersistenceImpl extends BasePersistenceImpl<DishTable>
 	protected ResourcePersistence resourcePersistence;
 	@BeanReference(type = UserPersistence.class)
 	protected UserPersistence userPersistence;
-	protected ContainsOrders containsOrders;
-
-	protected class ContainsOrders {
-		protected ContainsOrders() {
-			_mappingSqlQuery = MappingSqlQueryFactoryUtil.getMappingSqlQuery(getDataSource(),
-					_SQL_CONTAINSORDERS,
-					new int[] { java.sql.Types.VARCHAR, java.sql.Types.BIGINT },
-					RowMapper.COUNT);
-		}
-
-		protected boolean contains(String dishTableId, long orderId) {
-			List<Integer> results = _mappingSqlQuery.execute(new Object[] {
-						dishTableId, new Long(orderId)
-					});
-
-			if (results.size() > 0) {
-				Integer count = results.get(0);
-
-				if (count.intValue() > 0) {
-					return true;
-				}
-			}
-
-			return false;
-		}
-
-		private MappingSqlQuery<Integer> _mappingSqlQuery;
-	}
-
 	private static final String _SQL_SELECT_DISHTABLE = "SELECT dishTable FROM DishTable dishTable";
 	private static final String _SQL_SELECT_DISHTABLE_WHERE = "SELECT dishTable FROM DishTable dishTable WHERE ";
 	private static final String _SQL_COUNT_DISHTABLE = "SELECT COUNT(dishTable) FROM DishTable dishTable";
 	private static final String _SQL_COUNT_DISHTABLE_WHERE = "SELECT COUNT(dishTable) FROM DishTable dishTable WHERE ";
-	private static final String _SQL_GETORDERSES = "SELECT {dishsstore_Orders.*} FROM dishsstore_Orders INNER JOIN dishsstore_DishTable ON (dishsstore_DishTable.dishTableId = dishsstore_Orders.dishTableId) WHERE (dishsstore_DishTable.dishTableId = ?)";
-	private static final String _SQL_GETORDERSESSIZE = "SELECT COUNT(*) AS COUNT_VALUE FROM dishsstore_Orders WHERE dishTableId = ?";
-	private static final String _SQL_CONTAINSORDERS = "SELECT COUNT(*) AS COUNT_VALUE FROM dishsstore_Orders WHERE dishTableId = ? AND orderId = ?";
 	private static final String _FINDER_COLUMN_ISAVALABLE_ISAVALABLE_2 = "dishTable.isAvalable = ?";
 	private static final String _ORDER_BY_ENTITY_ALIAS = "dishTable.";
 	private static final String _NO_SUCH_ENTITY_WITH_PRIMARY_KEY = "No DishTable exists with the primary key ";

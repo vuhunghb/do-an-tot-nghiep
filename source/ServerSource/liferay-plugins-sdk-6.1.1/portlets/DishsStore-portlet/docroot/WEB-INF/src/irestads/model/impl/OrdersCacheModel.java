@@ -123,7 +123,7 @@ public class OrdersCacheModel implements CacheModel<Orders>, Serializable {
 	public long modifiedDate;
 	public int charge;
 	public long createdDate;
-	public boolean isPayMent;
+	public int isPayMent;
 	public int numOfDinner;
 	public String dishTableId;
 }

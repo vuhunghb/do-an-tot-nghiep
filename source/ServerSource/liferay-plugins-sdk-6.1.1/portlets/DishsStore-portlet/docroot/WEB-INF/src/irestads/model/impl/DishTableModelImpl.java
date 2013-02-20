@@ -70,9 +70,10 @@ public class DishTableModelImpl extends BaseModelImpl<DishTable>
 			{ "modifiedDate", Types.TIMESTAMP },
 			{ "tableName", Types.VARCHAR },
 			{ "isAvalable", Types.BOOLEAN },
-			{ "numChair", Types.INTEGER }
+			{ "numChair", Types.INTEGER },
+			{ "currentOrderId", Types.BIGINT }
 		};
-	public static final String TABLE_SQL_CREATE = "create table dishsstore_DishTable (dishTableId VARCHAR(75) not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,tableName VARCHAR(75) null,isAvalable BOOLEAN,numChair INTEGER)";
+	public static final String TABLE_SQL_CREATE = "create table dishsstore_DishTable (dishTableId VARCHAR(75) not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,tableName VARCHAR(75) null,isAvalable BOOLEAN,numChair INTEGER,currentOrderId LONG)";
 	public static final String TABLE_SQL_DROP = "drop table dishsstore_DishTable";
 	public static final String ORDER_BY_JPQL = " ORDER BY dishTable.isAvalable ASC";
 	public static final String ORDER_BY_SQL = " ORDER BY dishsstore_DishTable.isAvalable ASC";
@@ -112,6 +113,7 @@ public class DishTableModelImpl extends BaseModelImpl<DishTable>
 		model.setTableName(soapModel.getTableName());
 		model.setIsAvalable(soapModel.getIsAvalable());
 		model.setNumChair(soapModel.getNumChair());
+		model.setCurrentOrderId(soapModel.getCurrentOrderId());
 
 		return model;
 	}
@@ -179,6 +181,7 @@ public class DishTableModelImpl extends BaseModelImpl<DishTable>
 		attributes.put("tableName", getTableName());
 		attributes.put("isAvalable", getIsAvalable());
 		attributes.put("numChair", getNumChair());
+		attributes.put("currentOrderId", getCurrentOrderId());
 
 		return attributes;
 	}
@@ -237,6 +240,12 @@ public class DishTableModelImpl extends BaseModelImpl<DishTable>
 
 		if (numChair != null) {
 			setNumChair(numChair);
+		}
+
+		Long currentOrderId = (Long)attributes.get("currentOrderId");
+
+		if (currentOrderId != null) {
+			setCurrentOrderId(currentOrderId);
 		}
 	}
 
@@ -360,6 +369,15 @@ public class DishTableModelImpl extends BaseModelImpl<DishTable>
 		_numChair = numChair;
 	}
 
+	@JSON
+	public long getCurrentOrderId() {
+		return _currentOrderId;
+	}
+
+	public void setCurrentOrderId(long currentOrderId) {
+		_currentOrderId = currentOrderId;
+	}
+
 	public long getColumnBitmask() {
 		return _columnBitmask;
 	}
@@ -388,6 +406,7 @@ public class DishTableModelImpl extends BaseModelImpl<DishTable>
 		dishTableImpl.setTableName(getTableName());
 		dishTableImpl.setIsAvalable(getIsAvalable());
 		dishTableImpl.setNumChair(getNumChair());
+		dishTableImpl.setCurrentOrderId(getCurrentOrderId());
 
 		dishTableImpl.resetOriginalValues();
 
@@ -509,12 +528,14 @@ public class DishTableModelImpl extends BaseModelImpl<DishTable>
 
 		dishTableCacheModel.numChair = getNumChair();
 
+		dishTableCacheModel.currentOrderId = getCurrentOrderId();
+
 		return dishTableCacheModel;
 	}
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(19);
+		StringBundler sb = new StringBundler(21);
 
 		sb.append("{dishTableId=");
 		sb.append(getDishTableId());
@@ -534,13 +555,15 @@ public class DishTableModelImpl extends BaseModelImpl<DishTable>
 		sb.append(getIsAvalable());
 		sb.append(", numChair=");
 		sb.append(getNumChair());
+		sb.append(", currentOrderId=");
+		sb.append(getCurrentOrderId());
 		sb.append("}");
 
 		return sb.toString();
 	}
 
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(31);
+		StringBundler sb = new StringBundler(34);
 
 		sb.append("<model><model-name>");
 		sb.append("irestads.model.DishTable");
@@ -582,6 +605,10 @@ public class DishTableModelImpl extends BaseModelImpl<DishTable>
 			"<column><column-name>numChair</column-name><column-value><![CDATA[");
 		sb.append(getNumChair());
 		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>currentOrderId</column-name><column-value><![CDATA[");
+		sb.append(getCurrentOrderId());
+		sb.append("]]></column-value></column>");
 
 		sb.append("</model>");
 
@@ -604,6 +631,7 @@ public class DishTableModelImpl extends BaseModelImpl<DishTable>
 	private boolean _originalIsAvalable;
 	private boolean _setOriginalIsAvalable;
 	private int _numChair;
+	private long _currentOrderId;
 	private long _columnBitmask;
 	private DishTable _escapedModelProxy;
 }

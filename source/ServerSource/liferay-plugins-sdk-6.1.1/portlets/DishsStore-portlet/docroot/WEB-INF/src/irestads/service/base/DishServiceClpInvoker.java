@@ -101,6 +101,10 @@ public class DishServiceClpInvoker {
 				"long", "int", "java.lang.String", "java.lang.String",
 				"java.lang.String", "java.lang.String", "java.lang.String"
 			};
+
+		_methodName94 = "isDeleteDish";
+
+		_methodParameterTypes94 = new String[] { "long" };
 	}
 
 	public Object invokeMethod(String name, String[] parameterTypes,
@@ -204,6 +208,11 @@ public class DishServiceClpInvoker {
 				(java.lang.String)arguments[6]);
 		}
 
+		if (_methodName94.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes94, parameterTypes)) {
+			return DishServiceUtil.isDeleteDish(((Long)arguments[0]).longValue());
+		}
+
 		throw new UnsupportedOperationException();
 	}
 
@@ -243,4 +252,6 @@ public class DishServiceClpInvoker {
 	private String[] _methodParameterTypes92;
 	private String _methodName93;
 	private String[] _methodParameterTypes93;
+	private String _methodName94;
+	private String[] _methodParameterTypes94;
 }

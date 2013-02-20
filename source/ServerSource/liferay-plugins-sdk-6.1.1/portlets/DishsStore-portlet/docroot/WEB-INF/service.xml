@@ -114,6 +114,7 @@
 		<!-- Other fields -->
 		
 		<column name="numOfDish" type="int"></column>
+		<column name="capacity" type="int" />
 		<column name="status" type="boolean"></column>
 		<column name="dishId" type="long"></column>
 		
@@ -125,7 +126,7 @@
 		<finder name="Status" return-type="Collection">
 			<finder-column name="status" />
 		</finder>
-		<finder name="DishId" return-type="Collection">
+		<finder name="DishId" return-type="MenuLine">
 			<finder-column name="dishId" />
 		</finder>
 		<finder name="NumOfDish" return-type="Collection">
@@ -166,20 +167,24 @@
 		<column name="modifiedDate" type="Date" />
 		<!-- Other fields -->
 		<column name="numOfDish" type="int" />
-		<column name="capacity" type="int" />
-		<column name="statusDish" type="boolean" />
+		<column name="numOfFinishDish" type="int" />
+		<column name="statusDish" type="int" />
 		<column name="dishId" type="long" />
+		<column name="orderDate" type="Date" />
 		<column name="orderId" type="long" />
 		<!-- Order -->
 		<order by="asc">
-			<order-column name="numOfDish" />
+			<order-column name="orderLineId" />
 		</order>
 		<!-- Finder methods -->
 		<finder name="StatusDish" return-type="Collection">
 			<finder-column name="statusDish" />
 		</finder>
+	<finder name="OrderId" return-type="Collection">
+			<finder-column name="orderId" />
+		</finder>
 	</entity>
-	<entity name="Orders" local-service="true" remote-service="true">
+			<entity name="Orders" local-service="true" remote-service="true">
 		<!-- PK fields -->
 		<column name="orderId" type="long" primary="true" />
 		<!-- Audit fields -->
@@ -191,7 +196,8 @@
 		<!-- Other fields -->
 		<column name="charge" type="int" />
 		<column name="createdDate" type="Date" />
-		<column name="isPayMent" type="boolean" />
+		<column name="isPayMent" type="int" />
+		
 		<column name="numOfDinner" type="int" />
 		<column name="orderLines" type="Collection" entity="OrderLine"
 			mapping-key="orderId" />
@@ -204,7 +210,7 @@
 			<finder-column name="dishTableId" />
 		</finder>
 	</entity>
-	<entity name="DishTable" local-service="true" remote-service="true">
+			<entity name="DishTable" local-service="true" remote-service="true">
 		<!-- PK fields -->
 		<column name="dishTableId" type="String" primary="true" />
 		<!-- Audit fields -->
@@ -217,8 +223,7 @@
 		<column name="tableName" type="String"></column>
 		<column name="isAvalable" type="boolean" />
 		<column name="numChair" type="int" />
-		<column name="orders" type="Collection" entity="Orders"
-			mapping-key="dishTableId" />
+		<column name="currentOrderId" type="long"  />
 		<!-- Order -->
 		<order by="asc">
 			<order-column name="isAvalable" />

@@ -166,6 +166,10 @@ public class DishLocalServiceClp implements DishLocalService {
 				"long", "int", "java.lang.String", "java.lang.String",
 				"java.lang.String", "java.lang.String", "java.lang.String"
 			};
+
+		_methodName33 = "isDeleteDish";
+
+		_methodParameterTypes33 = new String[] { "long" };
 	}
 
 	public irestads.model.Dish addDish(irestads.model.Dish dish)
@@ -1050,6 +1054,28 @@ public class DishLocalServiceClp implements DishLocalService {
 		return (java.util.List<irestads.model.Dish>)ClpSerializer.translateOutput(returnObj);
 	}
 
+	public boolean isDeleteDish(long dishId) {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName33,
+					_methodParameterTypes33, new Object[] { dishId });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return ((Boolean)returnObj).booleanValue();
+	}
+
 	private InvokableLocalService _invokableLocalService;
 	private String _methodName0;
 	private String[] _methodParameterTypes0;
@@ -1115,4 +1141,6 @@ public class DishLocalServiceClp implements DishLocalService {
 	private String[] _methodParameterTypes31;
 	private String _methodName32;
 	private String[] _methodParameterTypes32;
+	private String _methodName33;
+	private String[] _methodParameterTypes33;
 }

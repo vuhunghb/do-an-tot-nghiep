@@ -12,6 +12,7 @@ create index IX_4F1AFFD7 on dishsstore_MenuLine (numOfDish);
 create index IX_67B91469 on dishsstore_MenuLine (price);
 create index IX_242A9A36 on dishsstore_MenuLine (status);
 
+create index IX_4BE80E8 on dishsstore_OrderLine (orderId);
 create index IX_E3402AD1 on dishsstore_OrderLine (statusDish);
 
 create index IX_1DF0278A on dishsstore_Orders (isPayMent);

@@ -73,15 +73,16 @@ public class OrderLineModelImpl extends BaseModelImpl<OrderLine>
 			{ "createDate", Types.TIMESTAMP },
 			{ "modifiedDate", Types.TIMESTAMP },
 			{ "numOfDish", Types.INTEGER },
-			{ "capacity", Types.INTEGER },
-			{ "statusDish", Types.BOOLEAN },
+			{ "numOfFinishDish", Types.INTEGER },
+			{ "statusDish", Types.INTEGER },
 			{ "dishId", Types.BIGINT },
+			{ "orderDate", Types.TIMESTAMP },
 			{ "orderId", Types.BIGINT }
 		};
-	public static final String TABLE_SQL_CREATE = "create table dishsstore_OrderLine (orderLineId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,numOfDish INTEGER,capacity INTEGER,statusDish BOOLEAN,dishId LONG,orderId LONG)";
+	public static final String TABLE_SQL_CREATE = "create table dishsstore_OrderLine (orderLineId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,numOfDish INTEGER,numOfFinishDish INTEGER,statusDish INTEGER,dishId LONG,orderDate DATE null,orderId LONG)";
 	public static final String TABLE_SQL_DROP = "drop table dishsstore_OrderLine";
-	public static final String ORDER_BY_JPQL = " ORDER BY orderLine.numOfDish ASC";
-	public static final String ORDER_BY_SQL = " ORDER BY dishsstore_OrderLine.numOfDish ASC";
+	public static final String ORDER_BY_JPQL = " ORDER BY orderLine.orderLineId ASC";
+	public static final String ORDER_BY_SQL = " ORDER BY dishsstore_OrderLine.orderLineId ASC";
 	public static final String DATA_SOURCE = "liferayDataSource";
 	public static final String SESSION_FACTORY = "liferaySessionFactory";
 	public static final String TX_MANAGER = "liferayTransactionManager";
@@ -94,7 +95,8 @@ public class OrderLineModelImpl extends BaseModelImpl<OrderLine>
 	public static final boolean COLUMN_BITMASK_ENABLED = GetterUtil.getBoolean(com.liferay.util.service.ServiceProps.get(
 				"value.object.column.bitmask.enabled.irestads.model.OrderLine"),
 			true);
-	public static long STATUSDISH_COLUMN_BITMASK = 1L;
+	public static long ORDERID_COLUMN_BITMASK = 1L;
+	public static long STATUSDISH_COLUMN_BITMASK = 2L;
 
 	/**
 	 * Converts the soap model instance into a normal model instance.
@@ -116,9 +118,10 @@ public class OrderLineModelImpl extends BaseModelImpl<OrderLine>
 		model.setCreateDate(soapModel.getCreateDate());
 		model.setModifiedDate(soapModel.getModifiedDate());
 		model.setNumOfDish(soapModel.getNumOfDish());
-		model.setCapacity(soapModel.getCapacity());
+		model.setNumOfFinishDish(soapModel.getNumOfFinishDish());
 		model.setStatusDish(soapModel.getStatusDish());
 		model.setDishId(soapModel.getDishId());
+		model.setOrderDate(soapModel.getOrderDate());
 		model.setOrderId(soapModel.getOrderId());
 
 		return model;
@@ -185,9 +188,10 @@ public class OrderLineModelImpl extends BaseModelImpl<OrderLine>
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
 		attributes.put("numOfDish", getNumOfDish());
-		attributes.put("capacity", getCapacity());
+		attributes.put("numOfFinishDish", getNumOfFinishDish());
 		attributes.put("statusDish", getStatusDish());
 		attributes.put("dishId", getDishId());
+		attributes.put("orderDate", getOrderDate());
 		attributes.put("orderId", getOrderId());
 
 		return attributes;
@@ -237,13 +241,13 @@ public class OrderLineModelImpl extends BaseModelImpl<OrderLine>
 			setNumOfDish(numOfDish);
 		}
 
-		Integer capacity = (Integer)attributes.get("capacity");
+		Integer numOfFinishDish = (Integer)attributes.get("numOfFinishDish");
 
-		if (capacity != null) {
-			setCapacity(capacity);
+		if (numOfFinishDish != null) {
+			setNumOfFinishDish(numOfFinishDish);
 		}
 
-		Boolean statusDish = (Boolean)attributes.get("statusDish");
+		Integer statusDish = (Integer)attributes.get("statusDish");
 
 		if (statusDish != null) {
 			setStatusDish(statusDish);
@@ -253,6 +257,12 @@ public class OrderLineModelImpl extends BaseModelImpl<OrderLine>
 
 		if (dishId != null) {
 			setDishId(dishId);
+		}
+
+		Date orderDate = (Date)attributes.get("orderDate");
+
+		if (orderDate != null) {
+			setOrderDate(orderDate);
 		}
 
 		Long orderId = (Long)attributes.get("orderId");
@@ -268,6 +278,8 @@ public class OrderLineModelImpl extends BaseModelImpl<OrderLine>
 	}
 
 	public void setOrderLineId(long orderLineId) {
+		_columnBitmask = -1L;
+
 		_orderLineId = orderLineId;
 	}
 
@@ -335,30 +347,24 @@ public class OrderLineModelImpl extends BaseModelImpl<OrderLine>
 	}
 
 	public void setNumOfDish(int numOfDish) {
-		_columnBitmask = -1L;
-
 		_numOfDish = numOfDish;
 	}
 
 	@JSON
-	public int getCapacity() {
-		return _capacity;
+	public int getNumOfFinishDish() {
+		return _numOfFinishDish;
 	}
 
-	public void setCapacity(int capacity) {
-		_capacity = capacity;
+	public void setNumOfFinishDish(int numOfFinishDish) {
+		_numOfFinishDish = numOfFinishDish;
 	}
 
 	@JSON
-	public boolean getStatusDish() {
+	public int getStatusDish() {
 		return _statusDish;
 	}
 
-	public boolean isStatusDish() {
-		return _statusDish;
-	}
-
-	public void setStatusDish(boolean statusDish) {
+	public void setStatusDish(int statusDish) {
 		_columnBitmask |= STATUSDISH_COLUMN_BITMASK;
 
 		if (!_setOriginalStatusDish) {
@@ -370,7 +376,7 @@ public class OrderLineModelImpl extends BaseModelImpl<OrderLine>
 		_statusDish = statusDish;
 	}
 
-	public boolean getOriginalStatusDish() {
+	public int getOriginalStatusDish() {
 		return _originalStatusDish;
 	}
 
@@ -384,12 +390,33 @@ public class OrderLineModelImpl extends BaseModelImpl<OrderLine>
 	}
 
 	@JSON
+	public Date getOrderDate() {
+		return _orderDate;
+	}
+
+	public void setOrderDate(Date orderDate) {
+		_orderDate = orderDate;
+	}
+
+	@JSON
 	public long getOrderId() {
 		return _orderId;
 	}
 
 	public void setOrderId(long orderId) {
+		_columnBitmask |= ORDERID_COLUMN_BITMASK;
+
+		if (!_setOriginalOrderId) {
+			_setOriginalOrderId = true;
+
+			_originalOrderId = _orderId;
+		}
+
 		_orderId = orderId;
+	}
+
+	public long getOriginalOrderId() {
+		return _originalOrderId;
 	}
 
 	public long getColumnBitmask() {
@@ -431,9 +458,10 @@ public class OrderLineModelImpl extends BaseModelImpl<OrderLine>
 		orderLineImpl.setCreateDate(getCreateDate());
 		orderLineImpl.setModifiedDate(getModifiedDate());
 		orderLineImpl.setNumOfDish(getNumOfDish());
-		orderLineImpl.setCapacity(getCapacity());
+		orderLineImpl.setNumOfFinishDish(getNumOfFinishDish());
 		orderLineImpl.setStatusDish(getStatusDish());
 		orderLineImpl.setDishId(getDishId());
+		orderLineImpl.setOrderDate(getOrderDate());
 		orderLineImpl.setOrderId(getOrderId());
 
 		orderLineImpl.resetOriginalValues();
@@ -444,10 +472,10 @@ public class OrderLineModelImpl extends BaseModelImpl<OrderLine>
 	public int compareTo(OrderLine orderLine) {
 		int value = 0;
 
-		if (getNumOfDish() < orderLine.getNumOfDish()) {
+		if (getOrderLineId() < orderLine.getOrderLineId()) {
 			value = -1;
 		}
-		else if (getNumOfDish() > orderLine.getNumOfDish()) {
+		else if (getOrderLineId() > orderLine.getOrderLineId()) {
 			value = 1;
 		}
 		else {
@@ -499,6 +527,10 @@ public class OrderLineModelImpl extends BaseModelImpl<OrderLine>
 
 		orderLineModelImpl._setOriginalStatusDish = false;
 
+		orderLineModelImpl._originalOrderId = orderLineModelImpl._orderId;
+
+		orderLineModelImpl._setOriginalOrderId = false;
+
 		orderLineModelImpl._columnBitmask = 0;
 	}
 
@@ -540,11 +572,20 @@ public class OrderLineModelImpl extends BaseModelImpl<OrderLine>
 
 		orderLineCacheModel.numOfDish = getNumOfDish();
 
-		orderLineCacheModel.capacity = getCapacity();
+		orderLineCacheModel.numOfFinishDish = getNumOfFinishDish();
 
 		orderLineCacheModel.statusDish = getStatusDish();
 
 		orderLineCacheModel.dishId = getDishId();
+
+		Date orderDate = getOrderDate();
+
+		if (orderDate != null) {
+			orderLineCacheModel.orderDate = orderDate.getTime();
+		}
+		else {
+			orderLineCacheModel.orderDate = Long.MIN_VALUE;
+		}
 
 		orderLineCacheModel.orderId = getOrderId();
 
@@ -553,7 +594,7 @@ public class OrderLineModelImpl extends BaseModelImpl<OrderLine>
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(23);
+		StringBundler sb = new StringBundler(25);
 
 		sb.append("{orderLineId=");
 		sb.append(getOrderLineId());
@@ -569,12 +610,14 @@ public class OrderLineModelImpl extends BaseModelImpl<OrderLine>
 		sb.append(getModifiedDate());
 		sb.append(", numOfDish=");
 		sb.append(getNumOfDish());
-		sb.append(", capacity=");
-		sb.append(getCapacity());
+		sb.append(", numOfFinishDish=");
+		sb.append(getNumOfFinishDish());
 		sb.append(", statusDish=");
 		sb.append(getStatusDish());
 		sb.append(", dishId=");
 		sb.append(getDishId());
+		sb.append(", orderDate=");
+		sb.append(getOrderDate());
 		sb.append(", orderId=");
 		sb.append(getOrderId());
 		sb.append("}");
@@ -583,7 +626,7 @@ public class OrderLineModelImpl extends BaseModelImpl<OrderLine>
 	}
 
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(37);
+		StringBundler sb = new StringBundler(40);
 
 		sb.append("<model><model-name>");
 		sb.append("irestads.model.OrderLine");
@@ -618,8 +661,8 @@ public class OrderLineModelImpl extends BaseModelImpl<OrderLine>
 		sb.append(getNumOfDish());
 		sb.append("]]></column-value></column>");
 		sb.append(
-			"<column><column-name>capacity</column-name><column-value><![CDATA[");
-		sb.append(getCapacity());
+			"<column><column-name>numOfFinishDish</column-name><column-value><![CDATA[");
+		sb.append(getNumOfFinishDish());
 		sb.append("]]></column-value></column>");
 		sb.append(
 			"<column><column-name>statusDish</column-name><column-value><![CDATA[");
@@ -628,6 +671,10 @@ public class OrderLineModelImpl extends BaseModelImpl<OrderLine>
 		sb.append(
 			"<column><column-name>dishId</column-name><column-value><![CDATA[");
 		sb.append(getDishId());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>orderDate</column-name><column-value><![CDATA[");
+		sb.append(getOrderDate());
 		sb.append("]]></column-value></column>");
 		sb.append(
 			"<column><column-name>orderId</column-name><column-value><![CDATA[");
@@ -651,12 +698,15 @@ public class OrderLineModelImpl extends BaseModelImpl<OrderLine>
 	private Date _createDate;
 	private Date _modifiedDate;
 	private int _numOfDish;
-	private int _capacity;
-	private boolean _statusDish;
-	private boolean _originalStatusDish;
+	private int _numOfFinishDish;
+	private int _statusDish;
+	private int _originalStatusDish;
 	private boolean _setOriginalStatusDish;
 	private long _dishId;
+	private Date _orderDate;
 	private long _orderId;
+	private long _originalOrderId;
+	private boolean _setOriginalOrderId;
 	private long _columnBitmask;
 	private OrderLine _escapedModelProxy;
 }

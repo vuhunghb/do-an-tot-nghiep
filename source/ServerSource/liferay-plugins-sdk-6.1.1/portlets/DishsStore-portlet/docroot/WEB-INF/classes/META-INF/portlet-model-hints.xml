@@ -24,7 +24,9 @@
 			<hint-collection name="CLOB" />
 		</field>
 		<field name="detailImg" type="String" />
-		<field name="detailBaseCode" type="String" />
+		<field name="detailBaseCode" type="String">
+			<hint-collection name="CLOB" />
+		</field>
 		<field name="detail" type="String" />
 		<field name="referPrice" type="int" />
 		<field name="numOfDiner" type="int" />
@@ -40,6 +42,7 @@
 		<field name="tableName" type="String" />
 		<field name="isAvalable" type="boolean" />
 		<field name="numChair" type="int" />
+		<field name="currentOrderId" type="long" />
 	</model>
 	<model name="irestads.model.Menu">
 		<field name="menuId" type="long" />
@@ -58,6 +61,7 @@
 		<field name="createDate" type="Date" />
 		<field name="modifiedDate" type="Date" />
 		<field name="numOfDish" type="int" />
+		<field name="capacity" type="int" />
 		<field name="status" type="boolean" />
 		<field name="dishId" type="long" />
 	</model>
@@ -69,9 +73,10 @@
 		<field name="createDate" type="Date" />
 		<field name="modifiedDate" type="Date" />
 		<field name="numOfDish" type="int" />
-		<field name="capacity" type="int" />
-		<field name="statusDish" type="boolean" />
+		<field name="numOfFinishDish" type="int" />
+		<field name="statusDish" type="int" />
 		<field name="dishId" type="long" />
+		<field name="orderDate" type="Date" />
 		<field name="orderId" type="long" />
 	</model>
 	<model name="irestads.model.Orders">
@@ -83,7 +88,7 @@
 		<field name="modifiedDate" type="Date" />
 		<field name="charge" type="int" />
 		<field name="createdDate" type="Date" />
-		<field name="isPayMent" type="boolean" />
+		<field name="isPayMent" type="int" />
 		<field name="numOfDinner" type="int" />
 		<field name="dishTableId" type="String" />
 	</model>

@@ -73,6 +73,7 @@ public class MenuLineClp extends BaseModelImpl<MenuLine> implements MenuLine {
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
 		attributes.put("numOfDish", getNumOfDish());
+		attributes.put("capacity", getCapacity());
 		attributes.put("status", getStatus());
 		attributes.put("dishId", getDishId());
 
@@ -121,6 +122,12 @@ public class MenuLineClp extends BaseModelImpl<MenuLine> implements MenuLine {
 
 		if (numOfDish != null) {
 			setNumOfDish(numOfDish);
+		}
+
+		Integer capacity = (Integer)attributes.get("capacity");
+
+		if (capacity != null) {
+			setCapacity(capacity);
 		}
 
 		Boolean status = (Boolean)attributes.get("status");
@@ -200,6 +207,14 @@ public class MenuLineClp extends BaseModelImpl<MenuLine> implements MenuLine {
 		_numOfDish = numOfDish;
 	}
 
+	public int getCapacity() {
+		return _capacity;
+	}
+
+	public void setCapacity(int capacity) {
+		_capacity = capacity;
+	}
+
 	public boolean getStatus() {
 		return _status;
 	}
@@ -262,6 +277,7 @@ public class MenuLineClp extends BaseModelImpl<MenuLine> implements MenuLine {
 		clone.setCreateDate(getCreateDate());
 		clone.setModifiedDate(getModifiedDate());
 		clone.setNumOfDish(getNumOfDish());
+		clone.setCapacity(getCapacity());
 		clone.setStatus(getStatus());
 		clone.setDishId(getDishId());
 
@@ -320,7 +336,7 @@ public class MenuLineClp extends BaseModelImpl<MenuLine> implements MenuLine {
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(19);
+		StringBundler sb = new StringBundler(21);
 
 		sb.append("{menuLineId=");
 		sb.append(getMenuLineId());
@@ -336,6 +352,8 @@ public class MenuLineClp extends BaseModelImpl<MenuLine> implements MenuLine {
 		sb.append(getModifiedDate());
 		sb.append(", numOfDish=");
 		sb.append(getNumOfDish());
+		sb.append(", capacity=");
+		sb.append(getCapacity());
 		sb.append(", status=");
 		sb.append(getStatus());
 		sb.append(", dishId=");
@@ -346,7 +364,7 @@ public class MenuLineClp extends BaseModelImpl<MenuLine> implements MenuLine {
 	}
 
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(31);
+		StringBundler sb = new StringBundler(34);
 
 		sb.append("<model><model-name>");
 		sb.append("irestads.model.MenuLine");
@@ -381,6 +399,10 @@ public class MenuLineClp extends BaseModelImpl<MenuLine> implements MenuLine {
 		sb.append(getNumOfDish());
 		sb.append("]]></column-value></column>");
 		sb.append(
+			"<column><column-name>capacity</column-name><column-value><![CDATA[");
+		sb.append(getCapacity());
+		sb.append("]]></column-value></column>");
+		sb.append(
 			"<column><column-name>status</column-name><column-value><![CDATA[");
 		sb.append(getStatus());
 		sb.append("]]></column-value></column>");
@@ -402,6 +424,7 @@ public class MenuLineClp extends BaseModelImpl<MenuLine> implements MenuLine {
 	private Date _createDate;
 	private Date _modifiedDate;
 	private int _numOfDish;
+	private int _capacity;
 	private boolean _status;
 	private long _dishId;
 	private BaseModel<?> _menuLineRemoteModel;

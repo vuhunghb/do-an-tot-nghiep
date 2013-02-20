@@ -158,15 +158,11 @@ public class OrdersSoap implements Serializable {
 		_createdDate = createdDate;
 	}
 
-	public boolean getIsPayMent() {
+	public int getIsPayMent() {
 		return _isPayMent;
 	}
 
-	public boolean isIsPayMent() {
-		return _isPayMent;
-	}
-
-	public void setIsPayMent(boolean isPayMent) {
+	public void setIsPayMent(int isPayMent) {
 		_isPayMent = isPayMent;
 	}
 
@@ -194,7 +190,7 @@ public class OrdersSoap implements Serializable {
 	private Date _modifiedDate;
 	private int _charge;
 	private Date _createdDate;
-	private boolean _isPayMent;
+	private int _isPayMent;
 	private int _numOfDinner;
 	private String _dishTableId;
 }

@@ -34,7 +34,7 @@ import java.util.Date;
 public class MenuLineCacheModel implements CacheModel<MenuLine>, Serializable {
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(19);
+		StringBundler sb = new StringBundler(21);
 
 		sb.append("{menuLineId=");
 		sb.append(menuLineId);
@@ -50,6 +50,8 @@ public class MenuLineCacheModel implements CacheModel<MenuLine>, Serializable {
 		sb.append(modifiedDate);
 		sb.append(", numOfDish=");
 		sb.append(numOfDish);
+		sb.append(", capacity=");
+		sb.append(capacity);
 		sb.append(", status=");
 		sb.append(status);
 		sb.append(", dishId=");
@@ -88,6 +90,7 @@ public class MenuLineCacheModel implements CacheModel<MenuLine>, Serializable {
 		}
 
 		menuLineImpl.setNumOfDish(numOfDish);
+		menuLineImpl.setCapacity(capacity);
 		menuLineImpl.setStatus(status);
 		menuLineImpl.setDishId(dishId);
 
@@ -103,6 +106,7 @@ public class MenuLineCacheModel implements CacheModel<MenuLine>, Serializable {
 	public long createDate;
 	public long modifiedDate;
 	public int numOfDish;
+	public int capacity;
 	public boolean status;
 	public long dishId;
 }

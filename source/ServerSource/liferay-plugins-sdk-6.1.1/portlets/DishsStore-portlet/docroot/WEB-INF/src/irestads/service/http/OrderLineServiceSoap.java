@@ -66,12 +66,70 @@ import java.rmi.RemoteException;
  */
 public class OrderLineServiceSoap {
 	public static irestads.model.OrderLineSoap createOrderLine(
-		java.lang.Long orderLineId, int numOfDish, int capacity,
-		boolean statusDish, long dishId, long orderId)
-		throws RemoteException {
+		java.lang.Long orderLineId, int numOfDish, int statusDish, long dishId,
+		long orderId, long orderDate) throws RemoteException {
 		try {
 			irestads.model.OrderLine returnValue = OrderLineServiceUtil.createOrderLine(orderLineId,
-					numOfDish, capacity, statusDish, dishId, orderId);
+					numOfDish, statusDish, dishId, orderId, orderDate);
+
+			return irestads.model.OrderLineSoap.toSoapModel(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static boolean deleteOrderLineById(long orderLineId)
+		throws RemoteException {
+		try {
+			boolean returnValue = OrderLineServiceUtil.deleteOrderLineById(orderLineId);
+
+			return returnValue;
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static irestads.model.OrderLineSoap[] getOrderLineByOrder(
+		long orderId) throws RemoteException {
+		try {
+			java.util.List<irestads.model.OrderLine> returnValue = OrderLineServiceUtil.getOrderLineByOrder(orderId);
+
+			return irestads.model.OrderLineSoap.toSoapModels(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static irestads.model.OrderLineSoap updateOrderLine(
+		long orderLineId, int numOfFinishDish, int status)
+		throws RemoteException {
+		try {
+			irestads.model.OrderLine returnValue = OrderLineServiceUtil.updateOrderLine(orderLineId,
+					numOfFinishDish, status);
+
+			return irestads.model.OrderLineSoap.toSoapModel(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static irestads.model.OrderLineSoap synchStatusOrderLine(
+		irestads.model.OrderLineSoap ol) throws RemoteException {
+		try {
+			irestads.model.OrderLine returnValue = OrderLineServiceUtil.synchStatusOrderLine(irestads.model.impl.OrderLineModelImpl.toModel(
+						ol));
 
 			return irestads.model.OrderLineSoap.toSoapModel(returnValue);
 		}

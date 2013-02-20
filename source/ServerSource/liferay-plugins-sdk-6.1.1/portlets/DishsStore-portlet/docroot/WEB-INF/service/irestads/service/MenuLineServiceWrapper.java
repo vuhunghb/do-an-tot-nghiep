@@ -110,8 +110,7 @@ public class MenuLineServiceWrapper implements MenuLineService,
 		return _menuLineService.setDishForMenuLine(menuLine);
 	}
 
-	public java.util.List<irestads.model.MenuLine> findMenuLinesByDishId(
-		long dishId) {
+	public irestads.model.MenuLine findMenuLinesByDishId(long dishId) {
 		return _menuLineService.findMenuLinesByDishId(dishId);
 	}
 

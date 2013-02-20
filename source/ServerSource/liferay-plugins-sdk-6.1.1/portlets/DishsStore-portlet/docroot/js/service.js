@@ -27,7 +27,8 @@ Liferay.Service.registerClass(
 		findDishsByDetailImg: true,
 		findDishsByDetail: true,
 		findDishsByCategoryName: true,
-		findDishsBySomeField: true
+		findDishsBySomeField: true,
+		isDeleteDish: true
 	}
 );
 
@@ -65,15 +66,22 @@ Liferay.Service.registerClass(
 Liferay.Service.registerClass(
 	Liferay.Service.dishsstore, "OrderLine",
 	{
-		createOrderLine: true
+		createOrderLine: true,
+		deleteOrderLineById: true,
+		getOrderLineByOrder: true,
+		updateOrderLine: true,
+		synchStatusOrderLine: true
 	}
 );
 
 Liferay.Service.registerClass(
 	Liferay.Service.dishsstore, "Orders",
 	{
-		findCurrentOrder: true,
-		createOrders: true
+		findOrderById: true,
+		createOrders: true,
+		deleteOrderById: true,
+		setWaitingStatus: true,
+		updateOrder: true
 	}
 );
 

@@ -109,8 +109,24 @@ public class OrderLineLocalServiceClp implements OrderLineLocalService {
 		_methodName19 = "createOrderLine";
 
 		_methodParameterTypes19 = new String[] {
-				"java.lang.Long", "int", "int", "boolean", "long", "long"
+				"java.lang.Long", "int", "int", "long", "long", "long"
 			};
+
+		_methodName20 = "updateOrderLine";
+
+		_methodParameterTypes20 = new String[] { "long", "int", "int" };
+
+		_methodName21 = "deleteOrderLineById";
+
+		_methodParameterTypes21 = new String[] { "long" };
+
+		_methodName22 = "getOrderLineByOrder";
+
+		_methodParameterTypes22 = new String[] { "long" };
+
+		_methodName23 = "synchStatusOrderLine";
+
+		_methodParameterTypes23 = new String[] { "irestads.model.OrderLine" };
 	}
 
 	public irestads.model.OrderLine addOrderLine(
@@ -635,8 +651,8 @@ public class OrderLineLocalServiceClp implements OrderLineLocalService {
 	}
 
 	public irestads.model.OrderLine createOrderLine(
-		java.lang.Long orderLineId, int numOfDish, int capacity,
-		boolean statusDish, long dishId, long orderId) {
+		java.lang.Long orderLineId, int numOfDish, int statusDish, long dishId,
+		long orderId, long orderDate) {
 		Object returnObj = null;
 
 		try {
@@ -647,14 +663,107 @@ public class OrderLineLocalServiceClp implements OrderLineLocalService {
 						
 					numOfDish,
 						
-					capacity,
-						
 					statusDish,
 						
 					dishId,
 						
-					orderId
+					orderId,
+						
+					orderDate
 					});
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (irestads.model.OrderLine)ClpSerializer.translateOutput(returnObj);
+	}
+
+	public irestads.model.OrderLine updateOrderLine(long orderLineId,
+		int numOfFinishDish, int status) {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName20,
+					_methodParameterTypes20,
+					new Object[] { orderLineId, numOfFinishDish, status });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (irestads.model.OrderLine)ClpSerializer.translateOutput(returnObj);
+	}
+
+	public boolean deleteOrderLineById(long orderLineId) {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName21,
+					_methodParameterTypes21, new Object[] { orderLineId });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return ((Boolean)returnObj).booleanValue();
+	}
+
+	public java.util.List<irestads.model.OrderLine> getOrderLineByOrder(
+		long orderId) {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName22,
+					_methodParameterTypes22, new Object[] { orderId });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (java.util.List<irestads.model.OrderLine>)ClpSerializer.translateOutput(returnObj);
+	}
+
+	public irestads.model.OrderLine synchStatusOrderLine(
+		irestads.model.OrderLine ol) {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName23,
+					_methodParameterTypes23,
+					new Object[] { ClpSerializer.translateInput(ol) });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -710,4 +819,12 @@ public class OrderLineLocalServiceClp implements OrderLineLocalService {
 	private String[] _methodParameterTypes17;
 	private String _methodName19;
 	private String[] _methodParameterTypes19;
+	private String _methodName20;
+	private String[] _methodParameterTypes20;
+	private String _methodName21;
+	private String[] _methodParameterTypes21;
+	private String _methodName22;
+	private String[] _methodParameterTypes22;
+	private String _methodName23;
+	private String[] _methodParameterTypes23;
 }

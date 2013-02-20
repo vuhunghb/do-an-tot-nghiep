@@ -40,6 +40,7 @@ public class DishTableSoap implements Serializable {
 		soapModel.setTableName(model.getTableName());
 		soapModel.setIsAvalable(model.getIsAvalable());
 		soapModel.setNumChair(model.getNumChair());
+		soapModel.setCurrentOrderId(model.getCurrentOrderId());
 
 		return soapModel;
 	}
@@ -168,6 +169,14 @@ public class DishTableSoap implements Serializable {
 		_numChair = numChair;
 	}
 
+	public long getCurrentOrderId() {
+		return _currentOrderId;
+	}
+
+	public void setCurrentOrderId(long currentOrderId) {
+		_currentOrderId = currentOrderId;
+	}
+
 	private String _dishTableId;
 	private long _companyId;
 	private long _userId;
@@ -177,4 +186,5 @@ public class DishTableSoap implements Serializable {
 	private String _tableName;
 	private boolean _isAvalable;
 	private int _numChair;
+	private long _currentOrderId;
 }

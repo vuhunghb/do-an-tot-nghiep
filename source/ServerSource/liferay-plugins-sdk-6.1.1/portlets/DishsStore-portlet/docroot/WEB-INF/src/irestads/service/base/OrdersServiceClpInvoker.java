@@ -31,15 +31,27 @@ public class OrdersServiceClpInvoker {
 
 		_methodParameterTypes73 = new String[] { "java.lang.String" };
 
-		_methodName78 = "findCurrentOrder";
+		_methodName78 = "findOrderById";
 
-		_methodParameterTypes78 = new String[] { "boolean", "java.lang.String" };
+		_methodParameterTypes78 = new String[] { "long" };
 
 		_methodName79 = "createOrders";
 
 		_methodParameterTypes79 = new String[] {
-				"long", "int", "boolean", "int", "java.lang.String"
+				"long", "int", "int", "int", "java.lang.String", "long"
 			};
+
+		_methodName80 = "deleteOrderById";
+
+		_methodParameterTypes80 = new String[] { "long" };
+
+		_methodName81 = "setWaitingStatus";
+
+		_methodParameterTypes81 = new String[] { "long" };
+
+		_methodName82 = "updateOrder";
+
+		_methodParameterTypes82 = new String[] { "irestads.model.Orders" };
 	}
 
 	public Object invokeMethod(String name, String[] parameterTypes,
@@ -56,17 +68,31 @@ public class OrdersServiceClpInvoker {
 
 		if (_methodName78.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes78, parameterTypes)) {
-			return OrdersServiceUtil.findCurrentOrder(((Boolean)arguments[0]).booleanValue(),
-				(java.lang.String)arguments[1]);
+			return OrdersServiceUtil.findOrderById(((Long)arguments[0]).longValue());
 		}
 
 		if (_methodName79.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes79, parameterTypes)) {
 			return OrdersServiceUtil.createOrders(((Long)arguments[0]).longValue(),
 				((Integer)arguments[1]).intValue(),
-				((Boolean)arguments[2]).booleanValue(),
+				((Integer)arguments[2]).intValue(),
 				((Integer)arguments[3]).intValue(),
-				(java.lang.String)arguments[4]);
+				(java.lang.String)arguments[4], ((Long)arguments[5]).longValue());
+		}
+
+		if (_methodName80.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes80, parameterTypes)) {
+			return OrdersServiceUtil.deleteOrderById(((Long)arguments[0]).longValue());
+		}
+
+		if (_methodName81.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes81, parameterTypes)) {
+			return OrdersServiceUtil.setWaitingStatus(((Long)arguments[0]).longValue());
+		}
+
+		if (_methodName82.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes82, parameterTypes)) {
+			return OrdersServiceUtil.updateOrder((irestads.model.Orders)arguments[0]);
 		}
 
 		throw new UnsupportedOperationException();
@@ -80,4 +106,10 @@ public class OrdersServiceClpInvoker {
 	private String[] _methodParameterTypes78;
 	private String _methodName79;
 	private String[] _methodParameterTypes79;
+	private String _methodName80;
+	private String[] _methodParameterTypes80;
+	private String _methodName81;
+	private String[] _methodParameterTypes81;
+	private String _methodName82;
+	private String[] _methodParameterTypes82;
 }

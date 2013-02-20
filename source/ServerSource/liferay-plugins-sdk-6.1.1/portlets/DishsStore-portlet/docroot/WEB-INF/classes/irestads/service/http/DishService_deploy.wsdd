@@ -59,10 +59,13 @@
 		<operation xmlns:operNS="urn:http.service.irestads" xmlns:rtns="urn:http.service.irestads" xmlns:tns2="http://model.irestads" name="getDishsByCategory" qname="operNS:getDishsByCategory" returnQName="getDishsByCategoryReturn" returnType="rtns:ArrayOf_tns2_DishSoap" returnItemType="tns2:DishSoap" soapAction="">
 			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="categoryId" type="tns:long"></parameter>
 		</operation>
+		<operation xmlns:operNS="urn:http.service.irestads" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="isDeleteDish" qname="operNS:isDeleteDish" returnQName="isDeleteDishReturn" returnType="rtns:boolean" soapAction="">
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="dishId" type="tns:long"></parameter>
+		</operation>
 		<operation xmlns:operNS="urn:http.service.irestads" xmlns:rtns="http://model.irestads" name="updateDish" qname="operNS:updateDish" returnQName="updateDishReturn" returnType="rtns:DishSoap" soapAction="">
 			<parameter xmlns:tns="http://model.irestads" qname="dish" type="tns:DishSoap"></parameter>
 		</operation>
-		<parameter name="allowedMethods" value="createDish deleteDish findDishNotInMenu findDishsByAvatarImg findDishsByCategoryName findDishsByDecription findDishsByDetail findDishsByDetailImg findDishsById findDishsByName findDishsByReferPrice findDishsBySomeField getAllDishs getDishsByCategory updateDish" />
+		<parameter name="allowedMethods" value="createDish deleteDish findDishNotInMenu findDishsByAvatarImg findDishsByCategoryName findDishsByDecription findDishsByDetail findDishsByDetailImg findDishsById findDishsByName findDishsByReferPrice findDishsBySomeField getAllDishs getDishsByCategory isDeleteDish updateDish" />
 		<parameter name="className" value="irestads.service.http.DishServiceSoap" />
 		<parameter name="schemaUnqualified" value="http://model.irestads,urn:http.service.irestads" />
 		<parameter name="typeMappingVersion" value="1.2" />

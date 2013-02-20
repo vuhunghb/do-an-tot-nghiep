@@ -302,5 +302,18 @@ public class DishServiceSoap {
 		}
 	}
 
+	public static boolean isDeleteDish(long dishId) throws RemoteException {
+		try {
+			boolean returnValue = DishServiceUtil.isDeleteDish(dishId);
+
+			return returnValue;
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
 	private static Log _log = LogFactoryUtil.getLog(DishServiceSoap.class);
 }

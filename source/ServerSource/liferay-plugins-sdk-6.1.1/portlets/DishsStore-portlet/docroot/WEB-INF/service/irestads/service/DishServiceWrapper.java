@@ -137,6 +137,10 @@ public class DishServiceWrapper implements DishService,
 			decription, avatarImg, detailImg, detail);
 	}
 
+	public boolean isDeleteDish(long dishId) {
+		return _dishService.isDeleteDish(dishId);
+	}
+
 	/**
 	 * @deprecated Renamed to {@link #getWrappedService}
 	 */

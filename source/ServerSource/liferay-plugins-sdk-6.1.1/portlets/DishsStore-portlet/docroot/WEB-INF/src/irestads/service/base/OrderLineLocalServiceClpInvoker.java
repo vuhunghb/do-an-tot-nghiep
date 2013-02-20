@@ -109,8 +109,24 @@ public class OrderLineLocalServiceClpInvoker {
 		_methodName94 = "createOrderLine";
 
 		_methodParameterTypes94 = new String[] {
-				"java.lang.Long", "int", "int", "boolean", "long", "long"
+				"java.lang.Long", "int", "int", "long", "long", "long"
 			};
+
+		_methodName95 = "updateOrderLine";
+
+		_methodParameterTypes95 = new String[] { "long", "int", "int" };
+
+		_methodName96 = "deleteOrderLineById";
+
+		_methodParameterTypes96 = new String[] { "long" };
+
+		_methodName97 = "getOrderLineByOrder";
+
+		_methodParameterTypes97 = new String[] { "long" };
+
+		_methodName98 = "synchStatusOrderLine";
+
+		_methodParameterTypes98 = new String[] { "irestads.model.OrderLine" };
 	}
 
 	public Object invokeMethod(String name, String[] parameterTypes,
@@ -217,9 +233,31 @@ public class OrderLineLocalServiceClpInvoker {
 			return OrderLineLocalServiceUtil.createOrderLine((java.lang.Long)arguments[0],
 				((Integer)arguments[1]).intValue(),
 				((Integer)arguments[2]).intValue(),
-				((Boolean)arguments[3]).booleanValue(),
+				((Long)arguments[3]).longValue(),
 				((Long)arguments[4]).longValue(),
 				((Long)arguments[5]).longValue());
+		}
+
+		if (_methodName95.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes95, parameterTypes)) {
+			return OrderLineLocalServiceUtil.updateOrderLine(((Long)arguments[0]).longValue(),
+				((Integer)arguments[1]).intValue(),
+				((Integer)arguments[2]).intValue());
+		}
+
+		if (_methodName96.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes96, parameterTypes)) {
+			return OrderLineLocalServiceUtil.deleteOrderLineById(((Long)arguments[0]).longValue());
+		}
+
+		if (_methodName97.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes97, parameterTypes)) {
+			return OrderLineLocalServiceUtil.getOrderLineByOrder(((Long)arguments[0]).longValue());
+		}
+
+		if (_methodName98.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes98, parameterTypes)) {
+			return OrderLineLocalServiceUtil.synchStatusOrderLine((irestads.model.OrderLine)arguments[0]);
 		}
 
 		throw new UnsupportedOperationException();
@@ -263,4 +301,12 @@ public class OrderLineLocalServiceClpInvoker {
 	private String[] _methodParameterTypes89;
 	private String _methodName94;
 	private String[] _methodParameterTypes94;
+	private String _methodName95;
+	private String[] _methodParameterTypes95;
+	private String _methodName96;
+	private String[] _methodParameterTypes96;
+	private String _methodName97;
+	private String[] _methodParameterTypes97;
+	private String _methodName98;
+	private String[] _methodParameterTypes98;
 }

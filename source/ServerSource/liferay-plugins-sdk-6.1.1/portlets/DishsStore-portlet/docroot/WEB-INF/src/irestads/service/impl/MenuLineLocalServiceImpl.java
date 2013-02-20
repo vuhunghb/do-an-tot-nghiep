@@ -113,6 +113,7 @@ public class MenuLineLocalServiceImpl extends MenuLineLocalServiceBaseImpl {
 					.getName());
 			MenuLine menuLine = MenuLineUtil.create(menuLineId);
 			menuLine.setNumOfDish(numOfDish);
+			menuLine.setCapacity(numOfDish);
 			menuLine.setStatus(status);
 			menuLine.setDishId(dishId);
 			menuLine.setDish(dishModel);
@@ -152,6 +153,7 @@ public class MenuLineLocalServiceImpl extends MenuLineLocalServiceBaseImpl {
 					.getName());
 			MenuLine menuLine = MenuLineUtil.create(menuLineId);
 			menuLine.setNumOfDish(numOfDish);
+			menuLine.setCapacity(numOfDish);
 			menuLine.setStatus(status);
 			menuLine.setDishId(dishId);
 			menuLine = MenuLineUtil.update(menuLine, true);
@@ -261,11 +263,14 @@ public class MenuLineLocalServiceImpl extends MenuLineLocalServiceBaseImpl {
 		return menuLines;
 	}
 
-	public List<MenuLine> findMenuLinesByDishId(long dishId) {
-		List<MenuLine> menuLines = null;
+	public MenuLine findMenuLinesByDishId(long dishId) {
+		MenuLine menuLines = null;
 		try {
 			menuLines = MenuLineUtil.findByDishId(dishId);
 		} catch (SystemException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NoSuchMenuLineException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

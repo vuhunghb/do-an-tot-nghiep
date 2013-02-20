@@ -29,7 +29,7 @@
 	<managed-bean>
 		<managed-bean-name>orderBeans</managed-bean-name>
 		<managed-bean-class>irestads.beans.order.OrderBeans</managed-bean-class>
-		<managed-bean-scope>session</managed-bean-scope>
+		<managed-bean-scope>view</managed-bean-scope>
 	</managed-bean>
 	<navigation-rule>
 		<display-name>views/index.xhtml</display-name>

@@ -65,12 +65,10 @@ import java.rmi.RemoteException;
  * @generated
  */
 public class OrdersServiceSoap {
-	public static irestads.model.OrdersSoap findCurrentOrder(
-		boolean isPayMent, java.lang.String dishTableId)
+	public static irestads.model.OrdersSoap findOrderById(long orderId)
 		throws RemoteException {
 		try {
-			irestads.model.Orders returnValue = OrdersServiceUtil.findCurrentOrder(isPayMent,
-					dishTableId);
+			irestads.model.Orders returnValue = OrdersServiceUtil.findOrderById(orderId);
 
 			return irestads.model.OrdersSoap.toSoapModel(returnValue);
 		}
@@ -82,11 +80,55 @@ public class OrdersServiceSoap {
 	}
 
 	public static irestads.model.OrdersSoap createOrders(long orderId,
-		int charge, boolean isPayment, int numOfDinner,
-		java.lang.String dishTableId) throws RemoteException {
+		int charge, int isPayment, int numOfDinner,
+		java.lang.String dishTableId, long createdDate)
+		throws RemoteException {
 		try {
 			irestads.model.Orders returnValue = OrdersServiceUtil.createOrders(orderId,
-					charge, isPayment, numOfDinner, dishTableId);
+					charge, isPayment, numOfDinner, dishTableId, createdDate);
+
+			return irestads.model.OrdersSoap.toSoapModel(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static boolean deleteOrderById(long orderId)
+		throws RemoteException {
+		try {
+			boolean returnValue = OrdersServiceUtil.deleteOrderById(orderId);
+
+			return returnValue;
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static boolean setWaitingStatus(long orderId)
+		throws RemoteException {
+		try {
+			boolean returnValue = OrdersServiceUtil.setWaitingStatus(orderId);
+
+			return returnValue;
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static irestads.model.OrdersSoap updateOrder(
+		irestads.model.OrdersSoap o) throws RemoteException {
+		try {
+			irestads.model.Orders returnValue = OrdersServiceUtil.updateOrder(irestads.model.impl.OrdersModelImpl.toModel(
+						o));
 
 			return irestads.model.OrdersSoap.toSoapModel(returnValue);
 		}
