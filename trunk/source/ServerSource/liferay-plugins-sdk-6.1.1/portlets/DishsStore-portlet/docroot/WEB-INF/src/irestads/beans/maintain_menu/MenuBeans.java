@@ -27,6 +27,7 @@ import org.primefaces.model.StreamedContent;
 
 import irestads.defination.Base64;
 import irestads.defination.Base64.InputStream;
+import irestads.defination.BooleanToShow;
 import irestads.defination.UploadUtils;
 import irestads.model.*;
 import irestads.service.DishServiceUtil;
@@ -60,23 +61,35 @@ public class MenuBeans {
 		this.getMenuLinesDB();
 		this.innitAdd();
 		this.findDishNotInMenu();
-		Dish d = DishServiceUtil.findDishsById(3204);
-		this.img = this.getImage(d.getAvatarBaseCode());
+//		Dish d = DishServiceUtil.findDishsById(3204);
+//		this.img = this.getImage(d.getAvatarBaseCode());
 	}
 
 	public StreamedContent getImg() {
-		Dish d = DishServiceUtil.findDishsById(3201);
-		this.img = this.getImage(d.getAvatarBaseCode());
+		//Dish d = DishServiceUtil.findDishsById(3201);
+	//	this.img = this.getImage(d.getAvatarBaseCode());
 		return img;
 	}
 
 	public void setImg(StreamedContent img) {
 		this.img = img;
 	}
-
-	public void handleFileUpload(FileUploadEvent event)
+	public  String booleanToShow(boolean value,String showTrue, String showFalse){
+		return BooleanToShow.booleanToShow(value, showTrue, showFalse);
+	}
+	public void uploadAvatarImg(FileUploadEvent event)
 			throws InterruptedException {
-		this.base64ImgAvatar = UploadUtils.handleFileUpload(event);
+		String base64ImgAvatar = UploadUtils.handleFileUpload(event);
+		System.out.println("a " +base64ImgAvatar);
+		menuLineAdd.getDish().setAvatarBaseCode(base64ImgAvatar);
+		menuLineAdd.getDish().setAvatarImg(event.getFile().getFileName());
+	}
+	public void uploadDetailImg(FileUploadEvent event)
+			throws InterruptedException {
+		String base64ImgDetail = UploadUtils.handleFileUpload(event);
+		System.out.println("d "+base64ImgDetail);
+		menuLineAdd.getDish().setDetailBaseCode(base64ImgDetail);
+		menuLineAdd.getDish().setDetailImg(event.getFile().getFileName());
 	}
 
 	// public StreamedContent getImages() throws IOException {
@@ -261,7 +274,7 @@ public class MenuBeans {
 
 	public String addMenuLine() {
 		FacesMessage msg = null;
-		menuLineAdd.getDish().setAvatarBaseCode(base64ImgAvatar);
+		//menuLineAdd.getDish().setAvatarBaseCode(base64ImgAvatar);
 		MenuLine menuLine = MenuLineServiceUtil.createMenuLineDish(menuLineAdd);
 		String message = "Không thêm thực đơn";
 		if (menuLine != null) {
@@ -338,8 +351,10 @@ public class MenuBeans {
 			break;
 
 		case 1:
-			this.menuLines = MenuLineServiceUtil.findMenuLinesByDishId(Long
+			MenuLine ml = MenuLineServiceUtil.findMenuLinesByDishId(Long
 					.parseLong(keyWords));
+			 this.menuLines.clear();
+			 this.menuLines.add(ml);
 			break;
 		case 2:
 			this.menuLines = MenuLineServiceUtil.findMenuLinesByDName(keyWords);

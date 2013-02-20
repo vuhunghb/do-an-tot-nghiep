@@ -52,9 +52,10 @@ public class OrderLineWrapper implements OrderLine, ModelWrapper<OrderLine> {
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
 		attributes.put("numOfDish", getNumOfDish());
-		attributes.put("capacity", getCapacity());
+		attributes.put("numOfFinishDish", getNumOfFinishDish());
 		attributes.put("statusDish", getStatusDish());
 		attributes.put("dishId", getDishId());
+		attributes.put("orderDate", getOrderDate());
 		attributes.put("orderId", getOrderId());
 
 		return attributes;
@@ -103,13 +104,13 @@ public class OrderLineWrapper implements OrderLine, ModelWrapper<OrderLine> {
 			setNumOfDish(numOfDish);
 		}
 
-		Integer capacity = (Integer)attributes.get("capacity");
+		Integer numOfFinishDish = (Integer)attributes.get("numOfFinishDish");
 
-		if (capacity != null) {
-			setCapacity(capacity);
+		if (numOfFinishDish != null) {
+			setNumOfFinishDish(numOfFinishDish);
 		}
 
-		Boolean statusDish = (Boolean)attributes.get("statusDish");
+		Integer statusDish = (Integer)attributes.get("statusDish");
 
 		if (statusDish != null) {
 			setStatusDish(statusDish);
@@ -119,6 +120,12 @@ public class OrderLineWrapper implements OrderLine, ModelWrapper<OrderLine> {
 
 		if (dishId != null) {
 			setDishId(dishId);
+		}
+
+		Date orderDate = (Date)attributes.get("orderDate");
+
+		if (orderDate != null) {
+			setOrderDate(orderDate);
 		}
 
 		Long orderId = (Long)attributes.get("orderId");
@@ -293,21 +300,21 @@ public class OrderLineWrapper implements OrderLine, ModelWrapper<OrderLine> {
 	}
 
 	/**
-	* Returns the capacity of this order line.
+	* Returns the num of finish dish of this order line.
 	*
-	* @return the capacity of this order line
+	* @return the num of finish dish of this order line
 	*/
-	public int getCapacity() {
-		return _orderLine.getCapacity();
+	public int getNumOfFinishDish() {
+		return _orderLine.getNumOfFinishDish();
 	}
 
 	/**
-	* Sets the capacity of this order line.
+	* Sets the num of finish dish of this order line.
 	*
-	* @param capacity the capacity of this order line
+	* @param numOfFinishDish the num of finish dish of this order line
 	*/
-	public void setCapacity(int capacity) {
-		_orderLine.setCapacity(capacity);
+	public void setNumOfFinishDish(int numOfFinishDish) {
+		_orderLine.setNumOfFinishDish(numOfFinishDish);
 	}
 
 	/**
@@ -315,25 +322,16 @@ public class OrderLineWrapper implements OrderLine, ModelWrapper<OrderLine> {
 	*
 	* @return the status dish of this order line
 	*/
-	public boolean getStatusDish() {
+	public int getStatusDish() {
 		return _orderLine.getStatusDish();
 	}
 
 	/**
-	* Returns <code>true</code> if this order line is status dish.
-	*
-	* @return <code>true</code> if this order line is status dish; <code>false</code> otherwise
-	*/
-	public boolean isStatusDish() {
-		return _orderLine.isStatusDish();
-	}
-
-	/**
-	* Sets whether this order line is status dish.
+	* Sets the status dish of this order line.
 	*
 	* @param statusDish the status dish of this order line
 	*/
-	public void setStatusDish(boolean statusDish) {
+	public void setStatusDish(int statusDish) {
 		_orderLine.setStatusDish(statusDish);
 	}
 
@@ -353,6 +351,24 @@ public class OrderLineWrapper implements OrderLine, ModelWrapper<OrderLine> {
 	*/
 	public void setDishId(long dishId) {
 		_orderLine.setDishId(dishId);
+	}
+
+	/**
+	* Returns the order date of this order line.
+	*
+	* @return the order date of this order line
+	*/
+	public java.util.Date getOrderDate() {
+		return _orderLine.getOrderDate();
+	}
+
+	/**
+	* Sets the order date of this order line.
+	*
+	* @param orderDate the order date of this order line
+	*/
+	public void setOrderDate(java.util.Date orderDate) {
+		_orderLine.setOrderDate(orderDate);
 	}
 
 	/**

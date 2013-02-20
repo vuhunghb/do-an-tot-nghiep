@@ -949,8 +949,7 @@ public class MenuLineLocalServiceClp implements MenuLineLocalService {
 		return (java.util.List<irestads.model.MenuLine>)ClpSerializer.translateOutput(returnObj);
 	}
 
-	public java.util.List<irestads.model.MenuLine> findMenuLinesByDishId(
-		long dishId) {
+	public irestads.model.MenuLine findMenuLinesByDishId(long dishId) {
 		Object returnObj = null;
 
 		try {
@@ -969,7 +968,7 @@ public class MenuLineLocalServiceClp implements MenuLineLocalService {
 			}
 		}
 
-		return (java.util.List<irestads.model.MenuLine>)ClpSerializer.translateOutput(returnObj);
+		return (irestads.model.MenuLine)ClpSerializer.translateOutput(returnObj);
 	}
 
 	public java.util.List<irestads.model.MenuLine> findMenuLinesByDReferPrice(

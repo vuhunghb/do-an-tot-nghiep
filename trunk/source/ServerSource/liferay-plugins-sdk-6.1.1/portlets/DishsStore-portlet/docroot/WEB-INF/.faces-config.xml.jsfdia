@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PROCESS model-entity="JSFProcess">
+ <PROCESS-ITEM NAME="rules:#views#index.xhtml" PATH="/views/index.xhtml"
+  SHAPE="32,17,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#views#index.xhtml:0" NAME="item"
+   PATH="/views/index.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="goToMenu::#views#menu.xhtml" NAME="output"
+    PATH="/views/menu.xhtml" TARGET="rules:#views#menu.xhtml"
+    TITLE="goToMenu" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+  <PROCESS-ITEM ID="rules:#views#index.xhtml:1" NAME="item1"
+   PATH="/views/index.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="goToOrder::#views#dish_tables.xhtml"
+    NAME="output" PATH="/views/dish_tables.xhtml"
+    TARGET="rules:#views#dish_tables.xhtml" TITLE="goToOrder" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#views#dish_tables.xhtml"
+  PATH="/views/dish_tables.xhtml" SHAPE="256,177,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#views#menu.xhtml" PATH="/views/menu.xhtml"
+  SHAPE="256,33,0,0" model-entity="JSFProcessGroup"/>
+</PROCESS>

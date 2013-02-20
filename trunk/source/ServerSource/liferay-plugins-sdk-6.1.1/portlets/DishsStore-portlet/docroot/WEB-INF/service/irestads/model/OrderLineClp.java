@@ -73,9 +73,10 @@ public class OrderLineClp extends BaseModelImpl<OrderLine> implements OrderLine 
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
 		attributes.put("numOfDish", getNumOfDish());
-		attributes.put("capacity", getCapacity());
+		attributes.put("numOfFinishDish", getNumOfFinishDish());
 		attributes.put("statusDish", getStatusDish());
 		attributes.put("dishId", getDishId());
+		attributes.put("orderDate", getOrderDate());
 		attributes.put("orderId", getOrderId());
 
 		return attributes;
@@ -125,13 +126,13 @@ public class OrderLineClp extends BaseModelImpl<OrderLine> implements OrderLine 
 			setNumOfDish(numOfDish);
 		}
 
-		Integer capacity = (Integer)attributes.get("capacity");
+		Integer numOfFinishDish = (Integer)attributes.get("numOfFinishDish");
 
-		if (capacity != null) {
-			setCapacity(capacity);
+		if (numOfFinishDish != null) {
+			setNumOfFinishDish(numOfFinishDish);
 		}
 
-		Boolean statusDish = (Boolean)attributes.get("statusDish");
+		Integer statusDish = (Integer)attributes.get("statusDish");
 
 		if (statusDish != null) {
 			setStatusDish(statusDish);
@@ -141,6 +142,12 @@ public class OrderLineClp extends BaseModelImpl<OrderLine> implements OrderLine 
 
 		if (dishId != null) {
 			setDishId(dishId);
+		}
+
+		Date orderDate = (Date)attributes.get("orderDate");
+
+		if (orderDate != null) {
+			setOrderDate(orderDate);
 		}
 
 		Long orderId = (Long)attributes.get("orderId");
@@ -214,23 +221,19 @@ public class OrderLineClp extends BaseModelImpl<OrderLine> implements OrderLine 
 		_numOfDish = numOfDish;
 	}
 
-	public int getCapacity() {
-		return _capacity;
+	public int getNumOfFinishDish() {
+		return _numOfFinishDish;
 	}
 
-	public void setCapacity(int capacity) {
-		_capacity = capacity;
+	public void setNumOfFinishDish(int numOfFinishDish) {
+		_numOfFinishDish = numOfFinishDish;
 	}
 
-	public boolean getStatusDish() {
+	public int getStatusDish() {
 		return _statusDish;
 	}
 
-	public boolean isStatusDish() {
-		return _statusDish;
-	}
-
-	public void setStatusDish(boolean statusDish) {
+	public void setStatusDish(int statusDish) {
 		_statusDish = statusDish;
 	}
 
@@ -240,6 +243,14 @@ public class OrderLineClp extends BaseModelImpl<OrderLine> implements OrderLine 
 
 	public void setDishId(long dishId) {
 		_dishId = dishId;
+	}
+
+	public Date getOrderDate() {
+		return _orderDate;
+	}
+
+	public void setOrderDate(Date orderDate) {
+		_orderDate = orderDate;
 	}
 
 	public long getOrderId() {
@@ -284,9 +295,10 @@ public class OrderLineClp extends BaseModelImpl<OrderLine> implements OrderLine 
 		clone.setCreateDate(getCreateDate());
 		clone.setModifiedDate(getModifiedDate());
 		clone.setNumOfDish(getNumOfDish());
-		clone.setCapacity(getCapacity());
+		clone.setNumOfFinishDish(getNumOfFinishDish());
 		clone.setStatusDish(getStatusDish());
 		clone.setDishId(getDishId());
+		clone.setOrderDate(getOrderDate());
 		clone.setOrderId(getOrderId());
 
 		return clone;
@@ -295,10 +307,10 @@ public class OrderLineClp extends BaseModelImpl<OrderLine> implements OrderLine 
 	public int compareTo(OrderLine orderLine) {
 		int value = 0;
 
-		if (getNumOfDish() < orderLine.getNumOfDish()) {
+		if (getOrderLineId() < orderLine.getOrderLineId()) {
 			value = -1;
 		}
-		else if (getNumOfDish() > orderLine.getNumOfDish()) {
+		else if (getOrderLineId() > orderLine.getOrderLineId()) {
 			value = 1;
 		}
 		else {
@@ -344,7 +356,7 @@ public class OrderLineClp extends BaseModelImpl<OrderLine> implements OrderLine 
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(23);
+		StringBundler sb = new StringBundler(25);
 
 		sb.append("{orderLineId=");
 		sb.append(getOrderLineId());
@@ -360,12 +372,14 @@ public class OrderLineClp extends BaseModelImpl<OrderLine> implements OrderLine 
 		sb.append(getModifiedDate());
 		sb.append(", numOfDish=");
 		sb.append(getNumOfDish());
-		sb.append(", capacity=");
-		sb.append(getCapacity());
+		sb.append(", numOfFinishDish=");
+		sb.append(getNumOfFinishDish());
 		sb.append(", statusDish=");
 		sb.append(getStatusDish());
 		sb.append(", dishId=");
 		sb.append(getDishId());
+		sb.append(", orderDate=");
+		sb.append(getOrderDate());
 		sb.append(", orderId=");
 		sb.append(getOrderId());
 		sb.append("}");
@@ -374,7 +388,7 @@ public class OrderLineClp extends BaseModelImpl<OrderLine> implements OrderLine 
 	}
 
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(37);
+		StringBundler sb = new StringBundler(40);
 
 		sb.append("<model><model-name>");
 		sb.append("irestads.model.OrderLine");
@@ -409,8 +423,8 @@ public class OrderLineClp extends BaseModelImpl<OrderLine> implements OrderLine 
 		sb.append(getNumOfDish());
 		sb.append("]]></column-value></column>");
 		sb.append(
-			"<column><column-name>capacity</column-name><column-value><![CDATA[");
-		sb.append(getCapacity());
+			"<column><column-name>numOfFinishDish</column-name><column-value><![CDATA[");
+		sb.append(getNumOfFinishDish());
 		sb.append("]]></column-value></column>");
 		sb.append(
 			"<column><column-name>statusDish</column-name><column-value><![CDATA[");
@@ -419,6 +433,10 @@ public class OrderLineClp extends BaseModelImpl<OrderLine> implements OrderLine 
 		sb.append(
 			"<column><column-name>dishId</column-name><column-value><![CDATA[");
 		sb.append(getDishId());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>orderDate</column-name><column-value><![CDATA[");
+		sb.append(getOrderDate());
 		sb.append("]]></column-value></column>");
 		sb.append(
 			"<column><column-name>orderId</column-name><column-value><![CDATA[");
@@ -438,9 +456,10 @@ public class OrderLineClp extends BaseModelImpl<OrderLine> implements OrderLine 
 	private Date _createDate;
 	private Date _modifiedDate;
 	private int _numOfDish;
-	private int _capacity;
-	private boolean _statusDish;
+	private int _numOfFinishDish;
+	private int _statusDish;
 	private long _dishId;
+	private Date _orderDate;
 	private long _orderId;
 	private BaseModel<?> _orderLineRemoteModel;
 }

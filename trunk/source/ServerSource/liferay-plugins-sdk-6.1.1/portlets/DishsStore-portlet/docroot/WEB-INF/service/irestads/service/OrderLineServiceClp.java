@@ -34,8 +34,24 @@ public class OrderLineServiceClp implements OrderLineService {
 		_methodName3 = "createOrderLine";
 
 		_methodParameterTypes3 = new String[] {
-				"java.lang.Long", "int", "int", "boolean", "long", "long"
+				"java.lang.Long", "int", "int", "long", "long", "long"
 			};
+
+		_methodName4 = "deleteOrderLineById";
+
+		_methodParameterTypes4 = new String[] { "long" };
+
+		_methodName5 = "getOrderLineByOrder";
+
+		_methodParameterTypes5 = new String[] { "long" };
+
+		_methodName6 = "updateOrderLine";
+
+		_methodParameterTypes6 = new String[] { "long", "int", "int" };
+
+		_methodName7 = "synchStatusOrderLine";
+
+		_methodParameterTypes7 = new String[] { "irestads.model.OrderLine" };
 	}
 
 	public java.lang.String getBeanIdentifier() {
@@ -86,8 +102,8 @@ public class OrderLineServiceClp implements OrderLineService {
 	}
 
 	public irestads.model.OrderLine createOrderLine(
-		java.lang.Long orderLineId, int numOfDish, int capacity,
-		boolean statusDish, long dishId, long orderId) {
+		java.lang.Long orderLineId, int numOfDish, int statusDish, long dishId,
+		long orderId, long orderDate) {
 		Object returnObj = null;
 
 		try {
@@ -98,14 +114,107 @@ public class OrderLineServiceClp implements OrderLineService {
 						
 					numOfDish,
 						
-					capacity,
-						
 					statusDish,
 						
 					dishId,
 						
-					orderId
+					orderId,
+						
+					orderDate
 					});
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (irestads.model.OrderLine)ClpSerializer.translateOutput(returnObj);
+	}
+
+	public boolean deleteOrderLineById(long orderLineId) {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableService.invokeMethod(_methodName4,
+					_methodParameterTypes4, new Object[] { orderLineId });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return ((Boolean)returnObj).booleanValue();
+	}
+
+	public java.util.List<irestads.model.OrderLine> getOrderLineByOrder(
+		long orderId) {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableService.invokeMethod(_methodName5,
+					_methodParameterTypes5, new Object[] { orderId });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (java.util.List<irestads.model.OrderLine>)ClpSerializer.translateOutput(returnObj);
+	}
+
+	public irestads.model.OrderLine updateOrderLine(long orderLineId,
+		int numOfFinishDish, int status) {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableService.invokeMethod(_methodName6,
+					_methodParameterTypes6,
+					new Object[] { orderLineId, numOfFinishDish, status });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (irestads.model.OrderLine)ClpSerializer.translateOutput(returnObj);
+	}
+
+	public irestads.model.OrderLine synchStatusOrderLine(
+		irestads.model.OrderLine ol) {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableService.invokeMethod(_methodName7,
+					_methodParameterTypes7,
+					new Object[] { ClpSerializer.translateInput(ol) });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -129,4 +238,12 @@ public class OrderLineServiceClp implements OrderLineService {
 	private String[] _methodParameterTypes1;
 	private String _methodName3;
 	private String[] _methodParameterTypes3;
+	private String _methodName4;
+	private String[] _methodParameterTypes4;
+	private String _methodName5;
+	private String[] _methodParameterTypes5;
+	private String _methodName6;
+	private String[] _methodParameterTypes6;
+	private String _methodName7;
+	private String[] _methodParameterTypes7;
 }

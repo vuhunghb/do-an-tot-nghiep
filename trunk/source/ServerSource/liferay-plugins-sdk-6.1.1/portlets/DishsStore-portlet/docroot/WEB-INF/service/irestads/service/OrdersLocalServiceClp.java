@@ -106,15 +106,27 @@ public class OrdersLocalServiceClp implements OrdersLocalService {
 
 		_methodParameterTypes17 = new String[] { "java.lang.String" };
 
-		_methodName19 = "findCurrentOrder";
+		_methodName19 = "findOrderById";
 
-		_methodParameterTypes19 = new String[] { "boolean", "java.lang.String" };
+		_methodParameterTypes19 = new String[] { "long" };
 
 		_methodName20 = "createOrders";
 
 		_methodParameterTypes20 = new String[] {
-				"long", "int", "boolean", "int", "java.lang.String"
+				"long", "int", "int", "int", "java.lang.String", "long"
 			};
+
+		_methodName21 = "updateOrder";
+
+		_methodParameterTypes21 = new String[] { "irestads.model.Orders" };
+
+		_methodName22 = "deleteOrderById";
+
+		_methodParameterTypes22 = new String[] { "long" };
+
+		_methodName23 = "setWaitingStatus";
+
+		_methodParameterTypes23 = new String[] { "long" };
 	}
 
 	public irestads.model.Orders addOrders(irestads.model.Orders orders)
@@ -635,18 +647,12 @@ public class OrdersLocalServiceClp implements OrdersLocalService {
 		throw new UnsupportedOperationException();
 	}
 
-	public irestads.model.Orders findCurrentOrder(boolean isPayMent,
-		java.lang.String dishTableId) {
+	public irestads.model.Orders findOrderById(long orderId) {
 		Object returnObj = null;
 
 		try {
 			returnObj = _invokableLocalService.invokeMethod(_methodName19,
-					_methodParameterTypes19,
-					new Object[] {
-						isPayMent,
-						
-					ClpSerializer.translateInput(dishTableId)
-					});
+					_methodParameterTypes19, new Object[] { orderId });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -664,7 +670,8 @@ public class OrdersLocalServiceClp implements OrdersLocalService {
 	}
 
 	public irestads.model.Orders createOrders(long orderId, int charge,
-		boolean isPayment, int numOfDinner, java.lang.String dishTableId) {
+		int isPayment, int numOfDinner, java.lang.String dishTableId,
+		long createdDate) {
 		Object returnObj = null;
 
 		try {
@@ -679,7 +686,9 @@ public class OrdersLocalServiceClp implements OrdersLocalService {
 						
 					numOfDinner,
 						
-					ClpSerializer.translateInput(dishTableId)
+					ClpSerializer.translateInput(dishTableId),
+						
+					createdDate
 					});
 		}
 		catch (Throwable t) {
@@ -695,6 +704,73 @@ public class OrdersLocalServiceClp implements OrdersLocalService {
 		}
 
 		return (irestads.model.Orders)ClpSerializer.translateOutput(returnObj);
+	}
+
+	public irestads.model.Orders updateOrder(irestads.model.Orders o) {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName21,
+					_methodParameterTypes21,
+					new Object[] { ClpSerializer.translateInput(o) });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (irestads.model.Orders)ClpSerializer.translateOutput(returnObj);
+	}
+
+	public boolean deleteOrderById(long orderId) {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName22,
+					_methodParameterTypes22, new Object[] { orderId });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return ((Boolean)returnObj).booleanValue();
+	}
+
+	public boolean setWaitingStatus(long orderId) {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName23,
+					_methodParameterTypes23, new Object[] { orderId });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return ((Boolean)returnObj).booleanValue();
 	}
 
 	private InvokableLocalService _invokableLocalService;
@@ -738,4 +814,10 @@ public class OrdersLocalServiceClp implements OrdersLocalService {
 	private String[] _methodParameterTypes19;
 	private String _methodName20;
 	private String[] _methodParameterTypes20;
+	private String _methodName21;
+	private String[] _methodParameterTypes21;
+	private String _methodName22;
+	private String[] _methodParameterTypes22;
+	private String _methodName23;
+	private String[] _methodParameterTypes23;
 }

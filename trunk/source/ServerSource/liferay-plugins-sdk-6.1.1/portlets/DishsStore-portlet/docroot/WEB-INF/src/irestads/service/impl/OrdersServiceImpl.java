@@ -14,7 +14,10 @@
 
 package irestads.service.impl;
 
+import java.util.Date;
 import java.util.List;
+
+import com.liferay.portal.kernel.exception.SystemException;
 
 import irestads.model.OrderLine;
 import irestads.model.Orders;
@@ -24,14 +27,18 @@ import irestads.service.base.OrdersServiceBaseImpl;
 
 /**
  * The implementation of the orders remote service.
- *
+ * 
  * <p>
- * All custom service methods should be put in this class. Whenever methods are added, rerun ServiceBuilder to copy their definitions into the {@link irestads.service.OrdersService} interface.
- *
+ * All custom service methods should be put in this class. Whenever methods are
+ * added, rerun ServiceBuilder to copy their definitions into the
+ * {@link irestads.service.OrdersService} interface.
+ * 
  * <p>
- * This is a remote service. Methods of this service are expected to have security checks based on the propagated JAAS credentials because this service can be accessed remotely.
+ * This is a remote service. Methods of this service are expected to have
+ * security checks based on the propagated JAAS credentials because this service
+ * can be accessed remotely.
  * </p>
- *
+ * 
  * @author Be
  * @see irestads.service.base.OrdersServiceBaseImpl
  * @see irestads.service.OrdersServiceUtil
@@ -39,17 +46,37 @@ import irestads.service.base.OrdersServiceBaseImpl;
 public class OrdersServiceImpl extends OrdersServiceBaseImpl {
 	/*
 	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never reference this interface directly. Always use {@link irestads.service.OrdersServiceUtil} to access the orders remote service.
+	 * 
+	 * Never reference this interface directly. Always use {@link
+	 * irestads.service.OrdersServiceUtil} to access the orders remote service.
 	 */
-	public Orders findCurrentOrder(boolean isPayMent, String dishTableId){
-		return OrdersLocalServiceUtil.findCurrentOrder(isPayMent, dishTableId);
-		
+	
+
+	public Orders findOrderById(long orderId) {
+		return OrdersLocalServiceUtil.findOrderById(orderId);
 	}
-	public Orders createOrders(long orderId, int charge, boolean isPayment,int numOfDinner, String dishTableId ){
-		return OrdersLocalServiceUtil.createOrders(orderId, charge, isPayment, numOfDinner, dishTableId);
+
+	public Orders createOrders(long orderId, int charge, int isPayment, int numOfDinner, String dishTableId,
+			long createdDate) {
+		return OrdersLocalServiceUtil.createOrders(orderId, charge, isPayment, numOfDinner, dishTableId, createdDate);
 	}
-//	public List<OrderLine> getOrderLines(long pk){
-//	return OrdersLocalServiceUtil.getOrderLines(pk);
-//	}
+
+	public boolean deleteOrderById(long orderId) {
+		return OrdersLocalServiceUtil.deleteOrderById(orderId);
+	}
+	public boolean setWaitingStatus(long orderId) {
+		return OrdersLocalServiceUtil.setWaitingStatus(orderId);
+	}
+	public Orders updateOrder(Orders o) {
+		try {
+			return OrdersLocalServiceUtil.updateOrders(o);
+		} catch (SystemException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+	// public List<OrderLine> getOrderLines(long pk){
+	// return OrdersLocalServiceUtil.getOrderLines(pk);
+	// }
 }

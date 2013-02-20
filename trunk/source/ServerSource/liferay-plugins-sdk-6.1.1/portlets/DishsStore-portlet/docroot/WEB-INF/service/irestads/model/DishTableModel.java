@@ -212,6 +212,20 @@ public interface DishTableModel extends AuditedModel, BaseModel<DishTable> {
 	 */
 	public void setNumChair(int numChair);
 
+	/**
+	 * Returns the current order ID of this dish table.
+	 *
+	 * @return the current order ID of this dish table
+	 */
+	public long getCurrentOrderId();
+
+	/**
+	 * Sets the current order ID of this dish table.
+	 *
+	 * @param currentOrderId the current order ID of this dish table
+	 */
+	public void setCurrentOrderId(long currentOrderId);
+
 	public boolean isNew();
 
 	public void setNew(boolean n);

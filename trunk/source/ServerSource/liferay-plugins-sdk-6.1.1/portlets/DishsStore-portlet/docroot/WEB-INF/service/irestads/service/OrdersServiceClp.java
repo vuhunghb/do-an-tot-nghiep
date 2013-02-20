@@ -31,15 +31,27 @@ public class OrdersServiceClp implements OrdersService {
 
 		_methodParameterTypes1 = new String[] { "java.lang.String" };
 
-		_methodName3 = "findCurrentOrder";
+		_methodName3 = "findOrderById";
 
-		_methodParameterTypes3 = new String[] { "boolean", "java.lang.String" };
+		_methodParameterTypes3 = new String[] { "long" };
 
 		_methodName4 = "createOrders";
 
 		_methodParameterTypes4 = new String[] {
-				"long", "int", "boolean", "int", "java.lang.String"
+				"long", "int", "int", "int", "java.lang.String", "long"
 			};
+
+		_methodName5 = "deleteOrderById";
+
+		_methodParameterTypes5 = new String[] { "long" };
+
+		_methodName6 = "setWaitingStatus";
+
+		_methodParameterTypes6 = new String[] { "long" };
+
+		_methodName7 = "updateOrder";
+
+		_methodParameterTypes7 = new String[] { "irestads.model.Orders" };
 	}
 
 	public java.lang.String getBeanIdentifier() {
@@ -89,18 +101,12 @@ public class OrdersServiceClp implements OrdersService {
 		throw new UnsupportedOperationException();
 	}
 
-	public irestads.model.Orders findCurrentOrder(boolean isPayMent,
-		java.lang.String dishTableId) {
+	public irestads.model.Orders findOrderById(long orderId) {
 		Object returnObj = null;
 
 		try {
 			returnObj = _invokableService.invokeMethod(_methodName3,
-					_methodParameterTypes3,
-					new Object[] {
-						isPayMent,
-						
-					ClpSerializer.translateInput(dishTableId)
-					});
+					_methodParameterTypes3, new Object[] { orderId });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -118,7 +124,8 @@ public class OrdersServiceClp implements OrdersService {
 	}
 
 	public irestads.model.Orders createOrders(long orderId, int charge,
-		boolean isPayment, int numOfDinner, java.lang.String dishTableId) {
+		int isPayment, int numOfDinner, java.lang.String dishTableId,
+		long createdDate) {
 		Object returnObj = null;
 
 		try {
@@ -133,8 +140,77 @@ public class OrdersServiceClp implements OrdersService {
 						
 					numOfDinner,
 						
-					ClpSerializer.translateInput(dishTableId)
+					ClpSerializer.translateInput(dishTableId),
+						
+					createdDate
 					});
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (irestads.model.Orders)ClpSerializer.translateOutput(returnObj);
+	}
+
+	public boolean deleteOrderById(long orderId) {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableService.invokeMethod(_methodName5,
+					_methodParameterTypes5, new Object[] { orderId });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return ((Boolean)returnObj).booleanValue();
+	}
+
+	public boolean setWaitingStatus(long orderId) {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableService.invokeMethod(_methodName6,
+					_methodParameterTypes6, new Object[] { orderId });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return ((Boolean)returnObj).booleanValue();
+	}
+
+	public irestads.model.Orders updateOrder(irestads.model.Orders o) {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableService.invokeMethod(_methodName7,
+					_methodParameterTypes7,
+					new Object[] { ClpSerializer.translateInput(o) });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -160,4 +236,10 @@ public class OrdersServiceClp implements OrdersService {
 	private String[] _methodParameterTypes3;
 	private String _methodName4;
 	private String[] _methodParameterTypes4;
+	private String _methodName5;
+	private String[] _methodParameterTypes5;
+	private String _methodName6;
+	private String[] _methodParameterTypes6;
+	private String _methodName7;
+	private String[] _methodParameterTypes7;
 }

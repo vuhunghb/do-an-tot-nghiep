@@ -19,7 +19,10 @@ import java.util.List;
 import com.liferay.portal.kernel.exception.SystemException;
 
 import irestads.model.DishTable;
+import irestads.model.Orders;
+import irestads.service.OrderLineServiceUtil;
 import irestads.service.OrdersLocalServiceUtil;
+import irestads.service.OrdersServiceUtil;
 import irestads.service.base.DishTableLocalServiceBaseImpl;
 import irestads.service.persistence.DishTableUtil;
 
@@ -48,7 +51,8 @@ public class DishTableLocalServiceImpl extends DishTableLocalServiceBaseImpl {
 			
 		List<DishTable> dishTables=	DishTableUtil.findAll();
 		for (int i = 0; i < dishTables.size(); i++) {
-			dishTables.get(i).setCurentOrder(OrdersLocalServiceUtil.findCurrentOrder(false, dishTables.get(i).getDishTableId()));
+			Orders o =OrdersServiceUtil.findOrderById(dishTables.get(i).getCurrentOrderId());
+			dishTables.get(i).setCurentOrder(o);
 		}
 			return dishTables;
 		} catch (SystemException e) {

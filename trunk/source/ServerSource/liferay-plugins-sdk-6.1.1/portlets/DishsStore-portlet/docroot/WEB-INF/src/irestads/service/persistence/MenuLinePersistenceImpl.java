@@ -98,19 +98,9 @@ public class MenuLinePersistenceImpl extends BasePersistenceImpl<MenuLine>
 			MenuLineModelImpl.FINDER_CACHE_ENABLED, Long.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByStatus",
 			new String[] { Boolean.class.getName() });
-	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_BY_DISHID = new FinderPath(MenuLineModelImpl.ENTITY_CACHE_ENABLED,
+	public static final FinderPath FINDER_PATH_FETCH_BY_DISHID = new FinderPath(MenuLineModelImpl.ENTITY_CACHE_ENABLED,
 			MenuLineModelImpl.FINDER_CACHE_ENABLED, MenuLineImpl.class,
-			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByDishId",
-			new String[] {
-				Long.class.getName(),
-				
-			"java.lang.Integer", "java.lang.Integer",
-				"com.liferay.portal.kernel.util.OrderByComparator"
-			});
-	public static final FinderPath FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_DISHID =
-		new FinderPath(MenuLineModelImpl.ENTITY_CACHE_ENABLED,
-			MenuLineModelImpl.FINDER_CACHE_ENABLED, MenuLineImpl.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByDishId",
+			FINDER_CLASS_NAME_ENTITY, "fetchByDishId",
 			new String[] { Long.class.getName() },
 			MenuLineModelImpl.DISHID_COLUMN_BITMASK);
 	public static final FinderPath FINDER_PATH_COUNT_BY_DISHID = new FinderPath(MenuLineModelImpl.ENTITY_CACHE_ENABLED,
@@ -155,6 +145,9 @@ public class MenuLinePersistenceImpl extends BasePersistenceImpl<MenuLine>
 	public void cacheResult(MenuLine menuLine) {
 		EntityCacheUtil.putResult(MenuLineModelImpl.ENTITY_CACHE_ENABLED,
 			MenuLineImpl.class, menuLine.getPrimaryKey(), menuLine);
+
+		FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_DISHID,
+			new Object[] { Long.valueOf(menuLine.getDishId()) }, menuLine);
 
 		menuLine.resetOriginalValues();
 	}
@@ -211,6 +204,8 @@ public class MenuLinePersistenceImpl extends BasePersistenceImpl<MenuLine>
 
 		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
+
+		clearUniqueFindersCache(menuLine);
 	}
 
 	@Override
@@ -221,7 +216,14 @@ public class MenuLinePersistenceImpl extends BasePersistenceImpl<MenuLine>
 		for (MenuLine menuLine : menuLines) {
 			EntityCacheUtil.removeResult(MenuLineModelImpl.ENTITY_CACHE_ENABLED,
 				MenuLineImpl.class, menuLine.getPrimaryKey());
+
+			clearUniqueFindersCache(menuLine);
 		}
+	}
+
+	protected void clearUniqueFindersCache(MenuLine menuLine) {
+		FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_DISHID,
+			new Object[] { Long.valueOf(menuLine.getDishId()) });
 	}
 
 	/**
@@ -368,23 +370,6 @@ public class MenuLinePersistenceImpl extends BasePersistenceImpl<MenuLine>
 			}
 
 			if ((menuLineModelImpl.getColumnBitmask() &
-					FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_DISHID.getColumnBitmask()) != 0) {
-				Object[] args = new Object[] {
-						Long.valueOf(menuLineModelImpl.getOriginalDishId())
-					};
-
-				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_DISHID, args);
-				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_DISHID,
-					args);
-
-				args = new Object[] { Long.valueOf(menuLineModelImpl.getDishId()) };
-
-				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_DISHID, args);
-				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_DISHID,
-					args);
-			}
-
-			if ((menuLineModelImpl.getColumnBitmask() &
 					FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_NUMOFDISH.getColumnBitmask()) != 0) {
 				Object[] args = new Object[] {
 						Integer.valueOf(menuLineModelImpl.getOriginalNumOfDish())
@@ -409,6 +394,27 @@ public class MenuLinePersistenceImpl extends BasePersistenceImpl<MenuLine>
 		EntityCacheUtil.putResult(MenuLineModelImpl.ENTITY_CACHE_ENABLED,
 			MenuLineImpl.class, menuLine.getPrimaryKey(), menuLine);
 
+		if (isNew) {
+			FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_DISHID,
+				new Object[] { Long.valueOf(menuLine.getDishId()) }, menuLine);
+		}
+		else {
+			if ((menuLineModelImpl.getColumnBitmask() &
+					FINDER_PATH_FETCH_BY_DISHID.getColumnBitmask()) != 0) {
+				Object[] args = new Object[] {
+						Long.valueOf(menuLineModelImpl.getOriginalDishId())
+					};
+
+				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_DISHID, args);
+
+				FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_DISHID, args);
+
+				FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_DISHID,
+					new Object[] { Long.valueOf(menuLine.getDishId()) },
+					menuLine);
+			}
+		}
+
 		return menuLine;
 	}
 
@@ -429,6 +435,7 @@ public class MenuLinePersistenceImpl extends BasePersistenceImpl<MenuLine>
 		menuLineImpl.setCreateDate(menuLine.getCreateDate());
 		menuLineImpl.setModifiedDate(menuLine.getModifiedDate());
 		menuLineImpl.setNumOfDish(menuLine.getNumOfDish());
+		menuLineImpl.setCapacity(menuLine.getCapacity());
 		menuLineImpl.setStatus(menuLine.isStatus());
 		menuLineImpl.setDishId(menuLine.getDishId());
 
@@ -914,99 +921,83 @@ public class MenuLinePersistenceImpl extends BasePersistenceImpl<MenuLine>
 	}
 
 	/**
-	 * Returns all the menu lines where dishId = &#63;.
+	 * Returns the menu line where dishId = &#63; or throws a {@link irestads.NoSuchMenuLineException} if it could not be found.
 	 *
 	 * @param dishId the dish ID
-	 * @return the matching menu lines
+	 * @return the matching menu line
+	 * @throws irestads.NoSuchMenuLineException if a matching menu line could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
-	public List<MenuLine> findByDishId(long dishId) throws SystemException {
-		return findByDishId(dishId, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
+	public MenuLine findByDishId(long dishId)
+		throws NoSuchMenuLineException, SystemException {
+		MenuLine menuLine = fetchByDishId(dishId);
+
+		if (menuLine == null) {
+			StringBundler msg = new StringBundler(4);
+
+			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+			msg.append("dishId=");
+			msg.append(dishId);
+
+			msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+			if (_log.isWarnEnabled()) {
+				_log.warn(msg.toString());
+			}
+
+			throw new NoSuchMenuLineException(msg.toString());
+		}
+
+		return menuLine;
 	}
 
 	/**
-	 * Returns a range of all the menu lines where dishId = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
+	 * Returns the menu line where dishId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
 	 *
 	 * @param dishId the dish ID
-	 * @param start the lower bound of the range of menu lines
-	 * @param end the upper bound of the range of menu lines (not inclusive)
-	 * @return the range of matching menu lines
+	 * @return the matching menu line, or <code>null</code> if a matching menu line could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
-	public List<MenuLine> findByDishId(long dishId, int start, int end)
+	public MenuLine fetchByDishId(long dishId) throws SystemException {
+		return fetchByDishId(dishId, true);
+	}
+
+	/**
+	 * Returns the menu line where dishId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param dishId the dish ID
+	 * @param retrieveFromCache whether to use the finder cache
+	 * @return the matching menu line, or <code>null</code> if a matching menu line could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public MenuLine fetchByDishId(long dishId, boolean retrieveFromCache)
 		throws SystemException {
-		return findByDishId(dishId, start, end, null);
-	}
+		Object[] finderArgs = new Object[] { dishId };
 
-	/**
-	 * Returns an ordered range of all the menu lines where dishId = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
-	 *
-	 * @param dishId the dish ID
-	 * @param start the lower bound of the range of menu lines
-	 * @param end the upper bound of the range of menu lines (not inclusive)
-	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @return the ordered range of matching menu lines
-	 * @throws SystemException if a system exception occurred
-	 */
-	public List<MenuLine> findByDishId(long dishId, int start, int end,
-		OrderByComparator orderByComparator) throws SystemException {
-		FinderPath finderPath = null;
-		Object[] finderArgs = null;
+		Object result = null;
 
-		if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
-				(orderByComparator == null)) {
-			finderPath = FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_DISHID;
-			finderArgs = new Object[] { dishId };
-		}
-		else {
-			finderPath = FINDER_PATH_WITH_PAGINATION_FIND_BY_DISHID;
-			finderArgs = new Object[] { dishId, start, end, orderByComparator };
+		if (retrieveFromCache) {
+			result = FinderCacheUtil.getResult(FINDER_PATH_FETCH_BY_DISHID,
+					finderArgs, this);
 		}
 
-		List<MenuLine> list = (List<MenuLine>)FinderCacheUtil.getResult(finderPath,
-				finderArgs, this);
+		if (result instanceof MenuLine) {
+			MenuLine menuLine = (MenuLine)result;
 
-		if ((list != null) && !list.isEmpty()) {
-			for (MenuLine menuLine : list) {
-				if ((dishId != menuLine.getDishId())) {
-					list = null;
-
-					break;
-				}
+			if ((dishId != menuLine.getDishId())) {
+				result = null;
 			}
 		}
 
-		if (list == null) {
-			StringBundler query = null;
-
-			if (orderByComparator != null) {
-				query = new StringBundler(3 +
-						(orderByComparator.getOrderByFields().length * 3));
-			}
-			else {
-				query = new StringBundler(3);
-			}
+		if (result == null) {
+			StringBundler query = new StringBundler(3);
 
 			query.append(_SQL_SELECT_MENULINE_WHERE);
 
 			query.append(_FINDER_COLUMN_DISHID_DISHID_2);
 
-			if (orderByComparator != null) {
-				appendOrderByComparator(query, _ORDER_BY_ENTITY_ALIAS,
-					orderByComparator);
-			}
-
-			else {
-				query.append(MenuLineModelImpl.ORDER_BY_JPQL);
-			}
+			query.append(MenuLineModelImpl.ORDER_BY_JPQL);
 
 			String sql = query.toString();
 
@@ -1021,273 +1012,48 @@ public class MenuLinePersistenceImpl extends BasePersistenceImpl<MenuLine>
 
 				qPos.add(dishId);
 
-				list = (List<MenuLine>)QueryUtil.list(q, getDialect(), start,
-						end);
+				List<MenuLine> list = q.list();
+
+				result = list;
+
+				MenuLine menuLine = null;
+
+				if (list.isEmpty()) {
+					FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_DISHID,
+						finderArgs, list);
+				}
+				else {
+					menuLine = list.get(0);
+
+					cacheResult(menuLine);
+
+					if ((menuLine.getDishId() != dishId)) {
+						FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_DISHID,
+							finderArgs, menuLine);
+					}
+				}
+
+				return menuLine;
 			}
 			catch (Exception e) {
 				throw processException(e);
 			}
 			finally {
-				if (list == null) {
-					FinderCacheUtil.removeResult(finderPath, finderArgs);
-				}
-				else {
-					cacheResult(list);
-
-					FinderCacheUtil.putResult(finderPath, finderArgs, list);
+				if (result == null) {
+					FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_DISHID,
+						finderArgs);
 				}
 
 				closeSession(session);
 			}
 		}
-
-		return list;
-	}
-
-	/**
-	 * Returns the first menu line in the ordered set where dishId = &#63;.
-	 *
-	 * @param dishId the dish ID
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the first matching menu line
-	 * @throws irestads.NoSuchMenuLineException if a matching menu line could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public MenuLine findByDishId_First(long dishId,
-		OrderByComparator orderByComparator)
-		throws NoSuchMenuLineException, SystemException {
-		MenuLine menuLine = fetchByDishId_First(dishId, orderByComparator);
-
-		if (menuLine != null) {
-			return menuLine;
-		}
-
-		StringBundler msg = new StringBundler(4);
-
-		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-		msg.append("dishId=");
-		msg.append(dishId);
-
-		msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-		throw new NoSuchMenuLineException(msg.toString());
-	}
-
-	/**
-	 * Returns the first menu line in the ordered set where dishId = &#63;.
-	 *
-	 * @param dishId the dish ID
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the first matching menu line, or <code>null</code> if a matching menu line could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public MenuLine fetchByDishId_First(long dishId,
-		OrderByComparator orderByComparator) throws SystemException {
-		List<MenuLine> list = findByDishId(dishId, 0, 1, orderByComparator);
-
-		if (!list.isEmpty()) {
-			return list.get(0);
-		}
-
-		return null;
-	}
-
-	/**
-	 * Returns the last menu line in the ordered set where dishId = &#63;.
-	 *
-	 * @param dishId the dish ID
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the last matching menu line
-	 * @throws irestads.NoSuchMenuLineException if a matching menu line could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public MenuLine findByDishId_Last(long dishId,
-		OrderByComparator orderByComparator)
-		throws NoSuchMenuLineException, SystemException {
-		MenuLine menuLine = fetchByDishId_Last(dishId, orderByComparator);
-
-		if (menuLine != null) {
-			return menuLine;
-		}
-
-		StringBundler msg = new StringBundler(4);
-
-		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-		msg.append("dishId=");
-		msg.append(dishId);
-
-		msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-		throw new NoSuchMenuLineException(msg.toString());
-	}
-
-	/**
-	 * Returns the last menu line in the ordered set where dishId = &#63;.
-	 *
-	 * @param dishId the dish ID
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the last matching menu line, or <code>null</code> if a matching menu line could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public MenuLine fetchByDishId_Last(long dishId,
-		OrderByComparator orderByComparator) throws SystemException {
-		int count = countByDishId(dishId);
-
-		List<MenuLine> list = findByDishId(dishId, count - 1, count,
-				orderByComparator);
-
-		if (!list.isEmpty()) {
-			return list.get(0);
-		}
-
-		return null;
-	}
-
-	/**
-	 * Returns the menu lines before and after the current menu line in the ordered set where dishId = &#63;.
-	 *
-	 * @param menuLineId the primary key of the current menu line
-	 * @param dishId the dish ID
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the previous, current, and next menu line
-	 * @throws irestads.NoSuchMenuLineException if a menu line with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public MenuLine[] findByDishId_PrevAndNext(long menuLineId, long dishId,
-		OrderByComparator orderByComparator)
-		throws NoSuchMenuLineException, SystemException {
-		MenuLine menuLine = findByPrimaryKey(menuLineId);
-
-		Session session = null;
-
-		try {
-			session = openSession();
-
-			MenuLine[] array = new MenuLineImpl[3];
-
-			array[0] = getByDishId_PrevAndNext(session, menuLine, dishId,
-					orderByComparator, true);
-
-			array[1] = menuLine;
-
-			array[2] = getByDishId_PrevAndNext(session, menuLine, dishId,
-					orderByComparator, false);
-
-			return array;
-		}
-		catch (Exception e) {
-			throw processException(e);
-		}
-		finally {
-			closeSession(session);
-		}
-	}
-
-	protected MenuLine getByDishId_PrevAndNext(Session session,
-		MenuLine menuLine, long dishId, OrderByComparator orderByComparator,
-		boolean previous) {
-		StringBundler query = null;
-
-		if (orderByComparator != null) {
-			query = new StringBundler(6 +
-					(orderByComparator.getOrderByFields().length * 6));
-		}
 		else {
-			query = new StringBundler(3);
-		}
-
-		query.append(_SQL_SELECT_MENULINE_WHERE);
-
-		query.append(_FINDER_COLUMN_DISHID_DISHID_2);
-
-		if (orderByComparator != null) {
-			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
-
-			if (orderByConditionFields.length > 0) {
-				query.append(WHERE_AND);
+			if (result instanceof List<?>) {
+				return null;
 			}
-
-			for (int i = 0; i < orderByConditionFields.length; i++) {
-				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByConditionFields[i]);
-
-				if ((i + 1) < orderByConditionFields.length) {
-					if (orderByComparator.isAscending() ^ previous) {
-						query.append(WHERE_GREATER_THAN_HAS_NEXT);
-					}
-					else {
-						query.append(WHERE_LESSER_THAN_HAS_NEXT);
-					}
-				}
-				else {
-					if (orderByComparator.isAscending() ^ previous) {
-						query.append(WHERE_GREATER_THAN);
-					}
-					else {
-						query.append(WHERE_LESSER_THAN);
-					}
-				}
+			else {
+				return (MenuLine)result;
 			}
-
-			query.append(ORDER_BY_CLAUSE);
-
-			String[] orderByFields = orderByComparator.getOrderByFields();
-
-			for (int i = 0; i < orderByFields.length; i++) {
-				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
-
-				if ((i + 1) < orderByFields.length) {
-					if (orderByComparator.isAscending() ^ previous) {
-						query.append(ORDER_BY_ASC_HAS_NEXT);
-					}
-					else {
-						query.append(ORDER_BY_DESC_HAS_NEXT);
-					}
-				}
-				else {
-					if (orderByComparator.isAscending() ^ previous) {
-						query.append(ORDER_BY_ASC);
-					}
-					else {
-						query.append(ORDER_BY_DESC);
-					}
-				}
-			}
-		}
-
-		else {
-			query.append(MenuLineModelImpl.ORDER_BY_JPQL);
-		}
-
-		String sql = query.toString();
-
-		Query q = session.createQuery(sql);
-
-		q.setFirstResult(0);
-		q.setMaxResults(2);
-
-		QueryPos qPos = QueryPos.getInstance(q);
-
-		qPos.add(dishId);
-
-		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByConditionValues(menuLine);
-
-			for (Object value : values) {
-				qPos.add(value);
-			}
-		}
-
-		List<MenuLine> list = q.list();
-
-		if (list.size() == 2) {
-			return list.get(1);
-		}
-		else {
-			return null;
 		}
 	}
 
@@ -1798,15 +1564,17 @@ public class MenuLinePersistenceImpl extends BasePersistenceImpl<MenuLine>
 	}
 
 	/**
-	 * Removes all the menu lines where dishId = &#63; from the database.
+	 * Removes the menu line where dishId = &#63; from the database.
 	 *
 	 * @param dishId the dish ID
+	 * @return the menu line that was removed
 	 * @throws SystemException if a system exception occurred
 	 */
-	public void removeByDishId(long dishId) throws SystemException {
-		for (MenuLine menuLine : findByDishId(dishId)) {
-			remove(menuLine);
-		}
+	public MenuLine removeByDishId(long dishId)
+		throws NoSuchMenuLineException, SystemException {
+		MenuLine menuLine = findByDishId(dishId);
+
+		return remove(menuLine);
 	}
 
 	/**

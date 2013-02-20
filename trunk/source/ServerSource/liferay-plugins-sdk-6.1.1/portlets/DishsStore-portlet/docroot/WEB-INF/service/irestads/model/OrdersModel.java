@@ -194,21 +194,14 @@ public interface OrdersModel extends AuditedModel, BaseModel<Orders> {
 	 *
 	 * @return the is pay ment of this orders
 	 */
-	public boolean getIsPayMent();
+	public int getIsPayMent();
 
 	/**
-	 * Returns <code>true</code> if this orders is is pay ment.
-	 *
-	 * @return <code>true</code> if this orders is is pay ment; <code>false</code> otherwise
-	 */
-	public boolean isIsPayMent();
-
-	/**
-	 * Sets whether this orders is is pay ment.
+	 * Sets the is pay ment of this orders.
 	 *
 	 * @param isPayMent the is pay ment of this orders
 	 */
-	public void setIsPayMent(boolean isPayMent);
+	public void setIsPayMent(int isPayMent);
 
 	/**
 	 * Returns the num of dinner of this orders.

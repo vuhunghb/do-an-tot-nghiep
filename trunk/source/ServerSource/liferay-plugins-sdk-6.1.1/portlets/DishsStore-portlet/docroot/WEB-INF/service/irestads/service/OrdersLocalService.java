@@ -239,9 +239,15 @@ public interface OrdersLocalService extends BaseLocalService,
 		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
 		throws java.lang.Throwable;
 
-	public irestads.model.Orders findCurrentOrder(boolean isPayMent,
-		java.lang.String dishTableId);
+	public irestads.model.Orders findOrderById(long orderId);
 
 	public irestads.model.Orders createOrders(long orderId, int charge,
-		boolean isPayment, int numOfDinner, java.lang.String dishTableId);
+		int isPayment, int numOfDinner, java.lang.String dishTableId,
+		long createdDate);
+
+	public irestads.model.Orders updateOrder(irestads.model.Orders o);
+
+	public boolean deleteOrderById(long orderId);
+
+	public boolean setWaitingStatus(long orderId);
 }

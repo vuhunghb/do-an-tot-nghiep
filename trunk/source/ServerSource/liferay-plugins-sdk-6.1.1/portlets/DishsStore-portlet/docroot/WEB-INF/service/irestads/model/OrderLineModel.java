@@ -176,39 +176,32 @@ public interface OrderLineModel extends AuditedModel, BaseModel<OrderLine> {
 	public void setNumOfDish(int numOfDish);
 
 	/**
-	 * Returns the capacity of this order line.
+	 * Returns the num of finish dish of this order line.
 	 *
-	 * @return the capacity of this order line
+	 * @return the num of finish dish of this order line
 	 */
-	public int getCapacity();
+	public int getNumOfFinishDish();
 
 	/**
-	 * Sets the capacity of this order line.
+	 * Sets the num of finish dish of this order line.
 	 *
-	 * @param capacity the capacity of this order line
+	 * @param numOfFinishDish the num of finish dish of this order line
 	 */
-	public void setCapacity(int capacity);
+	public void setNumOfFinishDish(int numOfFinishDish);
 
 	/**
 	 * Returns the status dish of this order line.
 	 *
 	 * @return the status dish of this order line
 	 */
-	public boolean getStatusDish();
+	public int getStatusDish();
 
 	/**
-	 * Returns <code>true</code> if this order line is status dish.
-	 *
-	 * @return <code>true</code> if this order line is status dish; <code>false</code> otherwise
-	 */
-	public boolean isStatusDish();
-
-	/**
-	 * Sets whether this order line is status dish.
+	 * Sets the status dish of this order line.
 	 *
 	 * @param statusDish the status dish of this order line
 	 */
-	public void setStatusDish(boolean statusDish);
+	public void setStatusDish(int statusDish);
 
 	/**
 	 * Returns the dish ID of this order line.
@@ -223,6 +216,20 @@ public interface OrderLineModel extends AuditedModel, BaseModel<OrderLine> {
 	 * @param dishId the dish ID of this order line
 	 */
 	public void setDishId(long dishId);
+
+	/**
+	 * Returns the order date of this order line.
+	 *
+	 * @return the order date of this order line
+	 */
+	public Date getOrderDate();
+
+	/**
+	 * Sets the order date of this order line.
+	 *
+	 * @param orderDate the order date of this order line
+	 */
+	public void setOrderDate(Date orderDate);
 
 	/**
 	 * Returns the order ID of this order line.

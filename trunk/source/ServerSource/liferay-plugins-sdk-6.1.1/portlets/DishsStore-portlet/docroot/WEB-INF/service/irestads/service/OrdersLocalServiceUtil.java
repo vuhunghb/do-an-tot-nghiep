@@ -267,16 +267,28 @@ public class OrdersLocalServiceUtil {
 		return getService().invokeMethod(name, parameterTypes, arguments);
 	}
 
-	public static irestads.model.Orders findCurrentOrder(boolean isPayMent,
-		java.lang.String dishTableId) {
-		return getService().findCurrentOrder(isPayMent, dishTableId);
+	public static irestads.model.Orders findOrderById(long orderId) {
+		return getService().findOrderById(orderId);
 	}
 
 	public static irestads.model.Orders createOrders(long orderId, int charge,
-		boolean isPayment, int numOfDinner, java.lang.String dishTableId) {
+		int isPayment, int numOfDinner, java.lang.String dishTableId,
+		long createdDate) {
 		return getService()
 				   .createOrders(orderId, charge, isPayment, numOfDinner,
-			dishTableId);
+			dishTableId, createdDate);
+	}
+
+	public static irestads.model.Orders updateOrder(irestads.model.Orders o) {
+		return getService().updateOrder(o);
+	}
+
+	public static boolean deleteOrderById(long orderId) {
+		return getService().deleteOrderById(orderId);
+	}
+
+	public static boolean setWaitingStatus(long orderId) {
+		return getService().setWaitingStatus(orderId);
 	}
 
 	public static void clearService() {

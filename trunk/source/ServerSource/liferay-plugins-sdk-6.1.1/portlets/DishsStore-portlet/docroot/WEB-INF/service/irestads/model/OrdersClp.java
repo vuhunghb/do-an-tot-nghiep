@@ -131,7 +131,7 @@ public class OrdersClp extends BaseModelImpl<Orders> implements Orders {
 			setCreatedDate(createdDate);
 		}
 
-		Boolean isPayMent = (Boolean)attributes.get("isPayMent");
+		Integer isPayMent = (Integer)attributes.get("isPayMent");
 
 		if (isPayMent != null) {
 			setIsPayMent(isPayMent);
@@ -222,15 +222,11 @@ public class OrdersClp extends BaseModelImpl<Orders> implements Orders {
 		_createdDate = createdDate;
 	}
 
-	public boolean getIsPayMent() {
+	public int getIsPayMent() {
 		return _isPayMent;
 	}
 
-	public boolean isIsPayMent() {
-		return _isPayMent;
-	}
-
-	public void setIsPayMent(boolean isPayMent) {
+	public void setIsPayMent(int isPayMent) {
 		_isPayMent = isPayMent;
 	}
 
@@ -433,7 +429,7 @@ public class OrdersClp extends BaseModelImpl<Orders> implements Orders {
 	private Date _modifiedDate;
 	private int _charge;
 	private Date _createdDate;
-	private boolean _isPayMent;
+	private int _isPayMent;
 	private int _numOfDinner;
 	private String _dishTableId;
 	private BaseModel<?> _ordersRemoteModel;

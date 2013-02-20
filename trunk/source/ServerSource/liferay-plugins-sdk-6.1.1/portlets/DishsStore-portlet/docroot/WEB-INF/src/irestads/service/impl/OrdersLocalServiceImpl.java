@@ -14,23 +14,32 @@
 
 package irestads.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import com.liferay.portal.kernel.exception.SystemException;
 
+import irestads.defination.LogTypeEnum;
+import irestads.model.Dish;
 import irestads.model.OrderLine;
 import irestads.model.Orders;
+import irestads.service.UVersionServiceUtil;
 import irestads.service.base.OrdersLocalServiceBaseImpl;
+import irestads.service.persistence.DishUtil;
 import irestads.service.persistence.OrdersUtil;
 
 /**
  * The implementation of the orders local service.
  *
  * <p>
- * All custom service methods should be put in this class. Whenever methods are added, rerun ServiceBuilder to copy their definitions into the {@link irestads.service.OrdersLocalService} interface.
+ * All custom service methods should be put in this class. Whenever methods are
+ * added, rerun ServiceBuilder to copy their definitions into the
+ * {@link irestads.service.OrdersLocalService} interface.
  *
  * <p>
- * This is a local service. Methods of this service will not have security checks based on the propagated JAAS credentials because this service can only be accessed from within the same VM.
+ * This is a local service. Methods of this service will not have security
+ * checks based on the propagated JAAS credentials because this service can only
+ * be accessed from within the same VM.
  * </p>
  *
  * @author Be
@@ -41,7 +50,9 @@ public class OrdersLocalServiceImpl extends OrdersLocalServiceBaseImpl {
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never reference this interface directly. Always use {@link irestads.service.OrdersLocalServiceUtil} to access the orders local service.
+	 * Never reference this interface directly. Always use {@link
+	 * irestads.service.OrdersLocalServiceUtil} to access the orders local
+	 * service.
 	 */
 //	public List<Orders> findByIsPayment(boolean isPayMent){
 //		try {
@@ -52,22 +63,27 @@ public class OrdersLocalServiceImpl extends OrdersLocalServiceBaseImpl {
 //		}
 //		return null;
 //	}
-	public Orders findCurrentOrder(boolean isPayMent, String dishTableId){
+	
+
+	public Orders findOrderById(long orderId) {
 		try {
-			return OrdersUtil.fetchBycurentOrder(isPayMent, dishTableId);
+			return OrdersUtil.fetchByPrimaryKey(orderId);
 		} catch (SystemException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
 	}
-	public Orders createOrders(long orderId, int charge, boolean isPayment,int numOfDinner, String dishTableId ){
+
+	public Orders createOrders(long orderId, int charge, int isPayment, int numOfDinner, String dishTableId,
+			long createdDate) {
 		Orders o= OrdersUtil.create(orderId);
 		o.setCharge(charge);
 		o.setIsPayMent(isPayment);
 		o.setNumOfDinner(numOfDinner);
 		o.setDishTableId(dishTableId);
-	   
+		o.setCreatedDate(new Date(createdDate));
+		//o.setIsWaiting(false);
 		try {
 			o=OrdersUtil.update(o, true);
 			return o;
@@ -78,13 +94,65 @@ public class OrdersLocalServiceImpl extends OrdersLocalServiceBaseImpl {
 		}
 		
 	}
-//	public List<OrderLine> getOrderLines(long pk){
-//	try {
-//		return 	OrdersUtil.getOrderLines(pk);
-//	} catch (SystemException e) {
-//		// TODO Auto-generated catch block
-//		e.printStackTrace();
-//		return null;
-//	}
-//	}
+	public Orders updateOrder(Orders o) {
+		try {
+			Orders order = OrdersUtil.fetchByPrimaryKey(o.getOrderId());
+			if (order != null && order.getOrderId() == o.getOrderId()) {
+				order.setCharge(o.getCharge());
+				order.setDishTableId(o.getDishTableId());
+				order.setIsPayMent(o.getIsPayMent());
+				order.setNumOfDinner(o.getNumOfDinner());
+				
+				order= OrdersUtil.update(order, true);
+				
+				return order;
+			}
+
+		} catch (SystemException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public boolean deleteOrderById(long orderId) {
+	try {
+			Orders orders = OrdersUtil.remove(orderId);
+			return true;
+		} catch (Exception e) {
+			// TODO: handle exception
+			return false;
+	}
+}
+
+	public boolean setWaitingStatus(long orderId) {
+		try {
+			Orders orders = OrdersUtil.findByPrimaryKey(orderId);
+			boolean updateValue;
+//			if (orders.isIsWaiting() == true) {
+//				updateValue = false;
+//			} else {
+//				updateValue = true;
+//			}
+//			orders.setIsWaiting(updateValue);
+			if(orders.getIsPayMent()!=2){
+				orders.setIsPayMent(1);
+			}
+			OrdersUtil.update(orders, true);
+			return true;
+		} catch (Exception e) {
+			// TODO: handle exception
+			return false;
+		}
+	}
+
+	// public List<OrderLine> getOrderLines(long pk){
+	// try {
+	// return OrdersUtil.getOrderLines(pk);
+	// } catch (SystemException e) {
+	// // TODO Auto-generated catch block
+	// e.printStackTrace();
+	// return null;
+	// }
+	// }
 }

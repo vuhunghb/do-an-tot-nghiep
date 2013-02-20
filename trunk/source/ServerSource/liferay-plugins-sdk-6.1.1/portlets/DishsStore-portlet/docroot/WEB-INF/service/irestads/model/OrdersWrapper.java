@@ -109,7 +109,7 @@ public class OrdersWrapper implements Orders, ModelWrapper<Orders> {
 			setCreatedDate(createdDate);
 		}
 
-		Boolean isPayMent = (Boolean)attributes.get("isPayMent");
+		Integer isPayMent = (Integer)attributes.get("isPayMent");
 
 		if (isPayMent != null) {
 			setIsPayMent(isPayMent);
@@ -315,25 +315,16 @@ public class OrdersWrapper implements Orders, ModelWrapper<Orders> {
 	*
 	* @return the is pay ment of this orders
 	*/
-	public boolean getIsPayMent() {
+	public int getIsPayMent() {
 		return _orders.getIsPayMent();
 	}
 
 	/**
-	* Returns <code>true</code> if this orders is is pay ment.
-	*
-	* @return <code>true</code> if this orders is is pay ment; <code>false</code> otherwise
-	*/
-	public boolean isIsPayMent() {
-		return _orders.isIsPayMent();
-	}
-
-	/**
-	* Sets whether this orders is is pay ment.
+	* Sets the is pay ment of this orders.
 	*
 	* @param isPayMent the is pay ment of this orders
 	*/
-	public void setIsPayMent(boolean isPayMent) {
+	public void setIsPayMent(int isPayMent) {
 		_orders.setIsPayMent(isPayMent);
 	}
 

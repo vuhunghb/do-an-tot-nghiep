@@ -74,11 +74,11 @@ public class OrdersModelImpl extends BaseModelImpl<Orders>
 			{ "modifiedDate", Types.TIMESTAMP },
 			{ "charge", Types.INTEGER },
 			{ "createdDate", Types.TIMESTAMP },
-			{ "isPayMent", Types.BOOLEAN },
+			{ "isPayMent", Types.INTEGER },
 			{ "numOfDinner", Types.INTEGER },
 			{ "dishTableId", Types.VARCHAR }
 		};
-	public static final String TABLE_SQL_CREATE = "create table dishsstore_Orders (orderId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,charge INTEGER,createdDate DATE null,isPayMent BOOLEAN,numOfDinner INTEGER,dishTableId VARCHAR(75) null)";
+	public static final String TABLE_SQL_CREATE = "create table dishsstore_Orders (orderId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,charge INTEGER,createdDate DATE null,isPayMent INTEGER,numOfDinner INTEGER,dishTableId VARCHAR(75) null)";
 	public static final String TABLE_SQL_DROP = "drop table dishsstore_Orders";
 	public static final String DATA_SOURCE = "liferayDataSource";
 	public static final String SESSION_FACTORY = "liferaySessionFactory";
@@ -240,7 +240,7 @@ public class OrdersModelImpl extends BaseModelImpl<Orders>
 			setCreatedDate(createdDate);
 		}
 
-		Boolean isPayMent = (Boolean)attributes.get("isPayMent");
+		Integer isPayMent = (Integer)attributes.get("isPayMent");
 
 		if (isPayMent != null) {
 			setIsPayMent(isPayMent);
@@ -345,15 +345,11 @@ public class OrdersModelImpl extends BaseModelImpl<Orders>
 	}
 
 	@JSON
-	public boolean getIsPayMent() {
+	public int getIsPayMent() {
 		return _isPayMent;
 	}
 
-	public boolean isIsPayMent() {
-		return _isPayMent;
-	}
-
-	public void setIsPayMent(boolean isPayMent) {
+	public void setIsPayMent(int isPayMent) {
 		_columnBitmask |= ISPAYMENT_COLUMN_BITMASK;
 
 		if (!_setOriginalIsPayMent) {
@@ -365,7 +361,7 @@ public class OrdersModelImpl extends BaseModelImpl<Orders>
 		_isPayMent = isPayMent;
 	}
 
-	public boolean getOriginalIsPayMent() {
+	public int getOriginalIsPayMent() {
 		return _originalIsPayMent;
 	}
 
@@ -671,8 +667,8 @@ public class OrdersModelImpl extends BaseModelImpl<Orders>
 	private Date _modifiedDate;
 	private int _charge;
 	private Date _createdDate;
-	private boolean _isPayMent;
-	private boolean _originalIsPayMent;
+	private int _isPayMent;
+	private int _originalIsPayMent;
 	private boolean _setOriginalIsPayMent;
 	private int _numOfDinner;
 	private String _dishTableId;

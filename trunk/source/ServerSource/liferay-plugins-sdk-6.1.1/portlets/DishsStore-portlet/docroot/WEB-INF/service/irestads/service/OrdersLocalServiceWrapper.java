@@ -258,15 +258,27 @@ public class OrdersLocalServiceWrapper implements OrdersLocalService,
 		return _ordersLocalService.invokeMethod(name, parameterTypes, arguments);
 	}
 
-	public irestads.model.Orders findCurrentOrder(boolean isPayMent,
-		java.lang.String dishTableId) {
-		return _ordersLocalService.findCurrentOrder(isPayMent, dishTableId);
+	public irestads.model.Orders findOrderById(long orderId) {
+		return _ordersLocalService.findOrderById(orderId);
 	}
 
 	public irestads.model.Orders createOrders(long orderId, int charge,
-		boolean isPayment, int numOfDinner, java.lang.String dishTableId) {
+		int isPayment, int numOfDinner, java.lang.String dishTableId,
+		long createdDate) {
 		return _ordersLocalService.createOrders(orderId, charge, isPayment,
-			numOfDinner, dishTableId);
+			numOfDinner, dishTableId, createdDate);
+	}
+
+	public irestads.model.Orders updateOrder(irestads.model.Orders o) {
+		return _ordersLocalService.updateOrder(o);
+	}
+
+	public boolean deleteOrderById(long orderId) {
+		return _ordersLocalService.deleteOrderById(orderId);
+	}
+
+	public boolean setWaitingStatus(long orderId) {
+		return _ordersLocalService.setWaitingStatus(orderId);
 	}
 
 	/**

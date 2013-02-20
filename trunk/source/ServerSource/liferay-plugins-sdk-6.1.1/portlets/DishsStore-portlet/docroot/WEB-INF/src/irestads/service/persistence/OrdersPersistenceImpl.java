@@ -87,13 +87,13 @@ public class OrdersPersistenceImpl extends BasePersistenceImpl<Orders>
 	public static final FinderPath FINDER_PATH_FETCH_BY_CURENTORDER = new FinderPath(OrdersModelImpl.ENTITY_CACHE_ENABLED,
 			OrdersModelImpl.FINDER_CACHE_ENABLED, OrdersImpl.class,
 			FINDER_CLASS_NAME_ENTITY, "fetchBycurentOrder",
-			new String[] { Boolean.class.getName(), String.class.getName() },
+			new String[] { Integer.class.getName(), String.class.getName() },
 			OrdersModelImpl.ISPAYMENT_COLUMN_BITMASK |
 			OrdersModelImpl.DISHTABLEID_COLUMN_BITMASK);
 	public static final FinderPath FINDER_PATH_COUNT_BY_CURENTORDER = new FinderPath(OrdersModelImpl.ENTITY_CACHE_ENABLED,
 			OrdersModelImpl.FINDER_CACHE_ENABLED, Long.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countBycurentOrder",
-			new String[] { Boolean.class.getName(), String.class.getName() });
+			new String[] { Integer.class.getName(), String.class.getName() });
 	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_ALL = new FinderPath(OrdersModelImpl.ENTITY_CACHE_ENABLED,
 			OrdersModelImpl.FINDER_CACHE_ENABLED, OrdersImpl.class,
 			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findAll", new String[0]);
@@ -115,7 +115,7 @@ public class OrdersPersistenceImpl extends BasePersistenceImpl<Orders>
 
 		FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_CURENTORDER,
 			new Object[] {
-				Boolean.valueOf(orders.getIsPayMent()),
+				Integer.valueOf(orders.getIsPayMent()),
 				
 			orders.getDishTableId()
 			}, orders);
@@ -195,7 +195,7 @@ public class OrdersPersistenceImpl extends BasePersistenceImpl<Orders>
 	protected void clearUniqueFindersCache(Orders orders) {
 		FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_CURENTORDER,
 			new Object[] {
-				Boolean.valueOf(orders.getIsPayMent()),
+				Integer.valueOf(orders.getIsPayMent()),
 				
 			orders.getDishTableId()
 			});
@@ -329,7 +329,7 @@ public class OrdersPersistenceImpl extends BasePersistenceImpl<Orders>
 		if (isNew) {
 			FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_CURENTORDER,
 				new Object[] {
-					Boolean.valueOf(orders.getIsPayMent()),
+					Integer.valueOf(orders.getIsPayMent()),
 					
 				orders.getDishTableId()
 				}, orders);
@@ -338,7 +338,7 @@ public class OrdersPersistenceImpl extends BasePersistenceImpl<Orders>
 			if ((ordersModelImpl.getColumnBitmask() &
 					FINDER_PATH_FETCH_BY_CURENTORDER.getColumnBitmask()) != 0) {
 				Object[] args = new Object[] {
-						Boolean.valueOf(ordersModelImpl.getOriginalIsPayMent()),
+						Integer.valueOf(ordersModelImpl.getOriginalIsPayMent()),
 						
 						ordersModelImpl.getOriginalDishTableId()
 					};
@@ -351,7 +351,7 @@ public class OrdersPersistenceImpl extends BasePersistenceImpl<Orders>
 
 				FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_CURENTORDER,
 					new Object[] {
-						Boolean.valueOf(orders.getIsPayMent()),
+						Integer.valueOf(orders.getIsPayMent()),
 						
 					orders.getDishTableId()
 					}, orders);
@@ -379,7 +379,7 @@ public class OrdersPersistenceImpl extends BasePersistenceImpl<Orders>
 		ordersImpl.setModifiedDate(orders.getModifiedDate());
 		ordersImpl.setCharge(orders.getCharge());
 		ordersImpl.setCreatedDate(orders.getCreatedDate());
-		ordersImpl.setIsPayMent(orders.isIsPayMent());
+		ordersImpl.setIsPayMent(orders.getIsPayMent());
 		ordersImpl.setNumOfDinner(orders.getNumOfDinner());
 		ordersImpl.setDishTableId(orders.getDishTableId());
 
@@ -493,7 +493,7 @@ public class OrdersPersistenceImpl extends BasePersistenceImpl<Orders>
 	 * @throws irestads.NoSuchOrdersException if a matching orders could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
-	public Orders findBycurentOrder(boolean isPayMent, String dishTableId)
+	public Orders findBycurentOrder(int isPayMent, String dishTableId)
 		throws NoSuchOrdersException, SystemException {
 		Orders orders = fetchBycurentOrder(isPayMent, dishTableId);
 
@@ -528,7 +528,7 @@ public class OrdersPersistenceImpl extends BasePersistenceImpl<Orders>
 	 * @return the matching orders, or <code>null</code> if a matching orders could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
-	public Orders fetchBycurentOrder(boolean isPayMent, String dishTableId)
+	public Orders fetchBycurentOrder(int isPayMent, String dishTableId)
 		throws SystemException {
 		return fetchBycurentOrder(isPayMent, dishTableId, true);
 	}
@@ -542,7 +542,7 @@ public class OrdersPersistenceImpl extends BasePersistenceImpl<Orders>
 	 * @return the matching orders, or <code>null</code> if a matching orders could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
-	public Orders fetchBycurentOrder(boolean isPayMent, String dishTableId,
+	public Orders fetchBycurentOrder(int isPayMent, String dishTableId,
 		boolean retrieveFromCache) throws SystemException {
 		Object[] finderArgs = new Object[] { isPayMent, dishTableId };
 
@@ -767,7 +767,7 @@ public class OrdersPersistenceImpl extends BasePersistenceImpl<Orders>
 	 * @return the orders that was removed
 	 * @throws SystemException if a system exception occurred
 	 */
-	public Orders removeBycurentOrder(boolean isPayMent, String dishTableId)
+	public Orders removeBycurentOrder(int isPayMent, String dishTableId)
 		throws NoSuchOrdersException, SystemException {
 		Orders orders = findBycurentOrder(isPayMent, dishTableId);
 
@@ -793,7 +793,7 @@ public class OrdersPersistenceImpl extends BasePersistenceImpl<Orders>
 	 * @return the number of matching orderses
 	 * @throws SystemException if a system exception occurred
 	 */
-	public int countBycurentOrder(boolean isPayMent, String dishTableId)
+	public int countBycurentOrder(int isPayMent, String dishTableId)
 		throws SystemException {
 		Object[] finderArgs = new Object[] { isPayMent, dishTableId };
 

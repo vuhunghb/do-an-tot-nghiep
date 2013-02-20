@@ -243,6 +243,18 @@ public interface OrderLineLocalService extends BaseLocalService,
 		throws java.lang.Throwable;
 
 	public irestads.model.OrderLine createOrderLine(
-		java.lang.Long orderLineId, int numOfDish, int capacity,
-		boolean statusDish, long dishId, long orderId);
+		java.lang.Long orderLineId, int numOfDish, int statusDish, long dishId,
+		long orderId, long orderDate);
+
+	public irestads.model.OrderLine updateOrderLine(long orderLineId,
+		int numOfFinishDish, int status);
+
+	public boolean deleteOrderLineById(long orderLineId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public java.util.List<irestads.model.OrderLine> getOrderLineByOrder(
+		long orderId);
+
+	public irestads.model.OrderLine synchStatusOrderLine(
+		irestads.model.OrderLine ol);
 }

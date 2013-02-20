@@ -176,6 +176,20 @@ public interface MenuLineModel extends AuditedModel, BaseModel<MenuLine> {
 	public void setNumOfDish(int numOfDish);
 
 	/**
+	 * Returns the capacity of this menu line.
+	 *
+	 * @return the capacity of this menu line
+	 */
+	public int getCapacity();
+
+	/**
+	 * Sets the capacity of this menu line.
+	 *
+	 * @param capacity the capacity of this menu line
+	 */
+	public void setCapacity(int capacity);
+
+	/**
 	 * Returns the status of this menu line.
 	 *
 	 * @return the status of this menu line

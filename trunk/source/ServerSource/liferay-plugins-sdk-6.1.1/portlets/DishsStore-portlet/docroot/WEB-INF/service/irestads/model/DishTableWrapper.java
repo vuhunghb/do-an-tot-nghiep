@@ -54,6 +54,7 @@ public class DishTableWrapper implements DishTable, ModelWrapper<DishTable> {
 		attributes.put("tableName", getTableName());
 		attributes.put("isAvalable", getIsAvalable());
 		attributes.put("numChair", getNumChair());
+		attributes.put("currentOrderId", getCurrentOrderId());
 
 		return attributes;
 	}
@@ -111,6 +112,12 @@ public class DishTableWrapper implements DishTable, ModelWrapper<DishTable> {
 
 		if (numChair != null) {
 			setNumChair(numChair);
+		}
+
+		Long currentOrderId = (Long)attributes.get("currentOrderId");
+
+		if (currentOrderId != null) {
+			setCurrentOrderId(currentOrderId);
 		}
 	}
 
@@ -321,6 +328,24 @@ public class DishTableWrapper implements DishTable, ModelWrapper<DishTable> {
 	*/
 	public void setNumChair(int numChair) {
 		_dishTable.setNumChair(numChair);
+	}
+
+	/**
+	* Returns the current order ID of this dish table.
+	*
+	* @return the current order ID of this dish table
+	*/
+	public long getCurrentOrderId() {
+		return _dishTable.getCurrentOrderId();
+	}
+
+	/**
+	* Sets the current order ID of this dish table.
+	*
+	* @param currentOrderId the current order ID of this dish table
+	*/
+	public void setCurrentOrderId(long currentOrderId) {
+		_dishTable.setCurrentOrderId(currentOrderId);
 	}
 
 	public boolean isNew() {

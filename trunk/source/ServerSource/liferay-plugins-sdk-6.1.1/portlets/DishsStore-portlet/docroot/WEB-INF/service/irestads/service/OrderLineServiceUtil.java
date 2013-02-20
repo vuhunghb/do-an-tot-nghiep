@@ -63,11 +63,30 @@ public class OrderLineServiceUtil {
 	}
 
 	public static irestads.model.OrderLine createOrderLine(
-		java.lang.Long orderLineId, int numOfDish, int capacity,
-		boolean statusDish, long dishId, long orderId) {
+		java.lang.Long orderLineId, int numOfDish, int statusDish, long dishId,
+		long orderId, long orderDate) {
 		return getService()
-				   .createOrderLine(orderLineId, numOfDish, capacity,
-			statusDish, dishId, orderId);
+				   .createOrderLine(orderLineId, numOfDish, statusDish, dishId,
+			orderId, orderDate);
+	}
+
+	public static boolean deleteOrderLineById(long orderLineId) {
+		return getService().deleteOrderLineById(orderLineId);
+	}
+
+	public static java.util.List<irestads.model.OrderLine> getOrderLineByOrder(
+		long orderId) {
+		return getService().getOrderLineByOrder(orderId);
+	}
+
+	public static irestads.model.OrderLine updateOrderLine(long orderLineId,
+		int numOfFinishDish, int status) {
+		return getService().updateOrderLine(orderLineId, numOfFinishDish, status);
+	}
+
+	public static irestads.model.OrderLine synchStatusOrderLine(
+		irestads.model.OrderLine ol) {
+		return getService().synchStatusOrderLine(ol);
 	}
 
 	public static void clearService() {

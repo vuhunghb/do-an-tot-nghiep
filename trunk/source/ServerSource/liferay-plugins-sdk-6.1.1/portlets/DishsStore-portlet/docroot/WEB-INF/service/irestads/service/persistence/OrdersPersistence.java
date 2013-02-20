@@ -106,7 +106,7 @@ public interface OrdersPersistence extends BasePersistence<Orders> {
 	* @throws irestads.NoSuchOrdersException if a matching orders could not be found
 	* @throws SystemException if a system exception occurred
 	*/
-	public irestads.model.Orders findBycurentOrder(boolean isPayMent,
+	public irestads.model.Orders findBycurentOrder(int isPayMent,
 		java.lang.String dishTableId)
 		throws com.liferay.portal.kernel.exception.SystemException,
 			irestads.NoSuchOrdersException;
@@ -119,7 +119,7 @@ public interface OrdersPersistence extends BasePersistence<Orders> {
 	* @return the matching orders, or <code>null</code> if a matching orders could not be found
 	* @throws SystemException if a system exception occurred
 	*/
-	public irestads.model.Orders fetchBycurentOrder(boolean isPayMent,
+	public irestads.model.Orders fetchBycurentOrder(int isPayMent,
 		java.lang.String dishTableId)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
@@ -132,7 +132,7 @@ public interface OrdersPersistence extends BasePersistence<Orders> {
 	* @return the matching orders, or <code>null</code> if a matching orders could not be found
 	* @throws SystemException if a system exception occurred
 	*/
-	public irestads.model.Orders fetchBycurentOrder(boolean isPayMent,
+	public irestads.model.Orders fetchBycurentOrder(int isPayMent,
 		java.lang.String dishTableId, boolean retrieveFromCache)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
@@ -185,7 +185,7 @@ public interface OrdersPersistence extends BasePersistence<Orders> {
 	* @return the orders that was removed
 	* @throws SystemException if a system exception occurred
 	*/
-	public irestads.model.Orders removeBycurentOrder(boolean isPayMent,
+	public irestads.model.Orders removeBycurentOrder(int isPayMent,
 		java.lang.String dishTableId)
 		throws com.liferay.portal.kernel.exception.SystemException,
 			irestads.NoSuchOrdersException;
@@ -206,8 +206,7 @@ public interface OrdersPersistence extends BasePersistence<Orders> {
 	* @return the number of matching orderses
 	* @throws SystemException if a system exception occurred
 	*/
-	public int countBycurentOrder(boolean isPayMent,
-		java.lang.String dishTableId)
+	public int countBycurentOrder(int isPayMent, java.lang.String dishTableId)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**

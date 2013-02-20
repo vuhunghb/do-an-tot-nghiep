@@ -56,6 +56,7 @@
 		<property name="tableName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="isAvalable" type="com.liferay.portal.dao.orm.hibernate.BooleanType" />
 		<property name="numChair" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
+		<property name="currentOrderId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 	</class>
 	<class name="irestads.model.impl.MenuImpl" table="dishsstore_Menu">
 		<cache usage="read-write" />
@@ -80,6 +81,7 @@
 		<property name="createDate" type="org.hibernate.type.TimestampType" />
 		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
 		<property name="numOfDish" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
+		<property name="capacity" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
 		<property name="status" type="com.liferay.portal.dao.orm.hibernate.BooleanType" />
 		<property name="dishId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 	</class>
@@ -94,9 +96,10 @@
 		<property name="createDate" type="org.hibernate.type.TimestampType" />
 		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
 		<property name="numOfDish" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
-		<property name="capacity" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
-		<property name="statusDish" type="com.liferay.portal.dao.orm.hibernate.BooleanType" />
+		<property name="numOfFinishDish" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
+		<property name="statusDish" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
 		<property name="dishId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="orderDate" type="org.hibernate.type.TimestampType" />
 		<property name="orderId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 	</class>
 	<class name="irestads.model.impl.OrdersImpl" table="dishsstore_Orders">
@@ -111,7 +114,7 @@
 		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
 		<property name="charge" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
 		<property name="createdDate" type="org.hibernate.type.TimestampType" />
-		<property name="isPayMent" type="com.liferay.portal.dao.orm.hibernate.BooleanType" />
+		<property name="isPayMent" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
 		<property name="numOfDinner" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
 		<property name="dishTableId" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 	</class>

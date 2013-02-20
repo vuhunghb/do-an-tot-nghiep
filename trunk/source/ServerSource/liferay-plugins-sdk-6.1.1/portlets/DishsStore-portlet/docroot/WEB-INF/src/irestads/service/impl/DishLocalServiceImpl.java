@@ -15,19 +15,23 @@
 package irestads.service.impl;
 
 import irestads.NoSuchDishException;
+import irestads.NoSuchMenuLineException;
 import irestads.defination.LogTypeEnum;
 import irestads.model.Dish;
+import irestads.model.MenuLine;
 
 import irestads.service.UVersionServiceUtil;
 import irestads.service.base.DishLocalServiceBaseImpl;
 import irestads.service.persistence.CategoryUtil;
 import irestads.service.persistence.DishFinderUtil;
 import irestads.service.persistence.DishUtil;
+import irestads.service.persistence.MenuLineUtil;
 
 import java.util.List;
 
 import com.liferay.counter.service.CounterLocalServiceUtil;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.util.DatabaseUtil;
 
 /**
  * The implementation of the dish local service.
@@ -155,17 +159,13 @@ public class DishLocalServiceImpl extends DishLocalServiceBaseImpl {
 		return d;
 	}
 	public Dish findDishsById(long dishId) {
-		try {
-			return DishUtil.findByPrimaryKey(dishId);
-		} catch (NoSuchDishException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return null;
-		} catch (SystemException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return null;
-		}
+			try {
+				return DishUtil.fetchByPrimaryKey(dishId);
+			} catch (SystemException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				return null;
+			}
 	}
 	public List<Dish> findDishsByReferPrice(int referPrice){
 		try {
@@ -202,6 +202,27 @@ public class DishLocalServiceImpl extends DishLocalServiceBaseImpl {
 	}
 	public List<Dish> findDishsBySomeField(long dishId,int referPrice,String dishName, String decription, String avatarImg,String detailImg, String detail) {
 		return DishFinderUtil.findDishsBySomeField(dishId, referPrice, dishName, decription, avatarImg, detailImg, detail);
+	}
+	public boolean isDeleteDish(long dishId){
+		MenuLine menuLine;
+		try {
+			try {
+				menuLine = MenuLineUtil.findByDishId(dishId);
+				if(menuLine==null){
+					return true;
+				}
+			} catch (NoSuchMenuLineException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		} catch (SystemException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return false;
+		
 	}
 
 }

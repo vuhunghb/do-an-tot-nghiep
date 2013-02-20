@@ -84,7 +84,7 @@ public class OrderLinePersistenceImpl extends BasePersistenceImpl<OrderLine>
 			OrderLineModelImpl.FINDER_CACHE_ENABLED, OrderLineImpl.class,
 			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByStatusDish",
 			new String[] {
-				Boolean.class.getName(),
+				Integer.class.getName(),
 				
 			"java.lang.Integer", "java.lang.Integer",
 				"com.liferay.portal.kernel.util.OrderByComparator"
@@ -93,12 +93,31 @@ public class OrderLinePersistenceImpl extends BasePersistenceImpl<OrderLine>
 		new FinderPath(OrderLineModelImpl.ENTITY_CACHE_ENABLED,
 			OrderLineModelImpl.FINDER_CACHE_ENABLED, OrderLineImpl.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByStatusDish",
-			new String[] { Boolean.class.getName() },
+			new String[] { Integer.class.getName() },
 			OrderLineModelImpl.STATUSDISH_COLUMN_BITMASK);
 	public static final FinderPath FINDER_PATH_COUNT_BY_STATUSDISH = new FinderPath(OrderLineModelImpl.ENTITY_CACHE_ENABLED,
 			OrderLineModelImpl.FINDER_CACHE_ENABLED, Long.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByStatusDish",
-			new String[] { Boolean.class.getName() });
+			new String[] { Integer.class.getName() });
+	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_BY_ORDERID = new FinderPath(OrderLineModelImpl.ENTITY_CACHE_ENABLED,
+			OrderLineModelImpl.FINDER_CACHE_ENABLED, OrderLineImpl.class,
+			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByOrderId",
+			new String[] {
+				Long.class.getName(),
+				
+			"java.lang.Integer", "java.lang.Integer",
+				"com.liferay.portal.kernel.util.OrderByComparator"
+			});
+	public static final FinderPath FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_ORDERID =
+		new FinderPath(OrderLineModelImpl.ENTITY_CACHE_ENABLED,
+			OrderLineModelImpl.FINDER_CACHE_ENABLED, OrderLineImpl.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByOrderId",
+			new String[] { Long.class.getName() },
+			OrderLineModelImpl.ORDERID_COLUMN_BITMASK);
+	public static final FinderPath FINDER_PATH_COUNT_BY_ORDERID = new FinderPath(OrderLineModelImpl.ENTITY_CACHE_ENABLED,
+			OrderLineModelImpl.FINDER_CACHE_ENABLED, Long.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByOrderId",
+			new String[] { Long.class.getName() });
 	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_ALL = new FinderPath(OrderLineModelImpl.ENTITY_CACHE_ENABLED,
 			OrderLineModelImpl.FINDER_CACHE_ENABLED, OrderLineImpl.class,
 			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findAll", new String[0]);
@@ -314,7 +333,7 @@ public class OrderLinePersistenceImpl extends BasePersistenceImpl<OrderLine>
 			if ((orderLineModelImpl.getColumnBitmask() &
 					FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_STATUSDISH.getColumnBitmask()) != 0) {
 				Object[] args = new Object[] {
-						Boolean.valueOf(orderLineModelImpl.getOriginalStatusDish())
+						Integer.valueOf(orderLineModelImpl.getOriginalStatusDish())
 					};
 
 				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_STATUSDISH,
@@ -323,12 +342,31 @@ public class OrderLinePersistenceImpl extends BasePersistenceImpl<OrderLine>
 					args);
 
 				args = new Object[] {
-						Boolean.valueOf(orderLineModelImpl.getStatusDish())
+						Integer.valueOf(orderLineModelImpl.getStatusDish())
 					};
 
 				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_STATUSDISH,
 					args);
 				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_STATUSDISH,
+					args);
+			}
+
+			if ((orderLineModelImpl.getColumnBitmask() &
+					FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_ORDERID.getColumnBitmask()) != 0) {
+				Object[] args = new Object[] {
+						Long.valueOf(orderLineModelImpl.getOriginalOrderId())
+					};
+
+				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_ORDERID, args);
+				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_ORDERID,
+					args);
+
+				args = new Object[] {
+						Long.valueOf(orderLineModelImpl.getOrderId())
+					};
+
+				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_ORDERID, args);
+				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_ORDERID,
 					args);
 			}
 		}
@@ -356,9 +394,10 @@ public class OrderLinePersistenceImpl extends BasePersistenceImpl<OrderLine>
 		orderLineImpl.setCreateDate(orderLine.getCreateDate());
 		orderLineImpl.setModifiedDate(orderLine.getModifiedDate());
 		orderLineImpl.setNumOfDish(orderLine.getNumOfDish());
-		orderLineImpl.setCapacity(orderLine.getCapacity());
-		orderLineImpl.setStatusDish(orderLine.isStatusDish());
+		orderLineImpl.setNumOfFinishDish(orderLine.getNumOfFinishDish());
+		orderLineImpl.setStatusDish(orderLine.getStatusDish());
 		orderLineImpl.setDishId(orderLine.getDishId());
+		orderLineImpl.setOrderDate(orderLine.getOrderDate());
 		orderLineImpl.setOrderId(orderLine.getOrderId());
 
 		return orderLineImpl;
@@ -470,7 +509,7 @@ public class OrderLinePersistenceImpl extends BasePersistenceImpl<OrderLine>
 	 * @return the matching order lines
 	 * @throws SystemException if a system exception occurred
 	 */
-	public List<OrderLine> findByStatusDish(boolean statusDish)
+	public List<OrderLine> findByStatusDish(int statusDish)
 		throws SystemException {
 		return findByStatusDish(statusDish, QueryUtil.ALL_POS,
 			QueryUtil.ALL_POS, null);
@@ -489,8 +528,8 @@ public class OrderLinePersistenceImpl extends BasePersistenceImpl<OrderLine>
 	 * @return the range of matching order lines
 	 * @throws SystemException if a system exception occurred
 	 */
-	public List<OrderLine> findByStatusDish(boolean statusDish, int start,
-		int end) throws SystemException {
+	public List<OrderLine> findByStatusDish(int statusDish, int start, int end)
+		throws SystemException {
 		return findByStatusDish(statusDish, start, end, null);
 	}
 
@@ -508,8 +547,8 @@ public class OrderLinePersistenceImpl extends BasePersistenceImpl<OrderLine>
 	 * @return the ordered range of matching order lines
 	 * @throws SystemException if a system exception occurred
 	 */
-	public List<OrderLine> findByStatusDish(boolean statusDish, int start,
-		int end, OrderByComparator orderByComparator) throws SystemException {
+	public List<OrderLine> findByStatusDish(int statusDish, int start, int end,
+		OrderByComparator orderByComparator) throws SystemException {
 		FinderPath finderPath = null;
 		Object[] finderArgs = null;
 
@@ -605,7 +644,7 @@ public class OrderLinePersistenceImpl extends BasePersistenceImpl<OrderLine>
 	 * @throws irestads.NoSuchOrderLineException if a matching order line could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
-	public OrderLine findByStatusDish_First(boolean statusDish,
+	public OrderLine findByStatusDish_First(int statusDish,
 		OrderByComparator orderByComparator)
 		throws NoSuchOrderLineException, SystemException {
 		OrderLine orderLine = fetchByStatusDish_First(statusDish,
@@ -635,7 +674,7 @@ public class OrderLinePersistenceImpl extends BasePersistenceImpl<OrderLine>
 	 * @return the first matching order line, or <code>null</code> if a matching order line could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
-	public OrderLine fetchByStatusDish_First(boolean statusDish,
+	public OrderLine fetchByStatusDish_First(int statusDish,
 		OrderByComparator orderByComparator) throws SystemException {
 		List<OrderLine> list = findByStatusDish(statusDish, 0, 1,
 				orderByComparator);
@@ -656,7 +695,7 @@ public class OrderLinePersistenceImpl extends BasePersistenceImpl<OrderLine>
 	 * @throws irestads.NoSuchOrderLineException if a matching order line could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
-	public OrderLine findByStatusDish_Last(boolean statusDish,
+	public OrderLine findByStatusDish_Last(int statusDish,
 		OrderByComparator orderByComparator)
 		throws NoSuchOrderLineException, SystemException {
 		OrderLine orderLine = fetchByStatusDish_Last(statusDish,
@@ -686,7 +725,7 @@ public class OrderLinePersistenceImpl extends BasePersistenceImpl<OrderLine>
 	 * @return the last matching order line, or <code>null</code> if a matching order line could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
-	public OrderLine fetchByStatusDish_Last(boolean statusDish,
+	public OrderLine fetchByStatusDish_Last(int statusDish,
 		OrderByComparator orderByComparator) throws SystemException {
 		int count = countByStatusDish(statusDish);
 
@@ -711,7 +750,7 @@ public class OrderLinePersistenceImpl extends BasePersistenceImpl<OrderLine>
 	 * @throws SystemException if a system exception occurred
 	 */
 	public OrderLine[] findByStatusDish_PrevAndNext(long orderLineId,
-		boolean statusDish, OrderByComparator orderByComparator)
+		int statusDish, OrderByComparator orderByComparator)
 		throws NoSuchOrderLineException, SystemException {
 		OrderLine orderLine = findByPrimaryKey(orderLineId);
 
@@ -741,7 +780,7 @@ public class OrderLinePersistenceImpl extends BasePersistenceImpl<OrderLine>
 	}
 
 	protected OrderLine getByStatusDish_PrevAndNext(Session session,
-		OrderLine orderLine, boolean statusDish,
+		OrderLine orderLine, int statusDish,
 		OrderByComparator orderByComparator, boolean previous) {
 		StringBundler query = null;
 
@@ -827,6 +866,385 @@ public class OrderLinePersistenceImpl extends BasePersistenceImpl<OrderLine>
 		QueryPos qPos = QueryPos.getInstance(q);
 
 		qPos.add(statusDish);
+
+		if (orderByComparator != null) {
+			Object[] values = orderByComparator.getOrderByConditionValues(orderLine);
+
+			for (Object value : values) {
+				qPos.add(value);
+			}
+		}
+
+		List<OrderLine> list = q.list();
+
+		if (list.size() == 2) {
+			return list.get(1);
+		}
+		else {
+			return null;
+		}
+	}
+
+	/**
+	 * Returns all the order lines where orderId = &#63;.
+	 *
+	 * @param orderId the order ID
+	 * @return the matching order lines
+	 * @throws SystemException if a system exception occurred
+	 */
+	public List<OrderLine> findByOrderId(long orderId)
+		throws SystemException {
+		return findByOrderId(orderId, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
+	}
+
+	/**
+	 * Returns a range of all the order lines where orderId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
+	 * </p>
+	 *
+	 * @param orderId the order ID
+	 * @param start the lower bound of the range of order lines
+	 * @param end the upper bound of the range of order lines (not inclusive)
+	 * @return the range of matching order lines
+	 * @throws SystemException if a system exception occurred
+	 */
+	public List<OrderLine> findByOrderId(long orderId, int start, int end)
+		throws SystemException {
+		return findByOrderId(orderId, start, end, null);
+	}
+
+	/**
+	 * Returns an ordered range of all the order lines where orderId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
+	 * </p>
+	 *
+	 * @param orderId the order ID
+	 * @param start the lower bound of the range of order lines
+	 * @param end the upper bound of the range of order lines (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching order lines
+	 * @throws SystemException if a system exception occurred
+	 */
+	public List<OrderLine> findByOrderId(long orderId, int start, int end,
+		OrderByComparator orderByComparator) throws SystemException {
+		FinderPath finderPath = null;
+		Object[] finderArgs = null;
+
+		if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
+				(orderByComparator == null)) {
+			finderPath = FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_ORDERID;
+			finderArgs = new Object[] { orderId };
+		}
+		else {
+			finderPath = FINDER_PATH_WITH_PAGINATION_FIND_BY_ORDERID;
+			finderArgs = new Object[] { orderId, start, end, orderByComparator };
+		}
+
+		List<OrderLine> list = (List<OrderLine>)FinderCacheUtil.getResult(finderPath,
+				finderArgs, this);
+
+		if ((list != null) && !list.isEmpty()) {
+			for (OrderLine orderLine : list) {
+				if ((orderId != orderLine.getOrderId())) {
+					list = null;
+
+					break;
+				}
+			}
+		}
+
+		if (list == null) {
+			StringBundler query = null;
+
+			if (orderByComparator != null) {
+				query = new StringBundler(3 +
+						(orderByComparator.getOrderByFields().length * 3));
+			}
+			else {
+				query = new StringBundler(3);
+			}
+
+			query.append(_SQL_SELECT_ORDERLINE_WHERE);
+
+			query.append(_FINDER_COLUMN_ORDERID_ORDERID_2);
+
+			if (orderByComparator != null) {
+				appendOrderByComparator(query, _ORDER_BY_ENTITY_ALIAS,
+					orderByComparator);
+			}
+
+			else {
+				query.append(OrderLineModelImpl.ORDER_BY_JPQL);
+			}
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				qPos.add(orderId);
+
+				list = (List<OrderLine>)QueryUtil.list(q, getDialect(), start,
+						end);
+			}
+			catch (Exception e) {
+				throw processException(e);
+			}
+			finally {
+				if (list == null) {
+					FinderCacheUtil.removeResult(finderPath, finderArgs);
+				}
+				else {
+					cacheResult(list);
+
+					FinderCacheUtil.putResult(finderPath, finderArgs, list);
+				}
+
+				closeSession(session);
+			}
+		}
+
+		return list;
+	}
+
+	/**
+	 * Returns the first order line in the ordered set where orderId = &#63;.
+	 *
+	 * @param orderId the order ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching order line
+	 * @throws irestads.NoSuchOrderLineException if a matching order line could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public OrderLine findByOrderId_First(long orderId,
+		OrderByComparator orderByComparator)
+		throws NoSuchOrderLineException, SystemException {
+		OrderLine orderLine = fetchByOrderId_First(orderId, orderByComparator);
+
+		if (orderLine != null) {
+			return orderLine;
+		}
+
+		StringBundler msg = new StringBundler(4);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("orderId=");
+		msg.append(orderId);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchOrderLineException(msg.toString());
+	}
+
+	/**
+	 * Returns the first order line in the ordered set where orderId = &#63;.
+	 *
+	 * @param orderId the order ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching order line, or <code>null</code> if a matching order line could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public OrderLine fetchByOrderId_First(long orderId,
+		OrderByComparator orderByComparator) throws SystemException {
+		List<OrderLine> list = findByOrderId(orderId, 0, 1, orderByComparator);
+
+		if (!list.isEmpty()) {
+			return list.get(0);
+		}
+
+		return null;
+	}
+
+	/**
+	 * Returns the last order line in the ordered set where orderId = &#63;.
+	 *
+	 * @param orderId the order ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching order line
+	 * @throws irestads.NoSuchOrderLineException if a matching order line could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public OrderLine findByOrderId_Last(long orderId,
+		OrderByComparator orderByComparator)
+		throws NoSuchOrderLineException, SystemException {
+		OrderLine orderLine = fetchByOrderId_Last(orderId, orderByComparator);
+
+		if (orderLine != null) {
+			return orderLine;
+		}
+
+		StringBundler msg = new StringBundler(4);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("orderId=");
+		msg.append(orderId);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchOrderLineException(msg.toString());
+	}
+
+	/**
+	 * Returns the last order line in the ordered set where orderId = &#63;.
+	 *
+	 * @param orderId the order ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching order line, or <code>null</code> if a matching order line could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public OrderLine fetchByOrderId_Last(long orderId,
+		OrderByComparator orderByComparator) throws SystemException {
+		int count = countByOrderId(orderId);
+
+		List<OrderLine> list = findByOrderId(orderId, count - 1, count,
+				orderByComparator);
+
+		if (!list.isEmpty()) {
+			return list.get(0);
+		}
+
+		return null;
+	}
+
+	/**
+	 * Returns the order lines before and after the current order line in the ordered set where orderId = &#63;.
+	 *
+	 * @param orderLineId the primary key of the current order line
+	 * @param orderId the order ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the previous, current, and next order line
+	 * @throws irestads.NoSuchOrderLineException if a order line with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public OrderLine[] findByOrderId_PrevAndNext(long orderLineId,
+		long orderId, OrderByComparator orderByComparator)
+		throws NoSuchOrderLineException, SystemException {
+		OrderLine orderLine = findByPrimaryKey(orderLineId);
+
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			OrderLine[] array = new OrderLineImpl[3];
+
+			array[0] = getByOrderId_PrevAndNext(session, orderLine, orderId,
+					orderByComparator, true);
+
+			array[1] = orderLine;
+
+			array[2] = getByOrderId_PrevAndNext(session, orderLine, orderId,
+					orderByComparator, false);
+
+			return array;
+		}
+		catch (Exception e) {
+			throw processException(e);
+		}
+		finally {
+			closeSession(session);
+		}
+	}
+
+	protected OrderLine getByOrderId_PrevAndNext(Session session,
+		OrderLine orderLine, long orderId, OrderByComparator orderByComparator,
+		boolean previous) {
+		StringBundler query = null;
+
+		if (orderByComparator != null) {
+			query = new StringBundler(6 +
+					(orderByComparator.getOrderByFields().length * 6));
+		}
+		else {
+			query = new StringBundler(3);
+		}
+
+		query.append(_SQL_SELECT_ORDERLINE_WHERE);
+
+		query.append(_FINDER_COLUMN_ORDERID_ORDERID_2);
+
+		if (orderByComparator != null) {
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
+
+			if (orderByConditionFields.length > 0) {
+				query.append(WHERE_AND);
+			}
+
+			for (int i = 0; i < orderByConditionFields.length; i++) {
+				query.append(_ORDER_BY_ENTITY_ALIAS);
+				query.append(orderByConditionFields[i]);
+
+				if ((i + 1) < orderByConditionFields.length) {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(WHERE_GREATER_THAN_HAS_NEXT);
+					}
+					else {
+						query.append(WHERE_LESSER_THAN_HAS_NEXT);
+					}
+				}
+				else {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(WHERE_GREATER_THAN);
+					}
+					else {
+						query.append(WHERE_LESSER_THAN);
+					}
+				}
+			}
+
+			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
+
+			for (int i = 0; i < orderByFields.length; i++) {
+				query.append(_ORDER_BY_ENTITY_ALIAS);
+				query.append(orderByFields[i]);
+
+				if ((i + 1) < orderByFields.length) {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(ORDER_BY_ASC_HAS_NEXT);
+					}
+					else {
+						query.append(ORDER_BY_DESC_HAS_NEXT);
+					}
+				}
+				else {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(ORDER_BY_ASC);
+					}
+					else {
+						query.append(ORDER_BY_DESC);
+					}
+				}
+			}
+		}
+
+		else {
+			query.append(OrderLineModelImpl.ORDER_BY_JPQL);
+		}
+
+		String sql = query.toString();
+
+		Query q = session.createQuery(sql);
+
+		q.setFirstResult(0);
+		q.setMaxResults(2);
+
+		QueryPos qPos = QueryPos.getInstance(q);
+
+		qPos.add(orderId);
 
 		if (orderByComparator != null) {
 			Object[] values = orderByComparator.getOrderByConditionValues(orderLine);
@@ -967,9 +1385,20 @@ public class OrderLinePersistenceImpl extends BasePersistenceImpl<OrderLine>
 	 * @param statusDish the status dish
 	 * @throws SystemException if a system exception occurred
 	 */
-	public void removeByStatusDish(boolean statusDish)
-		throws SystemException {
+	public void removeByStatusDish(int statusDish) throws SystemException {
 		for (OrderLine orderLine : findByStatusDish(statusDish)) {
+			remove(orderLine);
+		}
+	}
+
+	/**
+	 * Removes all the order lines where orderId = &#63; from the database.
+	 *
+	 * @param orderId the order ID
+	 * @throws SystemException if a system exception occurred
+	 */
+	public void removeByOrderId(long orderId) throws SystemException {
+		for (OrderLine orderLine : findByOrderId(orderId)) {
 			remove(orderLine);
 		}
 	}
@@ -992,7 +1421,7 @@ public class OrderLinePersistenceImpl extends BasePersistenceImpl<OrderLine>
 	 * @return the number of matching order lines
 	 * @throws SystemException if a system exception occurred
 	 */
-	public int countByStatusDish(boolean statusDish) throws SystemException {
+	public int countByStatusDish(int statusDish) throws SystemException {
 		Object[] finderArgs = new Object[] { statusDish };
 
 		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_BY_STATUSDISH,
@@ -1029,6 +1458,59 @@ public class OrderLinePersistenceImpl extends BasePersistenceImpl<OrderLine>
 				}
 
 				FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_STATUSDISH,
+					finderArgs, count);
+
+				closeSession(session);
+			}
+		}
+
+		return count.intValue();
+	}
+
+	/**
+	 * Returns the number of order lines where orderId = &#63;.
+	 *
+	 * @param orderId the order ID
+	 * @return the number of matching order lines
+	 * @throws SystemException if a system exception occurred
+	 */
+	public int countByOrderId(long orderId) throws SystemException {
+		Object[] finderArgs = new Object[] { orderId };
+
+		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_BY_ORDERID,
+				finderArgs, this);
+
+		if (count == null) {
+			StringBundler query = new StringBundler(2);
+
+			query.append(_SQL_COUNT_ORDERLINE_WHERE);
+
+			query.append(_FINDER_COLUMN_ORDERID_ORDERID_2);
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				qPos.add(orderId);
+
+				count = (Long)q.uniqueResult();
+			}
+			catch (Exception e) {
+				throw processException(e);
+			}
+			finally {
+				if (count == null) {
+					count = Long.valueOf(0);
+				}
+
+				FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_ORDERID,
 					finderArgs, count);
 
 				closeSession(session);
@@ -1132,6 +1614,7 @@ public class OrderLinePersistenceImpl extends BasePersistenceImpl<OrderLine>
 	private static final String _SQL_COUNT_ORDERLINE = "SELECT COUNT(orderLine) FROM OrderLine orderLine";
 	private static final String _SQL_COUNT_ORDERLINE_WHERE = "SELECT COUNT(orderLine) FROM OrderLine orderLine WHERE ";
 	private static final String _FINDER_COLUMN_STATUSDISH_STATUSDISH_2 = "orderLine.statusDish = ?";
+	private static final String _FINDER_COLUMN_ORDERID_ORDERID_2 = "orderLine.orderId = ?";
 	private static final String _ORDER_BY_ENTITY_ALIAS = "orderLine.";
 	private static final String _NO_SUCH_ENTITY_WITH_PRIMARY_KEY = "No OrderLine exists with the primary key ";
 	private static final String _NO_SUCH_ENTITY_WITH_KEY = "No OrderLine exists with the key {";

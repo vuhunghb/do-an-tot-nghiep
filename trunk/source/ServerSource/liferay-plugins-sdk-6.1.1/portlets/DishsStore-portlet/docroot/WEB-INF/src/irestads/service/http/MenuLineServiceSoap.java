@@ -234,12 +234,12 @@ public class MenuLineServiceSoap {
 		}
 	}
 
-	public static irestads.model.MenuLineSoap[] findMenuLinesByDishId(
-		long dishId) throws RemoteException {
+	public static irestads.model.MenuLineSoap findMenuLinesByDishId(long dishId)
+		throws RemoteException {
 		try {
-			java.util.List<irestads.model.MenuLine> returnValue = MenuLineServiceUtil.findMenuLinesByDishId(dishId);
+			irestads.model.MenuLine returnValue = MenuLineServiceUtil.findMenuLinesByDishId(dishId);
 
-			return irestads.model.MenuLineSoap.toSoapModels(returnValue);
+			return irestads.model.MenuLineSoap.toSoapModel(returnValue);
 		}
 		catch (Exception e) {
 			_log.error(e, e);

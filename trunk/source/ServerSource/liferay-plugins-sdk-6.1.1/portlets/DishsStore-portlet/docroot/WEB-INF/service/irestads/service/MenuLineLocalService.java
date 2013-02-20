@@ -269,8 +269,7 @@ public interface MenuLineLocalService extends BaseLocalService,
 	public java.util.List<irestads.model.MenuLine> setDishForMenuLine(
 		java.util.List<irestads.model.MenuLine> menuLines);
 
-	public java.util.List<irestads.model.MenuLine> findMenuLinesByDishId(
-		long dishId);
+	public irestads.model.MenuLine findMenuLinesByDishId(long dishId);
 
 	public java.util.List<irestads.model.MenuLine> findMenuLinesByDReferPrice(
 		int price);

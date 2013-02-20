@@ -112,4 +112,7 @@ public interface DishService extends BaseService, InvokableService {
 		long dishId, int referPrice, java.lang.String dishName,
 		java.lang.String decription, java.lang.String avatarImg,
 		java.lang.String detailImg, java.lang.String detail);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public boolean isDeleteDish(long dishId);
 }

@@ -19,33 +19,34 @@
 </script>
 	<h:head />
 	<h:body>
-		
-		<h:form id="formTable"> 
+
+		<h:form id="formTable">
 			<p:growl id="messages" showDetail="true" life="3000" />
 			<p:contextMenu for="dishTable">
 				<p:menuitem value="Chi tiết" update="display" icon="ui-icon-search"
 					oncomplete="dishDialog.show()" />
-				<p:menuitem value="Xóa" update=":formTable:dishTable :formTable:messages"
+				<p:menuitem value="Xóa"
+					update=":formTable:dishTable :formTable:messages"
 					icon="ui-icon-close" actionListener="#{dishBeans.deleteDish()}" />
 			</p:contextMenu>
- 			
+
 			<h:panelGrid columns="8">
 				<h:outputText value="Từ khóa " />
-				<p:selectOneMenu id="searchType" value="#{dishBeans.searchType}" 
-					effect="fold" >
+				<p:selectOneMenu id="searchType" value="#{dishBeans.searchType}"
+					effect="fold">
 					<f:selectItem itemLabel="Select One" itemValue="2" />
 					<f:selectItems value="#{dishBeans.searchTypesValue}" />
 				</p:selectOneMenu>
 				<h:outputText value="Nội dung" />
-				<h:inputText id="keyWord" value="#{dishBeans.keyWords}"  />
-				
+				<h:inputText id="keyWord" value="#{dishBeans.keyWords}" />
+
 
 				<p:commandButton value="Tìm Kiến" update="@form"
 					action="#{dishBeans.search()}" />
 				<p:commandButton id="showAddDlgButton" type="button"
 					value="Thêm Món Ăn" onclick="addDishDlg.show()" />
-					<h:commandButton action="goToMenu" value="Menu" />
-					<h:commandButton action="goToOrder" value="Order" />
+				<h:commandButton action="goToMenu" value="Menu" />
+				<h:commandButton action="goToOrder" value="Order" />
 			</h:panelGrid>
 			<p:dataTable id="dishTable" var="dish" value="#{dishBeans.dishs}"
 				paginator="true" rows="10"
@@ -188,22 +189,23 @@
 
 				</h:panelGrid>
 			</p:dialog>
-	
-		
-			</h:form>
-			<!-- Dialog add dish -->
-			<h:form id="formAdd"> 
-			
+
+
+		</h:form>
+		<!-- Dialog add dish -->
+		<h:form id="formAdd">
+
 			<p:dialog header="Thêm Món ăn" widgetVar="addDishDlg"
 				resizable="false" width="600" showEffect="clip" hideEffect="fold"
 				id="addDialog">
 				<h:panelGrid id="pAddDish" columns="3">
 
 					<h:outputLabel for="dishNameAdd" value="Tên: (*)" />
-					<p:inputText id="dishNameAdd" size="40"
+					<p:inputText id="dishNameAdd" size="47"
 						value="#{dishBeans.dishAdd.dishName}" required="true"
 						label="User Name" />
-					<p:message id="msgDishName" for="dishNameAdd" style="color:red" display="icon"/>
+					<p:message id="msgDishName" for="dishNameAdd" style="color:red"
+						display="icon" />
 		Loại: 
 		<p:selectOneMenu value="#{dishBeans.dishAdd.categoryId}"
 						id="distTypeAdd" required="true" label="Category">
@@ -214,35 +216,32 @@
 					</p:selectOneMenu>
 					<p:message for="distTypeAdd" style="color:red" display="icon"></p:message>
 		Mô Tả (*): 
-		<p:inputTextarea id="dishDecriptionAdd" size="60"
+		<p:inputTextarea id="dishDecriptionAdd" style="width:250px"
 						value="#{dishBeans.dishAdd.decription}" required="true"
 						label="Decription"></p:inputTextarea>
-				 <p:message for="dishDecriptionAdd" style="color:red" display="icon"></p:message>
+					<p:message for="dishDecriptionAdd" style="color:red" display="icon"></p:message>
 		
 		Hình đại diện: 
-	<!--  	<p:inputText id="avatarImgAdd" size="40"
-				value="#{dishBeans.dishAdd.avatarImg}" required="false"
-				label="Avatar Img" />
-				
-				-->
 
 					<p:fileUpload id="avatarImgAdd"
-						fileUploadListener="#{fileUploadController.uploadImg}"
-						mode="advanced" update=":formTable:messages" sizeLimit="100000"
+						fileUploadListener="#{dishBeans.uploadAvatarImg}" mode="advanced"
+						update=":formTable:messages" sizeLimit="100000"
 						allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
 					<p:message for="avatarImgAdd" style="color:red"></p:message>
 		Hình chi tiết: 
-		<p:inputText id="detailImgAdd" size="40"
-						value="#{dishBeans.dishAdd.detailImg}" required="false"
-						label="Detail Img" />
+		
+						<p:fileUpload id="detailImgAdd"
+						fileUploadListener="#{dishBeans.uploadDetailImg}" mode="advanced"
+						update=":formTable:messages" sizeLimit="100000"
+						allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
 					<p:message for="detailImgAdd" style="color:red"></p:message>
 		Giá tham khảo: 
-		<p:inputText id="referPriceAdd" size="40"
+		<p:inputText id="referPriceAdd" size="47"
 						value="#{dishBeans.dishAdd.referPrice}" required="false"
 						label="Refer Price" />
 					<p:message for="referPriceAdd" style="color:red"></p:message>
 			Chi tiết: 
-		<p:inputTextarea id="detailAdd" value="#{dishBeans.dishAdd.detail}"
+		<p:inputTextarea id="detailAdd" value="#{dishBeans.dishAdd.detail}" style="width:250px"
 						required="false" label="Detail" />
 					<p:message for="detailAdd" style="color:red"></p:message>
 				</h:panelGrid>
@@ -252,7 +251,7 @@
 				</p:commandButton>
 				<p:commandButton value="Thoát" onclick="addDishDlg.hide()">
 				</p:commandButton>
-			
+
 			</p:dialog>
 		</h:form>
 

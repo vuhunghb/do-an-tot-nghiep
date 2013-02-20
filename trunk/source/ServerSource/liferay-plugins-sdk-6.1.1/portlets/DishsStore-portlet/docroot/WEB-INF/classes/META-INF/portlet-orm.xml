@@ -69,6 +69,7 @@
 			<basic name="tableName" />
 			<basic name="isAvalable" />
 			<basic name="numChair" />
+			<basic name="currentOrderId" />
 			<transient name="modelAttributes" />
 			<transient name="primaryKey" />
 			<transient name="primaryKeyObj" />
@@ -107,6 +108,7 @@
 				<temporal>TIMESTAMP</temporal>
 			</basic>
 			<basic name="numOfDish" />
+			<basic name="capacity" />
 			<basic name="status" />
 			<basic name="dishId" />
 			<transient name="modelAttributes" />
@@ -128,9 +130,12 @@
 				<temporal>TIMESTAMP</temporal>
 			</basic>
 			<basic name="numOfDish" />
-			<basic name="capacity" />
+			<basic name="numOfFinishDish" />
 			<basic name="statusDish" />
 			<basic name="dishId" />
+			<basic name="orderDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
 			<basic name="orderId" />
 			<transient name="modelAttributes" />
 			<transient name="primaryKey" />

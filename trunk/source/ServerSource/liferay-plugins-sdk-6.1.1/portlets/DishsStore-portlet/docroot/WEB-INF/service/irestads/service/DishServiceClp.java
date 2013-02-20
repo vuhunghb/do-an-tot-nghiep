@@ -101,6 +101,10 @@ public class DishServiceClp implements DishService {
 				"long", "int", "java.lang.String", "java.lang.String",
 				"java.lang.String", "java.lang.String", "java.lang.String"
 			};
+
+		_methodName19 = "isDeleteDish";
+
+		_methodParameterTypes19 = new String[] { "long" };
 	}
 
 	public java.lang.String getBeanIdentifier() {
@@ -560,6 +564,28 @@ public class DishServiceClp implements DishService {
 		return (java.util.List<irestads.model.Dish>)ClpSerializer.translateOutput(returnObj);
 	}
 
+	public boolean isDeleteDish(long dishId) {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableService.invokeMethod(_methodName19,
+					_methodParameterTypes19, new Object[] { dishId });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return ((Boolean)returnObj).booleanValue();
+	}
+
 	private InvokableService _invokableService;
 	private String _methodName0;
 	private String[] _methodParameterTypes0;
@@ -597,4 +623,6 @@ public class DishServiceClp implements DishService {
 	private String[] _methodParameterTypes17;
 	private String _methodName18;
 	private String[] _methodParameterTypes18;
+	private String _methodName19;
+	private String[] _methodParameterTypes19;
 }

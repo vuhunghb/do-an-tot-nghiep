@@ -52,6 +52,7 @@ public class MenuLineWrapper implements MenuLine, ModelWrapper<MenuLine> {
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
 		attributes.put("numOfDish", getNumOfDish());
+		attributes.put("capacity", getCapacity());
 		attributes.put("status", getStatus());
 		attributes.put("dishId", getDishId());
 
@@ -99,6 +100,12 @@ public class MenuLineWrapper implements MenuLine, ModelWrapper<MenuLine> {
 
 		if (numOfDish != null) {
 			setNumOfDish(numOfDish);
+		}
+
+		Integer capacity = (Integer)attributes.get("capacity");
+
+		if (capacity != null) {
+			setCapacity(capacity);
 		}
 
 		Boolean status = (Boolean)attributes.get("status");
@@ -276,6 +283,24 @@ public class MenuLineWrapper implements MenuLine, ModelWrapper<MenuLine> {
 	*/
 	public void setNumOfDish(int numOfDish) {
 		_menuLine.setNumOfDish(numOfDish);
+	}
+
+	/**
+	* Returns the capacity of this menu line.
+	*
+	* @return the capacity of this menu line
+	*/
+	public int getCapacity() {
+		return _menuLine.getCapacity();
+	}
+
+	/**
+	* Sets the capacity of this menu line.
+	*
+	* @param capacity the capacity of this menu line
+	*/
+	public void setCapacity(int capacity) {
+		_menuLine.setCapacity(capacity);
 	}
 
 	/**

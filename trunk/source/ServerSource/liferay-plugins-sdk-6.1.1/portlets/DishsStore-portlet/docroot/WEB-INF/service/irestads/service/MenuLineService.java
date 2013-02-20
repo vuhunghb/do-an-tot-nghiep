@@ -96,8 +96,7 @@ public interface MenuLineService extends BaseService, InvokableService {
 	public irestads.model.MenuLine setDishForMenuLine(
 		irestads.model.MenuLine menuLine);
 
-	public java.util.List<irestads.model.MenuLine> findMenuLinesByDishId(
-		long dishId);
+	public irestads.model.MenuLine findMenuLinesByDishId(long dishId);
 
 	public java.util.List<irestads.model.MenuLine> findMenuLinesByDName(
 		java.lang.String dishName);

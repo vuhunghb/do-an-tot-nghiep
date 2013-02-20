@@ -75,6 +75,7 @@ public class DishTableClp extends BaseModelImpl<DishTable> implements DishTable 
 		attributes.put("tableName", getTableName());
 		attributes.put("isAvalable", getIsAvalable());
 		attributes.put("numChair", getNumChair());
+		attributes.put("currentOrderId", getCurrentOrderId());
 
 		return attributes;
 	}
@@ -133,6 +134,12 @@ public class DishTableClp extends BaseModelImpl<DishTable> implements DishTable 
 
 		if (numChair != null) {
 			setNumChair(numChair);
+		}
+
+		Long currentOrderId = (Long)attributes.get("currentOrderId");
+
+		if (currentOrderId != null) {
+			setCurrentOrderId(currentOrderId);
 		}
 	}
 
@@ -220,6 +227,14 @@ public class DishTableClp extends BaseModelImpl<DishTable> implements DishTable 
 		_numChair = numChair;
 	}
 
+	public long getCurrentOrderId() {
+		return _currentOrderId;
+	}
+
+	public void setCurrentOrderId(long currentOrderId) {
+		_currentOrderId = currentOrderId;
+	}
+
 	public void setCurentOrder(irestads.model.Orders curentOrder) {
 		throw new UnsupportedOperationException();
 	}
@@ -264,6 +279,7 @@ public class DishTableClp extends BaseModelImpl<DishTable> implements DishTable 
 		clone.setTableName(getTableName());
 		clone.setIsAvalable(getIsAvalable());
 		clone.setNumChair(getNumChair());
+		clone.setCurrentOrderId(getCurrentOrderId());
 
 		return clone;
 	}
@@ -320,7 +336,7 @@ public class DishTableClp extends BaseModelImpl<DishTable> implements DishTable 
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(19);
+		StringBundler sb = new StringBundler(21);
 
 		sb.append("{dishTableId=");
 		sb.append(getDishTableId());
@@ -340,13 +356,15 @@ public class DishTableClp extends BaseModelImpl<DishTable> implements DishTable 
 		sb.append(getIsAvalable());
 		sb.append(", numChair=");
 		sb.append(getNumChair());
+		sb.append(", currentOrderId=");
+		sb.append(getCurrentOrderId());
 		sb.append("}");
 
 		return sb.toString();
 	}
 
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(31);
+		StringBundler sb = new StringBundler(34);
 
 		sb.append("<model><model-name>");
 		sb.append("irestads.model.DishTable");
@@ -388,6 +406,10 @@ public class DishTableClp extends BaseModelImpl<DishTable> implements DishTable 
 			"<column><column-name>numChair</column-name><column-value><![CDATA[");
 		sb.append(getNumChair());
 		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>currentOrderId</column-name><column-value><![CDATA[");
+		sb.append(getCurrentOrderId());
+		sb.append("]]></column-value></column>");
 
 		sb.append("</model>");
 
@@ -404,5 +426,6 @@ public class DishTableClp extends BaseModelImpl<DishTable> implements DishTable 
 	private String _tableName;
 	private boolean _isAvalable;
 	private int _numChair;
+	private long _currentOrderId;
 	private BaseModel<?> _dishTableRemoteModel;
 }

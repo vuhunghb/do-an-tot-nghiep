@@ -93,7 +93,7 @@ public class MenuLineServiceImpl extends MenuLineServiceBaseImpl {
 	public MenuLine setDishForMenuLine(MenuLine menuLine){
 		return MenuLineLocalServiceUtil.setDishForMenuLine(menuLine);
 	}
-	public List<MenuLine> findMenuLinesByDishId(long dishId) {
+	public MenuLine findMenuLinesByDishId(long dishId) {
 		return MenuLineLocalServiceUtil.findMenuLinesByDishId(dishId);
 	}
 	public List<MenuLine> findMenuLinesByDName(String dishName) {
