@@ -296,6 +296,10 @@ public class OrderLineLocalServiceUtil {
 		return getService().synchStatusOrderLine(ol);
 	}
 
+	public static int getCharge(irestads.model.OrderLine orderLine) {
+		return getService().getCharge(orderLine);
+	}
+
 	public static void clearService() {
 		_service = null;
 	}

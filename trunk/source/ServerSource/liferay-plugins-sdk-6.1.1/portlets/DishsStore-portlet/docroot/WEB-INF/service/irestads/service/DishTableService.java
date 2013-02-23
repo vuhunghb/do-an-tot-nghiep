@@ -66,4 +66,6 @@ public interface DishTableService extends BaseService, InvokableService {
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public java.util.List<irestads.model.DishTable> getAllDishTables();
+
+	public irestads.model.DishTable updateDishTable(irestads.model.DishTable dt);
 }

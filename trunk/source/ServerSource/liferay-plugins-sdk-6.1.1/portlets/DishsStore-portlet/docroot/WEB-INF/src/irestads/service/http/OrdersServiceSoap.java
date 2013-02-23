@@ -139,5 +139,32 @@ public class OrdersServiceSoap {
 		}
 	}
 
+	public static irestads.model.OrdersSoap payment(long orderId)
+		throws RemoteException {
+		try {
+			irestads.model.Orders returnValue = OrdersServiceUtil.payment(orderId);
+
+			return irestads.model.OrdersSoap.toSoapModel(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static int calCharge(long orderId) throws RemoteException {
+		try {
+			int returnValue = OrdersServiceUtil.calCharge(orderId);
+
+			return returnValue;
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
 	private static Log _log = LogFactoryUtil.getLog(OrdersServiceSoap.class);
 }

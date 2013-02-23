@@ -18,13 +18,17 @@ import java.util.List;
 
 import com.liferay.portal.kernel.exception.SystemException;
 
+import irestads.defination.LogTypeEnum;
+import irestads.model.Dish;
 import irestads.model.DishTable;
 import irestads.model.Orders;
 import irestads.service.OrderLineServiceUtil;
 import irestads.service.OrdersLocalServiceUtil;
 import irestads.service.OrdersServiceUtil;
+import irestads.service.UVersionServiceUtil;
 import irestads.service.base.DishTableLocalServiceBaseImpl;
 import irestads.service.persistence.DishTableUtil;
+import irestads.service.persistence.DishUtil;
 
 /**
  * The implementation of the dish table local service.
@@ -61,5 +65,26 @@ public class DishTableLocalServiceImpl extends DishTableLocalServiceBaseImpl {
 		}
 		return null;
 		
+	}
+	public DishTable updateDishTable(DishTable dt) {
+		try {
+			DishTable dishTable = DishTableUtil.fetchByPrimaryKey(dt.getDishTableId());
+			if (dishTable != null && dishTable.getDishTableId() == dt.getDishTableId()) {
+				dishTable.setCurentOrder(dt.getCurentOrder());
+				dishTable.setCurrentOrderId(dt.getCurrentOrderId());
+				dishTable.setIsAvalable(dt.getIsAvalable());
+				dishTable.setNumChair(dt.getNumChair());
+				dishTable.setTableName(dt.getTableName());
+				
+				dishTable=DishTableUtil.update(dishTable, true);
+				
+				return dishTable;
+			}
+
+		} catch (SystemException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 }

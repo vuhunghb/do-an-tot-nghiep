@@ -86,6 +86,14 @@ public class OrdersServiceUtil {
 		return getService().updateOrder(o);
 	}
 
+	public static irestads.model.Orders payment(long orderId) {
+		return getService().payment(orderId);
+	}
+
+	public static int calCharge(long orderId) {
+		return getService().calCharge(orderId);
+	}
+
 	public static void clearService() {
 		_service = null;
 	}

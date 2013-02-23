@@ -127,6 +127,14 @@ public class OrdersLocalServiceClp implements OrdersLocalService {
 		_methodName23 = "setWaitingStatus";
 
 		_methodParameterTypes23 = new String[] { "long" };
+
+		_methodName24 = "calCharge";
+
+		_methodParameterTypes24 = new String[] { "long" };
+
+		_methodName25 = "payment";
+
+		_methodParameterTypes25 = new String[] { "long" };
 	}
 
 	public irestads.model.Orders addOrders(irestads.model.Orders orders)
@@ -773,6 +781,50 @@ public class OrdersLocalServiceClp implements OrdersLocalService {
 		return ((Boolean)returnObj).booleanValue();
 	}
 
+	public int calCharge(long orderId) {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName24,
+					_methodParameterTypes24, new Object[] { orderId });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return ((Integer)returnObj).intValue();
+	}
+
+	public irestads.model.Orders payment(long orderId) {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName25,
+					_methodParameterTypes25, new Object[] { orderId });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (irestads.model.Orders)ClpSerializer.translateOutput(returnObj);
+	}
+
 	private InvokableLocalService _invokableLocalService;
 	private String _methodName0;
 	private String[] _methodParameterTypes0;
@@ -820,4 +872,8 @@ public class OrdersLocalServiceClp implements OrdersLocalService {
 	private String[] _methodParameterTypes22;
 	private String _methodName23;
 	private String[] _methodParameterTypes23;
+	private String _methodName24;
+	private String[] _methodParameterTypes24;
+	private String _methodName25;
+	private String[] _methodParameterTypes25;
 }

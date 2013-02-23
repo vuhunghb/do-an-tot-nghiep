@@ -34,6 +34,10 @@ public class DishTableServiceClp implements DishTableService {
 		_methodName3 = "getAllDishTables";
 
 		_methodParameterTypes3 = new String[] {  };
+
+		_methodName4 = "updateDishTable";
+
+		_methodParameterTypes4 = new String[] { "irestads.model.DishTable" };
 	}
 
 	public java.lang.String getBeanIdentifier() {
@@ -105,6 +109,29 @@ public class DishTableServiceClp implements DishTableService {
 		return (java.util.List<irestads.model.DishTable>)ClpSerializer.translateOutput(returnObj);
 	}
 
+	public irestads.model.DishTable updateDishTable(irestads.model.DishTable dt) {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableService.invokeMethod(_methodName4,
+					_methodParameterTypes4,
+					new Object[] { ClpSerializer.translateInput(dt) });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (irestads.model.DishTable)ClpSerializer.translateOutput(returnObj);
+	}
+
 	private InvokableService _invokableService;
 	private String _methodName0;
 	private String[] _methodParameterTypes0;
@@ -112,4 +139,6 @@ public class DishTableServiceClp implements DishTableService {
 	private String[] _methodParameterTypes1;
 	private String _methodName3;
 	private String[] _methodParameterTypes3;
+	private String _methodName4;
+	private String[] _methodParameterTypes4;
 }

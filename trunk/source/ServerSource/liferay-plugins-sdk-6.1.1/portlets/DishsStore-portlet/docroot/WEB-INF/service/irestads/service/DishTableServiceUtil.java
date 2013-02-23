@@ -66,6 +66,11 @@ public class DishTableServiceUtil {
 		return getService().getAllDishTables();
 	}
 
+	public static irestads.model.DishTable updateDishTable(
+		irestads.model.DishTable dt) {
+		return getService().updateDishTable(dt);
+	}
+
 	public static void clearService() {
 		_service = null;
 	}

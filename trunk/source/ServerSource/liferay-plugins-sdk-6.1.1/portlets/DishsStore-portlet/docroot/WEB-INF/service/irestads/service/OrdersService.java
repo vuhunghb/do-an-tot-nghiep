@@ -74,4 +74,8 @@ public interface OrdersService extends BaseService, InvokableService {
 	public boolean setWaitingStatus(long orderId);
 
 	public irestads.model.Orders updateOrder(irestads.model.Orders o);
+
+	public irestads.model.Orders payment(long orderId);
+
+	public int calCharge(long orderId);
 }

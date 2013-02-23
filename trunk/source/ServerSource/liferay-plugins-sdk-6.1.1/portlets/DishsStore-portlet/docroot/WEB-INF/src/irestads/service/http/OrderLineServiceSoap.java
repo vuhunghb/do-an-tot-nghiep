@@ -140,5 +140,20 @@ public class OrderLineServiceSoap {
 		}
 	}
 
+	public static int getCharge(irestads.model.OrderLineSoap orderLine)
+		throws RemoteException {
+		try {
+			int returnValue = OrderLineServiceUtil.getCharge(irestads.model.impl.OrderLineModelImpl.toModel(
+						orderLine));
+
+			return returnValue;
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
 	private static Log _log = LogFactoryUtil.getLog(OrderLineServiceSoap.class);
 }

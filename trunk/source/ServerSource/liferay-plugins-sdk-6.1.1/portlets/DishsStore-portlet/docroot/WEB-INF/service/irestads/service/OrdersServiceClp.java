@@ -52,6 +52,14 @@ public class OrdersServiceClp implements OrdersService {
 		_methodName7 = "updateOrder";
 
 		_methodParameterTypes7 = new String[] { "irestads.model.Orders" };
+
+		_methodName8 = "payment";
+
+		_methodParameterTypes8 = new String[] { "long" };
+
+		_methodName9 = "calCharge";
+
+		_methodParameterTypes9 = new String[] { "long" };
 	}
 
 	public java.lang.String getBeanIdentifier() {
@@ -227,6 +235,50 @@ public class OrdersServiceClp implements OrdersService {
 		return (irestads.model.Orders)ClpSerializer.translateOutput(returnObj);
 	}
 
+	public irestads.model.Orders payment(long orderId) {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableService.invokeMethod(_methodName8,
+					_methodParameterTypes8, new Object[] { orderId });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (irestads.model.Orders)ClpSerializer.translateOutput(returnObj);
+	}
+
+	public int calCharge(long orderId) {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableService.invokeMethod(_methodName9,
+					_methodParameterTypes9, new Object[] { orderId });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return ((Integer)returnObj).intValue();
+	}
+
 	private InvokableService _invokableService;
 	private String _methodName0;
 	private String[] _methodParameterTypes0;
@@ -242,4 +294,8 @@ public class OrdersServiceClp implements OrdersService {
 	private String[] _methodParameterTypes6;
 	private String _methodName7;
 	private String[] _methodParameterTypes7;
+	private String _methodName8;
+	private String[] _methodParameterTypes8;
+	private String _methodName9;
+	private String[] _methodParameterTypes9;
 }

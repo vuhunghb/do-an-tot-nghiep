@@ -98,35 +98,39 @@ public class OrderLineLocalServiceClpInvoker {
 				"irestads.model.OrderLine", "boolean"
 			};
 
-		_methodName88 = "getBeanIdentifier";
+		_methodName102 = "getBeanIdentifier";
 
-		_methodParameterTypes88 = new String[] {  };
+		_methodParameterTypes102 = new String[] {  };
 
-		_methodName89 = "setBeanIdentifier";
+		_methodName103 = "setBeanIdentifier";
 
-		_methodParameterTypes89 = new String[] { "java.lang.String" };
+		_methodParameterTypes103 = new String[] { "java.lang.String" };
 
-		_methodName94 = "createOrderLine";
+		_methodName108 = "createOrderLine";
 
-		_methodParameterTypes94 = new String[] {
+		_methodParameterTypes108 = new String[] {
 				"java.lang.Long", "int", "int", "long", "long", "long"
 			};
 
-		_methodName95 = "updateOrderLine";
+		_methodName109 = "updateOrderLine";
 
-		_methodParameterTypes95 = new String[] { "long", "int", "int" };
+		_methodParameterTypes109 = new String[] { "long", "int", "int" };
 
-		_methodName96 = "deleteOrderLineById";
+		_methodName110 = "deleteOrderLineById";
 
-		_methodParameterTypes96 = new String[] { "long" };
+		_methodParameterTypes110 = new String[] { "long" };
 
-		_methodName97 = "getOrderLineByOrder";
+		_methodName111 = "getOrderLineByOrder";
 
-		_methodParameterTypes97 = new String[] { "long" };
+		_methodParameterTypes111 = new String[] { "long" };
 
-		_methodName98 = "synchStatusOrderLine";
+		_methodName112 = "synchStatusOrderLine";
 
-		_methodParameterTypes98 = new String[] { "irestads.model.OrderLine" };
+		_methodParameterTypes112 = new String[] { "irestads.model.OrderLine" };
+
+		_methodName113 = "getCharge";
+
+		_methodParameterTypes113 = new String[] { "irestads.model.OrderLine" };
 	}
 
 	public Object invokeMethod(String name, String[] parameterTypes,
@@ -218,18 +222,18 @@ public class OrderLineLocalServiceClpInvoker {
 				((Boolean)arguments[1]).booleanValue());
 		}
 
-		if (_methodName88.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes88, parameterTypes)) {
+		if (_methodName102.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes102, parameterTypes)) {
 			return OrderLineLocalServiceUtil.getBeanIdentifier();
 		}
 
-		if (_methodName89.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes89, parameterTypes)) {
+		if (_methodName103.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes103, parameterTypes)) {
 			OrderLineLocalServiceUtil.setBeanIdentifier((java.lang.String)arguments[0]);
 		}
 
-		if (_methodName94.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes94, parameterTypes)) {
+		if (_methodName108.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes108, parameterTypes)) {
 			return OrderLineLocalServiceUtil.createOrderLine((java.lang.Long)arguments[0],
 				((Integer)arguments[1]).intValue(),
 				((Integer)arguments[2]).intValue(),
@@ -238,26 +242,31 @@ public class OrderLineLocalServiceClpInvoker {
 				((Long)arguments[5]).longValue());
 		}
 
-		if (_methodName95.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes95, parameterTypes)) {
+		if (_methodName109.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes109, parameterTypes)) {
 			return OrderLineLocalServiceUtil.updateOrderLine(((Long)arguments[0]).longValue(),
 				((Integer)arguments[1]).intValue(),
 				((Integer)arguments[2]).intValue());
 		}
 
-		if (_methodName96.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes96, parameterTypes)) {
+		if (_methodName110.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes110, parameterTypes)) {
 			return OrderLineLocalServiceUtil.deleteOrderLineById(((Long)arguments[0]).longValue());
 		}
 
-		if (_methodName97.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes97, parameterTypes)) {
+		if (_methodName111.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes111, parameterTypes)) {
 			return OrderLineLocalServiceUtil.getOrderLineByOrder(((Long)arguments[0]).longValue());
 		}
 
-		if (_methodName98.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes98, parameterTypes)) {
+		if (_methodName112.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes112, parameterTypes)) {
 			return OrderLineLocalServiceUtil.synchStatusOrderLine((irestads.model.OrderLine)arguments[0]);
+		}
+
+		if (_methodName113.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes113, parameterTypes)) {
+			return OrderLineLocalServiceUtil.getCharge((irestads.model.OrderLine)arguments[0]);
 		}
 
 		throw new UnsupportedOperationException();
@@ -295,18 +304,20 @@ public class OrderLineLocalServiceClpInvoker {
 	private String[] _methodParameterTypes14;
 	private String _methodName15;
 	private String[] _methodParameterTypes15;
-	private String _methodName88;
-	private String[] _methodParameterTypes88;
-	private String _methodName89;
-	private String[] _methodParameterTypes89;
-	private String _methodName94;
-	private String[] _methodParameterTypes94;
-	private String _methodName95;
-	private String[] _methodParameterTypes95;
-	private String _methodName96;
-	private String[] _methodParameterTypes96;
-	private String _methodName97;
-	private String[] _methodParameterTypes97;
-	private String _methodName98;
-	private String[] _methodParameterTypes98;
+	private String _methodName102;
+	private String[] _methodParameterTypes102;
+	private String _methodName103;
+	private String[] _methodParameterTypes103;
+	private String _methodName108;
+	private String[] _methodParameterTypes108;
+	private String _methodName109;
+	private String[] _methodParameterTypes109;
+	private String _methodName110;
+	private String[] _methodParameterTypes110;
+	private String _methodName111;
+	private String[] _methodParameterTypes111;
+	private String _methodName112;
+	private String[] _methodParameterTypes112;
+	private String _methodName113;
+	private String[] _methodParameterTypes113;
 }

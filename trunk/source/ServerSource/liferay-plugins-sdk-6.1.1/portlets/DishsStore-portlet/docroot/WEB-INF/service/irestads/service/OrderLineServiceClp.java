@@ -52,6 +52,10 @@ public class OrderLineServiceClp implements OrderLineService {
 		_methodName7 = "synchStatusOrderLine";
 
 		_methodParameterTypes7 = new String[] { "irestads.model.OrderLine" };
+
+		_methodName8 = "getCharge";
+
+		_methodParameterTypes8 = new String[] { "irestads.model.OrderLine" };
 	}
 
 	public java.lang.String getBeanIdentifier() {
@@ -231,6 +235,29 @@ public class OrderLineServiceClp implements OrderLineService {
 		return (irestads.model.OrderLine)ClpSerializer.translateOutput(returnObj);
 	}
 
+	public int getCharge(irestads.model.OrderLine orderLine) {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableService.invokeMethod(_methodName8,
+					_methodParameterTypes8,
+					new Object[] { ClpSerializer.translateInput(orderLine) });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return ((Integer)returnObj).intValue();
+	}
+
 	private InvokableService _invokableService;
 	private String _methodName0;
 	private String[] _methodParameterTypes0;
@@ -246,4 +273,6 @@ public class OrderLineServiceClp implements OrderLineService {
 	private String[] _methodParameterTypes6;
 	private String _methodName7;
 	private String[] _methodParameterTypes7;
+	private String _methodName8;
+	private String[] _methodParameterTypes8;
 }

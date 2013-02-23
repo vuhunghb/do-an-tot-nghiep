@@ -78,6 +78,14 @@ public class OrdersServiceWrapper implements OrdersService,
 		return _ordersService.updateOrder(o);
 	}
 
+	public irestads.model.Orders payment(long orderId) {
+		return _ordersService.payment(orderId);
+	}
+
+	public int calCharge(long orderId) {
+		return _ordersService.calCharge(orderId);
+	}
+
 	/**
 	 * @deprecated Renamed to {@link #getWrappedService}
 	 */

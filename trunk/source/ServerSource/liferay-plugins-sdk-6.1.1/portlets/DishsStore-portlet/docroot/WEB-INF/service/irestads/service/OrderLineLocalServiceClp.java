@@ -127,6 +127,10 @@ public class OrderLineLocalServiceClp implements OrderLineLocalService {
 		_methodName23 = "synchStatusOrderLine";
 
 		_methodParameterTypes23 = new String[] { "irestads.model.OrderLine" };
+
+		_methodName24 = "getCharge";
+
+		_methodParameterTypes24 = new String[] { "irestads.model.OrderLine" };
 	}
 
 	public irestads.model.OrderLine addOrderLine(
@@ -780,6 +784,29 @@ public class OrderLineLocalServiceClp implements OrderLineLocalService {
 		return (irestads.model.OrderLine)ClpSerializer.translateOutput(returnObj);
 	}
 
+	public int getCharge(irestads.model.OrderLine orderLine) {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName24,
+					_methodParameterTypes24,
+					new Object[] { ClpSerializer.translateInput(orderLine) });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return ((Integer)returnObj).intValue();
+	}
+
 	private InvokableLocalService _invokableLocalService;
 	private String _methodName0;
 	private String[] _methodParameterTypes0;
@@ -827,4 +854,6 @@ public class OrderLineLocalServiceClp implements OrderLineLocalService {
 	private String[] _methodParameterTypes22;
 	private String _methodName23;
 	private String[] _methodParameterTypes23;
+	private String _methodName24;
+	private String[] _methodParameterTypes24;
 }
