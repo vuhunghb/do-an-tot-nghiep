@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping default-lazy="false" auto-import="false">
+	<import class="irestads.model.AdsItem" />
+	<import class="irestads.model.CategoryAds" />
+	<class name="irestads.model.impl.AdsItemImpl" table="Ads_AdsItem">
+		<cache usage="read-write" />
+		<id name="adsItemId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="companyId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="userName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="createDate" type="org.hibernate.type.TimestampType" />
+		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
+		<property name="companyName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="productName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="numberPhone" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="email" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="address" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="facebook" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="twitter" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="description" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="imageContent" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="timeDuring" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
+		<property name="tags" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="itemType" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="categoryAdsId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+	</class>
+	<class name="irestads.model.impl.CategoryAdsImpl" table="Ads_CategoryAds">
+		<cache usage="read-write" />
+		<id name="categoryAdsId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="companyId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="userName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="createDate" type="org.hibernate.type.TimestampType" />
+		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
+		<property name="categoryAdsName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+	</class>
+</hibernate-mapping>

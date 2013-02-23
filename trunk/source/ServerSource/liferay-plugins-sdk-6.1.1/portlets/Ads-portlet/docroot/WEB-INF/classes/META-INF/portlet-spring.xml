@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" default-destroy-method="destroy" default-init-method="afterPropertiesSet" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+	<bean id="irestads.service.AdsItemLocalService" class="irestads.service.impl.AdsItemLocalServiceImpl" />
+	<bean id="irestads.service.AdsItemService" class="irestads.service.impl.AdsItemServiceImpl" />
+	<bean id="irestads.service.persistence.AdsItemPersistence" class="irestads.service.persistence.AdsItemPersistenceImpl" parent="basePersistence" />
+	<bean id="irestads.service.persistence.AdsItemFinder" class="irestads.service.persistence.AdsItemFinderImpl" parent="basePersistence" />
+	<bean id="irestads.service.CategoryAdsLocalService" class="irestads.service.impl.CategoryAdsLocalServiceImpl" />
+	<bean id="irestads.service.CategoryAdsService" class="irestads.service.impl.CategoryAdsServiceImpl" />
+	<bean id="irestads.service.persistence.CategoryAdsPersistence" class="irestads.service.persistence.CategoryAdsPersistenceImpl" parent="basePersistence" />
+	<bean id="irestads.service.UVersionLocalService" class="irestads.service.impl.UVersionLocalServiceImpl" />
+	<bean id="irestads.service.UVersionService" class="irestads.service.impl.UVersionServiceImpl" />
+	<bean id="irestads.service.persistence.UVersionPersistence" class="irestads.service.persistence.UVersionPersistenceImpl" parent="basePersistence" />
+	<bean id="irestads.service.persistence.UVersionFinder" class="irestads.service.persistence.UVersionFinderImpl" parent="basePersistence" />
+</beans>

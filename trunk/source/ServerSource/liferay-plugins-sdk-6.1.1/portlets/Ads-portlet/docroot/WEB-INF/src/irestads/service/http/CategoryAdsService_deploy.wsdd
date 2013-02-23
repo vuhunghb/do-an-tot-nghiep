@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+
+<deployment xmlns="http://xml.apache.org/axis/wsdd/" xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+	<service name="Plugin_Ads_CategoryAdsService" provider="java:RPC" style="rpc" use="encoded">
+		<arrayMapping xmlns:ns="urn:http.service.irestads" xmlns:cmp-ns="http://model.irestads" qname="ns:ArrayOf_tns2_CategoryAdsSoap" type="java:irestads.model.CategoryAdsSoap[]" innerType="cmp-ns:CategoryAdsSoap" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"></arrayMapping>
+		<typeMapping xmlns:ns="http://model.irestads" qname="ns:CategoryAdsSoap" type="java:irestads.model.CategoryAdsSoap" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"></typeMapping>
+		<operation xmlns:operNS="urn:http.service.irestads" xmlns:rtns="http://model.irestads" name="findById" qname="operNS:findById" returnQName="findByIdReturn" returnType="rtns:CategoryAdsSoap" soapAction="">
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="id" type="tns:long"></parameter>
+		</operation>
+		<operation xmlns:operNS="urn:http.service.irestads" xmlns:rtns="urn:http.service.irestads" xmlns:tns2="http://model.irestads" name="getAddCategoryAds" qname="operNS:getAddCategoryAds" returnQName="getAddCategoryAdsReturn" returnType="rtns:ArrayOf_tns2_CategoryAdsSoap" returnItemType="tns2:CategoryAdsSoap" soapAction=""> </operation>
+		<parameter name="allowedMethods" value="findById getAddCategoryAds" />
+		<parameter name="className" value="irestads.service.http.CategoryAdsServiceSoap" />
+		<parameter name="schemaUnqualified" value="http://model.irestads,urn:http.service.irestads" />
+		<parameter name="typeMappingVersion" value="1.2" />
+		<parameter name="wsdlPortType" value="CategoryAdsServiceSoap" />
+		<parameter name="wsdlServiceElement" value="CategoryAdsServiceSoapService" />
+		<parameter name="wsdlServicePort" value="Plugin_Ads_CategoryAdsService" />
+		<parameter name="wsdlTargetNamespace" value="urn:http.service.irestads" />
+	</service>
+</deployment>
