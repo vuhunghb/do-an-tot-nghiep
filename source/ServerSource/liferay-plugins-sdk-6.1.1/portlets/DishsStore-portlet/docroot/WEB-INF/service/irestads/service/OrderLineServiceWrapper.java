@@ -82,6 +82,10 @@ public class OrderLineServiceWrapper implements OrderLineService,
 		return _orderLineService.synchStatusOrderLine(ol);
 	}
 
+	public int getCharge(irestads.model.OrderLine orderLine) {
+		return _orderLineService.getCharge(orderLine);
+	}
+
 	/**
 	 * @deprecated Renamed to {@link #getWrappedService}
 	 */

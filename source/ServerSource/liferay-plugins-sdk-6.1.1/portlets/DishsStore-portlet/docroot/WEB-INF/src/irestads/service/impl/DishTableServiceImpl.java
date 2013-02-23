@@ -16,7 +16,10 @@ package irestads.service.impl;
 
 import java.util.List;
 
+import com.liferay.portal.kernel.exception.SystemException;
+
 import irestads.model.DishTable;
+import irestads.service.DishLocalServiceUtil;
 import irestads.service.DishTableLocalServiceUtil;
 import irestads.service.base.DishTableServiceBaseImpl;
 
@@ -42,5 +45,14 @@ public class DishTableServiceImpl extends DishTableServiceBaseImpl {
 	 */
 	public List<DishTable> getAllDishTables(){
 		return DishTableLocalServiceUtil.getAllDishTables();
+	}
+	public DishTable updateDishTable(DishTable dt) {
+		try {
+			return DishTableLocalServiceUtil.updateDishTable(dt);
+		} catch (SystemException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
 	}
 }

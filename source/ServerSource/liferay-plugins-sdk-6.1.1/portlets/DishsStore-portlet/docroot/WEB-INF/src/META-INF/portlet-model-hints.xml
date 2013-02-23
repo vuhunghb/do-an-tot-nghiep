@@ -1,6 +1,29 @@
 <?xml version="1.0"?>
 
 <model-hints>
+	<model name="irestads.model.AdsItem">
+		<field name="adsItemId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="userId" type="long" />
+		<field name="userName" type="String" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="companyName" type="String" />
+		<field name="productName" type="String" />
+		<field name="numberPhone" type="String" />
+		<field name="email" type="String" />
+		<field name="address" type="String" />
+		<field name="facebook" type="String" />
+		<field name="twitter" type="String" />
+		<field name="description" type="String" />
+		<field name="imageContent" type="String">
+			<hint-collection name="CLOB" />
+		</field>
+		<field name="timeDuring" type="int" />
+		<field name="tags" type="String" />
+		<field name="itemType" type="String" />
+		<field name="categoryAdsId" type="long" />
+	</model>
 	<model name="irestads.model.Category">
 		<field name="categoryId" type="long" />
 		<field name="companyId" type="long" />
@@ -9,6 +32,15 @@
 		<field name="createDate" type="Date" />
 		<field name="modifiedDate" type="Date" />
 		<field name="categoryName" type="String" />
+	</model>
+	<model name="irestads.model.CategoryAds">
+		<field name="categoryAdsId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="userId" type="long" />
+		<field name="userName" type="String" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="categoryAdsName" type="String" />
 	</model>
 	<model name="irestads.model.Dish">
 		<field name="dishId" type="long" />

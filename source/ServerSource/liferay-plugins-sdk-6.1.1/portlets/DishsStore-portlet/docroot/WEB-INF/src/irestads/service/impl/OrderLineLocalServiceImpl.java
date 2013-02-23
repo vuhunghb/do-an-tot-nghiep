@@ -27,6 +27,7 @@ import irestads.model.Dish;
 import irestads.model.MenuLine;
 import irestads.model.OrderLine;
 import irestads.model.Orders;
+import irestads.service.DishServiceUtil;
 import irestads.service.UVersionServiceUtil;
 import irestads.service.base.OrderLineLocalServiceBaseImpl;
 import irestads.service.persistence.DishUtil;
@@ -164,5 +165,11 @@ public class OrderLineLocalServiceImpl extends OrderLineLocalServiceBaseImpl {
 			return null;
 		}
 
+	}
+	public int getCharge(OrderLine orderLine){
+		int result=0;
+		Dish d=DishServiceUtil.findDishsById(orderLine.getDishId());
+		result=d.getReferPrice()*orderLine.getNumOfDish();// cho nay lay numofDihs hay numOfFinish day
+		return result;
 	}
 }

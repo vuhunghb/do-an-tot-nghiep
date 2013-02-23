@@ -291,6 +291,14 @@ public class OrdersLocalServiceUtil {
 		return getService().setWaitingStatus(orderId);
 	}
 
+	public static int calCharge(long orderId) {
+		return getService().calCharge(orderId);
+	}
+
+	public static irestads.model.Orders payment(long orderId) {
+		return getService().payment(orderId);
+	}
+
 	public static void clearService() {
 		_service = null;
 	}

@@ -59,6 +59,10 @@ public class DishTableServiceWrapper implements DishTableService,
 		return _dishTableService.getAllDishTables();
 	}
 
+	public irestads.model.DishTable updateDishTable(irestads.model.DishTable dt) {
+		return _dishTableService.updateDishTable(dt);
+	}
+
 	/**
 	 * @deprecated Renamed to {@link #getWrappedService}
 	 */

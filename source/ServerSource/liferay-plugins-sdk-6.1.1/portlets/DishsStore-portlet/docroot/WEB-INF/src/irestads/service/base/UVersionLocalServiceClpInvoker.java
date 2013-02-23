@@ -98,31 +98,31 @@ public class UVersionLocalServiceClpInvoker {
 				"irestads.model.UVersion", "boolean"
 			};
 
-		_methodName88 = "getBeanIdentifier";
+		_methodName102 = "getBeanIdentifier";
 
-		_methodParameterTypes88 = new String[] {  };
+		_methodParameterTypes102 = new String[] {  };
 
-		_methodName89 = "setBeanIdentifier";
+		_methodName103 = "setBeanIdentifier";
 
-		_methodParameterTypes89 = new String[] { "java.lang.String" };
+		_methodParameterTypes103 = new String[] { "java.lang.String" };
 
-		_methodName94 = "createVersion";
+		_methodName108 = "createVersion";
 
-		_methodParameterTypes94 = new String[] { "irestads.model.UVersion" };
+		_methodParameterTypes108 = new String[] { "irestads.model.UVersion" };
 
-		_methodName95 = "createVersion";
+		_methodName109 = "createVersion";
 
-		_methodParameterTypes95 = new String[] {
+		_methodParameterTypes109 = new String[] {
 				"long", "java.lang.String", "java.lang.String"
 			};
 
-		_methodName96 = "checkDelete";
+		_methodName110 = "checkDelete";
 
-		_methodParameterTypes96 = new String[] { "long" };
+		_methodParameterTypes110 = new String[] { "long" };
 
-		_methodName97 = "findNextVersions";
+		_methodName111 = "findNextVersions";
 
-		_methodParameterTypes97 = new String[] { "long" };
+		_methodParameterTypes111 = new String[] { "long" };
 	}
 
 	public Object invokeMethod(String name, String[] parameterTypes,
@@ -214,34 +214,34 @@ public class UVersionLocalServiceClpInvoker {
 				((Boolean)arguments[1]).booleanValue());
 		}
 
-		if (_methodName88.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes88, parameterTypes)) {
+		if (_methodName102.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes102, parameterTypes)) {
 			return UVersionLocalServiceUtil.getBeanIdentifier();
 		}
 
-		if (_methodName89.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes89, parameterTypes)) {
+		if (_methodName103.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes103, parameterTypes)) {
 			UVersionLocalServiceUtil.setBeanIdentifier((java.lang.String)arguments[0]);
 		}
 
-		if (_methodName94.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes94, parameterTypes)) {
+		if (_methodName108.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes108, parameterTypes)) {
 			return UVersionLocalServiceUtil.createVersion((irestads.model.UVersion)arguments[0]);
 		}
 
-		if (_methodName95.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes95, parameterTypes)) {
+		if (_methodName109.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes109, parameterTypes)) {
 			return UVersionLocalServiceUtil.createVersion(((Long)arguments[0]).longValue(),
 				(java.lang.String)arguments[1], (java.lang.String)arguments[2]);
 		}
 
-		if (_methodName96.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes96, parameterTypes)) {
+		if (_methodName110.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes110, parameterTypes)) {
 			UVersionLocalServiceUtil.checkDelete(((Long)arguments[0]).longValue());
 		}
 
-		if (_methodName97.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes97, parameterTypes)) {
+		if (_methodName111.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes111, parameterTypes)) {
 			return UVersionLocalServiceUtil.findNextVersions(((Long)arguments[0]).longValue());
 		}
 
@@ -280,16 +280,16 @@ public class UVersionLocalServiceClpInvoker {
 	private String[] _methodParameterTypes14;
 	private String _methodName15;
 	private String[] _methodParameterTypes15;
-	private String _methodName88;
-	private String[] _methodParameterTypes88;
-	private String _methodName89;
-	private String[] _methodParameterTypes89;
-	private String _methodName94;
-	private String[] _methodParameterTypes94;
-	private String _methodName95;
-	private String[] _methodParameterTypes95;
-	private String _methodName96;
-	private String[] _methodParameterTypes96;
-	private String _methodName97;
-	private String[] _methodParameterTypes97;
+	private String _methodName102;
+	private String[] _methodParameterTypes102;
+	private String _methodName103;
+	private String[] _methodParameterTypes103;
+	private String _methodName108;
+	private String[] _methodParameterTypes108;
+	private String _methodName109;
+	private String[] _methodParameterTypes109;
+	private String _methodName110;
+	private String[] _methodParameterTypes110;
+	private String _methodName111;
+	private String[] _methodParameterTypes111;
 }

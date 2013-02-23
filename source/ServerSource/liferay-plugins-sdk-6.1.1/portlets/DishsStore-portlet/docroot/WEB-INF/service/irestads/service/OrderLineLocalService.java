@@ -257,4 +257,7 @@ public interface OrderLineLocalService extends BaseLocalService,
 
 	public irestads.model.OrderLine synchStatusOrderLine(
 		irestads.model.OrderLine ol);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getCharge(irestads.model.OrderLine orderLine);
 }

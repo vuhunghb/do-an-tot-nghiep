@@ -25,6 +25,8 @@ import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.BaseModel;
 
+import irestads.model.AdsItemClp;
+import irestads.model.CategoryAdsClp;
 import irestads.model.CategoryClp;
 import irestads.model.DishClp;
 import irestads.model.DishTableClp;
@@ -109,8 +111,16 @@ public class ClpSerializer {
 
 		String oldModelClassName = oldModelClass.getName();
 
+		if (oldModelClassName.equals(AdsItemClp.class.getName())) {
+			return translateInputAdsItem(oldModel);
+		}
+
 		if (oldModelClassName.equals(CategoryClp.class.getName())) {
 			return translateInputCategory(oldModel);
+		}
+
+		if (oldModelClassName.equals(CategoryAdsClp.class.getName())) {
+			return translateInputCategoryAds(oldModel);
 		}
 
 		if (oldModelClassName.equals(DishClp.class.getName())) {
@@ -156,10 +166,30 @@ public class ClpSerializer {
 		return newList;
 	}
 
+	public static Object translateInputAdsItem(BaseModel<?> oldModel) {
+		AdsItemClp oldClpModel = (AdsItemClp)oldModel;
+
+		BaseModel<?> newModel = oldClpModel.getAdsItemRemoteModel();
+
+		newModel.setModelAttributes(oldClpModel.getModelAttributes());
+
+		return newModel;
+	}
+
 	public static Object translateInputCategory(BaseModel<?> oldModel) {
 		CategoryClp oldClpModel = (CategoryClp)oldModel;
 
 		BaseModel<?> newModel = oldClpModel.getCategoryRemoteModel();
+
+		newModel.setModelAttributes(oldClpModel.getModelAttributes());
+
+		return newModel;
+	}
+
+	public static Object translateInputCategoryAds(BaseModel<?> oldModel) {
+		CategoryAdsClp oldClpModel = (CategoryAdsClp)oldModel;
+
+		BaseModel<?> newModel = oldClpModel.getCategoryAdsRemoteModel();
 
 		newModel.setModelAttributes(oldClpModel.getModelAttributes());
 
@@ -253,8 +283,16 @@ public class ClpSerializer {
 
 		String oldModelClassName = oldModelClass.getName();
 
+		if (oldModelClassName.equals("irestads.model.impl.AdsItemImpl")) {
+			return translateOutputAdsItem(oldModel);
+		}
+
 		if (oldModelClassName.equals("irestads.model.impl.CategoryImpl")) {
 			return translateOutputCategory(oldModel);
+		}
+
+		if (oldModelClassName.equals("irestads.model.impl.CategoryAdsImpl")) {
+			return translateOutputCategoryAds(oldModel);
 		}
 
 		if (oldModelClassName.equals("irestads.model.impl.DishImpl")) {
@@ -365,8 +403,16 @@ public class ClpSerializer {
 			return new SystemException();
 		}
 
+		if (className.equals("irestads.NoSuchAdsItemException")) {
+			return new irestads.NoSuchAdsItemException();
+		}
+
 		if (className.equals("irestads.NoSuchCategoryException")) {
 			return new irestads.NoSuchCategoryException();
+		}
+
+		if (className.equals("irestads.NoSuchCategoryAdsException")) {
+			return new irestads.NoSuchCategoryAdsException();
 		}
 
 		if (className.equals("irestads.NoSuchDishException")) {
@@ -400,12 +446,32 @@ public class ClpSerializer {
 		return throwable;
 	}
 
+	public static Object translateOutputAdsItem(BaseModel<?> oldModel) {
+		AdsItemClp newModel = new AdsItemClp();
+
+		newModel.setModelAttributes(oldModel.getModelAttributes());
+
+		newModel.setAdsItemRemoteModel(oldModel);
+
+		return newModel;
+	}
+
 	public static Object translateOutputCategory(BaseModel<?> oldModel) {
 		CategoryClp newModel = new CategoryClp();
 
 		newModel.setModelAttributes(oldModel.getModelAttributes());
 
 		newModel.setCategoryRemoteModel(oldModel);
+
+		return newModel;
+	}
+
+	public static Object translateOutputCategoryAds(BaseModel<?> oldModel) {
+		CategoryAdsClp newModel = new CategoryAdsClp();
+
+		newModel.setModelAttributes(oldModel.getModelAttributes());
+
+		newModel.setCategoryAdsRemoteModel(oldModel);
 
 		return newModel;
 	}

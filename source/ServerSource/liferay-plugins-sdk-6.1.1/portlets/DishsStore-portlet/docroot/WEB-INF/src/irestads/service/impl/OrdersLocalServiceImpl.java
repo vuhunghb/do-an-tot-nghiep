@@ -19,10 +19,14 @@ import java.util.List;
 
 import com.liferay.portal.kernel.exception.SystemException;
 
+import irestads.NoSuchOrdersException;
 import irestads.defination.LogTypeEnum;
 import irestads.model.Dish;
 import irestads.model.OrderLine;
 import irestads.model.Orders;
+import irestads.service.OrderLineServiceUtil;
+import irestads.service.OrdersLocalServiceUtil;
+import irestads.service.OrdersServiceUtil;
 import irestads.service.UVersionServiceUtil;
 import irestads.service.base.OrdersLocalServiceBaseImpl;
 import irestads.service.persistence.DishUtil;
@@ -155,4 +159,35 @@ public class OrdersLocalServiceImpl extends OrdersLocalServiceBaseImpl {
 	// return null;
 	// }
 	// }
+public int calCharge(long orderId){
+		int charge=0;
+		try {
+			List<OrderLine> orderLines =OrdersUtil.getOrderLines(orderId);
+		   for (int i = 0; i < orderLines.size(); i++) {
+			charge+=OrderLineServiceUtil.getCharge(orderLines.get(i));
+		}
+		} catch (SystemException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return charge;
+		
+	}
+public Orders payment(long orderId){
+	try {
+		Orders order= OrdersUtil.findByPrimaryKey(orderId);
+		int charge =this.calCharge(orderId);
+		order.setCharge(charge);
+		order=	OrdersUtil.update(order, true);
+		return order;
+	} catch (NoSuchOrdersException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	} catch (SystemException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	return null;
+	
+}
 }

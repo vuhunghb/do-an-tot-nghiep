@@ -1,4 +1,9 @@
+create index IX_75F64558 on dishsstore_AdsItem (productName);
+create index IX_666B2514 on dishsstore_AdsItem (timeDuring);
+
 create index IX_D4F254B8 on dishsstore_Category (categoryName);
+
+create index IX_BBDE8C2C on dishsstore_CategoryAds (categoryAdsName);
 
 create index IX_2C0E80F0 on dishsstore_Dish (dishName);
 create index IX_774A3314 on dishsstore_Dish (referPrice);

@@ -15,6 +15,7 @@
 package irestads.service.impl;
 
 import irestads.model.Dish;
+import irestads.model.DishTable;
 import irestads.model.OrderLine;
 import irestads.service.DishLocalServiceUtil;
 import irestads.service.OrderLineLocalServiceUtil;
@@ -146,5 +147,6 @@ public class DishServiceImpl extends DishServiceBaseImpl {
 	public boolean isDeleteDish(long dishId) {
 		return DishLocalServiceUtil.isDeleteDish(dishId);
 	}
+	
 
 }

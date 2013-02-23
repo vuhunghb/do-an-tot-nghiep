@@ -19,11 +19,13 @@ import java.util.List;
 
 import com.liferay.portal.kernel.exception.SystemException;
 
+import irestads.NoSuchOrdersException;
 import irestads.model.OrderLine;
 import irestads.model.Orders;
 import irestads.service.MenuLineLocalServiceUtil;
 import irestads.service.OrdersLocalServiceUtil;
 import irestads.service.base.OrdersServiceBaseImpl;
+import irestads.service.persistence.OrdersUtil;
 
 /**
  * The implementation of the orders remote service.
@@ -75,6 +77,13 @@ public class OrdersServiceImpl extends OrdersServiceBaseImpl {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	public Orders payment(long orderId){
+		return OrdersLocalServiceUtil.payment(orderId);
+		
+	}
+	public int calCharge(long orderId){
+		return OrdersLocalServiceUtil.calCharge(orderId);
 	}
 	// public List<OrderLine> getOrderLines(long pk){
 	// return OrdersLocalServiceUtil.getOrderLines(pk);

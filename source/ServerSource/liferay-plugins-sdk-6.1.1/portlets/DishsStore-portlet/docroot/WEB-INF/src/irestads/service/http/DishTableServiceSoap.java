@@ -79,5 +79,20 @@ public class DishTableServiceSoap {
 		}
 	}
 
+	public static irestads.model.DishTableSoap updateDishTable(
+		irestads.model.DishTableSoap dt) throws RemoteException {
+		try {
+			irestads.model.DishTable returnValue = DishTableServiceUtil.updateDishTable(irestads.model.impl.DishTableModelImpl.toModel(
+						dt));
+
+			return irestads.model.DishTableSoap.toSoapModel(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
 	private static Log _log = LogFactoryUtil.getLog(DishTableServiceSoap.class);
 }

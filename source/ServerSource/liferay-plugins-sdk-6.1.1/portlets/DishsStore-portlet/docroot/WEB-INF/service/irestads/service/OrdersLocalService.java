@@ -250,4 +250,8 @@ public interface OrdersLocalService extends BaseLocalService,
 	public boolean deleteOrderById(long orderId);
 
 	public boolean setWaitingStatus(long orderId);
+
+	public int calCharge(long orderId);
+
+	public irestads.model.Orders payment(long orderId);
 }

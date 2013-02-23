@@ -290,6 +290,10 @@ public class OrderLineLocalServiceWrapper implements OrderLineLocalService,
 		return _orderLineLocalService.synchStatusOrderLine(ol);
 	}
 
+	public int getCharge(irestads.model.OrderLine orderLine) {
+		return _orderLineLocalService.getCharge(orderLine);
+	}
+
 	/**
 	 * @deprecated Renamed to {@link #getWrappedService}
 	 */

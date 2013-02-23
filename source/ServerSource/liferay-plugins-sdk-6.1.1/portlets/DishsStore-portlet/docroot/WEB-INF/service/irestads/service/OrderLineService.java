@@ -79,4 +79,7 @@ public interface OrderLineService extends BaseService, InvokableService {
 
 	public irestads.model.OrderLine synchStatusOrderLine(
 		irestads.model.OrderLine ol);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getCharge(irestads.model.OrderLine orderLine);
 }

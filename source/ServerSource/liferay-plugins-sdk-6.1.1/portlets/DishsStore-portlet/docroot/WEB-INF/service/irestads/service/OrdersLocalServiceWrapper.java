@@ -281,6 +281,14 @@ public class OrdersLocalServiceWrapper implements OrdersLocalService,
 		return _ordersLocalService.setWaitingStatus(orderId);
 	}
 
+	public int calCharge(long orderId) {
+		return _ordersLocalService.calCharge(orderId);
+	}
+
+	public irestads.model.Orders payment(long orderId) {
+		return _ordersLocalService.payment(orderId);
+	}
+
 	/**
 	 * @deprecated Renamed to {@link #getWrappedService}
 	 */

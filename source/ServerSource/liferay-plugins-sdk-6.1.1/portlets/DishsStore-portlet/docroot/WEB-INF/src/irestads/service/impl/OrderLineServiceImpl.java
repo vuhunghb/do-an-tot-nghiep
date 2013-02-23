@@ -70,5 +70,9 @@ public class OrderLineServiceImpl extends OrderLineServiceBaseImpl {
 	public OrderLine synchStatusOrderLine(OrderLine ol){
 		return OrderLineLocalServiceUtil.synchStatusOrderLine(ol);
 	}
+	public int getCharge(OrderLine orderLine){
+		return OrderLineLocalServiceUtil.getCharge(orderLine);
+		
+	}
 
 }

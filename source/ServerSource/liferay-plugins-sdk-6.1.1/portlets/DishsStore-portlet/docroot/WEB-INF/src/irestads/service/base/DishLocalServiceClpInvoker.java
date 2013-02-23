@@ -96,88 +96,88 @@ public class DishLocalServiceClpInvoker {
 
 		_methodParameterTypes15 = new String[] { "irestads.model.Dish", "boolean" };
 
-		_methodName88 = "getBeanIdentifier";
+		_methodName102 = "getBeanIdentifier";
 
-		_methodParameterTypes88 = new String[] {  };
+		_methodParameterTypes102 = new String[] {  };
 
-		_methodName89 = "setBeanIdentifier";
+		_methodName103 = "setBeanIdentifier";
 
-		_methodParameterTypes89 = new String[] { "java.lang.String" };
+		_methodParameterTypes103 = new String[] { "java.lang.String" };
 
-		_methodName94 = "createDish";
+		_methodName108 = "createDish";
 
-		_methodParameterTypes94 = new String[] {
+		_methodParameterTypes108 = new String[] {
 				"java.lang.String", "java.lang.String", "java.lang.String",
 				"java.lang.String", "java.lang.String", "int",
 				"java.lang.String", "java.lang.String", "long"
 			};
 
-		_methodName95 = "createDish";
+		_methodName109 = "createDish";
 
-		_methodParameterTypes95 = new String[] { "irestads.model.Dish" };
+		_methodParameterTypes109 = new String[] { "irestads.model.Dish" };
 
-		_methodName96 = "findDishNotInMenu";
+		_methodName110 = "findDishNotInMenu";
 
-		_methodParameterTypes96 = new String[] {  };
+		_methodParameterTypes110 = new String[] {  };
 
-		_methodName97 = "getAllDishs";
+		_methodName111 = "getAllDishs";
 
-		_methodParameterTypes97 = new String[] {  };
+		_methodParameterTypes111 = new String[] {  };
 
-		_methodName98 = "getDishsByCategory";
+		_methodName112 = "getDishsByCategory";
 
-		_methodParameterTypes98 = new String[] { "long" };
+		_methodParameterTypes112 = new String[] { "long" };
 
-		_methodName99 = "updateDish";
+		_methodName113 = "updateDish";
 
-		_methodParameterTypes99 = new String[] { "irestads.model.Dish" };
+		_methodParameterTypes113 = new String[] { "irestads.model.Dish" };
 
-		_methodName100 = "deleteDish";
+		_methodName114 = "deleteDish";
 
-		_methodParameterTypes100 = new String[] { "irestads.model.Dish" };
+		_methodParameterTypes114 = new String[] { "irestads.model.Dish" };
 
-		_methodName101 = "findDishsById";
+		_methodName115 = "findDishsById";
 
-		_methodParameterTypes101 = new String[] { "long" };
+		_methodParameterTypes115 = new String[] { "long" };
 
-		_methodName102 = "findDishsByReferPrice";
+		_methodName116 = "findDishsByReferPrice";
 
-		_methodParameterTypes102 = new String[] { "int" };
+		_methodParameterTypes116 = new String[] { "int" };
 
-		_methodName103 = "findDishsByCategoryName";
+		_methodName117 = "findDishsByCategoryName";
 
-		_methodParameterTypes103 = new String[] { "java.lang.String" };
+		_methodParameterTypes117 = new String[] { "java.lang.String" };
 
-		_methodName104 = "findDishsByName";
+		_methodName118 = "findDishsByName";
 
-		_methodParameterTypes104 = new String[] { "java.lang.String" };
+		_methodParameterTypes118 = new String[] { "java.lang.String" };
 
-		_methodName105 = "findDishsByDecription";
+		_methodName119 = "findDishsByDecription";
 
-		_methodParameterTypes105 = new String[] { "java.lang.String" };
+		_methodParameterTypes119 = new String[] { "java.lang.String" };
 
-		_methodName106 = "findDishsByAvatarImg";
+		_methodName120 = "findDishsByAvatarImg";
 
-		_methodParameterTypes106 = new String[] { "java.lang.String" };
+		_methodParameterTypes120 = new String[] { "java.lang.String" };
 
-		_methodName107 = "findDishsByDetailImg";
+		_methodName121 = "findDishsByDetailImg";
 
-		_methodParameterTypes107 = new String[] { "java.lang.String" };
+		_methodParameterTypes121 = new String[] { "java.lang.String" };
 
-		_methodName108 = "findDishsByDetail";
+		_methodName122 = "findDishsByDetail";
 
-		_methodParameterTypes108 = new String[] { "java.lang.String" };
+		_methodParameterTypes122 = new String[] { "java.lang.String" };
 
-		_methodName109 = "findDishsBySomeField";
+		_methodName123 = "findDishsBySomeField";
 
-		_methodParameterTypes109 = new String[] {
+		_methodParameterTypes123 = new String[] {
 				"long", "int", "java.lang.String", "java.lang.String",
 				"java.lang.String", "java.lang.String", "java.lang.String"
 			};
 
-		_methodName110 = "isDeleteDish";
+		_methodName124 = "isDeleteDish";
 
-		_methodParameterTypes110 = new String[] { "long" };
+		_methodParameterTypes124 = new String[] { "long" };
 	}
 
 	public Object invokeMethod(String name, String[] parameterTypes,
@@ -269,18 +269,18 @@ public class DishLocalServiceClpInvoker {
 				((Boolean)arguments[1]).booleanValue());
 		}
 
-		if (_methodName88.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes88, parameterTypes)) {
+		if (_methodName102.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes102, parameterTypes)) {
 			return DishLocalServiceUtil.getBeanIdentifier();
 		}
 
-		if (_methodName89.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes89, parameterTypes)) {
+		if (_methodName103.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes103, parameterTypes)) {
 			DishLocalServiceUtil.setBeanIdentifier((java.lang.String)arguments[0]);
 		}
 
-		if (_methodName94.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes94, parameterTypes)) {
+		if (_methodName108.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes108, parameterTypes)) {
 			return DishLocalServiceUtil.createDish((java.lang.String)arguments[0],
 				(java.lang.String)arguments[1], (java.lang.String)arguments[2],
 				(java.lang.String)arguments[3], (java.lang.String)arguments[4],
@@ -289,78 +289,78 @@ public class DishLocalServiceClpInvoker {
 				((Long)arguments[8]).longValue());
 		}
 
-		if (_methodName95.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes95, parameterTypes)) {
+		if (_methodName109.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes109, parameterTypes)) {
 			return DishLocalServiceUtil.createDish((irestads.model.Dish)arguments[0]);
 		}
 
-		if (_methodName96.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes96, parameterTypes)) {
+		if (_methodName110.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes110, parameterTypes)) {
 			return DishLocalServiceUtil.findDishNotInMenu();
 		}
 
-		if (_methodName97.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes97, parameterTypes)) {
+		if (_methodName111.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes111, parameterTypes)) {
 			return DishLocalServiceUtil.getAllDishs();
 		}
 
-		if (_methodName98.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes98, parameterTypes)) {
+		if (_methodName112.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes112, parameterTypes)) {
 			return DishLocalServiceUtil.getDishsByCategory(((Long)arguments[0]).longValue());
 		}
 
-		if (_methodName99.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes99, parameterTypes)) {
+		if (_methodName113.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes113, parameterTypes)) {
 			return DishLocalServiceUtil.updateDish((irestads.model.Dish)arguments[0]);
 		}
 
-		if (_methodName100.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes100, parameterTypes)) {
+		if (_methodName114.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes114, parameterTypes)) {
 			return DishLocalServiceUtil.deleteDish((irestads.model.Dish)arguments[0]);
 		}
 
-		if (_methodName101.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes101, parameterTypes)) {
+		if (_methodName115.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes115, parameterTypes)) {
 			return DishLocalServiceUtil.findDishsById(((Long)arguments[0]).longValue());
 		}
 
-		if (_methodName102.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes102, parameterTypes)) {
+		if (_methodName116.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes116, parameterTypes)) {
 			return DishLocalServiceUtil.findDishsByReferPrice(((Integer)arguments[0]).intValue());
 		}
 
-		if (_methodName103.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes103, parameterTypes)) {
+		if (_methodName117.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes117, parameterTypes)) {
 			return DishLocalServiceUtil.findDishsByCategoryName((java.lang.String)arguments[0]);
 		}
 
-		if (_methodName104.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes104, parameterTypes)) {
+		if (_methodName118.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes118, parameterTypes)) {
 			return DishLocalServiceUtil.findDishsByName((java.lang.String)arguments[0]);
 		}
 
-		if (_methodName105.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes105, parameterTypes)) {
+		if (_methodName119.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes119, parameterTypes)) {
 			return DishLocalServiceUtil.findDishsByDecription((java.lang.String)arguments[0]);
 		}
 
-		if (_methodName106.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes106, parameterTypes)) {
+		if (_methodName120.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes120, parameterTypes)) {
 			return DishLocalServiceUtil.findDishsByAvatarImg((java.lang.String)arguments[0]);
 		}
 
-		if (_methodName107.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes107, parameterTypes)) {
+		if (_methodName121.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes121, parameterTypes)) {
 			return DishLocalServiceUtil.findDishsByDetailImg((java.lang.String)arguments[0]);
 		}
 
-		if (_methodName108.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes108, parameterTypes)) {
+		if (_methodName122.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes122, parameterTypes)) {
 			return DishLocalServiceUtil.findDishsByDetail((java.lang.String)arguments[0]);
 		}
 
-		if (_methodName109.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes109, parameterTypes)) {
+		if (_methodName123.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes123, parameterTypes)) {
 			return DishLocalServiceUtil.findDishsBySomeField(((Long)arguments[0]).longValue(),
 				((Integer)arguments[1]).intValue(),
 				(java.lang.String)arguments[2], (java.lang.String)arguments[3],
@@ -368,8 +368,8 @@ public class DishLocalServiceClpInvoker {
 				(java.lang.String)arguments[6]);
 		}
 
-		if (_methodName110.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes110, parameterTypes)) {
+		if (_methodName124.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes124, parameterTypes)) {
 			return DishLocalServiceUtil.isDeleteDish(((Long)arguments[0]).longValue());
 		}
 
@@ -408,42 +408,42 @@ public class DishLocalServiceClpInvoker {
 	private String[] _methodParameterTypes14;
 	private String _methodName15;
 	private String[] _methodParameterTypes15;
-	private String _methodName88;
-	private String[] _methodParameterTypes88;
-	private String _methodName89;
-	private String[] _methodParameterTypes89;
-	private String _methodName94;
-	private String[] _methodParameterTypes94;
-	private String _methodName95;
-	private String[] _methodParameterTypes95;
-	private String _methodName96;
-	private String[] _methodParameterTypes96;
-	private String _methodName97;
-	private String[] _methodParameterTypes97;
-	private String _methodName98;
-	private String[] _methodParameterTypes98;
-	private String _methodName99;
-	private String[] _methodParameterTypes99;
-	private String _methodName100;
-	private String[] _methodParameterTypes100;
-	private String _methodName101;
-	private String[] _methodParameterTypes101;
 	private String _methodName102;
 	private String[] _methodParameterTypes102;
 	private String _methodName103;
 	private String[] _methodParameterTypes103;
-	private String _methodName104;
-	private String[] _methodParameterTypes104;
-	private String _methodName105;
-	private String[] _methodParameterTypes105;
-	private String _methodName106;
-	private String[] _methodParameterTypes106;
-	private String _methodName107;
-	private String[] _methodParameterTypes107;
 	private String _methodName108;
 	private String[] _methodParameterTypes108;
 	private String _methodName109;
 	private String[] _methodParameterTypes109;
 	private String _methodName110;
 	private String[] _methodParameterTypes110;
+	private String _methodName111;
+	private String[] _methodParameterTypes111;
+	private String _methodName112;
+	private String[] _methodParameterTypes112;
+	private String _methodName113;
+	private String[] _methodParameterTypes113;
+	private String _methodName114;
+	private String[] _methodParameterTypes114;
+	private String _methodName115;
+	private String[] _methodParameterTypes115;
+	private String _methodName116;
+	private String[] _methodParameterTypes116;
+	private String _methodName117;
+	private String[] _methodParameterTypes117;
+	private String _methodName118;
+	private String[] _methodParameterTypes118;
+	private String _methodName119;
+	private String[] _methodParameterTypes119;
+	private String _methodName120;
+	private String[] _methodParameterTypes120;
+	private String _methodName121;
+	private String[] _methodParameterTypes121;
+	private String _methodName122;
+	private String[] _methodParameterTypes122;
+	private String _methodName123;
+	private String[] _methodParameterTypes123;
+	private String _methodName124;
+	private String[] _methodParameterTypes124;
 }
