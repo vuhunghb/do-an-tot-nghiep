@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+
+<deployment xmlns="http://xml.apache.org/axis/wsdd/" xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+	<service name="Plugin_Ads_AdsItemService" provider="java:RPC" style="rpc" use="encoded">
+		<arrayMapping xmlns:ns="urn:http.service.irestads" xmlns:cmp-ns="http://model.irestads" qname="ns:ArrayOf_tns2_AdsItemSoap" type="java:irestads.model.AdsItemSoap[]" innerType="cmp-ns:AdsItemSoap" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"></arrayMapping>
+		<typeMapping xmlns:ns="http://model.irestads" qname="ns:AdsItemSoap" type="java:irestads.model.AdsItemSoap" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"></typeMapping>
+		<operation xmlns:operNS="urn:http.service.irestads" xmlns:rtns="http://model.irestads" name="createAdsItem" qname="operNS:createAdsItem" returnQName="createAdsItemReturn" returnType="rtns:AdsItemSoap" soapAction="">
+			<parameter xmlns:tns="http://model.irestads" qname="adsItem" type="tns:AdsItemSoap"></parameter>
+		</operation>
+		<operation xmlns:operNS="urn:http.service.irestads" xmlns:rtns="http://model.irestads" name="createAdsItem" qname="operNS:createAdsItem" returnQName="createAdsItemReturn" returnType="rtns:AdsItemSoap" soapAction="">
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="adsItemId" type="tns:long"></parameter>
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="companyName" type="tns:string"></parameter>
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="numberPhone" type="tns:string"></parameter>
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="email" type="tns:string"></parameter>
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="address" type="tns:string"></parameter>
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="facebook" type="tns:string"></parameter>
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="twitter" type="tns:string"></parameter>
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="description" type="tns:string"></parameter>
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="imageContent" type="tns:string"></parameter>
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="timeDuring" type="tns:int"></parameter>
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="productName" type="tns:string"></parameter>
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="tags" type="tns:string"></parameter>
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="itemType" type="tns:string"></parameter>
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="categoryAdsId" type="tns:long"></parameter>
+		</operation>
+		<operation xmlns:operNS="urn:http.service.irestads" xmlns:rtns="http://model.irestads" name="deleteAdsItem" qname="operNS:deleteAdsItem" returnQName="deleteAdsItemReturn" returnType="rtns:AdsItemSoap" soapAction="">
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="adsItemId" type="tns:long"></parameter>
+		</operation>
+		<operation xmlns:operNS="urn:http.service.irestads" xmlns:rtns="http://model.irestads" name="findById" qname="operNS:findById" returnQName="findByIdReturn" returnType="rtns:AdsItemSoap" soapAction="">
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="adsItemId" type="tns:long"></parameter>
+		</operation>
+		<operation xmlns:operNS="urn:http.service.irestads" xmlns:rtns="urn:http.service.irestads" xmlns:tns2="http://model.irestads" name="getAllAdsItems" qname="operNS:getAllAdsItems" returnQName="getAllAdsItemsReturn" returnType="rtns:ArrayOf_tns2_AdsItemSoap" returnItemType="tns2:AdsItemSoap" soapAction=""> </operation>
+		<operation xmlns:operNS="urn:http.service.irestads" xmlns:rtns="http://model.irestads" name="updateAdsItem" qname="operNS:updateAdsItem" returnQName="updateAdsItemReturn" returnType="rtns:AdsItemSoap" soapAction="">
+			<parameter xmlns:tns="http://model.irestads" qname="item" type="tns:AdsItemSoap"></parameter>
+		</operation>
+		<parameter name="allowedMethods" value="createAdsItem deleteAdsItem findById getAllAdsItems updateAdsItem" />
+		<parameter name="className" value="irestads.service.http.AdsItemServiceSoap" />
+		<parameter name="schemaUnqualified" value="http://model.irestads,urn:http.service.irestads" />
+		<parameter name="typeMappingVersion" value="1.2" />
+		<parameter name="wsdlPortType" value="AdsItemServiceSoap" />
+		<parameter name="wsdlServiceElement" value="AdsItemServiceSoapService" />
+		<parameter name="wsdlServicePort" value="Plugin_Ads_AdsItemService" />
+		<parameter name="wsdlTargetNamespace" value="urn:http.service.irestads" />
+	</service>
+</deployment>

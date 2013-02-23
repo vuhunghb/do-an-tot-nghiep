@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<custom-sql>
+
+	<sql id="findAdsByCompName">
+              <![CDATA[
+               SELECT
+                    *
+               FROM
+                   ads_adsitem
+               WHERE
+                   (ads_adsitem.companyName like ?)
+              ]]>
+	</sql>
+	<sql id="findAdsByTags">
+              <![CDATA[
+               SELECT
+                    *
+               FROM
+                   ads_adsitem
+               WHERE
+                   (ads_adsitem.tags like ?)
+              ]]>
+	</sql>
+	<sql id="findAdsByProductName">
+              <![CDATA[
+               SELECT
+                    *
+               FROM
+                   ads_adsitem
+               WHERE
+                   (ads_adsitem.productName like ?)
+              ]]>
+	</sql>
+	<sql id="findAdsByItemType">
+              <![CDATA[
+               SELECT
+                    *
+               FROM
+                   ads_adsitem
+               WHERE
+                   (ads_adsitem.itemType like ?)
+              ]]>
+	</sql>
+	
+	<sql id="findAdsByCategoryName">
+<![CDATA[
+    SELECT
+	*
+    FROM ads_adsitem
+    INNER JOIN 
+        ads_categoryads ON ads_adsitem.categoryAdsId = ads_categoryads.categoryAdsId
+    WHERE
+        (ads_categoryads.categoryAdsName LIKE ?) 
+        
+    ]]>
+</sql>
+
+</custom-sql>
+
