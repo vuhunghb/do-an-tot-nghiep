@@ -3,55 +3,38 @@
 <service-builder package-path="irestads">
 	<author>Be</author>
 	<namespace>Ads</namespace>
-
 	<entity name="CategoryAds" local-service="true" remote-service="true">
-
 		<!-- PK fields -->
-
 		<column name="categoryAdsId" type="long" primary="true" />
-
 		<!-- Audit fields -->
-
 		<column name="companyId" type="long" />
 		<column name="userId" type="long" />
 		<column name="userName" type="String" />
 		<column name="createDate" type="Date" />
 		<column name="modifiedDate" type="Date" />
-
 		<!-- Other fields -->
-
 		<column name="categoryAdsName" type="String" />
 		<column name="adsItemModels" type="Collection" entity="AdsItem"
 			mapping-key="categoryAdsId" />
-
 		<!-- Order -->
-
 		<order by="asc">
 			<order-column name="categoryAdsName" />
 		</order>
-
 		<!-- Finder methods -->
-
 		<finder name="CategoryAdsName" return-type="Collection">
 			<finder-column name="categoryAdsName" />
 		</finder>
 	</entity>
 	<entity name="AdsItem" local-service="true" remote-service="true">
-
 		<!-- PK fields -->
-
 		<column name="adsItemId" type="long" primary="true" />
-
 		<!-- Audit fields -->
-
 		<column name="companyId" type="long" />
 		<column name="userId" type="long" />
 		<column name="userName" type="String" />
 		<column name="createDate" type="Date" />
 		<column name="modifiedDate" type="Date" />
-
 		<!-- Other fields -->
-
 		<column name="companyName" type="String" />
 		<column name="productName" type="String" />
 		<column name="numberPhone" type="String" />
@@ -65,16 +48,11 @@
 		<column name="tags" type="String" />
 		<column name="itemType" type="String" />
 		<column name="categoryAdsId" type="long"></column>
-
-
 		<!-- Order -->
-
 		<order by="asc">
 			<order-column name="productName" />
 		</order>
-
 		<!-- Finder methods -->
-
 		<finder name="ProductName" return-type="Collection">
 			<finder-column name="productName" />
 		</finder>
@@ -82,5 +60,4 @@
 			<finder-column name="timeDuring" />
 		</finder>
 	</entity>
-	
 </service-builder>

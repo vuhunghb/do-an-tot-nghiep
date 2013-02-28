@@ -8,8 +8,4 @@
 	<bean id="irestads.service.CategoryAdsLocalService" class="irestads.service.impl.CategoryAdsLocalServiceImpl" />
 	<bean id="irestads.service.CategoryAdsService" class="irestads.service.impl.CategoryAdsServiceImpl" />
 	<bean id="irestads.service.persistence.CategoryAdsPersistence" class="irestads.service.persistence.CategoryAdsPersistenceImpl" parent="basePersistence" />
-	<bean id="irestads.service.UVersionLocalService" class="irestads.service.impl.UVersionLocalServiceImpl" />
-	<bean id="irestads.service.UVersionService" class="irestads.service.impl.UVersionServiceImpl" />
-	<bean id="irestads.service.persistence.UVersionPersistence" class="irestads.service.persistence.UVersionPersistenceImpl" parent="basePersistence" />
-	<bean id="irestads.service.persistence.UVersionFinder" class="irestads.service.persistence.UVersionFinderImpl" parent="basePersistence" />
 </beans>

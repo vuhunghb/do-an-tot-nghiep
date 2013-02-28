@@ -39,7 +39,6 @@
 			<parameter xmlns:tns="http://model.irestads" qname="adsItem" type="tns:AdsItemSoap"></parameter>
 		</operation>
 		<operation xmlns:operNS="urn:http.service.irestads" xmlns:rtns="http://model.irestads" name="createAdsItem" qname="operNS:createAdsItem" returnQName="createAdsItemReturn" returnType="rtns:AdsItemSoap" soapAction="">
-			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="adsItemId" type="tns:long"></parameter>
 			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="companyName" type="tns:string"></parameter>
 			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="numberPhone" type="tns:string"></parameter>
 			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="email" type="tns:string"></parameter>
@@ -57,6 +56,24 @@
 		<operation xmlns:operNS="urn:http.service.irestads" xmlns:rtns="http://model.irestads" name="deleteAdsItem" qname="operNS:deleteAdsItem" returnQName="deleteAdsItemReturn" returnType="rtns:AdsItemSoap" soapAction="">
 			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="adsItemId" type="tns:long"></parameter>
 		</operation>
+		<operation xmlns:operNS="urn:http.service.irestads" xmlns:rtns="urn:http.service.irestads" xmlns:tns2="http://model.irestads" name="findAdsByCategoryName" qname="operNS:findAdsByCategoryName" returnQName="findAdsByCategoryNameReturn" returnType="rtns:ArrayOf_tns2_AdsItemSoap" returnItemType="tns2:AdsItemSoap" soapAction="">
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="keyword" type="tns:string"></parameter>
+		</operation>
+		<operation xmlns:operNS="urn:http.service.irestads" xmlns:rtns="urn:http.service.irestads" xmlns:tns2="http://model.irestads" name="findAdsByCompName" qname="operNS:findAdsByCompName" returnQName="findAdsByCompNameReturn" returnType="rtns:ArrayOf_tns2_AdsItemSoap" returnItemType="tns2:AdsItemSoap" soapAction="">
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="keyword" type="tns:string"></parameter>
+		</operation>
+		<operation xmlns:operNS="urn:http.service.irestads" xmlns:rtns="urn:http.service.irestads" xmlns:tns2="http://model.irestads" name="findAdsByItemType" qname="operNS:findAdsByItemType" returnQName="findAdsByItemTypeReturn" returnType="rtns:ArrayOf_tns2_AdsItemSoap" returnItemType="tns2:AdsItemSoap" soapAction="">
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="keyword" type="tns:string"></parameter>
+		</operation>
+		<operation xmlns:operNS="urn:http.service.irestads" xmlns:rtns="urn:http.service.irestads" xmlns:tns2="http://model.irestads" name="findAdsByProductName" qname="operNS:findAdsByProductName" returnQName="findAdsByProductNameReturn" returnType="rtns:ArrayOf_tns2_AdsItemSoap" returnItemType="tns2:AdsItemSoap" soapAction="">
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="keyword" type="tns:string"></parameter>
+		</operation>
+		<operation xmlns:operNS="urn:http.service.irestads" xmlns:rtns="urn:http.service.irestads" xmlns:tns2="http://model.irestads" name="findAdsByTags" qname="operNS:findAdsByTags" returnQName="findAdsByTagsReturn" returnType="rtns:ArrayOf_tns2_AdsItemSoap" returnItemType="tns2:AdsItemSoap" soapAction="">
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="keyword" type="tns:string"></parameter>
+		</operation>
+		<operation xmlns:operNS="urn:http.service.irestads" xmlns:rtns="urn:http.service.irestads" xmlns:tns2="http://model.irestads" name="findAdsByTimeDuration" qname="operNS:findAdsByTimeDuration" returnQName="findAdsByTimeDurationReturn" returnType="rtns:ArrayOf_tns2_AdsItemSoap" returnItemType="tns2:AdsItemSoap" soapAction="">
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="keyword" type="tns:int"></parameter>
+		</operation>
 		<operation xmlns:operNS="urn:http.service.irestads" xmlns:rtns="http://model.irestads" name="findById" qname="operNS:findById" returnQName="findByIdReturn" returnType="rtns:AdsItemSoap" soapAction="">
 			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="adsItemId" type="tns:long"></parameter>
 		</operation>
@@ -64,7 +81,7 @@
 		<operation xmlns:operNS="urn:http.service.irestads" xmlns:rtns="http://model.irestads" name="updateAdsItem" qname="operNS:updateAdsItem" returnQName="updateAdsItemReturn" returnType="rtns:AdsItemSoap" soapAction="">
 			<parameter xmlns:tns="http://model.irestads" qname="item" type="tns:AdsItemSoap"></parameter>
 		</operation>
-		<parameter name="allowedMethods" value="createAdsItem deleteAdsItem findById getAllAdsItems updateAdsItem" />
+		<parameter name="allowedMethods" value="createAdsItem deleteAdsItem findAdsByCategoryName findAdsByCompName findAdsByItemType findAdsByProductName findAdsByTags findAdsByTimeDuration findById getAllAdsItems updateAdsItem" />
 		<parameter name="className" value="irestads.service.http.AdsItemServiceSoap" />
 		<parameter name="schemaUnqualified" value="http://model.irestads,urn:http.service.irestads" />
 		<parameter name="typeMappingVersion" value="1.2" />

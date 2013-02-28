@@ -47,7 +47,7 @@ public class OrderBeans {
 
 	public String loadImg(boolean isAvailable) {
 		if (isAvailable == true) {
-			return "/img/binrieng.PNG";
+			return "/img/2.jpg";
 		} else {
 			return "/img/1.jpg";
 		}
