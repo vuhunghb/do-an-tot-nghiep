@@ -80,6 +80,7 @@ public class AdsItemLocalServiceImpl extends AdsItemLocalServiceBaseImpl {
 			adsItem.setImageContent(imageContent);
 
 			adsItem = AdsItemUtil.update(adsItem, true);
+			
 			if(adsItem!=null){
 				UVersionServiceUtil.createVersion(adsItem.getAdsItemId(), AdsItem.class.getName(), LogTypeEnum.CREATE.toString());
 			}

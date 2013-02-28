@@ -28,11 +28,11 @@
 				rowsPerPageTemplate="9,12,15">
 
 				<p:column>
-					<p:panel header="#{dishTable.dishTableId}"
-						style="text-align:center">
-						<p:graphicImage id="img"
+					<p:panel header="#{dishTable.dishTableId}" 
+						style="text-align:center; height:300px">
+						<p:graphicImage id="img" style="text-align:center"
 							value="#{orderBeans.loadImg(dishTable.isAvalable)}" />
-						<h:panelGrid columns="2" style="width:100%">
+						<h:panelGrid columns="2" style="width:100%" >
 							Số lượng ghế:
 							<h:outputText value="#{dishTable.numChair}" />
 							Trạng thái bàn:
