@@ -1,0 +1,24 @@
+46
+Xu ly viec kiem tra va cap nhat quan he giua Menu va Orderline, 
+khi them orderline thi giam so luong mon an va nguoc lai.--> lam roi, chua test
+Sua lai Menuline Model : Capacity, 
+OrderLine : Status Boolean > int, Them OrderDate... 
+Order : isWaiting > dung de update tu Client thong bao den S
+
+Server : lam them auto change status cho orderline
+Khi moi dat thi 
+0: moi goi
+1: dang thu hien
+2: da hoan tat
+
+Be :
+-Bo cai isWaiting cua Orders di
+và trang thái cua orderla isPayMent có 3 trang thái :
++ 0 chua thanh toán
++ 1 Yêu cau thanh toán
++ 2 dã thanh toán
+- lam cai autoupdate cua dishtable roi, khi noa t len roi test
+	
+
+
+0167 457 8143 Lai 
