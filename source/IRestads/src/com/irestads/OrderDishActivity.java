@@ -161,9 +161,8 @@ public class OrderDishActivity extends Activity {
 		}
 		SharedPreferences sharedPreferences = getSharedPreferences(GenericUtil.PREFS_NAME, 0);
 		selectedDishId = sharedPreferences.getLong("scr1CurrentDishId", 0);
-
 		getCurrentOrderline(selectedDishId);
-
+		
 	}
 
 	public void getCurrentOrderline(long dishID) {
