@@ -204,8 +204,9 @@ public final class R {
         public static final int activity_setting_resetdata_fragment=0x7f03000e;
         public static final int activity_setting_tableinf_fragment=0x7f03000f;
         public static final int activity_setting_update_fragment=0x7f030010;
-        public static final int menu_dialog=0x7f030011;
-        public static final int signin_dialog=0x7f030012;
+        public static final int activity_setting_update_manual_dialog=0x7f030011;
+        public static final int menu_dialog=0x7f030012;
+        public static final int signin_dialog=0x7f030013;
     }
     public static final class menu {
         public static final int activity_main=0x7f090000;

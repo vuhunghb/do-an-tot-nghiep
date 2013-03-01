@@ -22,7 +22,6 @@ public class StogeSettingsUtil {
 		if (diretory.exists() != true || diretory.isDirectory() == false) {
 			diretory.mkdirs();
 		}
-		
 		try {
 			File file = new File(diretory, "settings.obj");
 			FileOutputStream fileOutputStream = new FileOutputStream(file,
