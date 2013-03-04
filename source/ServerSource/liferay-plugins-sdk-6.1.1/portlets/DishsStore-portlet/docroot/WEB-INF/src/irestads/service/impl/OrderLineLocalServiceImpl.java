@@ -61,8 +61,8 @@ public class OrderLineLocalServiceImpl extends OrderLineLocalServiceBaseImpl {
 	 * irestads.service.OrderLineLocalServiceUtil} to access the order line
 	 * local service.
 	 */
-	public OrderLine createOrderLine(Long orderLineId, int numOfDish,
-			int statusDish, long dishId, long orderId, long orderDate) {
+	public OrderLine createOrderLine(Long orderLineId, int numOfDish, int statusDish, long dishId, long orderId,
+			long orderDate) {
 		try {
 			OrderLine orderLineModel = OrderLineUtil.create(orderLineId);
 			orderLineModel.setNumOfDish(numOfDish);
@@ -71,25 +71,16 @@ public class OrderLineLocalServiceImpl extends OrderLineLocalServiceBaseImpl {
 			orderLineModel.setOrderId(orderId);
 			orderLineModel.setNumOfFinishDish(0);
 			orderLineModel.setOrderDate(new Date(orderDate));
-			// check
-			// neu ma vươt qua nuOfDish thì set orderlienid=-1 và nuofdish là so
-			// món ăn hienj có
 			MenuLine menuLine = MenuLineUtil.findByDishId(dishId);
-			int available = menuLine.getCapacity() - menuLine.getNumOfDish();
-			if (available < numOfDish) {
-				orderLineModel.setOrderId(-1);
-				orderLineModel.setNumOfDish(available);
-			}
-			orderLineModel = OrderLineUtil.update(orderLineModel, true);
-			// tang so luong o truong NumOfDish cua Menuline khi tao thanh cong
-			// OrderLine
-			int temp = menuLine.getNumOfDish() + orderLineModel.getNumOfDish();
-			if (orderLineModel != null) {
-
+			if (menuLine.getNumOfDish() < numOfDish) {
+				orderLineModel.setOrderLineId(-1);
+				orderLineModel.setNumOfDish(numOfDish);
+			} else if ((menuLine.getNumOfDish() > numOfDish) && (menuLine.getNumOfDish() != 0)) {
+				orderLineModel = OrderLineUtil.update(orderLineModel, true);
+				int temp = menuLine.getNumOfDish() - numOfDish;
 				menuLine.setNumOfDish(temp);
 				MenuLineUtil.update(menuLine, true);
 			}
-
 			return orderLineModel;
 		} catch (SystemException e) {
 			// TODO Auto-generated catch block
@@ -102,8 +93,7 @@ public class OrderLineLocalServiceImpl extends OrderLineLocalServiceBaseImpl {
 		}
 	}
 
-	public OrderLine updateOrderLine(long orderLineId, int numOfFinishDish,
-			int status) {
+	public OrderLine updateOrderLine(long orderLineId, int numOfFinishDish, int status) {
 		try {
 			OrderLine orderLine = OrderLineUtil.fetchByPrimaryKey(orderLineId);
 			if (orderLine != null && orderLineId == orderLine.getOrderLineId()) {
@@ -131,20 +121,19 @@ public class OrderLineLocalServiceImpl extends OrderLineLocalServiceBaseImpl {
 	}
 
 	public List<OrderLine> getOrderLineByOrder(long orderId) {
+		List<OrderLine> orderLines = new ArrayList<OrderLine>();
 		try {
-
-			return OrderLineUtil.findByOrderId(orderId);
+			orderLines = OrderLineUtil.findByOrderId(orderId);
 		} catch (SystemException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return new ArrayList<OrderLine>();
+		return orderLines;
 	}
 
 	public OrderLine synchStatusOrderLine(OrderLine ol) {
 		try {
-			OrderLine orderLine = OrderLineUtil.fetchByPrimaryKey(ol
-					.getOrderLineId());
+			OrderLine orderLine = OrderLineUtil.fetchByPrimaryKey(ol.getOrderLineId());
 			int numFinish = ol.getNumOfFinishDish();
 
 			int capacity = ol.getNumOfDish();
@@ -154,9 +143,9 @@ public class OrderLineLocalServiceImpl extends OrderLineLocalServiceBaseImpl {
 			if (numFinish == capacity) {
 				orderLine.setStatusDish(2);// da hoan thanh
 			}
-//			 else if(numFinish<capacity){
-//			 orderLine.setStatusDish(1);// dang lam
-//			 }
+			// else if(numFinish<capacity){
+			// orderLine.setStatusDish(1);// dang lam
+			// }
 			orderLine = OrderLineUtil.update(orderLine, true);
 			return orderLine;
 		} catch (SystemException e) {
@@ -166,10 +155,14 @@ public class OrderLineLocalServiceImpl extends OrderLineLocalServiceBaseImpl {
 		}
 
 	}
-	public int getCharge(OrderLine orderLine){
-		int result=0;
-		Dish d=DishServiceUtil.findDishsById(orderLine.getDishId());
-		result=d.getReferPrice()*orderLine.getNumOfDish();// cho nay lay numofDihs hay numOfFinish day
+
+	public int getCharge(OrderLine orderLine) {
+		int result = 0;
+		Dish d = DishServiceUtil.findDishsById(orderLine.getDishId());
+		result = d.getReferPrice() * orderLine.getNumOfDish();// cho nay lay
+																// numofDihs hay
+																// numOfFinish
+																// day
 		return result;
 	}
 }

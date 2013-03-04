@@ -15,13 +15,13 @@ import com.liferay.util.dao.orm.CustomSQLUtil;
 
 public class UVersionFinderImpl extends BasePersistenceImpl<UVersion> implements UVersionFinder{
 	public static String FIND_BY_NEXT_VERSION = "findNextVersions";
+	
 	public List<UVersion> findNextVersions(long uversionId) {
 		Session session = null;
 		try {
 			session = openSession();
 			String sql = CustomSQLUtil.get(FIND_BY_NEXT_VERSION);
 			SQLQuery query = session.createSQLQuery(sql);
-			System.out.println("v sql"+sql);
 			query.addEntity("UVersion", UVersionImpl.class);
 			QueryPos qPos = QueryPos.getInstance(query);
 			qPos.add(uversionId);

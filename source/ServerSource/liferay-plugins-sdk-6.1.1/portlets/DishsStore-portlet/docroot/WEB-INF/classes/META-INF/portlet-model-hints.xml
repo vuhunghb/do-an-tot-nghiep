@@ -15,7 +15,9 @@
 		<field name="address" type="String" />
 		<field name="facebook" type="String" />
 		<field name="twitter" type="String" />
-		<field name="description" type="String" />
+		<field name="description" type="String">
+			<hint-collection name="CLOB" />
+		</field>
 		<field name="imageContent" type="String">
 			<hint-collection name="CLOB" />
 		</field>

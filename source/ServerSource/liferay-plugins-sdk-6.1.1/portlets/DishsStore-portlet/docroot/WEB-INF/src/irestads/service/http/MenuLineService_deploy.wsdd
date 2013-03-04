@@ -58,7 +58,7 @@
 		<operation xmlns:operNS="urn:http.service.irestads" xmlns:rtns="urn:http.service.irestads" xmlns:tns2="http://model.irestads" name="findMenuLinesByDReferPrice" qname="operNS:findMenuLinesByDReferPrice" returnQName="findMenuLinesByDReferPriceReturn" returnType="rtns:ArrayOf_tns2_MenuLineSoap" returnItemType="tns2:MenuLineSoap" soapAction="">
 			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="price" type="tns:int"></parameter>
 		</operation>
-		<operation xmlns:operNS="urn:http.service.irestads" xmlns:rtns="urn:http.service.irestads" xmlns:tns2="http://model.irestads" name="findMenuLinesByDishId" qname="operNS:findMenuLinesByDishId" returnQName="findMenuLinesByDishIdReturn" returnType="rtns:ArrayOf_tns2_MenuLineSoap" returnItemType="tns2:MenuLineSoap" soapAction="">
+		<operation xmlns:operNS="urn:http.service.irestads" xmlns:rtns="http://model.irestads" name="findMenuLinesByDishId" qname="operNS:findMenuLinesByDishId" returnQName="findMenuLinesByDishIdReturn" returnType="rtns:MenuLineSoap" soapAction="">
 			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="dishId" type="tns:long"></parameter>
 		</operation>
 		<operation xmlns:operNS="urn:http.service.irestads" xmlns:rtns="urn:http.service.irestads" xmlns:tns2="http://model.irestads" name="findMenuLinesByNumOfDish" qname="operNS:findMenuLinesByNumOfDish" returnQName="findMenuLinesByNumOfDishReturn" returnType="rtns:ArrayOf_tns2_MenuLineSoap" returnItemType="tns2:MenuLineSoap" soapAction="">
