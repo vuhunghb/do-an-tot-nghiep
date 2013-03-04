@@ -79,14 +79,14 @@ public class AdsItemModelImpl extends BaseModelImpl<AdsItem>
 			{ "address", Types.VARCHAR },
 			{ "facebook", Types.VARCHAR },
 			{ "twitter", Types.VARCHAR },
-			{ "description", Types.VARCHAR },
+			{ "description", Types.CLOB },
 			{ "imageContent", Types.CLOB },
 			{ "timeDuring", Types.INTEGER },
 			{ "tags", Types.VARCHAR },
 			{ "itemType", Types.VARCHAR },
 			{ "categoryAdsId", Types.BIGINT }
 		};
-	public static final String TABLE_SQL_CREATE = "create table dishsstore_AdsItem (adsItemId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,companyName VARCHAR(75) null,productName VARCHAR(75) null,numberPhone VARCHAR(75) null,email VARCHAR(75) null,address VARCHAR(75) null,facebook VARCHAR(75) null,twitter VARCHAR(75) null,description VARCHAR(75) null,imageContent TEXT null,timeDuring INTEGER,tags VARCHAR(75) null,itemType VARCHAR(75) null,categoryAdsId LONG)";
+	public static final String TABLE_SQL_CREATE = "create table dishsstore_AdsItem (adsItemId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,companyName VARCHAR(75) null,productName VARCHAR(75) null,numberPhone VARCHAR(75) null,email VARCHAR(75) null,address VARCHAR(75) null,facebook VARCHAR(75) null,twitter VARCHAR(75) null,description TEXT null,imageContent TEXT null,timeDuring INTEGER,tags VARCHAR(75) null,itemType VARCHAR(75) null,categoryAdsId LONG)";
 	public static final String TABLE_SQL_DROP = "drop table dishsstore_AdsItem";
 	public static final String ORDER_BY_JPQL = " ORDER BY adsItem.productName ASC";
 	public static final String ORDER_BY_SQL = " ORDER BY dishsstore_AdsItem.productName ASC";

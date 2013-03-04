@@ -15,10 +15,21 @@
 		<operation xmlns:operNS="urn:http.service.irestads" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="deleteOrderLineById" qname="operNS:deleteOrderLineById" returnQName="deleteOrderLineByIdReturn" returnType="rtns:boolean" soapAction="">
 			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="orderLineId" type="tns:long"></parameter>
 		</operation>
+		<operation xmlns:operNS="urn:http.service.irestads" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="getCharge" qname="operNS:getCharge" returnQName="getChargeReturn" returnType="rtns:int" soapAction="">
+			<parameter xmlns:tns="http://model.irestads" qname="orderLine" type="tns:OrderLineSoap"></parameter>
+		</operation>
 		<operation xmlns:operNS="urn:http.service.irestads" xmlns:rtns="urn:http.service.irestads" xmlns:tns2="http://model.irestads" name="getOrderLineByOrder" qname="operNS:getOrderLineByOrder" returnQName="getOrderLineByOrderReturn" returnType="rtns:ArrayOf_tns2_OrderLineSoap" returnItemType="tns2:OrderLineSoap" soapAction="">
 			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="orderId" type="tns:long"></parameter>
 		</operation>
-		<parameter name="allowedMethods" value="createOrderLine deleteOrderLineById getOrderLineByOrder" />
+		<operation xmlns:operNS="urn:http.service.irestads" xmlns:rtns="http://model.irestads" name="synchStatusOrderLine" qname="operNS:synchStatusOrderLine" returnQName="synchStatusOrderLineReturn" returnType="rtns:OrderLineSoap" soapAction="">
+			<parameter xmlns:tns="http://model.irestads" qname="ol" type="tns:OrderLineSoap"></parameter>
+		</operation>
+		<operation xmlns:operNS="urn:http.service.irestads" xmlns:rtns="http://model.irestads" name="updateOrderLine" qname="operNS:updateOrderLine" returnQName="updateOrderLineReturn" returnType="rtns:OrderLineSoap" soapAction="">
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="orderLineId" type="tns:long"></parameter>
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="numOfFinishDish" type="tns:int"></parameter>
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="status" type="tns:int"></parameter>
+		</operation>
+		<parameter name="allowedMethods" value="createOrderLine deleteOrderLineById getCharge getOrderLineByOrder synchStatusOrderLine updateOrderLine" />
 		<parameter name="className" value="irestads.service.http.OrderLineServiceSoap" />
 		<parameter name="schemaUnqualified" value="http://model.irestads,urn:http.service.irestads" />
 		<parameter name="typeMappingVersion" value="1.2" />

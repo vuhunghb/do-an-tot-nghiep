@@ -5,7 +5,10 @@
 		<arrayMapping xmlns:ns="urn:http.service.irestads" xmlns:cmp-ns="http://model.irestads" qname="ns:ArrayOf_tns2_DishTableSoap" type="java:irestads.model.DishTableSoap[]" innerType="cmp-ns:DishTableSoap" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"></arrayMapping>
 		<typeMapping xmlns:ns="http://model.irestads" qname="ns:DishTableSoap" type="java:irestads.model.DishTableSoap" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"></typeMapping>
 		<operation xmlns:operNS="urn:http.service.irestads" xmlns:rtns="urn:http.service.irestads" xmlns:tns2="http://model.irestads" name="getAllDishTables" qname="operNS:getAllDishTables" returnQName="getAllDishTablesReturn" returnType="rtns:ArrayOf_tns2_DishTableSoap" returnItemType="tns2:DishTableSoap" soapAction=""> </operation>
-		<parameter name="allowedMethods" value="getAllDishTables" />
+		<operation xmlns:operNS="urn:http.service.irestads" xmlns:rtns="http://model.irestads" name="updateDishTable" qname="operNS:updateDishTable" returnQName="updateDishTableReturn" returnType="rtns:DishTableSoap" soapAction="">
+			<parameter xmlns:tns="http://model.irestads" qname="dt" type="tns:DishTableSoap"></parameter>
+		</operation>
+		<parameter name="allowedMethods" value="getAllDishTables updateDishTable" />
 		<parameter name="className" value="irestads.service.http.DishTableServiceSoap" />
 		<parameter name="schemaUnqualified" value="http://model.irestads,urn:http.service.irestads" />
 		<parameter name="typeMappingVersion" value="1.2" />

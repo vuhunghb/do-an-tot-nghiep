@@ -24,6 +24,7 @@ import irestads.defination.LogTypeEnum;
 import irestads.model.Dish;
 import irestads.model.OrderLine;
 import irestads.model.Orders;
+import irestads.model.OrdersModel;
 import irestads.service.OrderLineServiceUtil;
 import irestads.service.OrdersLocalServiceUtil;
 import irestads.service.OrdersServiceUtil;
@@ -68,15 +69,15 @@ public class OrdersLocalServiceImpl extends OrdersLocalServiceBaseImpl {
 //		return null;
 //	}
 	
-
 	public Orders findOrderById(long orderId) {
+		Orders ordersModel = null;
 		try {
-			return OrdersUtil.fetchByPrimaryKey(orderId);
+			ordersModel =  OrdersUtil.fetchByPrimaryKey(orderId);
 		} catch (SystemException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return null;
+		return ordersModel;
 	}
 
 	public Orders createOrders(long orderId, int charge, int isPayment, int numOfDinner, String dishTableId,

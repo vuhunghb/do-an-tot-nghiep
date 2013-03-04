@@ -12,7 +12,7 @@ create table dishsstore_AdsItem (
 	address VARCHAR(75) null,
 	facebook VARCHAR(75) null,
 	twitter VARCHAR(75) null,
-	description VARCHAR(75) null,
+	description TEXT null,
 	imageContent TEXT null,
 	timeDuring INTEGER,
 	tags VARCHAR(75) null,
