@@ -6,46 +6,48 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
-	<script type="text/javascript">  
-    function handleLoginRequest(xhr, status, args) {  
-        if(args.validationFailed) {  
-            jQuery('#addDialog').effect("shake", { times:3 }, 100);
-           // addDishDlg.show(); 
-        } else {  
-        	addDishDlg.hide();  
-           // jQuery('#loginLink').fadeOut();  
-        }  
-    }  
-</script>
+	<script type="text/javascript">
+		function handleLoginRequest(xhr, status, args) {
+			if (args.validationFailed) {
+				jQuery('#addDialog').effect("shake", {
+					times : 3
+				}, 100);
+				// addDishDlg.show(); 
+			} else {
+				addDishDlg.hide();
+				// jQuery('#loginLink').fadeOut();  
+			}
+		}
+	</script>
 	<h:head />
 	<h:body>
 
 		<h:form id="formTable">
 			<p:growl id="messages" showDetail="true" life="3000" />
 			<p:contextMenu for="dishTable">
-				<p:menuitem value="Chi tiết" update="display" icon="ui-icon-search"
-					oncomplete="dishDialog.show()" />
-				<p:menuitem value="Xóa"
+				<p:menuitem value="Chi tiáº¿t" update="display"
+					icon="ui-icon-search" oncomplete="dishDialog.show()" />
+				<p:menuitem value="XÃ³a"
 					update=":formTable:dishTable :formTable:messages"
 					icon="ui-icon-close"
 					actionListener="#{adsItemBeans.deleteAdsItem()}" />
 			</p:contextMenu>
 
 			<h:panelGrid columns="8">
-				<h:outputText value="Từ khóa " />
+				<h:outputText value="Tá»« khÃ³a " />
 				<p:selectOneMenu id="searchType" value="#{adsItemBeans.searchType}"
 					effect="fold">
 					<f:selectItem itemLabel="Select One" itemValue="2" />
 					<f:selectItems value="#{adsItemBeans.searchTypesValue}" />
 				</p:selectOneMenu>
-				<h:outputText value="Nội dung" />
+				<h:outputText value="Ná»™i dung" />
 				<h:inputText id="keyWord" value="#{adsItemBeans.keyWords}" />
 
 
-				<p:commandButton value="Tìm Kiến" update="@form"
+				<p:commandButton value="TÃ¬m Kiáº¿n" update="@form"
 					action="#{adsItemBeans.search()}" />
 				<p:commandButton id="showAddDlgButton" type="button"
-					value="Thêm Quảng Cáo" onclick="addDishDlg.show()" />
+					value="ThÃªm Quáº£ng CÃ¡o" onclick="addDishDlg.show()" />
 			</h:panelGrid>
 			<p:dataTable id="dishTable" var="ads"
 				value="#{adsItemBeans.adsItems}" paginator="true" rows="10"
@@ -57,19 +59,19 @@
 					update=":formTable:dishTable :formTable:messages" />
 				<p:columnGroup type="header">
 					<p:row>
-						<p:column width="50" headerText="Mã" />
-						<p:column width="100" headerText="Tên CT" />
-						<p:column headerText="Tên SP" />
+						<p:column width="50" headerText="MÃ£" />
+						<p:column width="100" headerText="TÃªn CT" />
+						<p:column headerText="TÃªn SP" />
 						<p:column headerText="SDT" />
 						<p:column headerText="Email" />
-						<p:column headerText="Địa chỉ" />
+						<p:column headerText="Ä�á»‹a chá»‰" />
 						<p:column headerText="Facebook" />
 						<p:column headerText="Twitter" />
-						<p:column headerText="Mô Tả" />
-						<p:column headerText="Thời gian" />
+						<p:column headerText="MÃ´ Táº£" />
+						<p:column headerText="Thá»�i gian" />
 						<p:column headerText="Tags" />
-						<p:column headerText="Loại" />
-						<p:column headerText="Danh mục" />
+						<p:column headerText="Loáº¡i" />
+						<p:column headerText="Danh má»¥c" />
 
 					</p:row>
 				</p:columnGroup>
@@ -82,7 +84,7 @@
 							<h:outputText value="#{ads.companyName}" />
 						</f:facet>
 						<f:facet name="input">
-							<p:inputText value="#{ads.companyName}" label="Tên Món ăn" />
+							<p:inputText value="#{ads.companyName}" label="TÃªn MÃ³n Äƒn" />
 						</f:facet>
 					</p:cellEditor>
 				</p:column>
@@ -92,7 +94,7 @@
 							<h:outputText value="#{ads.productName}" />
 						</f:facet>
 						<f:facet name="input">
-							<p:inputText value="#{ads.productName}" label="Mô tả Món ăn" />
+							<p:inputText value="#{ads.productName}" label="MÃ´ táº£ MÃ³n Äƒn" />
 						</f:facet>
 					</p:cellEditor>
 				</p:column>
@@ -102,7 +104,7 @@
 							<h:outputText value="#{ads.numberPhone}" />
 						</f:facet>
 						<f:facet name="input">
-							<p:inputText value="#{ads.numberPhone}" label="Giá TK Món ăn" />
+							<p:inputText value="#{ads.numberPhone}" label="GiÃ¡ TK MÃ³n Äƒn" />
 						</f:facet>
 					</p:cellEditor>
 				</p:column>
@@ -112,7 +114,8 @@
 							<h:outputText value="#{ads.email}" />
 						</f:facet>
 						<f:facet name="input">
-							<p:inputText value="#{ads.email}" label="Hình đại diện Món ăn" />
+							<p:inputText value="#{ads.email}"
+								label="HÃ¬nh Ä‘áº¡i diá»‡n MÃ³n Äƒn" />
 						</f:facet>
 					</p:cellEditor>
 				</p:column>
@@ -122,7 +125,8 @@
 							<h:outputText value="#{ads.address}" />
 						</f:facet>
 						<f:facet name="input">
-							<p:inputText value="#{ads.address}" label="Hình chi tiết Món ăn" />
+							<p:inputText value="#{ads.address}"
+								label="HÃ¬nh chi tiáº¿t MÃ³n Äƒn" />
 						</f:facet>
 					</p:cellEditor>
 				</p:column>
@@ -132,7 +136,7 @@
 							<h:outputText value="#{ads.facebook}" />
 						</f:facet>
 						<f:facet name="input">
-							<p:inputText value="#{ads.facebook}" label="Chi tiết Món ăn" />
+							<p:inputText value="#{ads.facebook}" label="Chi tiáº¿t MÃ³n Äƒn" />
 						</f:facet>
 					</p:cellEditor>
 				</p:column>
@@ -142,7 +146,7 @@
 							<h:outputText value="#{ads.twitter}" />
 						</f:facet>
 						<f:facet name="input">
-							<p:inputText value="#{ads.twitter}" label="Chi tiết Món ăn" />
+							<p:inputText value="#{ads.twitter}" label="Chi tiáº¿t MÃ³n Äƒn" />
 						</f:facet>
 					</p:cellEditor>
 				</p:column>
@@ -152,7 +156,8 @@
 							<h:outputText value="#{ads.description}" />
 						</f:facet>
 						<f:facet name="input">
-							<p:inputText value="#{ads.description}" label="Chi tiết Món ăn" />
+							<p:inputText value="#{ads.description}"
+								label="Chi tiáº¿t MÃ³n Äƒn" />
 						</f:facet>
 					</p:cellEditor>
 
@@ -163,7 +168,8 @@
 							<h:outputText value="#{ads.timeDuring}" />
 						</f:facet>
 						<f:facet name="input">
-							<p:inputText value="#{ads.timeDuring}" label="Chi tiết Món ăn" />
+							<p:inputText value="#{ads.timeDuring}"
+								label="Chi tiáº¿t MÃ³n Äƒn" />
 						</f:facet>
 					</p:cellEditor>
 				</p:column>
@@ -173,7 +179,7 @@
 							<h:outputText value="#{ads.tags}" />
 						</f:facet>
 						<f:facet name="input">
-							<p:inputText value="#{ads.tags}" label="Chi tiết Món ăn" />
+							<p:inputText value="#{ads.tags}" label="Chi tiáº¿t MÃ³n Äƒn" />
 						</f:facet>
 					</p:cellEditor>
 				</p:column>
@@ -183,11 +189,13 @@
 							<h:outputText value="#{adsItemBeans.toStrAdsType(ads.itemType)}" />
 						</f:facet>
 						<f:facet name="input">
-							
-							<p:selectOneMenu id="itemTypeEdit" value="#{ads.itemType}" >
-						<f:selectItem itemLabel="Theo ngữ cảnh" itemValue="AdsItemContextModel" />
-						<f:selectItem itemLabel="Bình thường" itemValue="AdsItemNormalModel" />
-					</p:selectOneMenu>
+
+							<p:selectOneMenu id="itemTypeEdit" value="#{ads.itemType}">
+								<f:selectItem itemLabel="Theo ngá»¯ cáº£nh"
+									itemValue="AdsItemContextModel" />
+								<f:selectItem itemLabel="BÃ¬nh thÆ°á»�ng"
+									itemValue="AdsItemNormalModel" />
+							</p:selectOneMenu>
 						</f:facet>
 					</p:cellEditor>
 				</p:column>
@@ -210,7 +218,7 @@
 					<p:rowEditor />
 				</p:column>
 			</p:dataTable>
-			<p:dialog header="Thông tin chi tiết" widgetVar="dishDialog"
+			<p:dialog header="ThÃ´ng tin chi tiáº¿t" widgetVar="dishDialog"
 				resizable="false" width="200" showEffect="clip" hideEffect="fold"
 				id="viewDialog">
 
@@ -219,17 +227,17 @@
 					<h:outputText style="font-weight:bold"
 						value="#{adsItemBeans.adsItemSelected.adsItemId}" />
 
-					<h:outputText value="Tên CT:" />
+					<h:outputText value="TÃªn CT:" />
 					<h:outputText style="font-weight:bold"
 						value="#{adsItemBeans.adsItemSelected.companyName}" />
 
-					<h:outputText value="Danh mục" />
+					<h:outputText value="Danh má»¥c" />
 					<h:outputText style="font-weight:bold"
 						value="#{categoryAdsBeans.getCategoryAdsNameByID(adsItemBeans.adsItemSelected.categoryAdsId)}" />
-					<h:outputText value="Loại" />
+					<h:outputText value="Loáº¡i" />
 					<h:outputText style="font-weight:bold"
 						value="#{adsItemBeans.adsItemSelected.itemType}" />
-					<h:outputText value="Tên SP:" />
+					<h:outputText value="TÃªn SP:" />
 					<h:outputText style="font-weight:bold"
 						value="#{adsItemBeans.adsItemSelected.productName}" />
 
@@ -239,7 +247,7 @@
 					<h:outputText value="Email:" />
 					<h:outputText style="font-weight:bold"
 						value="#{adsItemBeans.adsItemSelected.email}" />
-					<h:outputText value="Đại chỉ:" />
+					<h:outputText value="Ä�áº¡i chá»‰:" />
 					<h:outputText style="font-weight:bold"
 						value="#{adsItemBeans.adsItemSelected.address}" />
 					<h:outputText value="Facebook:" />
@@ -248,13 +256,13 @@
 					<h:outputText value="Twitter:" />
 					<h:outputText style="font-weight:bold"
 						value="#{adsItemBeans.adsItemSelected.twitter}" />
-					<h:outputText value="Mô Tả" />
+					<h:outputText value="MÃ´ Táº£" />
 					<h:outputText style="font-weight:bold"
 						value="#{adsItemBeans.adsItemSelected.description}" />
-					<h:outputText value="Thời gian:" />
+					<h:outputText value="Thá»�i gian:" />
 					<h:outputText style="font-weight:bold"
 						value="#{adsItemBeans.adsItemSelected.timeDuring}" />
-					<h:outputText value="Thẻ" />
+					<h:outputText value="Tháº»" />
 					<h:outputText style="font-weight:bold"
 						value="#{adsItemBeans.adsItemSelected.tags}" />
 
@@ -266,71 +274,85 @@
 		<!-- Dialog add dish -->
 		<h:form id="formAdd">
 
-			<p:dialog header="Thêm Món ăn" widgetVar="addDishDlg"
+			<p:dialog header="ThÃªm MÃ³n Äƒn" widgetVar="addDishDlg"
 				resizable="false" width="600" showEffect="clip" hideEffect="fold"
 				id="addDialog">
-				<h:panelGrid id="pAddDish" columns="3" cellpadding="3" cellspacing="0" >
+				<h:panelGrid id="pAddDish" columns="3" cellpadding="3"
+					cellspacing="0">
 
-					<h:outputLabel for="dishNameAdd" value="Tên SP: (*)" />
+					<h:outputLabel for="dishNameAdd" value="TÃªn SP: (*)" />
 					<p:inputText id="dishNameAdd" size="47"
 						value="#{adsItemBeans.adsItemAdd.productName}" required="true"
-						label="Tên SP " requiredMessage="Tên SP Không được bỏ trống." />
-					<p:message id="msgDishName" for="dishNameAdd" style="color:red"
-						 />
-		Danh mục(*): 
-		<p:selectOneMenu value="#{adsItemBeans.adsItemAdd.categoryAdsId}" 
-						id="categoryAdd" required="true" label="Category" requiredMessage="Danh mục không được bỏ trống">
-						<f:selectItem itemLabel="chọn" />
+						label="TÃªn SP "
+						requiredMessage="TÃªn SP KhÃ´ng Ä‘Æ°á»£c bá»� trá»‘ng." />
+					<p:message id="msgDishName" for="dishNameAdd" style="color:red" />
+		Danh má»¥c(*): 
+		<p:selectOneMenu value="#{adsItemBeans.adsItemAdd.categoryAdsId}"
+						id="categoryAdd" required="true" label="Category"
+						requiredMessage="Danh má»¥c khÃ´ng Ä‘Æ°á»£c bá»� trá»‘ng">
+						<f:selectItem itemLabel="chá»�n" />
 						<f:selectItems value="#{categoryAdsBeans.categoryAds}"
 							var="category" itemLabel="#{category.categoryAdsName}"
 							itemValue="#{category.categoryAdsId}" />
 					</p:selectOneMenu>
-					<p:message for="categoryAdd" style="color:red" ></p:message>
-					Loại(*): 
+					<p:message for="categoryAdd" style="color:red"></p:message>
+					Loáº¡i(*): 
 		
-					<p:selectOneRadio id="itemType" value="#{adsItemBeans.adsItemAdd.itemType}" required="true" requiredMessage="Phải chọn Loại cho QC.">
-						<f:selectItem itemLabel="Theo ngữ cảnh" itemValue="AdsItemContextModel" noSelectionOption="true" />
-						<f:selectItem itemLabel="Bình thường" itemValue="AdsItemNormalModel" />
+					<p:selectOneRadio id="itemType"
+						value="#{adsItemBeans.adsItemAdd.itemType}" required="true"
+						requiredMessage="Pháº£i chá»�n Loáº¡i cho QC.">
+						<f:selectItem itemLabel="Theo ngá»¯ cáº£nh"
+							itemValue="AdsItemContextModel"/>
+						<f:selectItem itemLabel="BÃ¬nh thÆ°á»�ng"
+							itemValue="AdsItemNormalModel" />
 					</p:selectOneRadio>
-				
+
 					<p:message for="itemType" style="color:red"></p:message>
-		Tên CT: 
+		TÃªn CT: 
 		<p:inputText id="dishDecriptionAdd" style="width:250px"
 						value="#{adsItemBeans.adsItemAdd.companyName}" required="false"
 						label="Decription"></p:inputText>
 					<p:message for="dishDecriptionAdd" style="color:red" display="icon"></p:message>
 		
-		Hình Quang Cáo: 
+		HÃ¬nh Quang CÃ¡o: 
 
 					<p:fileUpload id="avatarImgAdd"
 						fileUploadListener="#{adsItemBeans.uploadImg}" mode="advanced"
-						update=":formTable:messages" sizeLimit="100000"
+						update=":formTable:messages" sizeLimit="5000000"
 						allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
 					<p:message for="avatarImgAdd" style="color:red"></p:message>
-		
-		SDT: 
-		<p:inputText id="phone" size="47"  
-						value="#{adsItemBeans.adsItemAdd.numberPhone}" required="false" validatorMessage="Phải nhập số"
-						label="Refer Price" >
-						<f:validateRegex
-		pattern="[0-9]+" />
-						</p:inputText>
+		Thời gian: 
+		<p:inputText id="timeDuring" size="47"
+						value="#{adsItemBeans.adsItemAdd.timeDuring}" required="false"
+						validatorMessage="Pháº£i nháº­p sá»‘" label="Refer Price">
+						
+
+					</p:inputText>
+					<p:message for="timeDuring" style="color:red"></p:message>
+
+		SDT
+					<p:inputText id="phone" size="47"
+						value="#{adsItemBeans.adsItemAdd.numberPhone}" required="false"
+						validatorMessage="Pháº£i nháº­p sá»‘" label="Refer Price">
+						<f:validateRegex pattern="[0-9]+" />
+					</p:inputText>
 					<p:message for="phone" style="color:red"></p:message>
-					Đại chỉ: 
-		<p:inputText id="address" size="47" 
+					Ä�áº¡i chá»‰: 
+		<p:inputText id="address" size="47"
 						value="#{adsItemBeans.adsItemAdd.address}" required="false"
 						label="Refer Price" />
 					<p:message for="address" style="color:red"></p:message>
 					Email: 
-		<p:inputText id="email" size="47"  mask="*@*"
+		<p:inputText id="email" size="47" mask="*@*"
 						value="#{adsItemBeans.adsItemAdd.email}" required="false"
-						label="Email"  validatorMessage="Email chưa đúng chuẩn. (abc@gmail.com)">
+						label="Email"
+						validatorMessage="Email chÆ°a Ä‘Ãºng chuáº©n. (abc@gmail.com)">
 						<f:validateRegex
-		pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
-						</p:inputText>
-						<h:panelGroup>
+							pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+					</p:inputText>
+					<h:panelGroup>
 						<p:message for="email" style="color:red"></p:message>
-						</h:panelGroup>
+					</h:panelGroup>
 					
 					Facebook: 
 		<p:inputText id="facebook" size="47"
@@ -342,29 +364,30 @@
 						value="#{adsItemBeans.adsItemAdd.twitter}" required="false"
 						label="Refer Price" />
 					<p:message for="twitter" style="color:red"></p:message>
-					Mô Tả: 
+					MÃ´ Táº£: 
 		<p:inputTextarea id="decription" style="width:250px"
 						value="#{adsItemBeans.adsItemAdd.description}" required="false"
 						label="Refer Price" />
 					<p:message for="decription" style="color:red"></p:message>
-					Thẻ (*): 
+					Tháº» (*): 
 		<p:inputText id="tagsAdd" size="47"
-						value="#{adsItemBeans.adsItemAdd.tags}" required="true" requiredMessage="Thẻ không được bỏ trống."
-						label="Thẻ" />
+						value="#{adsItemBeans.adsItemAdd.tags}" required="true"
+						requiredMessage="Tháº» khÃ´ng Ä‘Æ°á»£c bá»� trá»‘ng."
+						label="Tháº»" />
 					<p:message for="tagsAdd" style="color:red"></p:message>
 
 
 
 				</h:panelGrid>
 
-				<p:commandButton action="#{adsItemBeans.addAdsItem}" value="Lưu"
+				<p:commandButton action="#{adsItemBeans.addAdsItem}" value="LÆ°u"
 					update=":formTable:dishTable :formTable:messages pAddDish"
 					oncomplete="handleLoginRequest(xhr, status, args)">
 				</p:commandButton>
-				<p:commandButton value="Reset" type="reset" /> 
-				<p:commandButton value="Thoát" onclick="addDishDlg.hide()">
+				<p:commandButton value="Reset" type="reset" />
+				<p:commandButton value="ThoÃ¡t" onclick="addDishDlg.hide()">
 				</p:commandButton>
-				
+
 
 			</p:dialog>
 		</h:form>
