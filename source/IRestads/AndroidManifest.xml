@@ -22,7 +22,8 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name="com.irestads.MainActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:screenOrientation="landscape" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -31,7 +32,8 @@
         </activity>
         <activity
             android:name=".MainListActivity"
-            android:label="MainListActivity" >
+            android:label="MainListActivity"
+            android:screenOrientation="landscape" >
             <intent-filter>
                 <action android:name="android.intent.action.MainListActivity" />
 
@@ -40,7 +42,8 @@
         </activity>
         <activity
             android:name=".OrderDishActivity"
-            android:label="OrderDishActivity" >
+            android:label="OrderDishActivity"
+            android:screenOrientation="landscape" >
             <intent-filter>
                 <action android:name="android.intent.action.OrderDishActivity" />
 
@@ -51,6 +54,7 @@
             android:name=".SettingsActivity"
             android:label="@string/settings_label"
             android:logo="@drawable/settings"
+            android:screenOrientation="landscape"
             android:theme="@style/AppTheme" >
             <intent-filter>
                 <action android:name="android.intent.action.SettingsActivity" />
@@ -60,7 +64,8 @@
         </activity>
         <activity
             android:name=".PaymentActivity"
-            android:label="PaymentActivity" >
+            android:label="PaymentActivity"
+            android:screenOrientation="landscape" >
             <intent-filter>
                 <action android:name="android.intent.action.PaymentActivity" />
 
@@ -69,7 +74,8 @@
         </activity>
         <activity
             android:name=".AdsMainActivity"
-            android:label="AdsMainActivity" >
+            android:label="AdsMainActivity"
+            android:screenOrientation="landscape" >
             <intent-filter>
                 <action android:name="android.intent.action.AdsMainActivity" />
 
@@ -78,7 +84,8 @@
         </activity>
         <activity
             android:name=".AdsBookActivity"
-            android:label="AdsBookActivity" >
+            android:label="AdsBookActivity"
+            android:screenOrientation="landscape" >
             <intent-filter>
                 <action android:name="android.intent.action.AdsBookActivity" />
 

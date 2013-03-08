@@ -98,7 +98,7 @@ public class AdsItemDAO {
 	public long saveOrUpdateAds(AdsItemModel adsItemModel) {
 		ContentValues contentValues = new ContentValues();
 		contentValues.put(ADSITEM_COMPANY, adsItemModel.getCompanyName());
-		contentValues.put(ADSITEM_COMPANY, adsItemModel.getProductName());
+		contentValues.put(ADSITEM_PRODUCT, adsItemModel.getProductName());
 		contentValues.put(ADSITEM_NUMBERPHONE, adsItemModel.getNumberPhone());
 		contentValues.put(ADSITEM_EMAIL, adsItemModel.getEmail());
 		contentValues.put(ADSITEM_ADDRESS, adsItemModel.getAddress());
@@ -123,9 +123,23 @@ public class AdsItemDAO {
 		return result;
 	}
 
-	public List<AdsItemModel> getAllAdsItem() {
+	public List<AdsItemModel> getAllAdsItem(int type) {
 		List<AdsItemModel> adsItemModels = new ArrayList<AdsItemModel>();
-		Cursor cursor = db.query(ConfigDAO.DB_TABLE_ADSITEM, ADSITEM_GETCOLUMNS, null, null, null, null, null);
+
+		Cursor cursor;
+		switch (type) {
+		case 0:
+			cursor = db.query(ConfigDAO.DB_TABLE_ADSITEM, ADSITEM_GETCOLUMNS, ADSITEM_ITEMTYPE + "=?",
+					new String[] { AdsItemNormalModel.class.toString() }, null, null, null);
+			break;
+		case 1:
+			cursor = db.query(ConfigDAO.DB_TABLE_ADSITEM, ADSITEM_GETCOLUMNS, ADSITEM_ITEMTYPE + "=?",
+					new String[] { AdsItemContextModel.class.toString() }, null, null, null);
+			break;
+		default:
+			cursor = db.query(ConfigDAO.DB_TABLE_ADSITEM, ADSITEM_GETCOLUMNS, null, null, null, null, null);
+			break;
+		}
 		AdsItemModel model;
 		if (cursor.moveToFirst()) {
 			try {
@@ -163,11 +177,35 @@ public class AdsItemDAO {
 		return adsItemModels;
 	}
 
+	public List<AdsItemModel> getAdsItemContextByCategory(long id, boolean isHasAvatar) {
+		List<AdsItemModel> adsItemModels = new ArrayList<AdsItemModel>();
+
+		Cursor cursor = db.query(ConfigDAO.DB_TABLE_ADSITEM, ADSITEM_GETCOLUMNS, ADSITEM_CATEGORY + "= ? AND "
+				+ ADSITEM_ITEMTYPE + "= ?", new String[] { id + "", AdsItemContextModel.class.toString() }, null, null,
+				null);
+		AdsItemModel model;
+		if (cursor.moveToFirst()) {
+			try {
+				do {
+					model = convertAdsItemFromCusorNoAvatar(cursor);
+					if (isHasAvatar) {
+						model.setImageContent(getAvatarOfAdsItem(model.getAdsItemId()));
+					}
+					adsItemModels.add(model);
+				} while (cursor.moveToNext());
+			} finally {
+				// TODO: handle exception
+				cursor.close();
+			}
+		}
+		return adsItemModels;
+	}
+
 	public List<AdsItemModel> getAdsItemByTags(long id, String tags) {
 		List<AdsItemModel> adsItemModels = new ArrayList<AdsItemModel>();
 		String tagsQuery = convertTagsToSQLQuery(tags);
-		Cursor cursor = db.query(ConfigDAO.DB_TABLE_ADSITEM, ADSITEM_GETCOLUMNS, ADSITEM_ID + "!=? AND " + tagsQuery,
-				new String[] { id + "" }, null, null, null);
+		Cursor cursor = db.query(ConfigDAO.DB_TABLE_ADSITEM, ADSITEM_GETCOLUMNS, ADSITEM_ID + "!=? AND "+ADSITEM_ITEMTYPE+"!=? AND" + tagsQuery,
+				new String[] { id + "",AdsItemContextModel.class.toString() }, null, null, null);
 		AdsItemModel model;
 		if (cursor.moveToFirst()) {
 			try {
@@ -260,5 +298,9 @@ public class AdsItemDAO {
 
 	public void deleteAllAdsItem() {
 		db.delete(ConfigDAO.DB_TABLE_ADSITEM, "1", null);
+	}
+
+	public int deleteAdsItem(long adsId) {
+		return db.delete(ConfigDAO.DB_TABLE_ADSITEM, ADSITEM_ID + "?", new String[] { adsId + "" });
 	}
 }

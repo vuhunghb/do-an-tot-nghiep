@@ -132,7 +132,7 @@ public class OrderDishActivity extends Activity {
 	public void initTestData() {
 		long userSession = getUserSession();
 		/*----This Data will get from DB by userSession----*/
-		orderModel = new OrderModel(0, new Date(), false, new ArrayList<OrderLineModel>(), userSession);
+		orderModel = new OrderModel(0, new Date(), 0, new ArrayList<OrderLineModel>(), userSession);
 		// DishModel dish = CategoryModel.testData().get(0).getDishs().get(2);
 		// /*-----Test Data-----*/
 		// currentOrderLineModel = new OrderLineModel(dish, 1, 0, new Date(),
@@ -149,7 +149,7 @@ public class OrderDishActivity extends Activity {
 
 		if (orderModel.getOrderId() == 0) {
 			try {
-				orderModel = new OrderModel(0, new Date(), false, new ArrayList<OrderLineModel>(), new Date().getTime());
+				orderModel = new OrderModel(0, new Date(), 0, new ArrayList<OrderLineModel>(), new Date().getTime());
 				orderConnect.execute(OrderModel.class.toString(), orderModel, 0);
 				orderDAO.open();
 				orderDAO.saveOrUpdateOrder(orderModel);
@@ -162,7 +162,7 @@ public class OrderDishActivity extends Activity {
 		SharedPreferences sharedPreferences = getSharedPreferences(GenericUtil.PREFS_NAME, 0);
 		selectedDishId = sharedPreferences.getLong("scr1CurrentDishId", 0);
 		getCurrentOrderline(selectedDishId);
-		
+
 	}
 
 	public void getCurrentOrderline(long dishID) {
@@ -393,11 +393,6 @@ public class OrderDishActivity extends Activity {
 			startActivity(new Intent("android.intent.action.MainListActivity"));
 		} else if (stt == 1) {
 			int index = this.getCurrentOrderlineIndex(this.currentOrderLineModel.getDish().getDishID());
-
-			if (index != -1) {
-				this.orderModel.getListOrderLine().remove(index);
-			}
-
 			this.orderModel.getTotalCharge();
 			orderConnect = new OrderConnect(this);
 			orderConnect.execute(OrderLineModel.class.toString(), currentOrderLineModel, 1);
@@ -416,19 +411,24 @@ public class OrderDishActivity extends Activity {
 	public void addOrderLine() {
 		this.currentOrderLineModel.setNumOfDish(currentNumOfDish);
 		this.currentOrderLineModel.setStatus(1);
+		
+		orderConnect = new OrderConnect(this);
+		orderConnect.execute(OrderLineModel.class.toString(), currentOrderLineModel, 0);
+
+	}
+
+	public void createOrderLine() {
 		int index = this.getCurrentOrderlineIndex(this.currentOrderLineModel.getDish().getDishID());
+
+		orderLineDAO.open();
+		orderLineDAO.saveOrUpdateOrder(currentOrderLineModel);
+		orderLineDAO.close();
 
 		if (index != -1) {
 			this.orderModel.getListOrderLine().set(index, currentOrderLineModel);
 		} else {
 			this.orderModel.getListOrderLine().add(currentOrderLineModel);
 		}
-
-		orderConnect = new OrderConnect(this);
-		orderConnect.execute(OrderLineModel.class.toString(), currentOrderLineModel, 0);
-		orderLineDAO.open();
-		orderLineDAO.saveOrUpdateOrder(currentOrderLineModel);
-		orderLineDAO.close();
 		this.orderModel.getTotalCharge();
 
 		this.updateDishSelectedView();
@@ -481,7 +481,11 @@ public class OrderDishActivity extends Activity {
 		{
 			mnu5.setAlphabeticShortcut('e');
 			mnu5.setIcon(R.drawable.ic_launcher);
-
+		}
+		MenuItem mnu6 = menu.add(0, 5,5, function[4]);
+		{
+			mnu6.setAlphabeticShortcut('e');
+			mnu6.setIcon(R.drawable.ic_launcher);
 		}
 	}
 
@@ -500,7 +504,9 @@ public class OrderDishActivity extends Activity {
 		case 4:
 			startActivity(new Intent("android.intent.action.AdsBookActivity"));
 			return true;
-
+		case 5:
+			startActivity(new Intent(this,MainActivity.class));
+			return true;
 		default:
 			return false;
 		}

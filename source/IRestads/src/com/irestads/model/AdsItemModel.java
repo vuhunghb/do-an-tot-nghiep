@@ -20,7 +20,7 @@ public abstract class AdsItemModel {
 	String tags;
 	String itemType;
 	long categoryAdsId;
-
+	
 	public AdsItemModel(long adsItemId, String companyName, String numberPhone, String email, String address,
 			String facebook, String twitter, String description, byte[] imageContent, int timeDuring,
 			String productName, String tags, String itemType, long categoryAdsId) {
@@ -161,75 +161,4 @@ public abstract class AdsItemModel {
 
 	public abstract void setAdsItemTags(List<AdsItemModel> adsItemTags);
 
-	public static List<AdsItemModel> createTestData(Activity activity) {
-		List<AdsItemModel> adsItemModels = new ArrayList<AdsItemModel>();
-
-		Bitmap bitmap1 = BitmapFactory.decodeResource(activity.getResources(), R.drawable.img1);
-
-		Bitmap bitmap2 = BitmapFactory.decodeResource(activity.getResources(), R.drawable.img2);
-
-		Bitmap bitmap3 = BitmapFactory.decodeResource(activity.getResources(), R.drawable.img3);
-
-		Bitmap bitmap4 = BitmapFactory.decodeResource(activity.getResources(), R.drawable.img4);
-
-		Bitmap bitmap5 = BitmapFactory.decodeResource(activity.getResources(), R.drawable.img5);
-
-		AdsItemModel adsItemModel = new AdsItemNormalModel(
-				0,
-				"ABC 0",
-				"0808080808",
-				"hoangtuan877@gmail.com",
-				"7/77 KP1 BH DN",
-				"http://www.facebook.com/ABC0",
-				"https://twitter.com/ABC0",
-				"chúc mọi người luôn vui, sớm chính thức trở thành kỹ sư và tìm đc việc tốt ! cảm ơn lời chúc của mọi người",
-				ImageUtils.convertBitmapToArrayBite(bitmap1), 30, "San Pham 1", "A,B,C,D,E,F,G", 3);
-		AdsItemModel adsItemModel1 = new AdsItemNormalModel(
-				1,
-				"ABC 1",
-				"0808080808",
-				"ABCDEF@gmail.com",
-				"7/77 KP1 BH DN 1",
-				"http://www.facebook.com/ABC1",
-				"https://twitter.com/ABC1",
-				"chúc mọi người luôn vui, sớm chính thức trở thành kỹ sư và tìm đc việc tốt ! cảm ơn lời chúc của mọi người",
-				ImageUtils.convertBitmapToArrayBite(bitmap2), 10, "San Pham 2", "A,B,C,D,E,F,G", 4);
-		AdsItemModel adsItemModel2 = new AdsItemContextModel(
-				2,
-				"ABC 2",
-				"0808080808",
-				"ABCDEF@gmail.com",
-				"7/77 KP1 BH DN 2",
-				"http://www.facebook.com/ABC2",
-				"https://twitter.com/ABC2",
-				"chúc mọi người luôn vui, sớm chính thức trở thành kỹ sư và tìm đc việc tốt ! cảm ơn lời chúc của mọi người",
-				ImageUtils.convertBitmapToArrayBite(bitmap3), 60, "San Pham 3", "A,B,C,D,E,F,G", 3);
-		AdsItemModel adsItemModel3 = new AdsItemNormalModel(
-				3,
-				"ABC 3",
-				"0808080808",
-				"ABCDEF@gmail.com",
-				"7/77 KP1 BH DN 3",
-				"http://www.facebook.com/ABC3",
-				"https://twitter.com/ABC3",
-				"chúc mọi người luôn vui, sớm chính thức trở thành kỹ sư và tìm đc việc tốt ! cảm ơn lời chúc của mọi người",
-				ImageUtils.convertBitmapToArrayBite(bitmap4), 30, "San Pham 4", "A,B,C,D,E,F,G", 3);
-		AdsItemModel adsItemModel4 = new AdsItemContextModel(
-				4,
-				"ABC 4",
-				"0808080808",
-				"ABCDEF@gmail.com",
-				"7/77 KP1 BH DN 4",
-				"http://www.facebook.com/ABC4",
-				"https://twitter.com/ABC4",
-				"chúc mọi người luôn vui, sớm chính thức trở thành kỹ sư và tìm đc việc tốt ! cảm ơn lời chúc của mọi người",
-				ImageUtils.convertBitmapToArrayBite(bitmap5), 20, "San Pham 5", "A,B,C,D,E,F,G", 2);
-		adsItemModels.add(adsItemModel);
-		adsItemModels.add(adsItemModel1);
-		adsItemModels.add(adsItemModel2);
-		adsItemModels.add(adsItemModel3);
-		adsItemModels.add(adsItemModel4);
-
-		return adsItemModels;
-	}
 }

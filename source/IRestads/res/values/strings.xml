@@ -17,14 +17,21 @@
     <string name="scr2_comfirm_cancel_massage">Bạn chắc chắn muốn hủy món ăn này ? </string>
     <string name="scr2_comfirm_cancel_1">Đã tiến hành hủy món ăn</string>
     <string name="scr2_comfirm_cancel_2">Không thể hủy món ăn này vì món ăn đã được thực hiện</string>
+    
+    <string name="scr2_comfirm_notenoughdish_title">Đặt món thất bại</string>
+    <string name="scr2_comfirm_notenoughdish_massage">Không thể tiến hành đặt món ăn này, vì hiện tại chỉ còn : </string>
+     <string name="scr2_comfirm_notenoughdish_massage_postfix"> phần ăn.\n Xin vui lòng chọn lại số lượng món ăn thích hợp</string>
+    <string name="scr2_comfirm_notenoughdish_ok">Tắt thông báo</string>
 
     <string-array name="menu_src1_item_title">
         <item>Đặt món</item>
         <item>Chi tiết món ăn</item>
         <item>Thanh toán</item>
         <item>Quảng cáo</item>
+        <item>Trang chủ</item>
     </string-array>
-	<string name="menu_item_listdish">Danh sách món ăn</string>
+
+    <string name="menu_item_listdish">Danh sách món ăn</string>
     <string name="menu_function_title">Chức năng</string>
     <string name="menu_dialog_type_list">Menu type list</string>
     <string name="menu_dialog_type_view">Menu type view</string>
@@ -104,6 +111,7 @@
 
     <string-array name="order_status">
         <item>Chưa thanh toán</item>
+        <item>Chờ thanh toán</item>
         <item>Đã thanh toán</item>
     </string-array>
 
@@ -115,7 +123,6 @@
     <string name="ads_contact_report">Đã tiến hành gửi thông tin liên hệ đến đơn vị cung câp</string>
     <string name="ads_contact_report_faild">Quá trình gửi yêu cầu thất bại, xin kiểm tra kết nối mạng và thông tin đã điền</string>
     <string name="settings_resetdata_adsitem_title">Mục quảng cáo :</string>
-    
     <string name="menu_item_settings">Thiết lập</string>
 
 </resources>

@@ -3,6 +3,7 @@ package com.irestads.dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.irestads.model.CategoryAdsModel;
 import com.irestads.model.CategoryModel;
 import com.irestads.model.DishModel;
 
@@ -43,6 +44,7 @@ public class CategoryDAO {
 			String stringQuery = "CREATE TABLE " + ConfigDAO.DB_TABLE_CATEGORY + " (" + CATEGORY_ID
 					+ " INTEGER PRIMARY KEY, " + CATEGORY_NAME + " TEXT);";
 			db.execSQL(stringQuery);
+			
 		}
 
 		@Override
@@ -105,8 +107,8 @@ public class CategoryDAO {
 	public List<CategoryModel> getAllCategory() {
 		List<CategoryModel> categories = new ArrayList<CategoryModel>();
 		Cursor cursor = db.rawQuery("SELECT " + CATEGORY_ID + ", " + CATEGORY_NAME + " from "
-				+ ConfigDAO.DB_TABLE_CATEGORY + " WHERE " + CATEGORY_ID + " IN " + "( SELECT categoryId"
-				+ " FROM "+ConfigDAO.DB_TABLE_DISH+" )", null);
+				+ ConfigDAO.DB_TABLE_CATEGORY + " WHERE " + CATEGORY_ID + " IN " + "( SELECT categoryId" + " FROM "
+				+ ConfigDAO.DB_TABLE_DISH + " )", null);
 
 		if (cursor.moveToFirst()) {
 			CategoryModel category;

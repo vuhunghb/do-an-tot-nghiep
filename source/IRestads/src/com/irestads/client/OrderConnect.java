@@ -12,6 +12,8 @@ import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
 import org.xmlpull.v1.XmlPullParserException;
 
+import com.irestads.OrderDishActivity;
+import com.irestads.R;
 import com.irestads.dao.OrderLineDAO;
 import com.irestads.model.MenuLineModel;
 import com.irestads.model.OrderLineModel;
@@ -19,6 +21,8 @@ import com.irestads.model.OrderModel;
 import com.irestads.util.GenericUtil;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.AsyncTask;
 
 public class OrderConnect extends AsyncTask<Object, String, Boolean> {
@@ -34,51 +38,53 @@ public class OrderConnect extends AsyncTask<Object, String, Boolean> {
 		this.activity = activity;
 	}
 
+	int dishIsAvaiable = 0;
+	int resultOfTask = 0;
+	String modelName;
+
 	@Override
 	protected Boolean doInBackground(Object... params) {
 		// TODO Auto-generated method stub
 
-		String modelName = (String) params[0];
+		modelName = (String) params[0];
 		if (modelName.equalsIgnoreCase(OrderModel.class.toString())) {
-			handleOrderService(params);
+			return handleOrderService(params);
 		} else if (modelName.equalsIgnoreCase(OrderLineModel.class.toString())) {
-			handleOrderLineService(params);
+			return handleOrderLineService(params);
 		}
-		return false;
+		return true;
 	}
 
-	public void handleOrderService(Object... params) {
+	public boolean handleOrderService(Object... params) {
 		OrderModel orderModel = (OrderModel) params[1];
 		Integer actionType = (Integer) params[2];
 		switch (actionType) {
 		case 0:
-			this.createOrderServer(orderModel);
-			break;
+			return (this.createOrderServer(orderModel) > -1);
 		case 1:
-			this.deleteOrderById(orderModel);
-			break;
+			return deleteOrderById(orderModel);
 		case 2:
-			this.setWaitingStatus(orderModel.getOrderId());
-			break;
-
+			return setWaitingStatus(orderModel.getOrderId());
 		default:
 			break;
 		}
+		return false;
 	}
 
-	public void handleOrderLineService(Object... params) {
+	public boolean handleOrderLineService(Object... params) {
 		OrderLineModel orderLineModel = (OrderLineModel) params[1];
 		Integer actionType = (Integer) params[2];
+		boolean result = false;
 		switch (actionType) {
 		case 0:
-			this.createOrderLineServer(orderLineModel);
+			result = this.createOrderLineServer(orderLineModel) != -1;
 			break;
 		case 1:
-			this.deleteOrderLineById(orderLineModel);
-			break;
+			result =  this.deleteOrderLineById(orderLineModel);
 		default:
 			break;
 		}
+		return result;
 	}
 
 	@Override
@@ -91,7 +97,28 @@ public class OrderConnect extends AsyncTask<Object, String, Boolean> {
 	protected void onPostExecute(Boolean result) {
 		// TODO Auto-generated method stub
 		super.onPostExecute(result);
+		if (modelName.equals(OrderLineModel.class.toString())) {
+			if (resultOfTask == -1) {
+				new AlertDialog.Builder(activity)
+						.setTitle(activity.getResources().getString(R.string.scr2_comfirm_notenoughdish_title))
+						.setMessage(
+								activity.getResources().getString(R.string.scr2_comfirm_notenoughdish_massage)
+										+ dishIsAvaiable
+										+ activity.getResources().getString(
+												R.string.scr2_comfirm_notenoughdish_massage_postfix))
+						.setIcon(android.R.drawable.ic_dialog_alert)
+						.setPositiveButton(activity.getResources().getString(R.string.scr2_comfirm_notenoughdish_ok),
+								new DialogInterface.OnClickListener() {
 
+									public void onClick(DialogInterface dialog, int whichButton) {
+									}
+								}).show();
+			} else {
+				OrderDishActivity orDishActivity = (OrderDishActivity) activity;
+				orDishActivity.createOrderLine();
+			}
+
+		}
 	}
 
 	public Activity getActivity() {
@@ -107,9 +134,10 @@ public class OrderConnect extends AsyncTask<Object, String, Boolean> {
 		SoapObject request = new SoapObject(GenericUtil.NAMESPACE, GenericUtil.ORDER_METHOD_CREATE);
 		SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
 		envelope.setOutputSoapObject(request);
+
 		request.addProperty(orderAttr[0], orderModel.getOrderId());
 		request.addProperty(orderAttr[1], orderModel.getCharge());
-		request.addProperty(orderAttr[2], orderModel.isPayment());
+		request.addProperty(orderAttr[2], orderModel.getIsPayment());
 		request.addProperty(orderAttr[3], 0);
 		request.addProperty(orderAttr[4], GenericUtil.settingsModel.getTableName());
 		request.addProperty(orderAttr[5], orderModel.getCreateDate().getTime());
@@ -163,7 +191,6 @@ public class OrderConnect extends AsyncTask<Object, String, Boolean> {
 		SoapObject request = new SoapObject(GenericUtil.NAMESPACE, GenericUtil.ORDERLINE_METHOD_CREATE);
 		SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
 		envelope.setOutputSoapObject(request);
-
 		request.addProperty(orderLineAttr[0], orderLineModel.getOrderLineId());
 		request.addProperty(orderLineAttr[1], orderLineModel.getNumOfDish());
 		request.addProperty(orderLineAttr[3], orderLineModel.getStatus());
@@ -178,11 +205,20 @@ public class OrderConnect extends AsyncTask<Object, String, Boolean> {
 			SoapObject soapObject = (SoapObject) envelope.getResponse();
 			if (soapObject != null) {
 				resultId = Long.valueOf(soapObject.getProperty(orderLineAttr[0]).toString());
+				if (resultId == -1) {
+					dishIsAvaiable = Integer.parseInt(soapObject.getProperty(orderLineAttr[1]).toString());
+					resultOfTask = -1;
+				} else {
+					dishIsAvaiable = 0;
+					resultOfTask = 0;
+				}
 			}
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			dishIsAvaiable = 0;
+			resultOfTask = 0;
 		} catch (XmlPullParserException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -237,6 +273,22 @@ public class OrderConnect extends AsyncTask<Object, String, Boolean> {
 			e.printStackTrace();
 		}
 		return result;
+	}
+
+	public int getDishIsAvaiable() {
+		return dishIsAvaiable;
+	}
+
+	public void setDishIsAvaiable(int dishIsAvaiable) {
+		this.dishIsAvaiable = dishIsAvaiable;
+	}
+
+	public int getResultOfTask() {
+		return resultOfTask;
+	}
+
+	public void setResultOfTask(int resultOfTask) {
+		this.resultOfTask = resultOfTask;
 	}
 
 }

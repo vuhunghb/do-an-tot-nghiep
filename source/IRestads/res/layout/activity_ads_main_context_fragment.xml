@@ -13,6 +13,7 @@
         android:id="@+id/scr4_ads_main_context_inf"
         android:layout_width="650dp"
         android:layout_height="fill_parent"
+        android:alpha="1"
         android:background="#313131"
         android:clickable="true"
         android:visibility="invisible" >
@@ -27,6 +28,7 @@
                 android:id="@+id/scr4_ads_main_context_img"
                 android:layout_width="match_parent"
                 android:layout_height="fill_parent"
+                android:alpha="1"
                 android:scaleType="fitXY"
                 android:src="@drawable/cantfoundish" />
 

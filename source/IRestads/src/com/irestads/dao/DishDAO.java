@@ -18,6 +18,10 @@ import android.util.Log;
 @SuppressLint("NewApi")
 public class DishDAO {
 
+	Context context;
+	DishDAOHelper dishDAOHelper;
+	SQLiteDatabase db;
+
 	static String DISH_NAME = "dishname";
 	static String DESCRIPTION = "description";
 	static String DETAIL = "detail";
@@ -27,10 +31,6 @@ public class DishDAO {
 	static String NUM_OF_DINER = "numOfDiner";
 	static String DISH_ID = "_dishID";
 	static String CATEGORY_ID = "categoryId";
-
-	Context context;
-	DishDAOHelper dishDAOHelper;
-	SQLiteDatabase db;
 
 	public DishDAO(Context context) {
 		super();
@@ -51,6 +51,7 @@ public class DishDAO {
 			String createDishTableQuery = "CREATE TABLE dish (" + DISH_ID + " INTEGER PRIMARY KEY," + DISH_NAME
 					+ " TEXT, " + DESCRIPTION + " TEXT," + DETAIL + " TEXT," + AVATAR_IMG + " BLOB," + DETAIL_IMG
 					+ " TEXT," + REFER_PRICE + " NUMERIC," + NUM_OF_DINER + " NUMERIC," + CATEGORY_ID + " NUMERIC);";
+
 			try {
 				db.execSQL(createDishTableQuery);
 			} catch (Exception e) {
@@ -78,7 +79,6 @@ public class DishDAO {
 	}
 
 	public long insertDish(DishModel dish) {
-
 		ContentValues contentValues = new ContentValues();
 		contentValues.put(DISH_ID, dish.getDishID());
 		contentValues.put(DISH_NAME, dish.getDishName());
@@ -86,12 +86,9 @@ public class DishDAO {
 		contentValues.put(DETAIL, dish.getDetail());
 		contentValues.put(REFER_PRICE, dish.getReferPrice());
 		contentValues.put(NUM_OF_DINER, dish.getNumOfDiner());
-
 		contentValues.put(AVATAR_IMG, dish.getAvatarImg());
-
 		contentValues.put(DETAIL_IMG, dish.getDetailImg());
 		contentValues.put(CATEGORY_ID, dish.getCategoryId());
-
 		return db.insert(ConfigDAO.DB_TABLE_DISH, null, contentValues);
 	}
 

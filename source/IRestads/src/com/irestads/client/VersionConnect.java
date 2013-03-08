@@ -19,8 +19,12 @@ import org.xmlpull.v1.XmlPullParserException;
 import com.irestads.MainActivity;
 import com.irestads.R;
 import com.irestads.SettingsActivity;
+import com.irestads.dao.AdsItemDAO;
 import com.irestads.dao.DishDAO;
 import com.irestads.dao.MenuLineDAO;
+import com.irestads.model.AdsItemContextModel;
+import com.irestads.model.AdsItemModel;
+import com.irestads.model.AdsItemNormalModel;
 import com.irestads.model.DishModel;
 import com.irestads.model.LogTypeEnum;
 import com.irestads.model.MenuLineModel;
@@ -47,22 +51,24 @@ public class VersionConnect extends AsyncTask<Void, String, Long> {
 	private String[] versionAtr = { "versionId", "logObjName", "logObjId", "logType", "logDate" };
 	MenuLineDAO menuLineDAO;
 	DishDAO dishDAO;
+	AdsItemDAO adsItemDAO;
 	List<SoapObject> versionModels;
 
 	private static String[] className = { MainActivity.class.toString(), SettingsActivity.class.toString() };
 	public static List<String> listClassName = Arrays.asList(className);
 
-	 boolean check = false;
+	boolean check = false;
 
 	public VersionConnect(Activity activity) {
 		super();
 		this.activity = activity;
 		menuLineDAO = new MenuLineDAO(activity);
 		dishDAO = new DishDAO(activity);
+		adsItemDAO = new AdsItemDAO(activity);
 		GenericUtil.isConnected = true;
 		check = listClassName.contains(GenericUtil.currentActivity);
 		versionModels = checkIsMaxVersion();
-//		versionModels = new ArrayList<SoapObject>();
+		// versionModels = new ArrayList<SoapObject>();
 	}
 
 	@Override
@@ -86,6 +92,9 @@ public class VersionConnect extends AsyncTask<Void, String, Long> {
 						break;
 					case 1:
 						handleUpdateDish(logObjId, logType);
+						break;
+					case 2:
+						handleUpdateAds(logObjId, logType);
 						break;
 					default:
 						break;
@@ -135,6 +144,23 @@ public class VersionConnect extends AsyncTask<Void, String, Long> {
 			}
 		}
 		dishDAO.close();
+	}
+
+	public void handleUpdateAds(long logObjId, String logType) {
+		/*---update--*/
+		if (logType.equals(LogTypeEnum.CREATE.toString()) || logType.equals(LogTypeEnum.UPDATE.toString())) {
+			AdsItemModel adsItemModel = this.getAdsItemService(logObjId);
+			Long id = Long.valueOf(adsItemModel.getAdsItemId());
+			if (id != 0 && id != null) {
+				adsItemDAO.open();
+				adsItemDAO.saveOrUpdateAds(adsItemModel);
+				adsItemDAO.close();
+			}
+		} else {
+			adsItemDAO.open();
+			adsItemDAO.deleteAdsItem(logObjId);
+			adsItemDAO.close();
+		}
 	}
 
 	@Override
@@ -245,6 +271,60 @@ public class VersionConnect extends AsyncTask<Void, String, Long> {
 			e.printStackTrace();
 		}
 		return menuLineModel;
+	}
+
+	private AdsItemModel getAdsItemService(long adsId) {
+		SoapObject request = new SoapObject(GenericUtil.NAMESPACE, GenericUtil.ADSITEM_METHOD_GET);
+		SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+		envelope.setOutputSoapObject(request);
+		request.addProperty("adsItemId", Long.valueOf(adsId));
+		HttpTransportSE ht = new HttpTransportSE(GenericUtil.ADSITEM_URL);
+		AdsItemModel adsItemModel = null;
+
+		try {
+			ht.call(GenericUtil.NAMESPACE + "/" + GenericUtil.ADSITEM_METHOD_GET, envelope);
+			SoapObject soapObject = (SoapObject) envelope.getResponse();
+			if (soapObject != null) {
+				String address = soapObject.getProperty("address").toString();
+				long categoryAdsId = Long.valueOf(soapObject.getProperty("categoryAdsId").toString());
+				String companyName = soapObject.getProperty("companyName").toString();
+				companyName = (companyName.equals("string{}")) ? "" : companyName;
+				String description = soapObject.getProperty("description").toString();
+				description = (description.equals("string{}")) ? "" : description;
+				String email = soapObject.getProperty("email").toString();
+				email = (email.equals("string{}")) ? "" : email;
+				String facebook = soapObject.getProperty("facebook").toString();
+				facebook = (facebook.equals("string{}")) ? "" : facebook;
+				String itemType = soapObject.getProperty("itemType").toString();
+				String numberPhone = soapObject.getProperty("numberPhone").toString();
+				numberPhone = (numberPhone.equals("string{}")) ? "" : numberPhone;
+				String productName = soapObject.getProperty("productName").toString();
+				String tags = soapObject.getProperty("tags").toString();
+				int timeDuring = Integer.parseInt(soapObject.getProperty("timeDuring").toString());
+				String twitter = soapObject.getProperty("twitter").toString();
+
+				adsId = Long.valueOf(soapObject.getProperty("adsItemId").toString());
+				String avartarBase64 = soapObject.getProperty("imageContent").toString();
+				byte[] imageContent = new byte[] {};
+				if (!avartarBase64.equals("string{}")) {
+					imageContent = ImageUtils.decodeImage(avartarBase64);
+				}
+				if (itemType.equals("AdsItemContextModel")) {
+					adsItemModel = new AdsItemContextModel(adsId, companyName, numberPhone, email, address, facebook,
+							twitter, description, imageContent, timeDuring, productName, tags, categoryAdsId);
+				} else if (itemType.equals("AdsItemNormalModel")) {
+					adsItemModel = new AdsItemNormalModel(adsId, companyName, numberPhone, email, address, facebook,
+							twitter, description, imageContent, timeDuring, productName, tags, categoryAdsId);
+				}
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (XmlPullParserException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return adsItemModel;
 	}
 
 	private DishModel getDishService(long dishId) {

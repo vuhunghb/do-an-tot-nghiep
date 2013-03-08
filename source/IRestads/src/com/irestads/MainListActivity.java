@@ -385,7 +385,7 @@ public class MainListActivity extends Activity {
 		activities.add("android.intent.action.OrderDishActivity");
 		activities.add("android.intent.action.DetailDishActivity");
 		activities.add("android.intent.action.PaymentActivity");
-
+		activities.add("android.intent.action.AdsBookActivity");
 		menuDiaglog.setActivities(activities);
 		menuDiaglog.show(getFragmentManager(), "dialog");
 	};

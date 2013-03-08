@@ -42,11 +42,14 @@ public class GenericUtil {
 	public static String ORDERLINE_METHOD_DELETE = "deleteOrderLineById";
 	public static String ORDERLINE_METHOD_GET_BY_ORDER = "getOrderLineByOrder";
 
+	public static String ADSITEM_URL;
+	public static String ADSITEM_METHOD_GET = "findById";
+
 	public static SettingsModel settingsModel;
 
 	public static Timer timerAutoUpdate;
 	public static Timer timerAutoOrderUpdate;
-	public static String[] classNames = { "irestads.model.MenuLine", "irestads.model.Dish" };
+	public static String[] classNames = { "irestads.model.MenuLine", "irestads.model.Dish", "irestads.model.AdsItem" };
 
 	public static boolean isConnected = true;
 
@@ -69,6 +72,7 @@ public class GenericUtil {
 		DISH_URL = URL + "/DishsStore-portlet/api/axis/Plugin_dishsstore_DishService?wsdl";
 		ORDER_URL = URL + "/DishsStore-portlet/api/axis/Plugin_dishsstore_OrdersService?wsdl";
 		ORDERLINE_URL = URL + "/DishsStore-portlet/api/axis/Plugin_dishsstore_OrderLineService?wsdl";
+		ADSITEM_URL = URL + "/DishsStore-portlet/api/axis/Plugin_dishsstore_AdsItemService?wsdl";
 	}
 
 	@SuppressLint("SimpleDateFormat")
@@ -79,7 +83,6 @@ public class GenericUtil {
 		if (timerAutoUpdate != null) {
 			timerAutoUpdate.cancel();
 		}
-
 		Handler handler = new Handler();
 		UpdateTimerTask updateTimerTask = new UpdateTimerTask(activity, handler);
 

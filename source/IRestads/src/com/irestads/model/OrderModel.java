@@ -6,7 +6,7 @@ import java.util.List;
 public class OrderModel {
 	int charge;
 	Date createDate;
-	boolean isPayment;
+	int isPayment;
 	List<OrderLineModel> listOrderLine;
 	long orderId, userSession;
 
@@ -16,7 +16,7 @@ public class OrderModel {
 		orderId = 0;
 	}
 
-	public OrderModel(int charge, Date createDate, boolean isPayment,
+	public OrderModel(int charge, Date createDate, int isPayment,
 			List<OrderLineModel> listOrderLine, long orderID) {
 		super();
 		this.charge = charge;
@@ -42,11 +42,12 @@ public class OrderModel {
 		this.createDate = createDate;
 	}
 
-	public boolean isPayment() {
+
+	public int getIsPayment() {
 		return isPayment;
 	}
 
-	public void setPayment(boolean isPayment) {
+	public void setIsPayment(int isPayment) {
 		this.isPayment = isPayment;
 	}
 
