@@ -7,17 +7,22 @@ import java.util.List;
 import com.irestads.dao.AdsItemDAO;
 import com.irestads.model.AdsItemModel;
 import com.irestads.util.GenericUtil;
+import com.irestads.util.ImageUtils;
 import com.irestads.util.MyAnimationUtils;
 
 import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
@@ -27,14 +32,21 @@ import android.widget.Toast;
 
 @SuppressLint("NewApi")
 public class AdsBookActivity extends Activity {
-	GridView gridItem;
+	// GridView gridItem;
 	AdsItemDAO adsItemDAO;
 	LinearLayout categoriesLayout;
+	LinearLayout itemsLayout;
+	LinearLayout tagsContent;
 	ImageView toggleListButon;
+	ImageView imgAds;
 	boolean isShowListCategory = false;
 	List<AdsItemModel> adsItemModels;
+	long currentCategoryId;
+	long currentAdsItemId;
 
+	AdsBookListTopicFragment adsBookListTopicFragment;
 	AdsBookContactCompanyDialog adsBookContactCompanyDialog;
+	private AdsMainContextFragment contextFragment;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -46,27 +58,43 @@ public class AdsBookActivity extends Activity {
 		ActionBar actionBar = getActionBar();
 		actionBar.hide();
 		adsItemModels = new ArrayList<AdsItemModel>();
-
 		adsItemDAO = new AdsItemDAO(this);
-		gridItem = (GridView) findViewById(R.id.scr5_ads_book_griditem);
-		gridItem.setOnItemClickListener(onCliclItemGrid);
+		imgAds = (ImageView) findViewById(R.id.scr5_ads_book_image_ads);
+
 		categoriesLayout = (LinearLayout) findViewById(R.id.scr5_ads_book_categories_layout);
+		itemsLayout = (LinearLayout) findViewById(R.id.scr5_ads_book_items_layout);
+		tagsContent = (LinearLayout) findViewById(R.id.scr5_ads_book_tags_content);
 		toggleListButon = (ImageView) findViewById(R.id.scr5_ads_book_toggle_list);
 
 		adsBookContactCompanyDialog = new AdsBookContactCompanyDialog();
 	}
 
-	public void updateDataByCategory(long categoryId) {
-		/*--------TEST DATA-----*/
+	public void updateSelectedAdsItem(AdsItemModel adsItem) {
 		adsItemDAO.open();
-		adsItemModels = adsItemDAO.getAdsItemByCategory(categoryId);
+		adsItem.setImageContent(adsItemDAO.getAvatarOfAdsItem(adsItem.getAdsItemId()));
 		adsItemDAO.close();
-		/*--------TEST DATA-----*/
-		this.updateGridITem(adsItemModels);
+
+		imgAds.setImageBitmap(ImageUtils.getImageFromByteArray(adsItem.getImageContent(), getResources(),
+				R.drawable.cantfoundish));
+		if (contextFragment != null) {
+			Animation fadeOut = AnimationUtils.makeOutAnimation(this, true);
+			fadeOut.setDuration(2000);
+			tagsContent.setAnimation(fadeOut);
+		}
+
+		FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+		contextFragment = new AdsMainContextFragment(adsItem);
+		fragmentTransaction.replace(R.id.scr5_ads_book_tags_content, contextFragment);
+		fragmentTransaction.commitAllowingStateLoss();
+
+		Animation fadeInt = AnimationUtils.makeInAnimation(this, false);
+		fadeInt.setDuration(2000);
+		tagsContent.setAnimation(fadeInt);
+
 	}
 
 	public void updateGridITem(List<AdsItemModel> adsItemModels) {
-		gridItem.setAdapter(new AdsBookItemAdapter(this, adsItemModels));
+		// gridItem.setAdapter(new AdsBookItemAdapter(this, adsItemModels));
 	}
 
 	public OnItemClickListener onCliclItemGrid = new OnItemClickListener() {
@@ -81,15 +109,33 @@ public class AdsBookActivity extends Activity {
 
 	public void toggleListCategory(View view) {
 		if (isShowListCategory == false) {
-			categoriesLayout.setAnimation(MyAnimationUtils.inFromLeftAnimation());
+			categoriesLayout.setAnimation(MyAnimationUtils.inFromLeftAnimation(500));
 			categoriesLayout.setVisibility(View.VISIBLE);
-			toggleListButon.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.arrowleft));
+
 		} else {
-			categoriesLayout.setAnimation(MyAnimationUtils.outToLeftAnimation());
+			categoriesLayout.setAnimation(MyAnimationUtils.outToLeftAnimation(1000));
 			categoriesLayout.setVisibility(View.INVISIBLE);
-			toggleListButon.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.arrowright));
+			if (itemsLayout.getVisibility() == View.VISIBLE) {
+				Animation leftOut = AnimationUtils.makeOutAnimation(this, true);
+				leftOut.setDuration(1000);
+				itemsLayout.setAnimation(leftOut);
+				itemsLayout.setVisibility(View.INVISIBLE);
+			}
 		}
 		isShowListCategory = !isShowListCategory;
+	}
+
+	public void onClickCategory() {
+		adsBookListTopicFragment = new AdsBookListTopicFragment();
+		FragmentManager fragmentManager = getFragmentManager();
+		FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+		fragmentTransaction.replace(R.id.scr5_ads_book_items_fragment, adsBookListTopicFragment);
+		fragmentTransaction.commitAllowingStateLoss();
+
+		Animation leftIn = AnimationUtils.makeInAnimation(this, true);
+		leftIn.setDuration(1000);
+		itemsLayout.setAnimation(leftIn);
+		itemsLayout.setVisibility(View.VISIBLE);
 	}
 
 	@Override
@@ -134,6 +180,12 @@ public class AdsBookActivity extends Activity {
 			mnu4.setIcon(R.drawable.ic_launcher);
 
 		}
+		MenuItem mnu5 = menu.add(0, 4, 4, function[4]);
+		{
+			mnu5.setAlphabeticShortcut('d');
+			mnu5.setIcon(R.drawable.ic_launcher);
+
+		}
 	}
 
 	public boolean menuChoice(MenuItem item) {
@@ -151,8 +203,27 @@ public class AdsBookActivity extends Activity {
 		case 3:
 			startActivity(new Intent("android.intent.action.PaymentActivity"));
 			return true;
+		case 4:
+			startActivity(new Intent(this,MainActivity.class));
+			return true;
 		default:
 			return false;
 		}
+	}
+
+	public long getCurrentCategoryId() {
+		return currentCategoryId;
+	}
+
+	public void setCurrentCategoryId(long currentCategoryId) {
+		this.currentCategoryId = currentCategoryId;
+	}
+
+	public long getCurrentAdsItemId() {
+		return currentAdsItemId;
+	}
+
+	public void setCurrentAdsItemId(long currentAdsItemId) {
+		this.currentAdsItemId = currentAdsItemId;
 	}
 }

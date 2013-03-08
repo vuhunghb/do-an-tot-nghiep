@@ -49,8 +49,8 @@ public class OrderUpdateConnect extends AsyncTask<Object, Void, Void> {
 				paymentActivity = (PaymentActivity) object;
 				orderLineDAO = new OrderLineDAO(paymentActivity);
 				orderDAO = new OrderDAO(paymentActivity);
+				this.getOrderById(orderId);
 			}
-			this.getOrderById(orderId);
 			this.getOrderLinesByOrderId(orderId);
 		}
 		return null;
@@ -79,14 +79,15 @@ public class OrderUpdateConnect extends AsyncTask<Object, Void, Void> {
 			ht.call(GenericUtil.NAMESPACE + "/" + GenericUtil.ORDER_METHOD_GET, envelope);
 			SoapObject response = (SoapObject) envelope.getResponse();
 			long orderIds;
-			boolean isPayment, isWaiting;
+			int isPayment;
 			orderDAO.open();
 			if (response != null) {
 				orderIds = Long.valueOf(response.getProperty(OrderConnect.orderAttr[0]).toString());
-				isPayment = Boolean.valueOf(response.getProperty(OrderConnect.orderAttr[2]).toString());
-				isWaiting = Boolean.valueOf(response.getProperty(OrderConnect.orderAttr[6]).toString());
+				isPayment = Integer.valueOf(response.getProperty(OrderConnect.orderAttr[2]).toString());
+				// isWaiting =
+				// Boolean.valueOf(response.getProperty(OrderConnect.orderAttr[6]).toString());
 				orderDAO.updateOrderStatus(orderIds, isPayment);
-				if (isPayment == true && isWaiting == false) {
+				if (isPayment == 3) {
 					isStopping = true;
 				}
 			}
@@ -113,24 +114,26 @@ public class OrderUpdateConnect extends AsyncTask<Object, Void, Void> {
 
 		try {
 			ht.call(GenericUtil.NAMESPACE + "/" + GenericUtil.ORDERLINE_METHOD_GET_BY_ORDER, envelope);
+
 			List<SoapObject> response = (List<SoapObject>) envelope.getResponse();
-			long orderLineId;
-			int numOfFinishDish;
-			int statusDish;
-			OrderLineModel orderLineModel;
-			orderLineDAO.open();
+			if (response != null) {
+				long orderLineId;
+				int numOfFinishDish;
+				int statusDish;
+				OrderLineModel orderLineModel;
+				orderLineDAO.open();
 
-			for (SoapObject soapObject : response) {
-				orderLineId = Long.valueOf(soapObject.getProperty(OrderConnect.orderLineAttr[0]).toString());
-				numOfFinishDish = Integer.valueOf(soapObject.getProperty(OrderConnect.orderLineAttr[2]).toString());
-				statusDish = Integer.valueOf(soapObject.getProperty(OrderConnect.orderLineAttr[3]).toString());
-				orderLineModel = orderLineDAO.getOrderLineByIdNotDish(orderLineId);
-				orderLineModel.setNumOfFinishDish(numOfFinishDish);
-				orderLineModel.setStatus(statusDish);
-				orderLineDAO.saveOrUpdateOrder(orderLineModel);
+				for (SoapObject soapObject : response) {
+					orderLineId = Long.valueOf(soapObject.getProperty(OrderConnect.orderLineAttr[0]).toString());
+					numOfFinishDish = Integer.valueOf(soapObject.getProperty(OrderConnect.orderLineAttr[2]).toString());
+					statusDish = Integer.valueOf(soapObject.getProperty(OrderConnect.orderLineAttr[3]).toString());
+					orderLineModel = orderLineDAO.getOrderLineByIdNotDish(orderLineId);
+					orderLineModel.setNumOfFinishDish(numOfFinishDish);
+					orderLineModel.setStatus(statusDish);
+					orderLineDAO.saveOrUpdateOrder(orderLineModel);
+				}
+				orderLineDAO.close();
 			}
-			orderLineDAO.close();
-
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

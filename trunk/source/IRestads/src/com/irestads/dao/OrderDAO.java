@@ -95,7 +95,7 @@ public class OrderDAO {
 		ContentValues contentValues = new ContentValues();
 		contentValues.put(ORDER_CHARGE, orderModel.getTotalCharge());
 		contentValues.put(CREATE_DATE, GenericUtil.convertDateToStringSQL(orderModel.getCreateDate()));
-		contentValues.put(IS_PAYMENT, orderModel.isPayment());
+		contentValues.put(IS_PAYMENT, orderModel.getIsPayment());
 		long id = orderModel.getOrderId();
 		if (checkOrderExist(id) == true) {
 			db.update(ConfigDAO.DB_TABLE_ORDER, contentValues, ORDER_ID + "=" + id, null);
@@ -131,7 +131,7 @@ public class OrderDAO {
 		return orderModel;
 	}
 
-	public void updateOrderStatus(long orderId, boolean isPayment) {
+	public void updateOrderStatus(long orderId, int isPayment) {
 	
 		String sqlUpdate = "UPDATE " + ConfigDAO.DB_TABLE_ORDER + " SET " + IS_PAYMENT + "= ? WHERE " + ORDER_ID
 				+ "= ?";
@@ -145,7 +145,7 @@ public class OrderDAO {
 		int orderCharge = cursor.getInt(cursor.getColumnIndex(ORDER_CHARGE));
 		String dateString = cursor.getString(cursor.getColumnIndex(CREATE_DATE));
 		Date createDate = GenericUtil.convertDateFromStringSQL(dateString);
-		boolean isPayment = (cursor.getInt(cursor.getColumnIndex(IS_PAYMENT)) == 1) ? true : false;
+		int isPayment = cursor.getInt(cursor.getColumnIndex(IS_PAYMENT));
 		orderModel = new OrderModel(orderCharge, createDate, isPayment, new ArrayList<OrderLineModel>(), orderId);
 		orderLineDAO.open();
 		orderModel.setListOrderLine(orderLineDAO.getOrderLineByOrder(orderId));
@@ -159,7 +159,7 @@ public class OrderDAO {
 		int orderCharge = cursor.getInt(cursor.getColumnIndex(ORDER_CHARGE));
 		String dateString = cursor.getString(cursor.getColumnIndex(CREATE_DATE));
 		Date createDate = GenericUtil.convertDateFromStringSQL(dateString);
-		boolean isPayment = (cursor.getInt(cursor.getColumnIndex(IS_PAYMENT)) == 1) ? true : false;
+		int isPayment = cursor.getInt(cursor.getColumnIndex(IS_PAYMENT));
 		orderModel = new OrderModel(orderCharge, createDate, isPayment, new ArrayList<OrderLineModel>(), orderId);
 		return orderModel;
 	}

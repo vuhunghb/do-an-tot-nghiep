@@ -64,7 +64,7 @@ public class AdsMainActivity extends Activity implements ViewFactory {
 
 	Drawable drawable;
 	private FragmentManager fragmentManager;
-	AdsMainContextFragment contextFragment;
+	// AdsMainContextFragment contextFragment;
 
 	boolean onRunning = true;
 
@@ -88,8 +88,15 @@ public class AdsMainActivity extends Activity implements ViewFactory {
 
 		/*--------TEST BITMAP------------*/
 		adsItemDAO.open();
-		adsItemModels = adsItemDAO.getAllAdsItem();
+		adsItemModels = adsItemDAO.getAllAdsItem(0);
 		adsItemDAO.close();
+		if (adsItemModels.size() == 0) {
+			Bitmap defaultBM = BitmapFactory.decodeResource(getResources(), R.drawable.irestadsbg);
+			AdsItemModel adsDemo = new AdsItemNormalModel(0, "iRestads", "01674176084", "hoangtuan877@gmail.com",
+					"Biên Hòa-Đồng Nai", "", "", "Contact Me Now", ImageUtils.convertBitmapToArrayBite(defaultBM),
+					200000, "Ads For You", "", -1);
+			adsItemModels.add(adsDemo);
+		}
 		adsContactCompanyDialog = new AdsContactCompanyDialog(adsItemModels.get(currentItemIndex));
 		/*--------TEST BITMAP------------*/
 
@@ -140,21 +147,8 @@ public class AdsMainActivity extends Activity implements ViewFactory {
 
 			currentItem = adsItemModel;
 
-			if (currentItem.getItemType().equals(AdsItemContextModel.class.toString())) {
-				FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-				contextFragment = new AdsMainContextFragment(currentItem);
-				fragmentTransaction.replace(R.id.scr4_context_fragment, contextFragment);
-				fragmentTransaction.commitAllowingStateLoss();
-			} else {
-				if (contextFragment != null) {
-					FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-					fragmentTransaction.remove(contextFragment);
-					fragmentTransaction.commitAllowingStateLoss();
-				}
-				updateProductInf(adsItemModel);
-				adsContactCompanyDialog.setAdsItemModel(adsItemModel);
-			}
-
+			updateProductInf(adsItemModel);
+			adsContactCompanyDialog.setAdsItemModel(adsItemModel);
 			currentItemIndex++;
 			if (currentItemIndex > (adsItemModels.size() - 1)) {
 				currentItemIndex = 0;
@@ -261,6 +255,12 @@ public class AdsMainActivity extends Activity implements ViewFactory {
 			mnu5.setIcon(R.drawable.ic_launcher);
 
 		}
+		MenuItem mnu6 = menu.add(0, 5, 5, function[4]);
+		{
+			mnu6.setAlphabeticShortcut('e');
+			mnu6.setIcon(R.drawable.ic_launcher);
+
+		}
 	}
 
 	public boolean menuChoice(MenuItem item) {
@@ -281,7 +281,9 @@ public class AdsMainActivity extends Activity implements ViewFactory {
 		case 4:
 			startActivity(new Intent("android.intent.action.AdsBookActivity"));
 			return true;
-
+		case 5:
+			startActivity(new Intent(this,MainActivity.class));
+			return true;
 		default:
 			return false;
 		}

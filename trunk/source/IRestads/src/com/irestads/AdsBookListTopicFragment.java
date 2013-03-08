@@ -17,11 +17,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 @SuppressLint("NewApi")
-public class AdsBookListCategoriesFragment extends ListFragment {
+public class AdsBookListTopicFragment extends ListFragment {
 	AdsBookActivity adsBookActivity;
 	AdsItemDAO adsItemDAO;
-	CategoryAdsDAO categoryAdsDAO;
-	List<CategoryAdsModel> categoryAdsModels;
+	List<AdsItemModel> adsItemModels;
 	String[] values;
 	static int currentIndex = 0;
 
@@ -30,30 +29,27 @@ public class AdsBookListCategoriesFragment extends ListFragment {
 		// TODO Auto-generated method stub
 		super.onActivityCreated(savedInstanceState);
 		adsBookActivity = (AdsBookActivity) getActivity();
-		categoryAdsDAO = new CategoryAdsDAO(adsBookActivity);
-		categoryAdsDAO.open();
-		categoryAdsModels = categoryAdsDAO.getAllCategory(1);
-		categoryAdsDAO.close();
-		values = new String[categoryAdsModels.size()];
-		for (int i = 0; i < categoryAdsModels.size(); i++) {
-			values[i] = categoryAdsModels.get(i).getCategoryAdsName();
+
+		adsItemDAO = new AdsItemDAO(adsBookActivity);
+		adsItemDAO.open();
+		long currentCategoryId = adsBookActivity.getCurrentCategoryId();
+		adsItemModels = adsItemDAO.getAdsItemContextByCategory(currentCategoryId, false);
+		adsItemDAO.close();
+
+		values = new String[adsItemModels.size()];
+		for (int i = 0; i < adsItemModels.size(); i++) {
+			String name = adsItemModels.get(i).getProductName();
+			values[i] = (name != null && name != "") ? name : "Not found";
 		}
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1,
 				values);
 		setListAdapter(adapter);
-		if (categoryAdsModels.size() > 0) {
-			adsBookActivity.setCurrentCategoryId(categoryAdsModels.get(0).getCategoryAdsId());
-		} else {
-			adsBookActivity.setCurrentCategoryId(Long.valueOf(-1));
-		}
-		adsItemDAO = new AdsItemDAO(adsBookActivity);
-		// adsBookActivity.updateDataByCategory(categoryAdsModels.get(currentIndex).getCategoryAdsId());
 	}
 
 	@Override
 	public void onListItemClick(ListView l, View v, int position, long id) {
 		currentIndex = position;
-		adsBookActivity.setCurrentCategoryId(categoryAdsModels.get(currentIndex).getCategoryAdsId());
-		adsBookActivity.onClickCategory();
+		adsBookActivity.updateSelectedAdsItem(adsItemModels.get(currentIndex));
+		adsBookActivity.toggleListCategory(v);
 	}
 }

@@ -3,7 +3,9 @@ package com.irestads.dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.irestads.model.AdsItemContextModel;
 import com.irestads.model.AdsItemModel;
+import com.irestads.model.AdsItemNormalModel;
 import com.irestads.model.CategoryAdsModel;
 
 import android.annotation.SuppressLint;
@@ -102,11 +104,25 @@ public class CategoryAdsDAO {
 		return count > 0;
 	}
 
-	public List<CategoryAdsModel> getAllCategory() {
+	public List<CategoryAdsModel> getAllCategory(int type) {
 		List<CategoryAdsModel> categories = new ArrayList<CategoryAdsModel>();
-		Cursor cursor = db.query(ConfigDAO.DB_TABLE_CATEGORY_ADS, new String[] { CATEGORY_ADS_ID, CATEGORY_ADS_NAME },
-				CATEGORY_ADS_ID + " IN ( SELECT " + CATEGORY_ADS_ID + " FROM " + ConfigDAO.DB_TABLE_ADSITEM + " )",
-				null, null, null, null);
+		Cursor cursor;
+		String subQuery = "";
+		switch (type) {
+		case 0:
+			subQuery = "SELECT " + CATEGORY_ADS_ID + " FROM " + ConfigDAO.DB_TABLE_ADSITEM + " WHERE itemType = '"
+					+ AdsItemNormalModel.class.toString() + "'";
+			break;
+		case 1:
+			subQuery = "SELECT " + CATEGORY_ADS_ID + " FROM " + ConfigDAO.DB_TABLE_ADSITEM + " WHERE itemType = '"
+					+ AdsItemContextModel.class.toString() + "'";
+			break;
+		default:
+			subQuery = "SELECT " + CATEGORY_ADS_ID + " FROM " + ConfigDAO.DB_TABLE_ADSITEM;
+			break;
+		}
+		cursor = db.query(ConfigDAO.DB_TABLE_CATEGORY_ADS, new String[] { CATEGORY_ADS_ID, CATEGORY_ADS_NAME },
+				CATEGORY_ADS_ID + " IN ( " + subQuery + " )", null, null, null, null);
 
 		if (cursor.moveToFirst()) {
 			CategoryAdsModel category;

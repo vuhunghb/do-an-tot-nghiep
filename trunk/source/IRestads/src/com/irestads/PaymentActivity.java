@@ -105,9 +105,9 @@ public class PaymentActivity extends Activity {
 
 		totalPrice.setText(orderModel.getTotalCharge() + "");
 		numOfDish.setText(FormatOutputUtils.formatIntToString(orderModel.getListOrderLine().size(), 1));
-		String statusValue = (orderModel.isPayment() == false) ? orderStatusValue[0] : orderStatusValue[1];
+		String statusValue = orderStatusValue[orderModel.getIsPayment()];
 		orderStatus.setText(statusValue);
-		createDate.setText((orderModel.isPayment() == false) ? orderStatusValue[0] : GenericUtil
+		createDate.setText((orderModel.getIsPayment() != 3) ? orderStatusValue[0] : GenericUtil
 				.convertDateToStringSQL(orderModel.getCreateDate()));
 		rightContent.removeAllViews();
 		listItemsLayout = new ArrayList<LinearLayout>();
@@ -292,7 +292,11 @@ public class PaymentActivity extends Activity {
 		{
 			mnu5.setAlphabeticShortcut('e');
 			mnu5.setIcon(R.drawable.ic_launcher);
-
+		}
+		MenuItem mnu6 = menu.add(0, 5, 5, function[4]);
+		{
+			mnu6.setAlphabeticShortcut('e');
+			mnu6.setIcon(R.drawable.ic_launcher);
 		}
 	}
 
@@ -307,10 +311,13 @@ public class PaymentActivity extends Activity {
 			return true;
 		case 2:
 			Toast.makeText(this, "Choice 2", Toast.LENGTH_SHORT).show();
-			return true;		case 4:
+			return true;
+		case 4:
 			startActivity(new Intent("android.intent.action.AdsBookActivity"));
 			return true;
-
+		case 5:
+			startActivity(new Intent(this,MainActivity.class));
+			return true;
 		default:
 			return false;
 		}

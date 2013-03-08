@@ -43,6 +43,7 @@ import org.xmlpull.v1.XmlPullParserException;
 import com.irestads.dao.AdsItemDAO;
 import com.irestads.dao.CategoryAdsDAO;
 import com.irestads.dao.CategoryDAO;
+import com.irestads.dao.ConfigDAO;
 import com.irestads.dao.DishDAO;
 import com.irestads.dao.MenuLineDAO;
 import com.irestads.dao.OrderDAO;
@@ -58,6 +59,7 @@ import com.irestads.util.UpdateTimerTask;
 
 @SuppressLint({ "NewApi", "UseValueOf" })
 public class MainActivity extends Activity {
+	BroadcastReceiver mReceiver;
 
 	@SuppressWarnings("deprecation")
 	@Override
@@ -88,12 +90,14 @@ public class MainActivity extends Activity {
 				GenericUtil.DELAY);
 		Settings.System.putInt(getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, GenericUtil.DELAY);
 
-		IntentFilter filter = new IntentFilter(Intent.ACTION_SCREEN_ON);
-		filter.addAction(Intent.ACTION_SCREEN_OFF);
-		BroadcastReceiver mReceiver = new LockScreenReceiver();
-		registerReceiver(mReceiver, filter);
-		/*---------- Register Broadcast Lock Screen-----------*/
+		if (mReceiver == null) {
+			IntentFilter filter = new IntentFilter(Intent.ACTION_SCREEN_ON);
+			filter.addAction(Intent.ACTION_SCREEN_OFF);
+			mReceiver = new LockScreenReceiver();
+			registerReceiver(mReceiver, filter);
+		}
 
+		/*---------- Register Broadcast Lock Screen-----------*/
 	}
 
 	@Override
@@ -101,34 +105,16 @@ public class MainActivity extends Activity {
 		// TODO Auto-generated method stub
 		super.onDestroy();
 		Settings.System.putInt(getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, GenericUtil.DEFTIMEOUT);
-
+		unregisterReceiver(mReceiver);
 	}
 
 	/***
 	 * This method to setup DB Because DB is created in first time
 	 */
 	public void settupDB() {
-		CategoryDAO categoryDAO = new CategoryDAO(this);
-		categoryDAO.open();
-		categoryDAO.close();
-		DishDAO dishDAO = new DishDAO(this);
-		dishDAO.open();
-		dishDAO.close();
-		MenuLineDAO menuLineDAO = new MenuLineDAO(this);
-		menuLineDAO.open();
-		menuLineDAO.close();
-		OrderDAO orderDAO = new OrderDAO(this);
-		orderDAO.open();
-		orderDAO.close();
-		OrderLineDAO orderLineDAO = new OrderLineDAO(this);
-		orderLineDAO.open();
-		orderLineDAO.close();
-		AdsItemDAO adsItemDAO = new AdsItemDAO(this);
-		adsItemDAO.open();
-		adsItemDAO.close();
-		CategoryAdsDAO categoryAdsDAO = new CategoryAdsDAO(this);
-		categoryAdsDAO.open();
-		categoryAdsDAO.close();
+		ConfigDAO configDAO = new ConfigDAO(this);
+		configDAO.open();
+		configDAO.close();
 	}
 
 	public void createCategoryTest() {
@@ -188,30 +174,30 @@ public class MainActivity extends Activity {
 			mnu1.setIcon(R.drawable.ic_launcher);
 
 		}
-//		MenuItem mnu2 = menu.add(0, 1, 1, "Item 2");
-//		{
-//			mnu2.setAlphabeticShortcut('b');
-//			mnu2.setIcon(R.drawable.ic_launcher);
-//
-//		}
-//		MenuItem mnu3 = menu.add(0, 2, 2, "Item 3");
-//		{
-//			mnu3.setAlphabeticShortcut('c');
-//			mnu3.setIcon(R.drawable.ic_launcher);
-//
-//		}
-//		MenuItem mnu4 = menu.add(0, 3, 3, "Item 4");
-//		{
-//			mnu4.setAlphabeticShortcut('d');
-//			mnu4.setIcon(R.drawable.ic_launcher);
-//
-//		}
-//		MenuItem mnu5 = menu.add(0, 4, 4, "Item 5");
-//		{
-//			mnu5.setAlphabeticShortcut('e');
-//			mnu5.setIcon(R.drawable.ic_launcher);
-//
-//		}
+		// MenuItem mnu2 = menu.add(0, 1, 1, "Item 2");
+		// {
+		// mnu2.setAlphabeticShortcut('b');
+		// mnu2.setIcon(R.drawable.ic_launcher);
+		//
+		// }
+		// MenuItem mnu3 = menu.add(0, 2, 2, "Item 3");
+		// {
+		// mnu3.setAlphabeticShortcut('c');
+		// mnu3.setIcon(R.drawable.ic_launcher);
+		//
+		// }
+		// MenuItem mnu4 = menu.add(0, 3, 3, "Item 4");
+		// {
+		// mnu4.setAlphabeticShortcut('d');
+		// mnu4.setIcon(R.drawable.ic_launcher);
+		//
+		// }
+		// MenuItem mnu5 = menu.add(0, 4, 4, "Item 5");
+		// {
+		// mnu5.setAlphabeticShortcut('e');
+		// mnu5.setIcon(R.drawable.ic_launcher);
+		//
+		// }
 	}
 
 	public boolean menuChoice(MenuItem item) {

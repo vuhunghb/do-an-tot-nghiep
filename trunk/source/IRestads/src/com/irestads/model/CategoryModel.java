@@ -16,8 +16,7 @@ public class CategoryModel {
 	String categoryName;
 	List<DishModel> dishs;
 
-	public CategoryModel(long categoryId, String categoryName,
-			List<DishModel> dishs) {
+	public CategoryModel(long categoryId, String categoryName, List<DishModel> dishs) {
 		super();
 		this.categoryId = categoryId;
 		this.categoryName = categoryName;
@@ -64,62 +63,33 @@ public class CategoryModel {
 	}
 
 	public static List<CategoryModel> testData() {
-
-		/* Step 1 : get List Dish like from Database */
-		List<DishModel> listDishTest = new ArrayList<DishModel>();
-
-		String imgURL = "http://ngoinhaamthuc.vn/upload/images/an-hai-san-2.jpg";
-		BitmapFactory.Options bmOptions;
-		bmOptions = new BitmapFactory.Options();
-		bmOptions.inSampleSize = 1;
-
-		Bitmap bm = ImageUtils.LoadImage(imgURL, bmOptions);
-		byte[] data = ImageUtils.convertBitmapToArrayBite(bm);
-//		String stringData = ImageUtils.encodeImage(data);
-		
-		String[] categoryName = { "A", "B", "C", "D", "E", "F", "G", "H", "I",
-				"J", "K", "L", "M", "N", "O", "P", "Q" };
-
 		List<CategoryModel> categories = new ArrayList<CategoryModel>();
-		CategoryModel category;
-		DishModel model;
-
-		for (int i = 0; i < categoryName.length; i++) {
-
-			for (int j = 0; j < 20; j++) {
-				long dishId = (i * 20) + j;
-				String desciption = "Phục vụ thực khách đòi hỏi bạn không những phải biết rỏ những món trong menu để trả lời thắc mắc của khách, mà còn phải biết cách mời chào những món ăn thức uống sao cho hấp dẫn và tỏ ra chìu ý khách. Đó là chất lượng phục vụ không thể thiếu trong một nhà hàng thành công";
-				desciption += desciption;
-				byte[] empty = {};
-				data = (data != null && data.length > 0)?data : empty;
-				model = new DishModel(dishId, categoryName[i] + j, desciption,
-						"", data, "", 150000, j % 4, i);
-
-				listDishTest.add(model);
-			}
-		}
-
-		/*--Step 2 Get and Grouping Category--*/
-		groupingDishInCategory(listDishTest);
-		categories = new ArrayList<CategoryModel>(groupingDishInCategory(listDishTest).values());
-		
+		CategoryModel categoryModel = new CategoryModel(1, "Khai vị", new ArrayList<DishModel>());
+		CategoryModel categoryModel1 = new CategoryModel(2, "Món chính", new ArrayList<DishModel>());
+		CategoryModel categoryModel2 = new CategoryModel(3, "Nước uống", new ArrayList<DishModel>());
+		CategoryModel categoryModel3 = new CategoryModel(4, "Món ăn nhanh", new ArrayList<DishModel>());
+		CategoryModel categoryModel4 = new CategoryModel(5, "Điểm tâm", new ArrayList<DishModel>());
+		CategoryModel categoryModel5 = new CategoryModel(5, "Món chiên", new ArrayList<DishModel>());
+		categories.add(categoryModel);
+		categories.add(categoryModel1);
+		categories.add(categoryModel2);
+		categories.add(categoryModel3);
+		categories.add(categoryModel4);
+		categories.add(categoryModel5);
 		return categories;
 	}
 
-	public static Map<Long, CategoryModel> groupingDishInCategory(
-			List<DishModel> dishs) {
+	public static Map<Long, CategoryModel> groupingDishInCategory(List<DishModel> dishs) {
 		Map<Long, CategoryModel> categories = new HashMap<Long, CategoryModel>();
 		CategoryModel category;
 		DishModel dish;
-		String[] categoryName = { "A", "B", "C", "D", "E", "F", "G", "H", "I",
-				"J", "K", "L", "M", "N", "O", "P", "Q" };
+		String[] categoryName = { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q" };
 		for (int i = 0; i < dishs.size(); i++) {
 			dish = dishs.get(i);
 			long categoryId = dish.getCategoryId();
 			if (categories.containsKey(dish.getCategoryId()) != true) {
 				/*--- will get from database --*/
-				category = new CategoryModel(categoryId,
-						categoryName[Integer.parseInt(categoryId + "")],
+				category = new CategoryModel(categoryId, categoryName[Integer.parseInt(categoryId + "")],
 						new ArrayList<DishModel>());
 				/*--- will get from database --*/
 				categories.put(categoryId, category);

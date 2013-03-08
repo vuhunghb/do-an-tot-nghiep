@@ -12,7 +12,6 @@ import android.util.Log;
 
 public class UpdateTimerTask extends TimerTask {
 	public static boolean isDoTask = true;
-	int i = 0;
 	Activity activity;
 	Handler handler;
 	static VersionConnect versionConnect;

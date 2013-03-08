@@ -31,7 +31,7 @@ public class AdsMainContextFragment extends Fragment {
 	LinearLayout mainContext;
 	ImageView currentProductImage;
 	int selectedIndex = 0;
-	private AdsContactCompanyDialog adsContactCompanyDialog;
+	private AdsBookContactCompanyDialog adsContactCompanyDialog;
 	AdsItemDAO adsItemDAO;
 
 	public AdsMainContextFragment() {
@@ -62,7 +62,7 @@ public class AdsMainContextFragment extends Fragment {
 	public void onStart() {
 		// TODO Auto-generated method stub
 		super.onStart();
-		adsContactCompanyDialog = new AdsContactCompanyDialog();
+		adsContactCompanyDialog = new AdsBookContactCompanyDialog();
 		adsListItems = (LinearLayout) getActivity().findViewById(R.id.scr4_ads_main_context_list_tags);
 		adsItemInf = (RelativeLayout) getActivity().findViewById(R.id.scr4_ads_main_context_inf);
 		currentProductImage = (ImageView) getActivity().findViewById(R.id.scr4_ads_main_context_img);
@@ -116,7 +116,7 @@ public class AdsMainContextFragment extends Fragment {
 			int index = imageView.getId();
 			selectedAsdItem = adsItemContextModel.getAdsItemTags().get(index);
 			adsItemInf.setVisibility(View.VISIBLE);
-			adsItemInf.setAnimation(MyAnimationUtils.inFromRightAnimation());
+			adsItemInf.setAnimation(MyAnimationUtils.inFromRightAnimation(500));
 			currentProductImage.setImageBitmap(ImageUtils.getImageFromByteArray(selectedAsdItem.getImageContent(),
 					getActivity().getResources(), R.drawable.cantfoundish));
 		}
@@ -127,7 +127,7 @@ public class AdsMainContextFragment extends Fragment {
 		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
-			adsItemInf.setAnimation(MyAnimationUtils.outToLeftAnimation());
+			adsItemInf.setAnimation(MyAnimationUtils.outToLeftAnimation(500));
 			adsItemInf.setVisibility(View.INVISIBLE);
 
 		}

@@ -5,9 +5,6 @@ import java.util.Date;
 
 public class SettingsModel implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -1910535642840573764L;
 
 	long currentVersion, maxVersion;
