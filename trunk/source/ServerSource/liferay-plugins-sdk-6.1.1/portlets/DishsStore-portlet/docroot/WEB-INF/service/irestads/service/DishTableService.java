@@ -68,4 +68,7 @@ public interface DishTableService extends BaseService, InvokableService {
 	public java.util.List<irestads.model.DishTable> getAllDishTables();
 
 	public irestads.model.DishTable updateDishTable(irestads.model.DishTable dt);
+
+	public irestads.model.DishTable updateTableStatus(
+		java.lang.String idTable, boolean value, long orderId);
 }

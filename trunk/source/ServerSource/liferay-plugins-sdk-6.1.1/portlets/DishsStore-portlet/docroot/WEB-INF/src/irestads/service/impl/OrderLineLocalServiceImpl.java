@@ -74,7 +74,7 @@ public class OrderLineLocalServiceImpl extends OrderLineLocalServiceBaseImpl {
 			MenuLine menuLine = MenuLineUtil.findByDishId(dishId);
 			if (menuLine.getNumOfDish() < numOfDish) {
 				orderLineModel.setOrderLineId(-1);
-				orderLineModel.setNumOfDish(numOfDish);
+				orderLineModel.setNumOfDish(menuLine.getNumOfDish());
 			} else if ((menuLine.getNumOfDish() > numOfDish) && (menuLine.getNumOfDish() != 0)) {
 				orderLineModel = OrderLineUtil.update(orderLineModel, true);
 				int temp = menuLine.getNumOfDish() - numOfDish;

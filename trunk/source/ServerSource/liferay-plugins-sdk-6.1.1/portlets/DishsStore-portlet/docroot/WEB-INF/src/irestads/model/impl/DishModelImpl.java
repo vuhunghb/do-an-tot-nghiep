@@ -72,17 +72,17 @@ public class DishModelImpl extends BaseModelImpl<Dish> implements DishModel {
 			{ "createDate", Types.TIMESTAMP },
 			{ "modifiedDate", Types.TIMESTAMP },
 			{ "dishName", Types.VARCHAR },
-			{ "decription", Types.VARCHAR },
+			{ "decription", Types.CLOB },
 			{ "avatarImg", Types.VARCHAR },
 			{ "avatarBaseCode", Types.CLOB },
 			{ "detailImg", Types.VARCHAR },
 			{ "detailBaseCode", Types.CLOB },
-			{ "detail", Types.VARCHAR },
+			{ "detail", Types.CLOB },
 			{ "referPrice", Types.INTEGER },
 			{ "numOfDiner", Types.INTEGER },
 			{ "categoryId", Types.BIGINT }
 		};
-	public static final String TABLE_SQL_CREATE = "create table dishsstore_Dish (dishId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,dishName VARCHAR(75) null,decription VARCHAR(75) null,avatarImg VARCHAR(75) null,avatarBaseCode TEXT null,detailImg VARCHAR(75) null,detailBaseCode TEXT null,detail VARCHAR(75) null,referPrice INTEGER,numOfDiner INTEGER,categoryId LONG)";
+	public static final String TABLE_SQL_CREATE = "create table dishsstore_Dish (dishId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,dishName VARCHAR(75) null,decription TEXT null,avatarImg VARCHAR(75) null,avatarBaseCode TEXT null,detailImg VARCHAR(75) null,detailBaseCode TEXT null,detail TEXT null,referPrice INTEGER,numOfDiner INTEGER,categoryId LONG)";
 	public static final String TABLE_SQL_DROP = "drop table dishsstore_Dish";
 	public static final String ORDER_BY_JPQL = " ORDER BY dish.dishName ASC";
 	public static final String ORDER_BY_SQL = " ORDER BY dishsstore_Dish.dishName ASC";

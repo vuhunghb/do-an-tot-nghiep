@@ -60,7 +60,7 @@
 
 			</h:panelGrid>
 
-			<p:dataTable id="menuLineTable" var="ml"
+			<p:dataTable id="menuLineTable" var="ml" rowIndexVar="idx"
 				value="#{menuBeans.menuLines}" paginator="true" rows="10"
 				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 				rowsPerPageTemplate="1,2,5,10,15" sortBy="#{ml.menuLineId}"
@@ -70,7 +70,7 @@
 					update=":formTable:menuLineTable :formTable:messages" />
 				<p:columnGroup type="header">
 					<p:row>
-						<p:column width="50" headerText="Mã" />
+						<p:column headerText="STT"></p:column>
 						<p:column width="100" headerText="Tên" />
 						<p:column headerText="Mô tả" />
 						<p:column headerText="Giá TK" />
@@ -81,8 +81,7 @@
 					</p:row>
 				</p:columnGroup>
 				<p:column>
-				<h:outputText value="#{ml.dish.dishId}" /> 
-				
+				<h:outputText value="#{idx+1}" />
 				</p:column>
 				<p:column>
 					<h:outputText value="#{ml.dish.dishName}" />
@@ -127,7 +126,7 @@
 				</p:column>
 			</p:dataTable>
 			<p:dialog header="Thông tin chi tiết" widgetVar="dishDialog"
-				resizable="false" width="300" showEffect="clip" hideEffect="fold"
+				resizable="false" width="400" showEffect="clip" hideEffect="fold"
 				id="viewDialog">
 
 				<h:panelGrid id="display" columns="2" cellpadding="4">
@@ -143,26 +142,31 @@
 					<h:outputText style="font-weight:bold"
 						value="#{categoryBeans.getCategoryNameByID(menuBeans.menuLineSelected.dish.categoryId)}" />
 
-					<h:outputText value="Giá tha khảo:" />
+					<h:outputText value="Giá :" />
 					<h:outputText style="font-weight:bold"
 						value="#{menuBeans.menuLineSelected.dish.referPrice}" />
 
 					<h:outputText value="Mô tả:" />
 					<h:outputText style="font-weight:bold"
 						value="#{menuBeans.menuLineSelected.dish.decription}" />
+						
 					<h:outputText value="Ảnh đại diện:" />
-			<!-- 		<h:outputText style="font-weight:bold"
-						value="#{menuBeans.menuLineSelected.dish.avatarImg}" /> -->
-				   <p:graphicImage value="#{menuBeans.img}" style="width: 60px; height: 60px"></p:graphicImage>		
-					<h:outputText value="Mô tả:" />
+			 		<h:outputText style="font-weight:bold"
+						value="#{menuBeans.menuLineSelected.dish.avatarImg}" /> 
+				
+						
+					<h:outputText value="Ảnh chi tiết:" />
 					<h:outputText style="font-weight:bold"
 						value="#{menuBeans.menuLineSelected.dish.detailImg}" />
+						
 					<h:outputText value="Chi tiết:" />
 					<h:outputText style="font-weight:bold"
 						value="#{menuBeans.menuLineSelected.dish.detail}" />
+						
 					<h:outputText value="Số lượng:" />
 					<h:outputText style="font-weight:bold"
 						value="#{menuBeans.menuLineSelected.numOfDish}" />
+						
 					<h:outputText value="Trạng thái:" />
 					<h:outputText style="font-weight:bold"
 						value="#{menuBeans.parseBooleanToShow(menuBeans.menuLineSelected.status)}" />
@@ -247,7 +251,7 @@
 			<p:dialog header="Lấy món ăn từ kho" widgetVar="storeDishsDlg"
 				resizable="false" width="755" showEffect="clip" hideEffect="fold"
 				id="addFromDishStoreDlg">
-				<p:messages id="msgs" />
+			<!-- 	<p:messages id="msgs" /> -->
 				<p:growl id="growl" sticky="true" showDetail="true" />
 
 				<p:wizard widgetVar="wiz" flowListener="#{menuBeans.onFlowProcess}">

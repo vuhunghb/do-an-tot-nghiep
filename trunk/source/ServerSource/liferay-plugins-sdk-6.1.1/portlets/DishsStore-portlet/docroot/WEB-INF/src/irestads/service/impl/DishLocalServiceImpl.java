@@ -206,16 +206,10 @@ public class DishLocalServiceImpl extends DishLocalServiceBaseImpl {
 	public boolean isDeleteDish(long dishId){
 		MenuLine menuLine;
 		try {
-			try {
-				menuLine = MenuLineUtil.findByDishId(dishId);
-				if(menuLine==null){
-					return true;
-				}
-			} catch (NoSuchMenuLineException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			menuLine = MenuLineUtil.fetchByDishId(dishId);
+			if(menuLine==null){
+				return true;
 			}
-			
 		} catch (SystemException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

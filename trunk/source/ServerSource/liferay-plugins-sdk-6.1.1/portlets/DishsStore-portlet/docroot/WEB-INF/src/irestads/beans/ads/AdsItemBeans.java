@@ -76,6 +76,7 @@ public class AdsItemBeans {
 
 	public void onEdit(RowEditEvent event) {
 		try {
+			System.out.println("edit abc ");
 			AdsItem adsItem = (AdsItem) event.getObject();
 			adsItem = AdsItemServiceUtil.updateAdsItem(adsItem);
 			String message = "Không thể thực hiện thay đổi thông tin Quảng Cáo";
@@ -201,7 +202,7 @@ public class AdsItemBeans {
 	}
 
 	public String toStrAdsType( String value){
-		if(value.equals("eAdsItemContextModel")){
+		if(value.equals("AdsItemContextModel")){
 			return "Theo ngữ cảnh";
 		}else if(value.equals("AdsItemNormalModel")){
 			return "Bình thường";

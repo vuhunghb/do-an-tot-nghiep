@@ -55,4 +55,7 @@ public class DishTableServiceImpl extends DishTableServiceBaseImpl {
 			return null;
 		}
 	}
+	public DishTable updateTableStatus(String idTable, boolean value, long orderId) {
+		return DishTableLocalServiceUtil.updateTableStatus(idTable, value,orderId);
+	}
 }

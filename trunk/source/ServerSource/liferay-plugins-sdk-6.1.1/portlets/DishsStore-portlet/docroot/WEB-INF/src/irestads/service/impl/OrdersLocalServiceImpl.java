@@ -25,6 +25,7 @@ import irestads.model.Dish;
 import irestads.model.OrderLine;
 import irestads.model.Orders;
 import irestads.model.OrdersModel;
+import irestads.service.DishTableServiceUtil;
 import irestads.service.OrderLineServiceUtil;
 import irestads.service.OrdersLocalServiceUtil;
 import irestads.service.OrdersServiceUtil;
@@ -91,6 +92,7 @@ public class OrdersLocalServiceImpl extends OrdersLocalServiceBaseImpl {
 		//o.setIsWaiting(false);
 		try {
 			o=OrdersUtil.update(o, true);
+			DishTableServiceUtil.updateTableStatus(dishTableId, true, o.getOrderId());
 			return o;
 		} catch (SystemException e) {
 			// TODO Auto-generated catch block

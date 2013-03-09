@@ -246,4 +246,7 @@ public interface DishTableLocalService extends BaseLocalService,
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public java.util.List<irestads.model.DishTable> getAllDishTables();
+
+	public irestads.model.DishTable updateTableStatus(
+		java.lang.String idTable, boolean value, long orderId);
 }

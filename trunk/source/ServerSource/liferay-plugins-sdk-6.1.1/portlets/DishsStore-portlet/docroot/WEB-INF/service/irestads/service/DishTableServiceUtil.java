@@ -71,6 +71,11 @@ public class DishTableServiceUtil {
 		return getService().updateDishTable(dt);
 	}
 
+	public static irestads.model.DishTable updateTableStatus(
+		java.lang.String idTable, boolean value, long orderId) {
+		return getService().updateTableStatus(idTable, value, orderId);
+	}
+
 	public static void clearService() {
 		_service = null;
 	}

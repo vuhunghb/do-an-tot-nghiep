@@ -61,7 +61,8 @@ Liferay.Service.registerClass(
 	Liferay.Service.dishsstore, "DishTable",
 	{
 		getAllDishTables: true,
-		updateDishTable: true
+		updateDishTable: true,
+		updateTableStatus: true
 	}
 );
 

@@ -253,10 +253,10 @@ public class MenuBeans {
 		try {
 			MenuLine menuLine = (MenuLine) event.getObject();
 			menuLine = MenuLineServiceUtil.updateMenuLine(menuLine);
-			String message = "KhÃ´ng thá»ƒ thá»±c hiá»‡n thay Ä‘á»•i thÃ´ng tin thá»±c Ä‘Æ¡n";
+			String message = "Không thể thay đổi thông tin món ăn.";
 			FacesMessage msg = null;
 			if (menuLine != null) {
-				message = "Ä�Ã£ thay Ä‘á»•i thÃ´ng tin thá»±c Ä‘Æ¡n thÃ nh cÃ´ng";
+				message = "Thay đổi thông tin món ăn thành công.";
 				MenuLineServiceUtil.setDishForMenuLine(menuLine);
 				this.getMenuLinesDB();
 				msg = new FacesMessage(message, menuLine.getDish().getDishId()
@@ -275,10 +275,11 @@ public class MenuBeans {
 	public String addMenuLine() {
 		FacesMessage msg = null;
 		//menuLineAdd.getDish().setAvatarBaseCode(base64ImgAvatar);
+		menuLineAdd.setStatus(true);
 		MenuLine menuLine = MenuLineServiceUtil.createMenuLineDish(menuLineAdd);
-		String message = "KhÃ´ng thÃªm thá»±c Ä‘Æ¡n";
+		String message = "Thêm món ăn không thành công.";
 		if (menuLine != null) {
-			message = "Ä�Ã£ thÃªm  thá»±c Ä‘Æ¡n thÃ nh cÃ´ng";
+			message = "Thêm món ăn thành công.";
 			MenuLineServiceUtil.setDishForMenuLine(menuLine);
 			this.getMenuLinesDB();
 			msg = new FacesMessage(message, menuLine.getDish().getDishId()
@@ -295,16 +296,16 @@ public class MenuBeans {
 
 			List<MenuLine> mlSaved = MenuLineServiceUtil
 					.createMenuLine(this.candidateMenuLine);
-			String message = "ThÃªm thá»±c Ä‘Æ¡n khÃ´ng thÃ nh cÃ´ng";
+			String message = "Thêm món ăn không thành công.";
 			if (mlSaved.size() > 0) {
-				message = "Ä�Ã£ thÃªm  thá»±c Ä‘Æ¡n thÃ nh cÃ´ng";
-				msg = new FacesMessage(message, "Sá»‘ lÆ°á»£ng Ä‘Ã£ thÃªm lÃ : "
+				message = "Thêm món ăn thành công";
+				msg = new FacesMessage(message, "số lượng : "
 						+ mlSaved.size());
 				this.getMenuLinesDB();
 				this.findDishNotInMenu();
 			}
 		} else {
-			msg = new FacesMessage("ChÆ°a chá»�n mÃ³n Äƒn Ä‘á»ƒ thÃªm", "");
+			msg = new FacesMessage("Chưa thêm thành công.", "");
 		}
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 		return "menu.xhtml";
@@ -314,9 +315,9 @@ public class MenuBeans {
 
 		MenuLine menuLine = MenuLineServiceUtil
 				.deleteMenuLine(menuLineSelected);
-		String message = "KhÃ´ng thá»ƒ thá»±c hiá»‡n xÃ³a thá»±c Ä‘Æ¡n.";
+		String message = "Không xóa được món ăn.";
 		if (menuLine != null) {
-			message = "Ä�Ã£ xÃ³a thá»±c Ä‘Æ¡n thÃ nh cÃ´ng";
+			message = "Xóa món ăn thành công.";
 			this.getMenuLinesDB();
 			this.findDishNotInMenu();
 		}
@@ -404,7 +405,7 @@ public class MenuBeans {
 	}
 
 	public String parseBooleanToShow(boolean value) {
-		return MenuLineServiceUtil.parseBooleanToShow(value, "CÃ²n", "Háº¿t");
+		return MenuLineServiceUtil.parseBooleanToShow(value, "Còn", "Hết");
 	}
 
 	public MenuLine getMenuLineAdd() {
