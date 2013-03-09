@@ -109,6 +109,12 @@ public class DishTableLocalServiceClp implements DishTableLocalService {
 		_methodName19 = "getAllDishTables";
 
 		_methodParameterTypes19 = new String[] {  };
+
+		_methodName20 = "updateTableStatus";
+
+		_methodParameterTypes20 = new String[] {
+				"java.lang.String", "boolean", "long"
+			};
 	}
 
 	public irestads.model.DishTable addDishTable(
@@ -660,6 +666,36 @@ public class DishTableLocalServiceClp implements DishTableLocalService {
 		return (java.util.List<irestads.model.DishTable>)ClpSerializer.translateOutput(returnObj);
 	}
 
+	public irestads.model.DishTable updateTableStatus(
+		java.lang.String idTable, boolean value, long orderId) {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName20,
+					_methodParameterTypes20,
+					new Object[] {
+						ClpSerializer.translateInput(idTable),
+						
+					value,
+						
+					orderId
+					});
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (irestads.model.DishTable)ClpSerializer.translateOutput(returnObj);
+	}
+
 	private InvokableLocalService _invokableLocalService;
 	private String _methodName0;
 	private String[] _methodParameterTypes0;
@@ -699,4 +735,6 @@ public class DishTableLocalServiceClp implements DishTableLocalService {
 	private String[] _methodParameterTypes17;
 	private String _methodName19;
 	private String[] _methodParameterTypes19;
+	private String _methodName20;
+	private String[] _methodParameterTypes20;
 }

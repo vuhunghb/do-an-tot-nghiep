@@ -94,5 +94,21 @@ public class DishTableServiceSoap {
 		}
 	}
 
+	public static irestads.model.DishTableSoap updateTableStatus(
+		java.lang.String idTable, boolean value, long orderId)
+		throws RemoteException {
+		try {
+			irestads.model.DishTable returnValue = DishTableServiceUtil.updateTableStatus(idTable,
+					value, orderId);
+
+			return irestads.model.DishTableSoap.toSoapModel(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
 	private static Log _log = LogFactoryUtil.getLog(DishTableServiceSoap.class);
 }

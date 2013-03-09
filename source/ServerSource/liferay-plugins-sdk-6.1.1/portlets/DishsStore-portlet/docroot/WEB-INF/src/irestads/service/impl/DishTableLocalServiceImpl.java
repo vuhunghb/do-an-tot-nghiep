@@ -87,4 +87,20 @@ public class DishTableLocalServiceImpl extends DishTableLocalServiceBaseImpl {
 		}
 		return null;
 	}
+	public DishTable updateTableStatus(String idTable, boolean value, long orderId) {
+		try {
+			DishTable dishTable = DishTableUtil.fetchByPrimaryKey(idTable);
+			if (dishTable != null && dishTable.getDishTableId().equals(idTable)) {
+				dishTable.setIsAvalable(value);
+				dishTable.setCurrentOrderId(orderId);
+				dishTable=DishTableUtil.update(dishTable, true);
+				return dishTable;
+			}
+
+		} catch (SystemException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
 }

@@ -38,6 +38,12 @@ public class DishTableServiceClpInvoker {
 		_methodName93 = "updateDishTable";
 
 		_methodParameterTypes93 = new String[] { "irestads.model.DishTable" };
+
+		_methodName94 = "updateTableStatus";
+
+		_methodParameterTypes94 = new String[] {
+				"java.lang.String", "boolean", "long"
+			};
 	}
 
 	public Object invokeMethod(String name, String[] parameterTypes,
@@ -62,6 +68,13 @@ public class DishTableServiceClpInvoker {
 			return DishTableServiceUtil.updateDishTable((irestads.model.DishTable)arguments[0]);
 		}
 
+		if (_methodName94.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes94, parameterTypes)) {
+			return DishTableServiceUtil.updateTableStatus((java.lang.String)arguments[0],
+				((Boolean)arguments[1]).booleanValue(),
+				((Long)arguments[2]).longValue());
+		}
+
 		throw new UnsupportedOperationException();
 	}
 
@@ -73,4 +86,6 @@ public class DishTableServiceClpInvoker {
 	private String[] _methodParameterTypes92;
 	private String _methodName93;
 	private String[] _methodParameterTypes93;
+	private String _methodName94;
+	private String[] _methodParameterTypes94;
 }

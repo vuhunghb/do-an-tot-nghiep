@@ -208,7 +208,11 @@
 		<operation xmlns:operNS="urn:http.service.irestads" xmlns:rtns="http://model.irestads" name="updateDishTable" qname="operNS:updateDishTable" returnQName="updateDishTableReturn" returnType="rtns:DishTableSoap" soapAction="">
 			<parameter xmlns:tns="http://model.irestads" qname="dt" type="tns:DishTableSoap"></parameter>
 		</operation>
-		<parameter name="allowedMethods" value="getAllDishTables updateDishTable" />
+		<operation xmlns:operNS="urn:http.service.irestads" xmlns:rtns="http://model.irestads" name="updateTableStatus" qname="operNS:updateTableStatus" returnQName="updateTableStatusReturn" returnType="rtns:DishTableSoap" soapAction="">
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="idTable" type="tns:string"></parameter>
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="value" type="tns:boolean"></parameter>
+		</operation>
+		<parameter name="allowedMethods" value="getAllDishTables updateDishTable updateTableStatus" />
 		<parameter name="className" value="irestads.service.http.DishTableServiceSoap" />
 		<parameter name="schemaUnqualified" value="http://model.irestads,urn:http.service.irestads" />
 		<parameter name="typeMappingVersion" value="1.2" />

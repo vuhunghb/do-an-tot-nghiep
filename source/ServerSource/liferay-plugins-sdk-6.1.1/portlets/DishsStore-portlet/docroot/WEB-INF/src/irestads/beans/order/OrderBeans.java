@@ -47,9 +47,9 @@ public class OrderBeans {
 
 	public String loadImg(boolean isAvailable) {
 		if (isAvailable == true) {
-			return "/img/2.jpg";
+			return "/img/2.png";
 		} else {
-			return "/img/1.jpg";
+			return "/img/1.png";
 		}
 	}
 
@@ -163,11 +163,11 @@ public class OrderBeans {
 
 	public String toStringStatus(int value) {
 
-		if (value == 0) {
-			return "Hóa đơn Mơi";
-		} else if (value == 1) {
-			return "Đang thực hiện";
+		if (value == 1) {
+			return "Món mới gọi";
 		} else if (value == 2) {
+			return "Đang thực hiện";
+		} else if (value == 3) {
 			return "Đã hoàn tất";
 		}
 		return "";
@@ -214,6 +214,13 @@ public class OrderBeans {
 		System.out.println("view pm "+this.viewPayMentLable);
 		this.sumChargeOLineCurrent();
 	}
+	public void cancelViewPayment() {
+		this.viewPayMentLable=false;
+		this.bntPMent=false;
+	//	System.out.println("view pm "+this.viewPayMentLable);
+		//this.sumChargeOLineCurrent();
+	}
+	
 public int orderLineCharge(OrderLine ol){
 	return OrderLineServiceUtil.getCharge(ol);
 }

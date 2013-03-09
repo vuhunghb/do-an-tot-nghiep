@@ -277,6 +277,11 @@ public class DishTableLocalServiceUtil {
 		return getService().getAllDishTables();
 	}
 
+	public static irestads.model.DishTable updateTableStatus(
+		java.lang.String idTable, boolean value, long orderId) {
+		return getService().updateTableStatus(idTable, value, orderId);
+	}
+
 	public static void clearService() {
 		_service = null;
 	}

@@ -269,6 +269,11 @@ public class DishTableLocalServiceWrapper implements DishTableLocalService,
 		return _dishTableLocalService.getAllDishTables();
 	}
 
+	public irestads.model.DishTable updateTableStatus(
+		java.lang.String idTable, boolean value, long orderId) {
+		return _dishTableLocalService.updateTableStatus(idTable, value, orderId);
+	}
+
 	/**
 	 * @deprecated Renamed to {@link #getWrappedService}
 	 */

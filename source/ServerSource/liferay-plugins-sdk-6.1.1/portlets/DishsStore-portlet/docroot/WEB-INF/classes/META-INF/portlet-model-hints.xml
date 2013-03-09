@@ -52,7 +52,9 @@
 		<field name="createDate" type="Date" />
 		<field name="modifiedDate" type="Date" />
 		<field name="dishName" type="String" />
-		<field name="decription" type="String" />
+		<field name="decription" type="String">
+			<hint-collection name="CLOB" />
+		</field>
 		<field name="avatarImg" type="String" />
 		<field name="avatarBaseCode" type="String">
 			<hint-collection name="CLOB" />
@@ -61,7 +63,9 @@
 		<field name="detailBaseCode" type="String">
 			<hint-collection name="CLOB" />
 		</field>
-		<field name="detail" type="String" />
+		<field name="detail" type="String">
+			<hint-collection name="CLOB" />
+		</field>
 		<field name="referPrice" type="int" />
 		<field name="numOfDiner" type="int" />
 		<field name="categoryId" type="long" />

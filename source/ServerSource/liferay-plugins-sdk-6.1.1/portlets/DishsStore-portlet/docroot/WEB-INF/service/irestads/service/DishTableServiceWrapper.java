@@ -63,6 +63,11 @@ public class DishTableServiceWrapper implements DishTableService,
 		return _dishTableService.updateDishTable(dt);
 	}
 
+	public irestads.model.DishTable updateTableStatus(
+		java.lang.String idTable, boolean value, long orderId) {
+		return _dishTableService.updateTableStatus(idTable, value, orderId);
+	}
+
 	/**
 	 * @deprecated Renamed to {@link #getWrappedService}
 	 */
