@@ -76,6 +76,7 @@ public class AdsItemBeans {
 
 	public void onEdit(RowEditEvent event) {
 		try {
+			System.out.println("edit");
 			AdsItem adsItem = (AdsItem) event.getObject();
 			adsItem = AdsItemServiceUtil.updateAdsItem(adsItem);
 			String message = "Không thể thực hiện thay đổi thông tin Quảng Cáo";
@@ -103,7 +104,7 @@ public class AdsItemBeans {
 
 	public String addAdsItem() {
 		// RequestContext context = RequestContext.getCurrentInstance();
-		System.out.println("add");
+		
 		FacesMessage fmsg = null;
 		boolean result = false;
 		String msg;

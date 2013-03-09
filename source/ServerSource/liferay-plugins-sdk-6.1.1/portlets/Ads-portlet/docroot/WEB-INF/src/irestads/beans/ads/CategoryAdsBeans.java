@@ -24,7 +24,7 @@ public class CategoryAdsBeans implements Serializable {
 	private List<CategoryAds> categoryAds;
 	public CategoryAdsBeans() {
 		this.getAllCategoryAds();
-		System.out.println("ca"+categoryAds.size());
+		
 	}
 
 	public String getCategoryAdsNameByID(long categoryId) {

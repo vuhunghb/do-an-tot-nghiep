@@ -104,6 +104,7 @@ public class AdsItemLocalServiceImpl extends AdsItemLocalServiceBaseImpl {
 
 	public AdsItem updateAdsItem(AdsItem item) {
 		try {
+			System.out.println("update ver"+1);
 			AdsItem adsItem = AdsItemUtil.fetchByPrimaryKey(item.getAdsItemId());
 			
 			if (adsItem!= null && item.getAdsItemId() == adsItem.getAdsItemId()) {
@@ -123,6 +124,7 @@ public class AdsItemLocalServiceImpl extends AdsItemLocalServiceBaseImpl {
 
 				adsItem=AdsItemUtil.update(adsItem, true);
 				if (adsItem != null) {
+					System.out.println("update ver");
 					UVersionServiceUtil
 							.createVersion(adsItem.getAdsItemId(), AdsItem.class.getName(),
 									LogTypeEnum.UPDATE.toString());
