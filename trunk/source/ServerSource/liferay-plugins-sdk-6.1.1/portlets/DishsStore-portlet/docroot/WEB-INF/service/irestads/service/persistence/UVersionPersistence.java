@@ -214,39 +214,43 @@ public interface UVersionPersistence extends BasePersistence<UVersion> {
 			irestads.NoSuchUVersionException;
 
 	/**
-	* Returns all the u versions where logObjId = &#63;.
+	* Returns all the u versions where logObjName = &#63; and logObjId = &#63;.
 	*
+	* @param logObjName the log obj name
 	* @param logObjId the log obj ID
 	* @return the matching u versions
 	* @throws SystemException if a system exception occurred
 	*/
-	public java.util.List<irestads.model.UVersion> findBylogObjId(long logObjId)
+	public java.util.List<irestads.model.UVersion> findBylogObjIdAndName(
+		java.lang.String logObjName, long logObjId)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
-	* Returns a range of all the u versions where logObjId = &#63;.
+	* Returns a range of all the u versions where logObjName = &#63; and logObjId = &#63;.
 	*
 	* <p>
 	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
 	* </p>
 	*
+	* @param logObjName the log obj name
 	* @param logObjId the log obj ID
 	* @param start the lower bound of the range of u versions
 	* @param end the upper bound of the range of u versions (not inclusive)
 	* @return the range of matching u versions
 	* @throws SystemException if a system exception occurred
 	*/
-	public java.util.List<irestads.model.UVersion> findBylogObjId(
-		long logObjId, int start, int end)
+	public java.util.List<irestads.model.UVersion> findBylogObjIdAndName(
+		java.lang.String logObjName, long logObjId, int start, int end)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
-	* Returns an ordered range of all the u versions where logObjId = &#63;.
+	* Returns an ordered range of all the u versions where logObjName = &#63; and logObjId = &#63;.
 	*
 	* <p>
 	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
 	* </p>
 	*
+	* @param logObjName the log obj name
 	* @param logObjId the log obj ID
 	* @param start the lower bound of the range of u versions
 	* @param end the upper bound of the range of u versions (not inclusive)
@@ -254,75 +258,84 @@ public interface UVersionPersistence extends BasePersistence<UVersion> {
 	* @return the ordered range of matching u versions
 	* @throws SystemException if a system exception occurred
 	*/
-	public java.util.List<irestads.model.UVersion> findBylogObjId(
-		long logObjId, int start, int end,
+	public java.util.List<irestads.model.UVersion> findBylogObjIdAndName(
+		java.lang.String logObjName, long logObjId, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
-	* Returns the first u version in the ordered set where logObjId = &#63;.
+	* Returns the first u version in the ordered set where logObjName = &#63; and logObjId = &#63;.
 	*
+	* @param logObjName the log obj name
 	* @param logObjId the log obj ID
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the first matching u version
 	* @throws irestads.NoSuchUVersionException if a matching u version could not be found
 	* @throws SystemException if a system exception occurred
 	*/
-	public irestads.model.UVersion findBylogObjId_First(long logObjId,
+	public irestads.model.UVersion findBylogObjIdAndName_First(
+		java.lang.String logObjName, long logObjId,
 		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
 		throws com.liferay.portal.kernel.exception.SystemException,
 			irestads.NoSuchUVersionException;
 
 	/**
-	* Returns the first u version in the ordered set where logObjId = &#63;.
+	* Returns the first u version in the ordered set where logObjName = &#63; and logObjId = &#63;.
 	*
+	* @param logObjName the log obj name
 	* @param logObjId the log obj ID
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the first matching u version, or <code>null</code> if a matching u version could not be found
 	* @throws SystemException if a system exception occurred
 	*/
-	public irestads.model.UVersion fetchBylogObjId_First(long logObjId,
+	public irestads.model.UVersion fetchBylogObjIdAndName_First(
+		java.lang.String logObjName, long logObjId,
 		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
-	* Returns the last u version in the ordered set where logObjId = &#63;.
+	* Returns the last u version in the ordered set where logObjName = &#63; and logObjId = &#63;.
 	*
+	* @param logObjName the log obj name
 	* @param logObjId the log obj ID
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the last matching u version
 	* @throws irestads.NoSuchUVersionException if a matching u version could not be found
 	* @throws SystemException if a system exception occurred
 	*/
-	public irestads.model.UVersion findBylogObjId_Last(long logObjId,
+	public irestads.model.UVersion findBylogObjIdAndName_Last(
+		java.lang.String logObjName, long logObjId,
 		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
 		throws com.liferay.portal.kernel.exception.SystemException,
 			irestads.NoSuchUVersionException;
 
 	/**
-	* Returns the last u version in the ordered set where logObjId = &#63;.
+	* Returns the last u version in the ordered set where logObjName = &#63; and logObjId = &#63;.
 	*
+	* @param logObjName the log obj name
 	* @param logObjId the log obj ID
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the last matching u version, or <code>null</code> if a matching u version could not be found
 	* @throws SystemException if a system exception occurred
 	*/
-	public irestads.model.UVersion fetchBylogObjId_Last(long logObjId,
+	public irestads.model.UVersion fetchBylogObjIdAndName_Last(
+		java.lang.String logObjName, long logObjId,
 		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
-	* Returns the u versions before and after the current u version in the ordered set where logObjId = &#63;.
+	* Returns the u versions before and after the current u version in the ordered set where logObjName = &#63; and logObjId = &#63;.
 	*
 	* @param versionId the primary key of the current u version
+	* @param logObjName the log obj name
 	* @param logObjId the log obj ID
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the previous, current, and next u version
 	* @throws irestads.NoSuchUVersionException if a u version with the primary key could not be found
 	* @throws SystemException if a system exception occurred
 	*/
-	public irestads.model.UVersion[] findBylogObjId_PrevAndNext(
-		long versionId, long logObjId,
+	public irestads.model.UVersion[] findBylogObjIdAndName_PrevAndNext(
+		long versionId, java.lang.String logObjName, long logObjId,
 		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
 		throws com.liferay.portal.kernel.exception.SystemException,
 			irestads.NoSuchUVersionException;
@@ -378,12 +391,14 @@ public interface UVersionPersistence extends BasePersistence<UVersion> {
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
-	* Removes all the u versions where logObjId = &#63; from the database.
+	* Removes all the u versions where logObjName = &#63; and logObjId = &#63; from the database.
 	*
+	* @param logObjName the log obj name
 	* @param logObjId the log obj ID
 	* @throws SystemException if a system exception occurred
 	*/
-	public void removeBylogObjId(long logObjId)
+	public void removeBylogObjIdAndName(java.lang.String logObjName,
+		long logObjId)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
@@ -405,13 +420,14 @@ public interface UVersionPersistence extends BasePersistence<UVersion> {
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
-	* Returns the number of u versions where logObjId = &#63;.
+	* Returns the number of u versions where logObjName = &#63; and logObjId = &#63;.
 	*
+	* @param logObjName the log obj name
 	* @param logObjId the log obj ID
 	* @return the number of matching u versions
 	* @throws SystemException if a system exception occurred
 	*/
-	public int countBylogObjId(long logObjId)
+	public int countBylogObjIdAndName(java.lang.String logObjName, long logObjId)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**

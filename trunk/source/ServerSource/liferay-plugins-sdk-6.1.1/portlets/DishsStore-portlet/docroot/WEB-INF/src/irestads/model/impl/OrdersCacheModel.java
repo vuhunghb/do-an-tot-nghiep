@@ -34,7 +34,7 @@ import java.util.Date;
 public class OrdersCacheModel implements CacheModel<Orders>, Serializable {
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(23);
+		StringBundler sb = new StringBundler(25);
 
 		sb.append("{orderId=");
 		sb.append(orderId);
@@ -54,6 +54,8 @@ public class OrdersCacheModel implements CacheModel<Orders>, Serializable {
 		sb.append(createdDate);
 		sb.append(", isPayMent=");
 		sb.append(isPayMent);
+		sb.append(", flag=");
+		sb.append(flag);
 		sb.append(", numOfDinner=");
 		sb.append(numOfDinner);
 		sb.append(", dishTableId=");
@@ -101,6 +103,7 @@ public class OrdersCacheModel implements CacheModel<Orders>, Serializable {
 		}
 
 		ordersImpl.setIsPayMent(isPayMent);
+		ordersImpl.setFlag(flag);
 		ordersImpl.setNumOfDinner(numOfDinner);
 
 		if (dishTableId == null) {
@@ -124,6 +127,7 @@ public class OrdersCacheModel implements CacheModel<Orders>, Serializable {
 	public int charge;
 	public long createdDate;
 	public int isPayMent;
+	public boolean flag;
 	public int numOfDinner;
 	public String dishTableId;
 }

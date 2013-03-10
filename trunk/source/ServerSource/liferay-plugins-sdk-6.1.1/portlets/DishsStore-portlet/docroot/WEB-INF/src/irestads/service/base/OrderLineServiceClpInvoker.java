@@ -23,55 +23,55 @@ import java.util.Arrays;
  */
 public class OrderLineServiceClpInvoker {
 	public OrderLineServiceClpInvoker() {
-		_methodName86 = "getBeanIdentifier";
+		_methodName72 = "getBeanIdentifier";
 
-		_methodParameterTypes86 = new String[] {  };
+		_methodParameterTypes72 = new String[] {  };
 
-		_methodName87 = "setBeanIdentifier";
+		_methodName73 = "setBeanIdentifier";
 
-		_methodParameterTypes87 = new String[] { "java.lang.String" };
+		_methodParameterTypes73 = new String[] { "java.lang.String" };
 
-		_methodName92 = "createOrderLine";
+		_methodName78 = "createOrderLine";
 
-		_methodParameterTypes92 = new String[] {
+		_methodParameterTypes78 = new String[] {
 				"java.lang.Long", "int", "int", "long", "long", "long"
 			};
 
-		_methodName93 = "deleteOrderLineById";
+		_methodName79 = "deleteOrderLineById";
 
-		_methodParameterTypes93 = new String[] { "long" };
+		_methodParameterTypes79 = new String[] { "long" };
 
-		_methodName94 = "getOrderLineByOrder";
+		_methodName80 = "getOrderLineByOrder";
 
-		_methodParameterTypes94 = new String[] { "long" };
+		_methodParameterTypes80 = new String[] { "long" };
 
-		_methodName95 = "updateOrderLine";
+		_methodName81 = "updateOrderLine";
 
-		_methodParameterTypes95 = new String[] { "long", "int", "int" };
+		_methodParameterTypes81 = new String[] { "long", "int", "int" };
 
-		_methodName96 = "synchStatusOrderLine";
+		_methodName82 = "synchStatusOrderLine";
 
-		_methodParameterTypes96 = new String[] { "irestads.model.OrderLine" };
+		_methodParameterTypes82 = new String[] { "irestads.model.OrderLine" };
 
-		_methodName97 = "getCharge";
+		_methodName83 = "getCharge";
 
-		_methodParameterTypes97 = new String[] { "irestads.model.OrderLine" };
+		_methodParameterTypes83 = new String[] { "irestads.model.OrderLine" };
 	}
 
 	public Object invokeMethod(String name, String[] parameterTypes,
 		Object[] arguments) throws Throwable {
-		if (_methodName86.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes86, parameterTypes)) {
+		if (_methodName72.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes72, parameterTypes)) {
 			return OrderLineServiceUtil.getBeanIdentifier();
 		}
 
-		if (_methodName87.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes87, parameterTypes)) {
+		if (_methodName73.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes73, parameterTypes)) {
 			OrderLineServiceUtil.setBeanIdentifier((java.lang.String)arguments[0]);
 		}
 
-		if (_methodName92.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes92, parameterTypes)) {
+		if (_methodName78.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes78, parameterTypes)) {
 			return OrderLineServiceUtil.createOrderLine((java.lang.Long)arguments[0],
 				((Integer)arguments[1]).intValue(),
 				((Integer)arguments[2]).intValue(),
@@ -80,50 +80,50 @@ public class OrderLineServiceClpInvoker {
 				((Long)arguments[5]).longValue());
 		}
 
-		if (_methodName93.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes93, parameterTypes)) {
+		if (_methodName79.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes79, parameterTypes)) {
 			return OrderLineServiceUtil.deleteOrderLineById(((Long)arguments[0]).longValue());
 		}
 
-		if (_methodName94.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes94, parameterTypes)) {
+		if (_methodName80.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes80, parameterTypes)) {
 			return OrderLineServiceUtil.getOrderLineByOrder(((Long)arguments[0]).longValue());
 		}
 
-		if (_methodName95.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes95, parameterTypes)) {
+		if (_methodName81.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes81, parameterTypes)) {
 			return OrderLineServiceUtil.updateOrderLine(((Long)arguments[0]).longValue(),
 				((Integer)arguments[1]).intValue(),
 				((Integer)arguments[2]).intValue());
 		}
 
-		if (_methodName96.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes96, parameterTypes)) {
+		if (_methodName82.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes82, parameterTypes)) {
 			return OrderLineServiceUtil.synchStatusOrderLine((irestads.model.OrderLine)arguments[0]);
 		}
 
-		if (_methodName97.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes97, parameterTypes)) {
+		if (_methodName83.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes83, parameterTypes)) {
 			return OrderLineServiceUtil.getCharge((irestads.model.OrderLine)arguments[0]);
 		}
 
 		throw new UnsupportedOperationException();
 	}
 
-	private String _methodName86;
-	private String[] _methodParameterTypes86;
-	private String _methodName87;
-	private String[] _methodParameterTypes87;
-	private String _methodName92;
-	private String[] _methodParameterTypes92;
-	private String _methodName93;
-	private String[] _methodParameterTypes93;
-	private String _methodName94;
-	private String[] _methodParameterTypes94;
-	private String _methodName95;
-	private String[] _methodParameterTypes95;
-	private String _methodName96;
-	private String[] _methodParameterTypes96;
-	private String _methodName97;
-	private String[] _methodParameterTypes97;
+	private String _methodName72;
+	private String[] _methodParameterTypes72;
+	private String _methodName73;
+	private String[] _methodParameterTypes73;
+	private String _methodName78;
+	private String[] _methodParameterTypes78;
+	private String _methodName79;
+	private String[] _methodParameterTypes79;
+	private String _methodName80;
+	private String[] _methodParameterTypes80;
+	private String _methodName81;
+	private String[] _methodParameterTypes81;
+	private String _methodName82;
+	private String[] _methodParameterTypes82;
+	private String _methodName83;
+	private String[] _methodParameterTypes83;
 }

@@ -266,13 +266,27 @@ public class UVersionLocalServiceWrapper implements UVersionLocalService,
 		return _uVersionLocalService.createVersion(v);
 	}
 
+	public irestads.model.UVersion updateVersion(
+		irestads.model.UVersion newUversion) {
+		return _uVersionLocalService.updateVersion(newUversion);
+	}
+
 	public irestads.model.UVersion createVersion(long idObj,
 		java.lang.String nameObj, java.lang.String type) {
 		return _uVersionLocalService.createVersion(idObj, nameObj, type);
 	}
 
-	public void checkDelete(long idObj) {
-		_uVersionLocalService.checkDelete(idObj);
+	public void checkDelete(java.lang.String objName, long idObj) {
+		_uVersionLocalService.checkDelete(objName, idObj);
+	}
+
+	public void deleteVersion(long versionId) {
+		_uVersionLocalService.deleteVersion(versionId);
+	}
+
+	public java.util.List<irestads.model.UVersion> findBylogIdAndName(
+		java.lang.String typename, long logId) {
+		return _uVersionLocalService.findBylogIdAndName(typename, logId);
 	}
 
 	public java.util.List<irestads.model.UVersion> findNextVersions(

@@ -47,7 +47,19 @@ public class UVersionServiceClp implements UVersionService {
 
 		_methodName6 = "checkDelete";
 
-		_methodParameterTypes6 = new String[] { "long" };
+		_methodParameterTypes6 = new String[] { "java.lang.String", "long" };
+
+		_methodName7 = "findBylogIdAndName";
+
+		_methodParameterTypes7 = new String[] { "java.lang.String", "long" };
+
+		_methodName8 = "deleteVersion";
+
+		_methodParameterTypes8 = new String[] { "long" };
+
+		_methodName9 = "updateVersion";
+
+		_methodParameterTypes9 = new String[] { "irestads.model.UVersion" };
 	}
 
 	public java.lang.String getBeanIdentifier() {
@@ -173,10 +185,11 @@ public class UVersionServiceClp implements UVersionService {
 		return (java.util.List<irestads.model.UVersion>)ClpSerializer.translateOutput(returnObj);
 	}
 
-	public void checkDelete(long idObj) {
+	public void checkDelete(java.lang.String objName, long idObj) {
 		try {
 			_invokableService.invokeMethod(_methodName6,
-				_methodParameterTypes6, new Object[] { idObj });
+				_methodParameterTypes6,
+				new Object[] { ClpSerializer.translateInput(objName), idObj });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -189,6 +202,72 @@ public class UVersionServiceClp implements UVersionService {
 					" is not a valid exception");
 			}
 		}
+	}
+
+	public java.util.List<irestads.model.UVersion> findBylogIdAndName(
+		java.lang.String typename, long logId) {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableService.invokeMethod(_methodName7,
+					_methodParameterTypes7,
+					new Object[] { ClpSerializer.translateInput(typename), logId });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (java.util.List<irestads.model.UVersion>)ClpSerializer.translateOutput(returnObj);
+	}
+
+	public void deleteVersion(long versionId) {
+		try {
+			_invokableService.invokeMethod(_methodName8,
+				_methodParameterTypes8, new Object[] { versionId });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+	}
+
+	public irestads.model.UVersion updateVersion(
+		irestads.model.UVersion newUversion) {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableService.invokeMethod(_methodName9,
+					_methodParameterTypes9,
+					new Object[] { ClpSerializer.translateInput(newUversion) });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (irestads.model.UVersion)ClpSerializer.translateOutput(returnObj);
 	}
 
 	private InvokableService _invokableService;
@@ -204,4 +283,10 @@ public class UVersionServiceClp implements UVersionService {
 	private String[] _methodParameterTypes5;
 	private String _methodName6;
 	private String[] _methodParameterTypes6;
+	private String _methodName7;
+	private String[] _methodParameterTypes7;
+	private String _methodName8;
+	private String[] _methodParameterTypes8;
+	private String _methodName9;
+	private String[] _methodParameterTypes9;
 }

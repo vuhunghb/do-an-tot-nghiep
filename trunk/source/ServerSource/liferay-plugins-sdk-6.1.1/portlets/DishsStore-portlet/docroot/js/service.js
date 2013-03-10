@@ -1,37 +1,12 @@
 Liferay.Service.register("Liferay.Service.dishsstore", "irestads.service", "DishsStore-portlet");
 
 Liferay.Service.registerClass(
-	Liferay.Service.dishsstore, "AdsItem",
-	{
-		createAdsItem: true,
-		updateAdsItem: true,
-		deleteAdsItem: true,
-		findById: true,
-		getAllAdsItems: true,
-		findAdsByCompName: true,
-		findAdsByTags: true,
-		findAdsByProductName: true,
-		findAdsByItemType: true,
-		findAdsByCategoryName: true,
-		findAdsByTimeDuration: true
-	}
-);
-
-Liferay.Service.registerClass(
 	Liferay.Service.dishsstore, "Category",
 	{
 		countCategoryById: true,
 		createCategory: true,
 		getAllCategorys: true,
 		findByID: true
-	}
-);
-
-Liferay.Service.registerClass(
-	Liferay.Service.dishsstore, "CategoryAds",
-	{
-		getAddCategoryAds: true,
-		findById: true
 	}
 );
 
@@ -120,6 +95,9 @@ Liferay.Service.registerClass(
 	{
 		createVersion: true,
 		findNextVersions: true,
-		checkDelete: true
+		checkDelete: true,
+		findBylogIdAndName: true,
+		deleteVersion: true,
+		updateVersion: true
 	}
 );

@@ -11,6 +11,7 @@
 		<operation xmlns:operNS="urn:http.service.irestads" xmlns:rtns="http://model.irestads" name="updateTableStatus" qname="operNS:updateTableStatus" returnQName="updateTableStatusReturn" returnType="rtns:DishTableSoap" soapAction="">
 			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="idTable" type="tns:string"></parameter>
 			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="value" type="tns:boolean"></parameter>
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="orderId" type="tns:long"></parameter>
 		</operation>
 		<parameter name="allowedMethods" value="getAllDishTables updateDishTable updateTableStatus" />
 		<parameter name="className" value="irestads.service.http.DishTableServiceSoap" />

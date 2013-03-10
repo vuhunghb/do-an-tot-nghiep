@@ -1612,12 +1612,8 @@ public class DishPersistenceImpl extends BasePersistenceImpl<Dish>
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
 	}
 
-	@BeanReference(type = AdsItemPersistence.class)
-	protected AdsItemPersistence adsItemPersistence;
 	@BeanReference(type = CategoryPersistence.class)
 	protected CategoryPersistence categoryPersistence;
-	@BeanReference(type = CategoryAdsPersistence.class)
-	protected CategoryAdsPersistence categoryAdsPersistence;
 	@BeanReference(type = DishPersistence.class)
 	protected DishPersistence dishPersistence;
 	@BeanReference(type = DishTablePersistence.class)

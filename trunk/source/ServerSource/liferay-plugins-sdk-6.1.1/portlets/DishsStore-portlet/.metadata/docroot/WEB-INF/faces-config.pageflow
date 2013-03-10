@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf13580091369361" configfile="/DishsStore-portlet/docroot/WEB-INF/faces-config.xml">
-  <nodes xsi:type="pageflow:PFPage" name="views/index.xhtml" x="144" y="94" id="pf13590383723370" referenceLink="//@navigationRule.1/@fromViewId|" outlinks="pf13590383723371 pf13596465909510 pf13616079479680" path="/views/index.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="views/menu.xhtml" x="372" y="94" id="pf13590383723382" referenceLink="//@navigationRule.0/@navigationCase.0/@toViewId|" inlinks="pf13590383723371" path="/views/menu.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="views/index.xhtml" x="144" y="94" id="pf13590383723370" referenceLink="//@navigationRule.2/@fromViewId|" outlinks="pf13590383723371 pf13596465909510 pf13616079479680" inlinks="pf13628984473340" path="/views/index.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="views/menu.xhtml" x="372" y="94" id="pf13590383723382" referenceLink="//@navigationRule.0/@navigationCase.0/@toViewId|" outlinks="pf13628984473340" inlinks="pf13590383723371" path="/views/menu.xhtml"/>
   <nodes xsi:type="pageflow:PFPage" name="views/dish_tables.xhtml" x="422" y="221" id="pf13596465909521" referenceLink="//@navigationRule.1/@navigationCase.0/@toViewId|" inlinks="pf13596465909510" path="/views/dish_tables.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="views/ads.xhtml" x="215" y="221" id="pf13616079479681" inlinks="pf13616079479680" path="/views/ads.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="views/ads.xhtml" x="215" y="221" id="pf13616079479681" referenceLink="//@navigationRule.2/@navigationCase.0/@toViewId|" inlinks="pf13616079479680" path="/views/ads.xhtml"/>
   <links id="pf13590383723371" target="pf13590383723382" source="pf13590383723370" outcome="goToMenu"/>
   <links id="pf13596465909510" target="pf13596465909521" source="pf13590383723370" outcome="goToOrder"/>
   <links id="pf13616079479680" target="pf13616079479681" source="pf13590383723370" outcome="goToAds"/>
+  <links id="pf13628984473340" target="pf13590383723370" source="pf13590383723382" outcome="goToIndex"/>
 </pageflow:Pageflow>

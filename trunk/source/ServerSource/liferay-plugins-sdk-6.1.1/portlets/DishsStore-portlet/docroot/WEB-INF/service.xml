@@ -1,18 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE service-builder PUBLIC "-//Liferay//DTD Service Builder 6.1.0//EN" "http://www.liferay.com/dtd/liferay-service-builder_6_1_0.dtd">
 <service-builder package-path="irestads">
-	<author>Be</author>															
+	<author>Be</author>
 	<namespace>dishsstore</namespace>
 
 	<entity name="Dish" local-service="true" remote-service="true">
-
 		<!-- PK fields -->
-
 		<column name="dishId" type="long" primary="true" />
-
-
 		<!-- Audit fields -->
-
 		<column name="companyId" type="long" />
 		<column name="userId" type="long" />
 		<column name="userName" type="String" />
@@ -24,7 +19,7 @@
 		<column name="dishName" type="String" />
 		<column name="decription" type="String" />
 		<column name="avatarImg" type="String" />
-		<column name="avatarBaseCode" type="String" >
+		<column name="avatarBaseCode" type="String">
 		</column>
 		<column name="detailImg" type="String" />
 		<column name="detailBaseCode" type="String" />
@@ -71,7 +66,7 @@
 		<finder name="CategoryName" return-type="Collection">
 			<finder-column name="categoryName" />
 		</finder>
-		
+
 	</entity>
 
 	<entity name="UVersion" local-service="true" remote-service="true">
@@ -96,11 +91,13 @@
 		<finder name="LogDate" return-type="Collection">
 			<finder-column name="logDate" />
 		</finder>
-		<finder name="logObjId" return-type="Collection">
+		<finder name="logObjIdAndName" return-type="Collection">
+			<finder-column name="logObjName" />
 			<finder-column name="logObjId" />
 		</finder>
+
 	</entity>
-	
+
 	<entity name="MenuLine" local-service="true" remote-service="true">
 		<!-- PK fields -->
 		<column name="menuLineId" type="long" primary="true" />
@@ -110,14 +107,14 @@
 		<column name="userName" type="String" />
 		<column name="createDate" type="Date" />
 		<column name="modifiedDate" type="Date" />
-		
+
 		<!-- Other fields -->
-		
+
 		<column name="numOfDish" type="int"></column>
 		<column name="capacity" type="int" />
 		<column name="status" type="boolean"></column>
 		<column name="dishId" type="long"></column>
-		
+
 		<!-- Order -->
 		<order by="asc">
 			<order-column name="menuLineId" />
@@ -132,7 +129,7 @@
 		<finder name="NumOfDish" return-type="Collection">
 			<finder-column name="numOfDish" />
 		</finder>
-		
+
 	</entity>
 	<entity name="Menu" local-service="true" remote-service="true">
 		<!-- PK fields -->
@@ -180,11 +177,11 @@
 		<finder name="StatusDish" return-type="Collection">
 			<finder-column name="statusDish" />
 		</finder>
-	<finder name="OrderId" return-type="Collection">
+		<finder name="OrderId" return-type="Collection">
 			<finder-column name="orderId" />
 		</finder>
 	</entity>
-			<entity name="Orders" local-service="true" remote-service="true">
+	<entity name="Orders" local-service="true" remote-service="true">
 		<!-- PK fields -->
 		<column name="orderId" type="long" primary="true" />
 		<!-- Audit fields -->
@@ -197,20 +194,21 @@
 		<column name="charge" type="int" />
 		<column name="createdDate" type="Date" />
 		<column name="isPayMent" type="int" />
-		
+		<column name="flag" type="boolean"></column>
+
 		<column name="numOfDinner" type="int" />
 		<column name="orderLines" type="Collection" entity="OrderLine"
 			mapping-key="orderId" />
 		<column name="dishTableId" type="String"></column>
 		<!-- Order -->
-		
+
 		<!-- Finder methods -->
 		<finder name="curentOrder" return-type="Orders">
 			<finder-column name="isPayMent" />
 			<finder-column name="dishTableId" />
 		</finder>
 	</entity>
-			<entity name="DishTable" local-service="true" remote-service="true">
+	<entity name="DishTable" local-service="true" remote-service="true">
 		<!-- PK fields -->
 		<column name="dishTableId" type="String" primary="true" />
 		<!-- Audit fields -->
@@ -223,7 +221,7 @@
 		<column name="tableName" type="String"></column>
 		<column name="isAvalable" type="boolean" />
 		<column name="numChair" type="int" />
-		<column name="currentOrderId" type="long"  />
+		<column name="currentOrderId" type="long" />
 		<!-- Order -->
 		<order by="asc">
 			<order-column name="isAvalable" />
@@ -233,84 +231,7 @@
 			<finder-column name="isAvalable" />
 		</finder>
 	</entity>
-	<entity name="CategoryAds" local-service="true" remote-service="true">
-
-		<!-- PK fields -->
-
-		<column name="categoryAdsId" type="long" primary="true" />
-
-		<!-- Audit fields -->
-
-		<column name="companyId" type="long" />
-		<column name="userId" type="long" />
-		<column name="userName" type="String" />
-		<column name="createDate" type="Date" />
-		<column name="modifiedDate" type="Date" />
-
-		<!-- Other fields -->
-
-		<column name="categoryAdsName" type="String" />
-		<column name="adsItemModels" type="Collection" entity="AdsItem"
-			mapping-key="categoryAdsId" />
-
-		<!-- Order -->
-
-		<order by="asc">
-			<order-column name="categoryAdsName" />
-		</order>
-
-		<!-- Finder methods -->
-
-		<finder name="CategoryAdsName" return-type="Collection">
-			<finder-column name="categoryAdsName" />
-		</finder>
-	</entity>
-	<entity name="AdsItem" local-service="true" remote-service="true">
-
-		<!-- PK fields -->
-
-		<column name="adsItemId" type="long" primary="true" />
-
-		<!-- Audit fields -->
-
-		<column name="companyId" type="long" />
-		<column name="userId" type="long" />
-		<column name="userName" type="String" />
-		<column name="createDate" type="Date" />
-		<column name="modifiedDate" type="Date" />
-
-		<!-- Other fields -->
-
-		<column name="companyName" type="String" />
-		<column name="productName" type="String" />
-		<column name="numberPhone" type="String" />
-		<column name="email" type="String" />
-		<column name="address" type="String" />
-		<column name="facebook" type="String" />
-		<column name="twitter" type="String" />
-		<column name="description" type="String"></column>
-		<column name="imageContent" type="String"></column>
-		<column name="timeDuring" type="int"></column>
-		<column name="tags" type="String" />
-		<column name="itemType" type="String" />
-		<column name="categoryAdsId" type="long"></column>
 
 
-		<!-- Order -->
 
-		<order by="asc">
-			<order-column name="productName" />
-		</order>
-
-		<!-- Finder methods -->
-
-		<finder name="ProductName" return-type="Collection">
-			<finder-column name="productName" />
-		</finder>
-		<finder name="TimeDuring" return-type="Collection">
-			<finder-column name="timeDuring" />
-		</finder>
-	</entity>
-	
-	
 </service-builder>

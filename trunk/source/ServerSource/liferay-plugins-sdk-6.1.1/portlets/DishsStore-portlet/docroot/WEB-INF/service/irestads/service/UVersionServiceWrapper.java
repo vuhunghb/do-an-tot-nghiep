@@ -69,8 +69,22 @@ public class UVersionServiceWrapper implements UVersionService,
 		return _uVersionService.findNextVersions(uversionId);
 	}
 
-	public void checkDelete(long idObj) {
-		_uVersionService.checkDelete(idObj);
+	public void checkDelete(java.lang.String objName, long idObj) {
+		_uVersionService.checkDelete(objName, idObj);
+	}
+
+	public java.util.List<irestads.model.UVersion> findBylogIdAndName(
+		java.lang.String typename, long logId) {
+		return _uVersionService.findBylogIdAndName(typename, logId);
+	}
+
+	public void deleteVersion(long versionId) {
+		_uVersionService.deleteVersion(versionId);
+	}
+
+	public irestads.model.UVersion updateVersion(
+		irestads.model.UVersion newUversion) {
+		return _uVersionService.updateVersion(newUversion);
 	}
 
 	/**

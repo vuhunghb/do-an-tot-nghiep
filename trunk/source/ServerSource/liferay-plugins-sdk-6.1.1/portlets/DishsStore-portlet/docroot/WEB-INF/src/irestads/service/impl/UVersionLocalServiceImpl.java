@@ -14,6 +14,7 @@
 
 package irestads.service.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -26,6 +27,7 @@ import irestads.model.Dish;
 import irestads.model.MenuLine;
 import irestads.model.UVersion;
 import irestads.service.UVersionLocalServiceUtil;
+import irestads.service.UVersionServiceUtil;
 import irestads.service.base.UVersionLocalServiceBaseImpl;
 import irestads.service.persistence.UVersionFinder;
 import irestads.service.persistence.UVersionFinderUtil;
@@ -59,7 +61,8 @@ public class UVersionLocalServiceImpl extends UVersionLocalServiceBaseImpl {
 	 */
 	public UVersion createVersion(UVersion v) {
 		try {
-			long id = CounterLocalServiceUtil.increment(UVersion.class.getName());
+			long id = CounterLocalServiceUtil.increment(UVersion.class
+					.getName());
 			UVersion uVersion = UVersionUtil.create(id);
 			uVersion.setLogDate(new Date());
 			uVersion.setLogObjId(v.getLogObjId());
@@ -74,9 +77,34 @@ public class UVersionLocalServiceImpl extends UVersionLocalServiceBaseImpl {
 		}
 	}
 
+	public UVersion updateVersion(UVersion newUversion) {
+		try {
+			UVersion uVersion = UVersionUtil.findByPrimaryKey(newUversion
+					.getVersionId());
+			if (newUversion != null
+					&& newUversion.getVersionId() == uVersion.getVersionId()) {
+			}
+			uVersion.setLogDate(new Date());
+			uVersion.setLogObjId(newUversion.getLogObjId());
+			uVersion.setLogObjName(newUversion.getLogObjName());
+			uVersion.setLogType(newUversion.getLogType());
+			uVersion = UVersionUtil.update(uVersion, true);
+			return uVersion;
+		} catch (SystemException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		} catch (NoSuchUVersionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+
 	public UVersion createVersion(long idObj, String nameObj, String type) {
 		try {
-			long id = CounterLocalServiceUtil.increment(UVersion.class.getName());
+			long id = CounterLocalServiceUtil.increment(UVersion.class
+					.getName());
 			UVersion uVersion = UVersionUtil.create(id);
 			uVersion.setLogDate(new Date());
 			uVersion.setLogObjId(idObj);
@@ -92,19 +120,44 @@ public class UVersionLocalServiceImpl extends UVersionLocalServiceBaseImpl {
 
 	}
 
-	public void checkDelete(long idObj) {
+	public void checkDelete(String objName, long idObj) {
 		try {
-			List<UVersion> list = UVersionUtil.findBylogObjId(idObj);
+			List<UVersion> list = UVersionUtil.findBylogObjIdAndName(objName,
+					idObj);
 			for (int i = 0; i < list.size(); i++) {
-				UVersionUtil.remove(list.get(i).getVersionId());
+				// UVersionUtil.remove(list.get(i).getVersionId());
+				UVersion newUversion = list.get(i);
+				newUversion.setLogType(LogTypeEnum.NO_ACTION.toString());
+				UVersionServiceUtil.updateVersion(newUversion);
 			}
 		} catch (SystemException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+	}
+
+	public void deleteVersion(long versionId) {
+		try {
+			UVersionUtil.remove(versionId);
 		} catch (NoSuchUVersionException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (SystemException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+	}
+
+	public List<UVersion> findBylogIdAndName(String typename, long logId) {
+		try {
+			List<UVersion> uVersions = UVersionUtil.findBylogObjIdAndName(
+					typename, logId);
+			return (uVersions != null) ? uVersions : new ArrayList<UVersion>();
+		} catch (SystemException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return new ArrayList<UVersion>();
 	}
 
 	public List<UVersion> findNextVersions(long uversionId) {

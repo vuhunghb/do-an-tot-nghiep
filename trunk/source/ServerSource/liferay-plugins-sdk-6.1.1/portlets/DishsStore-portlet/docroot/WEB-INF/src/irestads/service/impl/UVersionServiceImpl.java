@@ -16,9 +16,12 @@ package irestads.service.impl;
 
 import java.util.List;
 
+import com.liferay.portal.kernel.exception.SystemException;
+
 import irestads.model.UVersion;
 import irestads.service.UVersionLocalServiceUtil;
 import irestads.service.base.UVersionServiceBaseImpl;
+import irestads.service.persistence.UVersionUtil;
 
 /**
  * The implementation of the u version remote service.
@@ -58,7 +61,23 @@ public class UVersionServiceImpl extends UVersionServiceBaseImpl {
 	public List<UVersion> findNextVersions(long uversionId) {
 		return UVersionLocalServiceUtil.findNextVersions(uversionId);
 	}
-	public void checkDelete(long idObj){
-		UVersionLocalServiceUtil.checkDelete(idObj);
+	public void checkDelete(String objName,long idObj){
+		UVersionLocalServiceUtil.checkDelete(objName,idObj);
+	}
+	public List<UVersion> findBylogIdAndName(String typename, long logId){
+		
+		return UVersionLocalServiceUtil.findBylogIdAndName(typename,logId);
+	}
+	public void deleteVersion(long versionId){
+		UVersionLocalServiceUtil.deleteVersion( versionId);
+	}
+	public UVersion updateVersion(UVersion newUversion) {
+		try {
+			return UVersionLocalServiceUtil.updateUVersion(newUversion);
+		} catch (SystemException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 }

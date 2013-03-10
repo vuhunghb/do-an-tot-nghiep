@@ -33,7 +33,7 @@
 			</p:contextMenu>
 			
 
-			<h:panelGrid columns="8">
+			<h:panelGrid columns="9">
 				<h:outputText value="Từ khóa " />
 				<p:selectOneMenu id="searchType" value="#{menuBeans.searchType}"
 					effect="fold">
@@ -57,6 +57,7 @@
 					value="Thêm Mới Món Ăn" onclick="addMenuLineDlg.show()" />
 				<p:commandButton id="showAddDlgDSButton" type="button"
 					value="Lấy từ kho " onclick="storeDishsDlg.show()" />
+					<h:commandButton action="goToIndex" value="Trang chủ" />
 
 			</h:panelGrid>
 

@@ -83,7 +83,7 @@ public class DishBeans {
 		// dishSearch=DishLocalServiceUtil.createDish(0);
 		dishAdd = DishLocalServiceUtil.createDish(0);
 		this.dishs = new ArrayList<Dish>();
-		this.getDishsFromDB();
+		this.dishs = this.getDishsFromDB();
 		// this.findDishsByName();
 		// this.search();
 
@@ -93,6 +93,7 @@ public class DishBeans {
 	public void onEdit(RowEditEvent event) {
 		try {
 			Dish dish = (Dish) event.getObject();
+			System.out.println("Update dish "+dish.getDishName());
 			dish = DishServiceUtil.updateDish(dish);
 			String message = "Không thể thực hiện thay đổi thông tin món ăn";
 			if (dish != null) {
@@ -111,9 +112,9 @@ public class DishBeans {
 	}
 
 	public List<Dish> getDishsFromDB() {
-		this.dishs = DishServiceUtil.getAllDishs();
-		System.out.println("get dishs ------------------" + dishs.size());
-		return this.dishs;
+		List<Dish> dishs= DishServiceUtil.getAllDishs();
+		//System.out.println("get dishs ------------------" + dishs.size());
+		return dishs;
 
 	}
 
@@ -144,7 +145,7 @@ public class DishBeans {
 
 		FacesContext.getCurrentInstance().addMessage(null, fmsg);
 		// context.addCallbackParam("result", result);
-		this.getDishsFromDB();
+		this.dishs = this.getDishsFromDB();
 		return "index.html";
 	}
 
@@ -161,7 +162,7 @@ public class DishBeans {
 
 			if (dish != null) {
 				message = "Đã xóa Món ăn thành công";
-				this.getDishsFromDB();
+				this.dishs = this.getDishsFromDB();
 				FacesMessage msg = new FacesMessage(message, dish.getDishId()
 						+ " : " + dish.getDishName());
 			}
@@ -266,6 +267,7 @@ public class DishBeans {
 
 	public List<Dish> getDishs() {
 		System.out.println("geter Dishs " + this.dishs.size());
+	//	this.getDishsFromDB();
 		return dishs;
 	}
 

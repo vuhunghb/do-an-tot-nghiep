@@ -1,17 +1,10 @@
 <?xml version="1.0"?>
 
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" default-destroy-method="destroy" default-init-method="afterPropertiesSet" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
-	<bean id="irestads.service.AdsItemLocalService" class="irestads.service.impl.AdsItemLocalServiceImpl" />
-	<bean id="irestads.service.AdsItemService" class="irestads.service.impl.AdsItemServiceImpl" />
-	<bean id="irestads.service.persistence.AdsItemPersistence" class="irestads.service.persistence.AdsItemPersistenceImpl" parent="basePersistence" />
-	<bean id="irestads.service.persistence.AdsItemFinder" class="irestads.service.persistence.AdsItemFinderImpl" parent="basePersistence" />
 	<bean id="irestads.service.CategoryLocalService" class="irestads.service.impl.CategoryLocalServiceImpl" />
 	<bean id="irestads.service.CategoryService" class="irestads.service.impl.CategoryServiceImpl" />
 	<bean id="irestads.service.persistence.CategoryPersistence" class="irestads.service.persistence.CategoryPersistenceImpl" parent="basePersistence" />
 	<bean id="irestads.service.persistence.CategoryFinder" class="irestads.service.persistence.CategoryFinderImpl" parent="basePersistence" />
-	<bean id="irestads.service.CategoryAdsLocalService" class="irestads.service.impl.CategoryAdsLocalServiceImpl" />
-	<bean id="irestads.service.CategoryAdsService" class="irestads.service.impl.CategoryAdsServiceImpl" />
-	<bean id="irestads.service.persistence.CategoryAdsPersistence" class="irestads.service.persistence.CategoryAdsPersistenceImpl" parent="basePersistence" />
 	<bean id="irestads.service.DishLocalService" class="irestads.service.impl.DishLocalServiceImpl" />
 	<bean id="irestads.service.DishService" class="irestads.service.impl.DishServiceImpl" />
 	<bean id="irestads.service.persistence.DishPersistence" class="irestads.service.persistence.DishPersistenceImpl" parent="basePersistence" />

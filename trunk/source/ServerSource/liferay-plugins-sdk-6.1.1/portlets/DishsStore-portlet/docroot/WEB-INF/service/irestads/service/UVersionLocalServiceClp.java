@@ -110,19 +110,31 @@ public class UVersionLocalServiceClp implements UVersionLocalService {
 
 		_methodParameterTypes19 = new String[] { "irestads.model.UVersion" };
 
-		_methodName20 = "createVersion";
+		_methodName20 = "updateVersion";
 
-		_methodParameterTypes20 = new String[] {
+		_methodParameterTypes20 = new String[] { "irestads.model.UVersion" };
+
+		_methodName21 = "createVersion";
+
+		_methodParameterTypes21 = new String[] {
 				"long", "java.lang.String", "java.lang.String"
 			};
 
-		_methodName21 = "checkDelete";
+		_methodName22 = "checkDelete";
 
-		_methodParameterTypes21 = new String[] { "long" };
+		_methodParameterTypes22 = new String[] { "java.lang.String", "long" };
 
-		_methodName22 = "findNextVersions";
+		_methodName23 = "deleteVersion";
 
-		_methodParameterTypes22 = new String[] { "long" };
+		_methodParameterTypes23 = new String[] { "long" };
+
+		_methodName24 = "findBylogIdAndName";
+
+		_methodParameterTypes24 = new String[] { "java.lang.String", "long" };
+
+		_methodName25 = "findNextVersions";
+
+		_methodParameterTypes25 = new String[] { "long" };
 	}
 
 	public irestads.model.UVersion addUVersion(irestads.model.UVersion uVersion)
@@ -668,13 +680,37 @@ public class UVersionLocalServiceClp implements UVersionLocalService {
 		return (irestads.model.UVersion)ClpSerializer.translateOutput(returnObj);
 	}
 
-	public irestads.model.UVersion createVersion(long idObj,
-		java.lang.String nameObj, java.lang.String type) {
+	public irestads.model.UVersion updateVersion(
+		irestads.model.UVersion newUversion) {
 		Object returnObj = null;
 
 		try {
 			returnObj = _invokableLocalService.invokeMethod(_methodName20,
 					_methodParameterTypes20,
+					new Object[] { ClpSerializer.translateInput(newUversion) });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (irestads.model.UVersion)ClpSerializer.translateOutput(returnObj);
+	}
+
+	public irestads.model.UVersion createVersion(long idObj,
+		java.lang.String nameObj, java.lang.String type) {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName21,
+					_methodParameterTypes21,
 					new Object[] {
 						idObj,
 						
@@ -698,10 +734,11 @@ public class UVersionLocalServiceClp implements UVersionLocalService {
 		return (irestads.model.UVersion)ClpSerializer.translateOutput(returnObj);
 	}
 
-	public void checkDelete(long idObj) {
+	public void checkDelete(java.lang.String objName, long idObj) {
 		try {
-			_invokableLocalService.invokeMethod(_methodName21,
-				_methodParameterTypes21, new Object[] { idObj });
+			_invokableLocalService.invokeMethod(_methodName22,
+				_methodParameterTypes22,
+				new Object[] { ClpSerializer.translateInput(objName), idObj });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -716,13 +753,55 @@ public class UVersionLocalServiceClp implements UVersionLocalService {
 		}
 	}
 
+	public void deleteVersion(long versionId) {
+		try {
+			_invokableLocalService.invokeMethod(_methodName23,
+				_methodParameterTypes23, new Object[] { versionId });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+	}
+
+	public java.util.List<irestads.model.UVersion> findBylogIdAndName(
+		java.lang.String typename, long logId) {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName24,
+					_methodParameterTypes24,
+					new Object[] { ClpSerializer.translateInput(typename), logId });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (java.util.List<irestads.model.UVersion>)ClpSerializer.translateOutput(returnObj);
+	}
+
 	public java.util.List<irestads.model.UVersion> findNextVersions(
 		long uversionId) {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName22,
-					_methodParameterTypes22, new Object[] { uversionId });
+			returnObj = _invokableLocalService.invokeMethod(_methodName25,
+					_methodParameterTypes25, new Object[] { uversionId });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -784,4 +863,10 @@ public class UVersionLocalServiceClp implements UVersionLocalService {
 	private String[] _methodParameterTypes21;
 	private String _methodName22;
 	private String[] _methodParameterTypes22;
+	private String _methodName23;
+	private String[] _methodParameterTypes23;
+	private String _methodName24;
+	private String[] _methodParameterTypes24;
+	private String _methodName25;
+	private String[] _methodParameterTypes25;
 }

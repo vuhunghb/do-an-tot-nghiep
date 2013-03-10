@@ -204,6 +204,27 @@ public interface OrdersModel extends AuditedModel, BaseModel<Orders> {
 	public void setIsPayMent(int isPayMent);
 
 	/**
+	 * Returns the flag of this orders.
+	 *
+	 * @return the flag of this orders
+	 */
+	public boolean getFlag();
+
+	/**
+	 * Returns <code>true</code> if this orders is flag.
+	 *
+	 * @return <code>true</code> if this orders is flag; <code>false</code> otherwise
+	 */
+	public boolean isFlag();
+
+	/**
+	 * Sets whether this orders is flag.
+	 *
+	 * @param flag the flag of this orders
+	 */
+	public void setFlag(boolean flag);
+
+	/**
 	 * Returns the num of dinner of this orders.
 	 *
 	 * @return the num of dinner of this orders
