@@ -25,3 +25,4 @@ create index IX_4307F3B5 on dishsstore_Orders (isPayMent, dishTableId);
 
 create index IX_888F73C2 on dishsstore_UVersion (logDate);
 create index IX_D05F9F02 on dishsstore_UVersion (logObjId);
+create index IX_63E2BB4 on dishsstore_UVersion (logObjName, logObjId);

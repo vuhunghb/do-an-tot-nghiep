@@ -2,9 +2,7 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping default-lazy="false" auto-import="false">
-	<import class="irestads.model.AdsItem" />
 	<import class="irestads.model.Category" />
-	<import class="irestads.model.CategoryAds" />
 	<import class="irestads.model.Dish" />
 	<import class="irestads.model.DishTable" />
 	<import class="irestads.model.Menu" />
@@ -12,30 +10,6 @@
 	<import class="irestads.model.OrderLine" />
 	<import class="irestads.model.Orders" />
 	<import class="irestads.model.UVersion" />
-	<class name="irestads.model.impl.AdsItemImpl" table="dishsstore_AdsItem">
-		<cache usage="read-write" />
-		<id name="adsItemId" type="long">
-			<generator class="assigned" />
-		</id>
-		<property name="companyId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
-		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
-		<property name="userName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
-		<property name="createDate" type="org.hibernate.type.TimestampType" />
-		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
-		<property name="companyName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
-		<property name="productName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
-		<property name="numberPhone" type="com.liferay.portal.dao.orm.hibernate.StringType" />
-		<property name="email" type="com.liferay.portal.dao.orm.hibernate.StringType" />
-		<property name="address" type="com.liferay.portal.dao.orm.hibernate.StringType" />
-		<property name="facebook" type="com.liferay.portal.dao.orm.hibernate.StringType" />
-		<property name="twitter" type="com.liferay.portal.dao.orm.hibernate.StringType" />
-		<property name="description" type="com.liferay.portal.dao.orm.hibernate.StringType" />
-		<property name="imageContent" type="com.liferay.portal.dao.orm.hibernate.StringType" />
-		<property name="timeDuring" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
-		<property name="tags" type="com.liferay.portal.dao.orm.hibernate.StringType" />
-		<property name="itemType" type="com.liferay.portal.dao.orm.hibernate.StringType" />
-		<property name="categoryAdsId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
-	</class>
 	<class name="irestads.model.impl.CategoryImpl" table="dishsstore_Category">
 		<cache usage="read-write" />
 		<id name="categoryId" type="long">
@@ -47,18 +21,6 @@
 		<property name="createDate" type="org.hibernate.type.TimestampType" />
 		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
 		<property name="categoryName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
-	</class>
-	<class name="irestads.model.impl.CategoryAdsImpl" table="dishsstore_CategoryAds">
-		<cache usage="read-write" />
-		<id name="categoryAdsId" type="long">
-			<generator class="assigned" />
-		</id>
-		<property name="companyId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
-		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
-		<property name="userName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
-		<property name="createDate" type="org.hibernate.type.TimestampType" />
-		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
-		<property name="categoryAdsName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 	</class>
 	<class name="irestads.model.impl.DishImpl" table="dishsstore_Dish">
 		<cache usage="read-write" />
@@ -153,6 +115,7 @@
 		<property name="charge" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
 		<property name="createdDate" type="org.hibernate.type.TimestampType" />
 		<property name="isPayMent" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
+		<property name="flag" type="com.liferay.portal.dao.orm.hibernate.BooleanType" />
 		<property name="numOfDinner" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
 		<property name="dishTableId" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 	</class>

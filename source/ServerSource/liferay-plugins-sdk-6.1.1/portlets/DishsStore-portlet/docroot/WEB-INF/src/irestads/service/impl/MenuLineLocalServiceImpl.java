@@ -23,6 +23,7 @@ import com.liferay.portal.kernel.exception.SystemException;
 import irestads.NoSuchDishException;
 import irestads.NoSuchMenuLineException;
 import irestads.defination.LogTypeEnum;
+
 import irestads.model.Dish;
 import irestads.model.DishModel;
 import irestads.model.MenuLine;
@@ -140,8 +141,8 @@ public class MenuLineLocalServiceImpl extends MenuLineLocalServiceBaseImpl {
 		Dish dishModel = DishLocalServiceUtil.createDish((Dish) ml.getDish());
 		// create MenuLine
 		ml.setDishId(dishModel.getDishId());
-		MenuLine menuLine = this.createMenuLine(ml); 
-		
+		MenuLine menuLine = this.createMenuLine(ml);
+
 		return menuLine;
 
 	}
@@ -163,10 +164,8 @@ public class MenuLineLocalServiceImpl extends MenuLineLocalServiceBaseImpl {
 						.createVersion(menuLine.getMenuLineId(),
 								MenuLine.class.getName(),
 								LogTypeEnum.CREATE.toString());
-				UVersionServiceUtil
-				.createVersion(menuLine.getDishId(),
-						Dish.class.getName(),
-						LogTypeEnum.CREATE.toString());
+				UVersionServiceUtil.createVersion(menuLine.getDishId(),
+						Dish.class.getName(), LogTypeEnum.CREATE.toString());
 			}
 			return menuLine;
 		} catch (SystemException e) {
@@ -219,13 +218,22 @@ public class MenuLineLocalServiceImpl extends MenuLineLocalServiceBaseImpl {
 		MenuLine menuLine = null;
 		try {
 			menuLine = MenuLineUtil.remove(ml.getPrimaryKey());
-			if(menuLine!=null){
-			UVersionLocalServiceUtil.checkDelete(menuLine.getMenuLineId());
-			UVersionServiceUtil
-			.createVersion(menuLine.getMenuLineId(),
-					MenuLine.class.getName(),
-					LogTypeEnum.DELETE.toString());
+			if (menuLine != null) {
+				// UVersionLocalServiceUtil.checkDelete(MenuLine.class.toString(),menuLine.getMenuLineId());
+				List<UVersion> list = UVersionServiceUtil.findBylogIdAndName(
+						MenuLine.class.getName(), ml.getPrimaryKey());
+				for (int i = 0; i < list.size(); i++) {
+					UVersion newUversion = list.get(i);
+					newUversion.setLogType(LogTypeEnum.NO_ACTION.toString());
+					UVersionServiceUtil.updateVersion(newUversion);
+				}
+				UVersionServiceUtil
+						.createVersion(menuLine.getMenuLineId(),
+								MenuLine.class.getName(),
+								LogTypeEnum.DELETE.toString());
+
 			}
+
 		} catch (NoSuchMenuLineException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -110,9 +110,51 @@ public class UVersionServiceSoap {
 		}
 	}
 
-	public static void checkDelete(long idObj) throws RemoteException {
+	public static void checkDelete(java.lang.String objName, long idObj)
+		throws RemoteException {
 		try {
-			UVersionServiceUtil.checkDelete(idObj);
+			UVersionServiceUtil.checkDelete(objName, idObj);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static irestads.model.UVersionSoap[] findBylogIdAndName(
+		java.lang.String typename, long logId) throws RemoteException {
+		try {
+			java.util.List<irestads.model.UVersion> returnValue = UVersionServiceUtil.findBylogIdAndName(typename,
+					logId);
+
+			return irestads.model.UVersionSoap.toSoapModels(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static void deleteVersion(long versionId) throws RemoteException {
+		try {
+			UVersionServiceUtil.deleteVersion(versionId);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static irestads.model.UVersionSoap updateVersion(
+		irestads.model.UVersionSoap newUversion) throws RemoteException {
+		try {
+			irestads.model.UVersion returnValue = UVersionServiceUtil.updateVersion(irestads.model.impl.UVersionModelImpl.toModel(
+						newUversion));
+
+			return irestads.model.UVersionSoap.toSoapModel(returnValue);
 		}
 		catch (Exception e) {
 			_log.error(e, e);

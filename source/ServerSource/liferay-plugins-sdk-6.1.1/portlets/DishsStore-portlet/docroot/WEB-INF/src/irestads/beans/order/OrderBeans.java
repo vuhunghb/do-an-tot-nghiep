@@ -13,7 +13,9 @@ import irestads.service.MenuLineServiceUtil;
 import irestads.service.OrderLineLocalServiceUtil;
 import irestads.service.OrderLineService;
 import irestads.service.OrderLineServiceUtil;
+import irestads.service.OrdersLocalServiceUtil;
 import irestads.service.OrdersServiceUtil;
+import irestads.service.persistence.OrdersUtil;
 
 import java.util.List;
 
@@ -30,8 +32,8 @@ public class OrderBeans {
 	private int count = 0;
 	private boolean editLable = false;
 	private boolean viewPayMentLable = false;
-	private int sumChargeOL=0;
-	private boolean bntPMent=false;
+	private int sumChargeOL = 0;
+	private boolean bntPMent = false;
 
 	public boolean isViewPayMentLable() {
 		return viewPayMentLable;
@@ -45,12 +47,42 @@ public class OrderBeans {
 		return count;
 	}
 
-	public String loadImg(boolean isAvailable) {
-		if (isAvailable == true) {
-			return "/img/2.png";
-		} else {
-			return "/img/1.png";
+	public String loadImg(DishTable dishTable) {
+		System.out.println("order c " + dishTable.getCurentOrder());
+
+		if (dishTable.getCurentOrder() != null) {
+			boolean flag = dishTable.getCurentOrder().getFlag();
+			int statusOrder = dishTable.getCurentOrder().getIsPayMent();
+
+			// if (dishTable.getIsAvalable() == true && flag == false) {
+			// return "/img/have_order.png";
+			// } else if (dishTable.getIsAvalable() == true && flag == true) {
+			// return "/img/have_new_info.png";
+			// } else if (statusOrder == 1) {
+			// return "/img/wait_payment.png";
+			// }
+			//
+
+			if (dishTable.getIsAvalable() == true) {
+				switch (statusOrder) {
+				case 0:
+					if (flag == true) {
+						return "/img/have_new_info.png";
+					} else {
+						return "/img/have_order.png";
+					}
+				case 1:
+					return "/img/wait_payment.png";
+				case 2:
+					return "/img/not_order.png";
+
+				default:
+					break;
+				}
+
+			}
 		}
+		return "/img/not_order.png";
 	}
 
 	public void setCount(int count) {
@@ -91,7 +123,8 @@ public class OrderBeans {
 	public void getAllDishTable() {
 		this.dishTables = DishTableLocalServiceUtil.getAllDishTables();
 		for (int i = 0; i < dishTables.size(); i++) {
-			System.out.println("is available "+dishTables.get(i).getIsAvalable());
+			System.out.println("is available "
+					+ dishTables.get(i).getIsAvalable());
 		}
 	}
 
@@ -118,6 +151,10 @@ public class OrderBeans {
 	}
 
 	public void loadCurrentOrderLine(long id) {
+		// set flag=false: da xem thong tin moi cua order
+		Orders currentOrder=OrdersServiceUtil.findOrderById(id);
+		currentOrder.setFlag(false);
+		OrdersServiceUtil.updateOrder(currentOrder);
 		this.orderLinesCurrent = OrderLineServiceUtil.getOrderLineByOrder(id);
 	}
 
@@ -201,38 +238,42 @@ public class OrderBeans {
 	public void setEditLable(boolean editLable) {
 		this.editLable = editLable;
 	}
-// payment cho cai order
+
+	// payment cho cai order
 	public void payment() {
-		OrdersServiceUtil.payment(dishTableSelected.getCurrentOrderId());
+	Orders curentOrder=	OrdersServiceUtil.payment(dishTableSelected.getCurrentOrderId());
 		dishTableSelected.setIsAvalable(false);
+		dishTableSelected.setCurentOrder(curentOrder);
 		DishTableServiceUtil.updateDishTable(dishTableSelected);
+		this.getAllDishTable();
 	}
 
 	public void viewPayment() {
-		this.viewPayMentLable=true;
-		this.bntPMent=true;
-		System.out.println("view pm "+this.viewPayMentLable);
+		this.viewPayMentLable = true;
+		this.bntPMent = true;
+		System.out.println("view pm " + this.viewPayMentLable);
 		this.sumChargeOLineCurrent();
 	}
+
 	public void cancelViewPayment() {
-		this.viewPayMentLable=false;
-		this.bntPMent=false;
-	//	System.out.println("view pm "+this.viewPayMentLable);
-		//this.sumChargeOLineCurrent();
+		this.viewPayMentLable = false;
+		this.bntPMent = false;
+		// System.out.println("view pm "+this.viewPayMentLable);
+		// this.sumChargeOLineCurrent();
 	}
-	
-public int orderLineCharge(OrderLine ol){
-	return OrderLineServiceUtil.getCharge(ol);
-}
-	
-public int sumChargeOLineCurrent(){
-	int charge=0;
-	for (int i = 0; i < this.orderLinesCurrent.size(); i++) {
-		charge+=orderLineCharge(this.orderLinesCurrent.get(i));
+
+	public int orderLineCharge(OrderLine ol) {
+		return OrderLineServiceUtil.getCharge(ol);
 	}
-	this.sumChargeOL=charge;
-	return charge;
-}
+
+	public int sumChargeOLineCurrent() {
+		int charge = 0;
+		for (int i = 0; i < this.orderLinesCurrent.size(); i++) {
+			charge += orderLineCharge(this.orderLinesCurrent.get(i));
+		}
+		this.sumChargeOL = charge;
+		return charge;
+	}
 
 	public void increate() {
 		count++;
@@ -253,5 +294,5 @@ public int sumChargeOLineCurrent(){
 	public void setBntPMent(boolean bntPMent) {
 		this.bntPMent = bntPMent;
 	}
-	
+
 }

@@ -40,6 +40,7 @@ public class OrdersSoap implements Serializable {
 		soapModel.setCharge(model.getCharge());
 		soapModel.setCreatedDate(model.getCreatedDate());
 		soapModel.setIsPayMent(model.getIsPayMent());
+		soapModel.setFlag(model.getFlag());
 		soapModel.setNumOfDinner(model.getNumOfDinner());
 		soapModel.setDishTableId(model.getDishTableId());
 
@@ -166,6 +167,18 @@ public class OrdersSoap implements Serializable {
 		_isPayMent = isPayMent;
 	}
 
+	public boolean getFlag() {
+		return _flag;
+	}
+
+	public boolean isFlag() {
+		return _flag;
+	}
+
+	public void setFlag(boolean flag) {
+		_flag = flag;
+	}
+
 	public int getNumOfDinner() {
 		return _numOfDinner;
 	}
@@ -191,6 +204,7 @@ public class OrdersSoap implements Serializable {
 	private int _charge;
 	private Date _createdDate;
 	private int _isPayMent;
+	private boolean _flag;
 	private int _numOfDinner;
 	private String _dishTableId;
 }

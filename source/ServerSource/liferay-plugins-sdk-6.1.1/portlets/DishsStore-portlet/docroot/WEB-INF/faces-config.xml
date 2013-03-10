@@ -65,6 +65,14 @@
 			<to-view-id>/views/ads.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
+	<navigation-rule>
+		<display-name>views/menu.xhtml</display-name>
+		<from-view-id>/views/menu.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>goToIndex</from-outcome>
+			<to-view-id>/views/index.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
 	<lifecycle>
 		<phase-listener>com.liferay.faces.util.lifecycle.DebugPhaseListener</phase-listener>
 	</lifecycle>

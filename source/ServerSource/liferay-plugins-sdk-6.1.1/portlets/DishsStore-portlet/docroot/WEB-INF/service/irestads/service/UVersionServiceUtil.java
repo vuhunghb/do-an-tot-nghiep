@@ -77,8 +77,22 @@ public class UVersionServiceUtil {
 		return getService().findNextVersions(uversionId);
 	}
 
-	public static void checkDelete(long idObj) {
-		getService().checkDelete(idObj);
+	public static void checkDelete(java.lang.String objName, long idObj) {
+		getService().checkDelete(objName, idObj);
+	}
+
+	public static java.util.List<irestads.model.UVersion> findBylogIdAndName(
+		java.lang.String typename, long logId) {
+		return getService().findBylogIdAndName(typename, logId);
+	}
+
+	public static void deleteVersion(long versionId) {
+		getService().deleteVersion(versionId);
+	}
+
+	public static irestads.model.UVersion updateVersion(
+		irestads.model.UVersion newUversion) {
+		return getService().updateVersion(newUversion);
 	}
 
 	public static void clearService() {

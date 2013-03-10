@@ -29,9 +29,9 @@
 
 				<p:column>
 					<p:panel header="#{dishTable.dishTableId}" 
-						style="text-align:center; height:360px">
+						style="text-align:center; height:360px;">
 						<p:graphicImage id="img" style="text-align:center"
-							value="#{orderBeans.loadImg(dishTable.isAvalable)}" />
+							value="#{orderBeans.loadImg(dishTable)}" />
 						<h:panelGrid columns="2" style="width:100%" >
 							Số lượng ghế:
 							<h:outputText value="#{dishTable.numChair}" />
@@ -57,6 +57,7 @@
 					</p:panel>
 				</p:column>
 			</p:dataGrid>
+			<p:poll listener="#{orderBeans.getAllDishTable()}" interval="30" update="dgDishTable"></p:poll>
 			<p:dialog header="Danh sách món ăn" widgetVar="tableDialog" modal="true"
 				id="dlg">
 				<p:growl id="messages" showDetail="true" life="3000" />

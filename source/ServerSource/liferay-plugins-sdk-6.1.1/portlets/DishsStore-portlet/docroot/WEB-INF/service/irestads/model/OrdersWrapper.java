@@ -54,6 +54,7 @@ public class OrdersWrapper implements Orders, ModelWrapper<Orders> {
 		attributes.put("charge", getCharge());
 		attributes.put("createdDate", getCreatedDate());
 		attributes.put("isPayMent", getIsPayMent());
+		attributes.put("flag", getFlag());
 		attributes.put("numOfDinner", getNumOfDinner());
 		attributes.put("dishTableId", getDishTableId());
 
@@ -113,6 +114,12 @@ public class OrdersWrapper implements Orders, ModelWrapper<Orders> {
 
 		if (isPayMent != null) {
 			setIsPayMent(isPayMent);
+		}
+
+		Boolean flag = (Boolean)attributes.get("flag");
+
+		if (flag != null) {
+			setFlag(flag);
 		}
 
 		Integer numOfDinner = (Integer)attributes.get("numOfDinner");
@@ -326,6 +333,33 @@ public class OrdersWrapper implements Orders, ModelWrapper<Orders> {
 	*/
 	public void setIsPayMent(int isPayMent) {
 		_orders.setIsPayMent(isPayMent);
+	}
+
+	/**
+	* Returns the flag of this orders.
+	*
+	* @return the flag of this orders
+	*/
+	public boolean getFlag() {
+		return _orders.getFlag();
+	}
+
+	/**
+	* Returns <code>true</code> if this orders is flag.
+	*
+	* @return <code>true</code> if this orders is flag; <code>false</code> otherwise
+	*/
+	public boolean isFlag() {
+		return _orders.isFlag();
+	}
+
+	/**
+	* Sets whether this orders is flag.
+	*
+	* @param flag the flag of this orders
+	*/
+	public void setFlag(boolean flag) {
+		_orders.setFlag(flag);
 	}
 
 	/**

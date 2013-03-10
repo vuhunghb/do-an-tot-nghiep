@@ -22,6 +22,7 @@ import com.liferay.portal.kernel.exception.SystemException;
 import irestads.NoSuchOrdersException;
 import irestads.defination.LogTypeEnum;
 import irestads.model.Dish;
+import irestads.model.DishTable;
 import irestads.model.OrderLine;
 import irestads.model.Orders;
 import irestads.model.OrdersModel;
@@ -31,6 +32,7 @@ import irestads.service.OrdersLocalServiceUtil;
 import irestads.service.OrdersServiceUtil;
 import irestads.service.UVersionServiceUtil;
 import irestads.service.base.OrdersLocalServiceBaseImpl;
+import irestads.service.persistence.DishTableUtil;
 import irestads.service.persistence.DishUtil;
 import irestads.service.persistence.OrdersUtil;
 
@@ -89,6 +91,7 @@ public class OrdersLocalServiceImpl extends OrdersLocalServiceBaseImpl {
 		o.setNumOfDinner(numOfDinner);
 		o.setDishTableId(dishTableId);
 		o.setCreatedDate(new Date(createdDate));
+		o.setFlag(false);
 		//o.setIsWaiting(false);
 		try {
 			o=OrdersUtil.update(o, true);
@@ -109,6 +112,7 @@ public class OrdersLocalServiceImpl extends OrdersLocalServiceBaseImpl {
 				order.setDishTableId(o.getDishTableId());
 				order.setIsPayMent(o.getIsPayMent());
 				order.setNumOfDinner(o.getNumOfDinner());
+				order.setFlag(o.getFlag());
 				
 				order= OrdersUtil.update(order, true);
 				
@@ -125,6 +129,13 @@ public class OrdersLocalServiceImpl extends OrdersLocalServiceBaseImpl {
 	public boolean deleteOrderById(long orderId) {
 	try {
 			Orders orders = OrdersUtil.remove(orderId);
+			if(orders!=null){
+				DishTable dishTable=DishTableUtil.findByPrimaryKey(orders.getDishTableId());
+				dishTable.setCurentOrder(null);
+				dishTable.setCurrentOrderId(0);
+				dishTable.setIsAvalable(false);
+				DishTableUtil.update(dishTable, true);
+			}
 			return true;
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -181,6 +192,7 @@ public Orders payment(long orderId){
 		Orders order= OrdersUtil.findByPrimaryKey(orderId);
 		int charge =this.calCharge(orderId);
 		order.setCharge(charge);
+		order.setIsPayMent(2);
 		order=	OrdersUtil.update(order, true);
 		return order;
 	} catch (NoSuchOrdersException e) {

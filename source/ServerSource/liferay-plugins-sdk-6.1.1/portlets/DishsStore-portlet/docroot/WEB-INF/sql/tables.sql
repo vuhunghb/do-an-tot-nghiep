@@ -120,6 +120,7 @@ create table dishsstore_Orders (
 	charge INTEGER,
 	createdDate DATE null,
 	isPayMent INTEGER,
+	flag BOOLEAN,
 	numOfDinner INTEGER,
 	dishTableId VARCHAR(75) null
 );

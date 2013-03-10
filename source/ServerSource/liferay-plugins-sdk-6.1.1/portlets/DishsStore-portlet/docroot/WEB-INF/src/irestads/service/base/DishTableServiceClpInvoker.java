@@ -23,53 +23,53 @@ import java.util.Arrays;
  */
 public class DishTableServiceClpInvoker {
 	public DishTableServiceClpInvoker() {
-		_methodName86 = "getBeanIdentifier";
+		_methodName72 = "getBeanIdentifier";
 
-		_methodParameterTypes86 = new String[] {  };
+		_methodParameterTypes72 = new String[] {  };
 
-		_methodName87 = "setBeanIdentifier";
+		_methodName73 = "setBeanIdentifier";
 
-		_methodParameterTypes87 = new String[] { "java.lang.String" };
+		_methodParameterTypes73 = new String[] { "java.lang.String" };
 
-		_methodName92 = "getAllDishTables";
+		_methodName78 = "getAllDishTables";
 
-		_methodParameterTypes92 = new String[] {  };
+		_methodParameterTypes78 = new String[] {  };
 
-		_methodName93 = "updateDishTable";
+		_methodName79 = "updateDishTable";
 
-		_methodParameterTypes93 = new String[] { "irestads.model.DishTable" };
+		_methodParameterTypes79 = new String[] { "irestads.model.DishTable" };
 
-		_methodName94 = "updateTableStatus";
+		_methodName80 = "updateTableStatus";
 
-		_methodParameterTypes94 = new String[] {
+		_methodParameterTypes80 = new String[] {
 				"java.lang.String", "boolean", "long"
 			};
 	}
 
 	public Object invokeMethod(String name, String[] parameterTypes,
 		Object[] arguments) throws Throwable {
-		if (_methodName86.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes86, parameterTypes)) {
+		if (_methodName72.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes72, parameterTypes)) {
 			return DishTableServiceUtil.getBeanIdentifier();
 		}
 
-		if (_methodName87.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes87, parameterTypes)) {
+		if (_methodName73.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes73, parameterTypes)) {
 			DishTableServiceUtil.setBeanIdentifier((java.lang.String)arguments[0]);
 		}
 
-		if (_methodName92.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes92, parameterTypes)) {
+		if (_methodName78.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes78, parameterTypes)) {
 			return DishTableServiceUtil.getAllDishTables();
 		}
 
-		if (_methodName93.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes93, parameterTypes)) {
+		if (_methodName79.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes79, parameterTypes)) {
 			return DishTableServiceUtil.updateDishTable((irestads.model.DishTable)arguments[0]);
 		}
 
-		if (_methodName94.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes94, parameterTypes)) {
+		if (_methodName80.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes80, parameterTypes)) {
 			return DishTableServiceUtil.updateTableStatus((java.lang.String)arguments[0],
 				((Boolean)arguments[1]).booleanValue(),
 				((Long)arguments[2]).longValue());
@@ -78,14 +78,14 @@ public class DishTableServiceClpInvoker {
 		throw new UnsupportedOperationException();
 	}
 
-	private String _methodName86;
-	private String[] _methodParameterTypes86;
-	private String _methodName87;
-	private String[] _methodParameterTypes87;
-	private String _methodName92;
-	private String[] _methodParameterTypes92;
-	private String _methodName93;
-	private String[] _methodParameterTypes93;
-	private String _methodName94;
-	private String[] _methodParameterTypes94;
+	private String _methodName72;
+	private String[] _methodParameterTypes72;
+	private String _methodName73;
+	private String[] _methodParameterTypes73;
+	private String _methodName78;
+	private String[] _methodParameterTypes78;
+	private String _methodName79;
+	private String[] _methodParameterTypes79;
+	private String _methodName80;
+	private String[] _methodParameterTypes80;
 }

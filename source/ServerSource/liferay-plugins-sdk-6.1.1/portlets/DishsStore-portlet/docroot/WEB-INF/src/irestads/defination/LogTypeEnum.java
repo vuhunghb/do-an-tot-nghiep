@@ -1,6 +1,6 @@
 package irestads.defination;
 
 public enum LogTypeEnum {
-	UPDATE,CREATE, DELETE;
+	UPDATE,CREATE, DELETE, NO_ACTION;
 
 }

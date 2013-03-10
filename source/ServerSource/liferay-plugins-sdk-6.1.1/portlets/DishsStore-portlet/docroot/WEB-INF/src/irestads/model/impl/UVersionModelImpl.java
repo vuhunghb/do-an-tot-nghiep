@@ -96,6 +96,7 @@ public class UVersionModelImpl extends BaseModelImpl<UVersion>
 			true);
 	public static long LOGDATE_COLUMN_BITMASK = 1L;
 	public static long LOGOBJID_COLUMN_BITMASK = 2L;
+	public static long LOGOBJNAME_COLUMN_BITMASK = 4L;
 
 	/**
 	 * Converts the soap model instance into a normal model instance.
@@ -333,7 +334,17 @@ public class UVersionModelImpl extends BaseModelImpl<UVersion>
 	}
 
 	public void setLogObjName(String logObjName) {
+		_columnBitmask |= LOGOBJNAME_COLUMN_BITMASK;
+
+		if (_originalLogObjName == null) {
+			_originalLogObjName = _logObjName;
+		}
+
 		_logObjName = logObjName;
+	}
+
+	public String getOriginalLogObjName() {
+		return GetterUtil.getString(_originalLogObjName);
 	}
 
 	@JSON
@@ -483,6 +494,8 @@ public class UVersionModelImpl extends BaseModelImpl<UVersion>
 	@Override
 	public void resetOriginalValues() {
 		UVersionModelImpl uVersionModelImpl = this;
+
+		uVersionModelImpl._originalLogObjName = uVersionModelImpl._logObjName;
 
 		uVersionModelImpl._originalLogObjId = uVersionModelImpl._logObjId;
 
@@ -653,6 +666,7 @@ public class UVersionModelImpl extends BaseModelImpl<UVersion>
 	private Date _createDate;
 	private Date _modifiedDate;
 	private String _logObjName;
+	private String _originalLogObjName;
 	private long _logObjId;
 	private long _originalLogObjId;
 	private boolean _setOriginalLogObjId;

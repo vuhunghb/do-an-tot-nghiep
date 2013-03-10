@@ -59,17 +59,19 @@
 					update=":formTable:dishTable :formTable:messages" />
 				<p:columnGroup type="header">
 					<p:row>
-
+						<p:column headerText="Hình đại diện" />
 						<p:column width="100" headerText="Tên" />
 						<p:column headerText="Mô tả" />
 						<p:column headerText="Giá TK" />
-						<p:column headerText="Hình đại diện" />
-						<p:column headerText="Hình chi tiết" />
 						<p:column headerText="Chi tiết" />
 						<p:column headerText="Loại" />
 						<p:column headerText="Chỉnh sửa" />
 					</p:row>
 				</p:columnGroup>
+				<p:column>
+					<img width="100" height="70"
+						src="data:image/jpeg;base64, #{dish.avatarBaseCode}" />
+				</p:column>
 
 				<p:column>
 					<p:cellEditor>
@@ -101,28 +103,7 @@
 						</f:facet>
 					</p:cellEditor>
 				</p:column>
-				<p:column>
-					<p:cellEditor>
-						<f:facet name="output">
-							<h:outputText value="#{dish.avatarImg}" />
-						</f:facet>
-						<f:facet name="input">
-							<p:inputText value="#{dish.avatarImg}"
-								label="Hình đại diện Món ăn" />
-						</f:facet>
-					</p:cellEditor>
-				</p:column>
-				<p:column>
-					<p:cellEditor>
-						<f:facet name="output">
-							<h:outputText value="#{dish.detailImg}" />
-						</f:facet>
-						<f:facet name="input">
-							<p:inputText value="#{dish.detailImg}"
-								label="Hình chi tiết Món ăn" />
-						</f:facet>
-					</p:cellEditor>
-				</p:column>
+				
 				<p:column>
 					<p:cellEditor>
 						<f:facet name="output">
@@ -177,11 +158,12 @@
 					<h:outputText style="font-weight:bold"
 						value="#{dishBeans.dishSelected.decription}" />
 					<h:outputText value="Ảnh đại diện:" />
-					<h:outputText style="font-weight:bold"
-						value="#{dishBeans.dishSelected.avatarImg}" />
+					<img width="100" height="70"
+						src="data:image/jpeg;base64, #{dishBeans.dishSelected.avatarBaseCode}" />
+					
 					<h:outputText value="Ảnh chi tiết:" />
-					<h:outputText style="font-weight:bold"
-						value="#{dishBeans.dishSelected.detailImg}" />
+					<img width="100" height="70"
+						src="data:image/jpeg;base64, #{dishBeans.dishSelected.detailBaseCode}" />
 					<h:outputText value="Chi tiết:" />
 					<h:outputText style="font-weight:bold"
 						value="#{dishBeans.dishSelected.detail}" />

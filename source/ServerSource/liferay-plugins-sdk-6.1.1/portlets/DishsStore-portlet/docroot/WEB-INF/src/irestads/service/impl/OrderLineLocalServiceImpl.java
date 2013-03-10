@@ -61,45 +61,67 @@ public class OrderLineLocalServiceImpl extends OrderLineLocalServiceBaseImpl {
 	 * irestads.service.OrderLineLocalServiceUtil} to access the order line
 	 * local service.
 	 */
-	public OrderLine createOrderLine(Long orderLineId, int numOfDish, int statusDish, long dishId, long orderId,
-			long orderDate) {
+	public OrderLine createOrderLine(Long orderLineId, int numOfDish,
+			int statusDish, long dishId, long orderId, long orderDate) {
+
+		OrderLine orderLineModel;
 		try {
-			OrderLine orderLineModel = OrderLineUtil.create(orderLineId);
-			orderLineModel.setNumOfDish(numOfDish);
-			orderLineModel.setStatusDish(statusDish);
-			orderLineModel.setDishId(dishId);
-			orderLineModel.setOrderId(orderId);
-			orderLineModel.setNumOfFinishDish(0);
-			orderLineModel.setOrderDate(new Date(orderDate));
+			orderLineModel = OrderLineUtil.fetchByPrimaryKey(orderLineId);
 			MenuLine menuLine = MenuLineUtil.findByDishId(dishId);
-			if (menuLine.getNumOfDish() < numOfDish) {
+
+			if (orderLineModel == null) {
+				orderLineModel = OrderLineUtil.create(orderLineId);
+				orderLineModel.setNumOfDish(0);
+				orderLineModel.setNumOfFinishDish(0);
+				orderLineModel.setStatusDish(statusDish);
+				orderLineModel.setDishId(dishId);
+				orderLineModel.setOrderId(orderId);
+				orderLineModel.setOrderDate(new Date(orderDate));
+			}
+
+			int increase = numOfDish - orderLineModel.getNumOfDish();
+			if (increase > menuLine.getNumOfDish()) {
 				orderLineModel.setOrderLineId(-1);
 				orderLineModel.setNumOfDish(menuLine.getNumOfDish());
-			} else if ((menuLine.getNumOfDish() > numOfDish) && (menuLine.getNumOfDish() != 0)) {
+			} else {
+				orderLineModel.setNumOfDish(numOfDish);
+				if (numOfDish > orderLineModel.getNumOfFinishDish()) {
+					orderLineModel.setStatusDish(2);// dang thuc hien
+				}
+				menuLine.setNumOfDish(menuLine.getNumOfDish() - increase);
+
 				orderLineModel = OrderLineUtil.update(orderLineModel, true);
-				int temp = menuLine.getNumOfDish() - numOfDish;
-				menuLine.setNumOfDish(temp);
 				MenuLineUtil.update(menuLine, true);
 			}
+			// up date flag=true khi co bat ky thay doi nao ve orderline
+			Orders orders = OrdersUtil.fetchByPrimaryKey(orderId);
+			orders.setFlag(true);
+			OrdersUtil.update(orders, true);
 			return orderLineModel;
 		} catch (SystemException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			return null;
 		} catch (NoSuchMenuLineException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			return null;
 		}
+
+		return null;
 	}
 
-	public OrderLine updateOrderLine(long orderLineId, int numOfFinishDish, int status) {
+	public OrderLine updateOrderLine(long orderLineId, int numOfFinishDish,
+			int status) {
 		try {
 			OrderLine orderLine = OrderLineUtil.fetchByPrimaryKey(orderLineId);
 			if (orderLine != null && orderLineId == orderLine.getOrderLineId()) {
 				orderLine.setNumOfFinishDish(numOfFinishDish);
 				orderLine.setStatusDish(status);
 				orderLine = OrderLineUtil.update(orderLine, true);
+				// up date flag=true khi co bat ky thay doi nao ve orderline
+				Orders orders = OrdersUtil.fetchByPrimaryKey(orderLine
+						.getOrderId());
+				orders.setFlag(true);
+				OrdersUtil.update(orders, true);
 				return orderLine;
 			}
 
@@ -112,7 +134,22 @@ public class OrderLineLocalServiceImpl extends OrderLineLocalServiceBaseImpl {
 
 	public boolean deleteOrderLineById(long orderLineId) {
 		try {
-			OrderLineUtil.remove(orderLineId);
+			OrderLine orderLine = OrderLineUtil.fetchByPrimaryKey(orderLineId);
+			MenuLine menuLine = MenuLineUtil
+					.findByDishId(orderLine.getDishId());
+
+			orderLine = OrderLineUtil.remove(orderLineId);
+			if (orderLine != null) {
+				menuLine.setNumOfDish(orderLine.getNumOfDish()
+						+ menuLine.getNumOfDish());
+				MenuLineUtil.update(menuLine, true);
+			}
+			// up date flag=true khi co bat ky thay doi nao ve orderline
+			Orders orders = OrdersUtil
+					.fetchByPrimaryKey(orderLine.getOrderId());
+			orders.setFlag(true);
+			OrdersUtil.update(orders, true);
+
 			return true;
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -133,15 +170,16 @@ public class OrderLineLocalServiceImpl extends OrderLineLocalServiceBaseImpl {
 
 	public OrderLine synchStatusOrderLine(OrderLine ol) {
 		try {
-			OrderLine orderLine = OrderLineUtil.fetchByPrimaryKey(ol.getOrderLineId());
+			OrderLine orderLine = OrderLineUtil.fetchByPrimaryKey(ol
+					.getOrderLineId());
 			int numFinish = ol.getNumOfFinishDish();
 
-			int capacity = ol.getNumOfDish();
+			int numOfDish = ol.getNumOfDish();
 			// if(numFinish==0){
 			// orderLine.setStatusDish(0);// moi goi mon
 			// }
-			if (numFinish == capacity) {
-				orderLine.setStatusDish(2);// da hoan thanh
+			if (numFinish == numOfDish) {
+				orderLine.setStatusDish(3);// da hoan thanh
 			}
 			// else if(numFinish<capacity){
 			// orderLine.setStatusDish(1);// dang lam

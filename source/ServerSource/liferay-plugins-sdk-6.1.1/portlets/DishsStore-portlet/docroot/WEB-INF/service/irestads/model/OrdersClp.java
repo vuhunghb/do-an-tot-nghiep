@@ -75,6 +75,7 @@ public class OrdersClp extends BaseModelImpl<Orders> implements Orders {
 		attributes.put("charge", getCharge());
 		attributes.put("createdDate", getCreatedDate());
 		attributes.put("isPayMent", getIsPayMent());
+		attributes.put("flag", getFlag());
 		attributes.put("numOfDinner", getNumOfDinner());
 		attributes.put("dishTableId", getDishTableId());
 
@@ -135,6 +136,12 @@ public class OrdersClp extends BaseModelImpl<Orders> implements Orders {
 
 		if (isPayMent != null) {
 			setIsPayMent(isPayMent);
+		}
+
+		Boolean flag = (Boolean)attributes.get("flag");
+
+		if (flag != null) {
+			setFlag(flag);
 		}
 
 		Integer numOfDinner = (Integer)attributes.get("numOfDinner");
@@ -230,6 +237,18 @@ public class OrdersClp extends BaseModelImpl<Orders> implements Orders {
 		_isPayMent = isPayMent;
 	}
 
+	public boolean getFlag() {
+		return _flag;
+	}
+
+	public boolean isFlag() {
+		return _flag;
+	}
+
+	public void setFlag(boolean flag) {
+		_flag = flag;
+	}
+
 	public int getNumOfDinner() {
 		return _numOfDinner;
 	}
@@ -282,6 +301,7 @@ public class OrdersClp extends BaseModelImpl<Orders> implements Orders {
 		clone.setCharge(getCharge());
 		clone.setCreatedDate(getCreatedDate());
 		clone.setIsPayMent(getIsPayMent());
+		clone.setFlag(getFlag());
 		clone.setNumOfDinner(getNumOfDinner());
 		clone.setDishTableId(getDishTableId());
 
@@ -334,7 +354,7 @@ public class OrdersClp extends BaseModelImpl<Orders> implements Orders {
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(23);
+		StringBundler sb = new StringBundler(25);
 
 		sb.append("{orderId=");
 		sb.append(getOrderId());
@@ -354,6 +374,8 @@ public class OrdersClp extends BaseModelImpl<Orders> implements Orders {
 		sb.append(getCreatedDate());
 		sb.append(", isPayMent=");
 		sb.append(getIsPayMent());
+		sb.append(", flag=");
+		sb.append(getFlag());
 		sb.append(", numOfDinner=");
 		sb.append(getNumOfDinner());
 		sb.append(", dishTableId=");
@@ -364,7 +386,7 @@ public class OrdersClp extends BaseModelImpl<Orders> implements Orders {
 	}
 
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(37);
+		StringBundler sb = new StringBundler(40);
 
 		sb.append("<model><model-name>");
 		sb.append("irestads.model.Orders");
@@ -407,6 +429,10 @@ public class OrdersClp extends BaseModelImpl<Orders> implements Orders {
 		sb.append(getIsPayMent());
 		sb.append("]]></column-value></column>");
 		sb.append(
+			"<column><column-name>flag</column-name><column-value><![CDATA[");
+		sb.append(getFlag());
+		sb.append("]]></column-value></column>");
+		sb.append(
 			"<column><column-name>numOfDinner</column-name><column-value><![CDATA[");
 		sb.append(getNumOfDinner());
 		sb.append("]]></column-value></column>");
@@ -430,6 +456,7 @@ public class OrdersClp extends BaseModelImpl<Orders> implements Orders {
 	private int _charge;
 	private Date _createdDate;
 	private int _isPayMent;
+	private boolean _flag;
 	private int _numOfDinner;
 	private String _dishTableId;
 	private BaseModel<?> _ordersRemoteModel;

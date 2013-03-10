@@ -17,10 +17,6 @@ package irestads.service.messaging;
 import com.liferay.portal.kernel.messaging.BaseMessageListener;
 import com.liferay.portal.kernel.messaging.Message;
 
-import irestads.service.AdsItemLocalServiceUtil;
-import irestads.service.AdsItemServiceUtil;
-import irestads.service.CategoryAdsLocalServiceUtil;
-import irestads.service.CategoryAdsServiceUtil;
 import irestads.service.CategoryLocalServiceUtil;
 import irestads.service.CategoryServiceUtil;
 import irestads.service.ClpSerializer;
@@ -54,15 +50,9 @@ public class ClpMessageListener extends BaseMessageListener {
 
 		if (command.equals("undeploy") &&
 				servletContextName.equals(getServletContextName())) {
-			AdsItemLocalServiceUtil.clearService();
-
-			AdsItemServiceUtil.clearService();
 			CategoryLocalServiceUtil.clearService();
 
 			CategoryServiceUtil.clearService();
-			CategoryAdsLocalServiceUtil.clearService();
-
-			CategoryAdsServiceUtil.clearService();
 			DishLocalServiceUtil.clearService();
 
 			DishServiceUtil.clearService();

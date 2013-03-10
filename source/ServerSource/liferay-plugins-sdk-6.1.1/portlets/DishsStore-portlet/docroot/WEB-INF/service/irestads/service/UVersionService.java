@@ -71,5 +71,13 @@ public interface UVersionService extends BaseService, InvokableService {
 	public java.util.List<irestads.model.UVersion> findNextVersions(
 		long uversionId);
 
-	public void checkDelete(long idObj);
+	public void checkDelete(java.lang.String objName, long idObj);
+
+	public java.util.List<irestads.model.UVersion> findBylogIdAndName(
+		java.lang.String typename, long logId);
+
+	public void deleteVersion(long versionId);
+
+	public irestads.model.UVersion updateVersion(
+		irestads.model.UVersion newUversion);
 }

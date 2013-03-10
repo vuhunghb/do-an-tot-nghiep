@@ -31,10 +31,6 @@ import com.liferay.portal.service.persistence.UserPersistence;
 
 import irestads.model.Orders;
 
-import irestads.service.AdsItemLocalService;
-import irestads.service.AdsItemService;
-import irestads.service.CategoryAdsLocalService;
-import irestads.service.CategoryAdsService;
 import irestads.service.CategoryLocalService;
 import irestads.service.CategoryService;
 import irestads.service.DishLocalService;
@@ -52,9 +48,6 @@ import irestads.service.OrdersService;
 import irestads.service.UVersionLocalService;
 import irestads.service.UVersionService;
 
-import irestads.service.persistence.AdsItemFinder;
-import irestads.service.persistence.AdsItemPersistence;
-import irestads.service.persistence.CategoryAdsPersistence;
 import irestads.service.persistence.CategoryFinder;
 import irestads.service.persistence.CategoryPersistence;
 import irestads.service.persistence.DishFinder;
@@ -89,78 +82,6 @@ public abstract class OrdersServiceBaseImpl extends BaseServiceImpl
 	 *
 	 * Never modify or reference this class directly. Always use {@link irestads.service.OrdersServiceUtil} to access the orders remote service.
 	 */
-
-	/**
-	 * Returns the ads item local service.
-	 *
-	 * @return the ads item local service
-	 */
-	public AdsItemLocalService getAdsItemLocalService() {
-		return adsItemLocalService;
-	}
-
-	/**
-	 * Sets the ads item local service.
-	 *
-	 * @param adsItemLocalService the ads item local service
-	 */
-	public void setAdsItemLocalService(AdsItemLocalService adsItemLocalService) {
-		this.adsItemLocalService = adsItemLocalService;
-	}
-
-	/**
-	 * Returns the ads item remote service.
-	 *
-	 * @return the ads item remote service
-	 */
-	public AdsItemService getAdsItemService() {
-		return adsItemService;
-	}
-
-	/**
-	 * Sets the ads item remote service.
-	 *
-	 * @param adsItemService the ads item remote service
-	 */
-	public void setAdsItemService(AdsItemService adsItemService) {
-		this.adsItemService = adsItemService;
-	}
-
-	/**
-	 * Returns the ads item persistence.
-	 *
-	 * @return the ads item persistence
-	 */
-	public AdsItemPersistence getAdsItemPersistence() {
-		return adsItemPersistence;
-	}
-
-	/**
-	 * Sets the ads item persistence.
-	 *
-	 * @param adsItemPersistence the ads item persistence
-	 */
-	public void setAdsItemPersistence(AdsItemPersistence adsItemPersistence) {
-		this.adsItemPersistence = adsItemPersistence;
-	}
-
-	/**
-	 * Returns the ads item finder.
-	 *
-	 * @return the ads item finder
-	 */
-	public AdsItemFinder getAdsItemFinder() {
-		return adsItemFinder;
-	}
-
-	/**
-	 * Sets the ads item finder.
-	 *
-	 * @param adsItemFinder the ads item finder
-	 */
-	public void setAdsItemFinder(AdsItemFinder adsItemFinder) {
-		this.adsItemFinder = adsItemFinder;
-	}
 
 	/**
 	 * Returns the category local service.
@@ -233,62 +154,6 @@ public abstract class OrdersServiceBaseImpl extends BaseServiceImpl
 	 */
 	public void setCategoryFinder(CategoryFinder categoryFinder) {
 		this.categoryFinder = categoryFinder;
-	}
-
-	/**
-	 * Returns the category ads local service.
-	 *
-	 * @return the category ads local service
-	 */
-	public CategoryAdsLocalService getCategoryAdsLocalService() {
-		return categoryAdsLocalService;
-	}
-
-	/**
-	 * Sets the category ads local service.
-	 *
-	 * @param categoryAdsLocalService the category ads local service
-	 */
-	public void setCategoryAdsLocalService(
-		CategoryAdsLocalService categoryAdsLocalService) {
-		this.categoryAdsLocalService = categoryAdsLocalService;
-	}
-
-	/**
-	 * Returns the category ads remote service.
-	 *
-	 * @return the category ads remote service
-	 */
-	public CategoryAdsService getCategoryAdsService() {
-		return categoryAdsService;
-	}
-
-	/**
-	 * Sets the category ads remote service.
-	 *
-	 * @param categoryAdsService the category ads remote service
-	 */
-	public void setCategoryAdsService(CategoryAdsService categoryAdsService) {
-		this.categoryAdsService = categoryAdsService;
-	}
-
-	/**
-	 * Returns the category ads persistence.
-	 *
-	 * @return the category ads persistence
-	 */
-	public CategoryAdsPersistence getCategoryAdsPersistence() {
-		return categoryAdsPersistence;
-	}
-
-	/**
-	 * Sets the category ads persistence.
-	 *
-	 * @param categoryAdsPersistence the category ads persistence
-	 */
-	public void setCategoryAdsPersistence(
-		CategoryAdsPersistence categoryAdsPersistence) {
-		this.categoryAdsPersistence = categoryAdsPersistence;
 	}
 
 	/**
@@ -912,14 +777,6 @@ public abstract class OrdersServiceBaseImpl extends BaseServiceImpl
 		}
 	}
 
-	@BeanReference(type = AdsItemLocalService.class)
-	protected AdsItemLocalService adsItemLocalService;
-	@BeanReference(type = AdsItemService.class)
-	protected AdsItemService adsItemService;
-	@BeanReference(type = AdsItemPersistence.class)
-	protected AdsItemPersistence adsItemPersistence;
-	@BeanReference(type = AdsItemFinder.class)
-	protected AdsItemFinder adsItemFinder;
 	@BeanReference(type = CategoryLocalService.class)
 	protected CategoryLocalService categoryLocalService;
 	@BeanReference(type = CategoryService.class)
@@ -928,12 +785,6 @@ public abstract class OrdersServiceBaseImpl extends BaseServiceImpl
 	protected CategoryPersistence categoryPersistence;
 	@BeanReference(type = CategoryFinder.class)
 	protected CategoryFinder categoryFinder;
-	@BeanReference(type = CategoryAdsLocalService.class)
-	protected CategoryAdsLocalService categoryAdsLocalService;
-	@BeanReference(type = CategoryAdsService.class)
-	protected CategoryAdsService categoryAdsService;
-	@BeanReference(type = CategoryAdsPersistence.class)
-	protected CategoryAdsPersistence categoryAdsPersistence;
 	@BeanReference(type = DishLocalService.class)
 	protected DishLocalService dishLocalService;
 	@BeanReference(type = DishService.class)

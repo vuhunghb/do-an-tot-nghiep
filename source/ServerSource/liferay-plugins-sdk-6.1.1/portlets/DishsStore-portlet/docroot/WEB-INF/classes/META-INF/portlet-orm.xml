@@ -7,37 +7,6 @@
 			<access>PROPERTY</access>
 		</persistence-unit-defaults>
 	</persistence-unit-metadata>
-	<mapped-superclass class="irestads.model.impl.AdsItemModelImpl">
-		<attributes>
-			<id name="adsItemId" />
-			<basic name="companyId" />
-			<basic name="userId" />
-			<basic name="userName" />
-			<basic name="createDate">
-				<temporal>TIMESTAMP</temporal>
-			</basic>
-			<basic name="modifiedDate">
-				<temporal>TIMESTAMP</temporal>
-			</basic>
-			<basic name="companyName" />
-			<basic name="productName" />
-			<basic name="numberPhone" />
-			<basic name="email" />
-			<basic name="address" />
-			<basic name="facebook" />
-			<basic name="twitter" />
-			<basic name="description" />
-			<basic name="imageContent" />
-			<basic name="timeDuring" />
-			<basic name="tags" />
-			<basic name="itemType" />
-			<basic name="categoryAdsId" />
-			<transient name="modelAttributes" />
-			<transient name="primaryKey" />
-			<transient name="primaryKeyObj" />
-			<transient name="userUuid" />
-		</attributes>
-	</mapped-superclass>
 	<mapped-superclass class="irestads.model.impl.CategoryModelImpl">
 		<attributes>
 			<id name="categoryId" />
@@ -51,25 +20,6 @@
 				<temporal>TIMESTAMP</temporal>
 			</basic>
 			<basic name="categoryName" />
-			<transient name="modelAttributes" />
-			<transient name="primaryKey" />
-			<transient name="primaryKeyObj" />
-			<transient name="userUuid" />
-		</attributes>
-	</mapped-superclass>
-	<mapped-superclass class="irestads.model.impl.CategoryAdsModelImpl">
-		<attributes>
-			<id name="categoryAdsId" />
-			<basic name="companyId" />
-			<basic name="userId" />
-			<basic name="userName" />
-			<basic name="createDate">
-				<temporal>TIMESTAMP</temporal>
-			</basic>
-			<basic name="modifiedDate">
-				<temporal>TIMESTAMP</temporal>
-			</basic>
-			<basic name="categoryAdsName" />
 			<transient name="modelAttributes" />
 			<transient name="primaryKey" />
 			<transient name="primaryKeyObj" />
@@ -210,6 +160,7 @@
 				<temporal>TIMESTAMP</temporal>
 			</basic>
 			<basic name="isPayMent" />
+			<basic name="flag" />
 			<basic name="numOfDinner" />
 			<basic name="dishTableId" />
 			<transient name="modelAttributes" />
@@ -242,16 +193,8 @@
 			<transient name="userUuid" />
 		</attributes>
 	</mapped-superclass>
-	<entity class="irestads.model.impl.AdsItemImpl" name="AdsItem">
-		<table name="dishsstore_AdsItem" />
-		<attributes />
-	</entity>
 	<entity class="irestads.model.impl.CategoryImpl" name="Category">
 		<table name="dishsstore_Category" />
-		<attributes />
-	</entity>
-	<entity class="irestads.model.impl.CategoryAdsImpl" name="CategoryAds">
-		<table name="dishsstore_CategoryAds" />
 		<attributes />
 	</entity>
 	<entity class="irestads.model.impl.DishImpl" name="Dish">

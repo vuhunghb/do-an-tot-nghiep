@@ -101,25 +101,28 @@ public class UVersionPersistenceImpl extends BasePersistenceImpl<UVersion>
 			UVersionModelImpl.FINDER_CACHE_ENABLED, Long.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByLogDate",
 			new String[] { Date.class.getName() });
-	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_BY_LOGOBJID = new FinderPath(UVersionModelImpl.ENTITY_CACHE_ENABLED,
+	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_BY_LOGOBJIDANDNAME =
+		new FinderPath(UVersionModelImpl.ENTITY_CACHE_ENABLED,
 			UVersionModelImpl.FINDER_CACHE_ENABLED, UVersionImpl.class,
-			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findBylogObjId",
+			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findBylogObjIdAndName",
 			new String[] {
-				Long.class.getName(),
+				String.class.getName(), Long.class.getName(),
 				
 			"java.lang.Integer", "java.lang.Integer",
 				"com.liferay.portal.kernel.util.OrderByComparator"
 			});
-	public static final FinderPath FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_LOGOBJID =
+	public static final FinderPath FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_LOGOBJIDANDNAME =
 		new FinderPath(UVersionModelImpl.ENTITY_CACHE_ENABLED,
 			UVersionModelImpl.FINDER_CACHE_ENABLED, UVersionImpl.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findBylogObjId",
-			new String[] { Long.class.getName() },
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findBylogObjIdAndName",
+			new String[] { String.class.getName(), Long.class.getName() },
+			UVersionModelImpl.LOGOBJNAME_COLUMN_BITMASK |
 			UVersionModelImpl.LOGOBJID_COLUMN_BITMASK);
-	public static final FinderPath FINDER_PATH_COUNT_BY_LOGOBJID = new FinderPath(UVersionModelImpl.ENTITY_CACHE_ENABLED,
+	public static final FinderPath FINDER_PATH_COUNT_BY_LOGOBJIDANDNAME = new FinderPath(UVersionModelImpl.ENTITY_CACHE_ENABLED,
 			UVersionModelImpl.FINDER_CACHE_ENABLED, Long.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countBylogObjId",
-			new String[] { Long.class.getName() });
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION,
+			"countBylogObjIdAndName",
+			new String[] { String.class.getName(), Long.class.getName() });
 	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_ALL = new FinderPath(UVersionModelImpl.ENTITY_CACHE_ENABLED,
 			UVersionModelImpl.FINDER_CACHE_ENABLED, UVersionImpl.class,
 			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findAll", new String[0]);
@@ -349,21 +352,25 @@ public class UVersionPersistenceImpl extends BasePersistenceImpl<UVersion>
 			}
 
 			if ((uVersionModelImpl.getColumnBitmask() &
-					FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_LOGOBJID.getColumnBitmask()) != 0) {
+					FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_LOGOBJIDANDNAME.getColumnBitmask()) != 0) {
 				Object[] args = new Object[] {
+						uVersionModelImpl.getOriginalLogObjName(),
 						Long.valueOf(uVersionModelImpl.getOriginalLogObjId())
 					};
 
-				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_LOGOBJID, args);
-				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_LOGOBJID,
+				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_LOGOBJIDANDNAME,
+					args);
+				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_LOGOBJIDANDNAME,
 					args);
 
 				args = new Object[] {
+						uVersionModelImpl.getLogObjName(),
 						Long.valueOf(uVersionModelImpl.getLogObjId())
 					};
 
-				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_LOGOBJID, args);
-				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_LOGOBJID,
+				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_LOGOBJIDANDNAME,
+					args);
+				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_LOGOBJIDANDNAME,
 					args);
 			}
 		}
@@ -889,43 +896,46 @@ public class UVersionPersistenceImpl extends BasePersistenceImpl<UVersion>
 	}
 
 	/**
-	 * Returns all the u versions where logObjId = &#63;.
+	 * Returns all the u versions where logObjName = &#63; and logObjId = &#63;.
 	 *
+	 * @param logObjName the log obj name
 	 * @param logObjId the log obj ID
 	 * @return the matching u versions
 	 * @throws SystemException if a system exception occurred
 	 */
-	public List<UVersion> findBylogObjId(long logObjId)
+	public List<UVersion> findBylogObjIdAndName(String logObjName, long logObjId)
 		throws SystemException {
-		return findBylogObjId(logObjId, QueryUtil.ALL_POS, QueryUtil.ALL_POS,
-			null);
+		return findBylogObjIdAndName(logObjName, logObjId, QueryUtil.ALL_POS,
+			QueryUtil.ALL_POS, null);
 	}
 
 	/**
-	 * Returns a range of all the u versions where logObjId = &#63;.
+	 * Returns a range of all the u versions where logObjName = &#63; and logObjId = &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
 	 * </p>
 	 *
+	 * @param logObjName the log obj name
 	 * @param logObjId the log obj ID
 	 * @param start the lower bound of the range of u versions
 	 * @param end the upper bound of the range of u versions (not inclusive)
 	 * @return the range of matching u versions
 	 * @throws SystemException if a system exception occurred
 	 */
-	public List<UVersion> findBylogObjId(long logObjId, int start, int end)
-		throws SystemException {
-		return findBylogObjId(logObjId, start, end, null);
+	public List<UVersion> findBylogObjIdAndName(String logObjName,
+		long logObjId, int start, int end) throws SystemException {
+		return findBylogObjIdAndName(logObjName, logObjId, start, end, null);
 	}
 
 	/**
-	 * Returns an ordered range of all the u versions where logObjId = &#63;.
+	 * Returns an ordered range of all the u versions where logObjName = &#63; and logObjId = &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
 	 * </p>
 	 *
+	 * @param logObjName the log obj name
 	 * @param logObjId the log obj ID
 	 * @param start the lower bound of the range of u versions
 	 * @param end the upper bound of the range of u versions (not inclusive)
@@ -933,19 +943,24 @@ public class UVersionPersistenceImpl extends BasePersistenceImpl<UVersion>
 	 * @return the ordered range of matching u versions
 	 * @throws SystemException if a system exception occurred
 	 */
-	public List<UVersion> findBylogObjId(long logObjId, int start, int end,
-		OrderByComparator orderByComparator) throws SystemException {
+	public List<UVersion> findBylogObjIdAndName(String logObjName,
+		long logObjId, int start, int end, OrderByComparator orderByComparator)
+		throws SystemException {
 		FinderPath finderPath = null;
 		Object[] finderArgs = null;
 
 		if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
 				(orderByComparator == null)) {
-			finderPath = FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_LOGOBJID;
-			finderArgs = new Object[] { logObjId };
+			finderPath = FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_LOGOBJIDANDNAME;
+			finderArgs = new Object[] { logObjName, logObjId };
 		}
 		else {
-			finderPath = FINDER_PATH_WITH_PAGINATION_FIND_BY_LOGOBJID;
-			finderArgs = new Object[] { logObjId, start, end, orderByComparator };
+			finderPath = FINDER_PATH_WITH_PAGINATION_FIND_BY_LOGOBJIDANDNAME;
+			finderArgs = new Object[] {
+					logObjName, logObjId,
+					
+					start, end, orderByComparator
+				};
 		}
 
 		List<UVersion> list = (List<UVersion>)FinderCacheUtil.getResult(finderPath,
@@ -953,7 +968,8 @@ public class UVersionPersistenceImpl extends BasePersistenceImpl<UVersion>
 
 		if ((list != null) && !list.isEmpty()) {
 			for (UVersion uVersion : list) {
-				if ((logObjId != uVersion.getLogObjId())) {
+				if (!Validator.equals(logObjName, uVersion.getLogObjName()) ||
+						(logObjId != uVersion.getLogObjId())) {
 					list = null;
 
 					break;
@@ -965,16 +981,28 @@ public class UVersionPersistenceImpl extends BasePersistenceImpl<UVersion>
 			StringBundler query = null;
 
 			if (orderByComparator != null) {
-				query = new StringBundler(3 +
+				query = new StringBundler(4 +
 						(orderByComparator.getOrderByFields().length * 3));
 			}
 			else {
-				query = new StringBundler(3);
+				query = new StringBundler(4);
 			}
 
 			query.append(_SQL_SELECT_UVERSION_WHERE);
 
-			query.append(_FINDER_COLUMN_LOGOBJID_LOGOBJID_2);
+			if (logObjName == null) {
+				query.append(_FINDER_COLUMN_LOGOBJIDANDNAME_LOGOBJNAME_1);
+			}
+			else {
+				if (logObjName.equals(StringPool.BLANK)) {
+					query.append(_FINDER_COLUMN_LOGOBJIDANDNAME_LOGOBJNAME_3);
+				}
+				else {
+					query.append(_FINDER_COLUMN_LOGOBJIDANDNAME_LOGOBJNAME_2);
+				}
+			}
+
+			query.append(_FINDER_COLUMN_LOGOBJIDANDNAME_LOGOBJID_2);
 
 			if (orderByComparator != null) {
 				appendOrderByComparator(query, _ORDER_BY_ENTITY_ALIAS,
@@ -995,6 +1023,10 @@ public class UVersionPersistenceImpl extends BasePersistenceImpl<UVersion>
 				Query q = session.createQuery(sql);
 
 				QueryPos qPos = QueryPos.getInstance(q);
+
+				if (logObjName != null) {
+					qPos.add(logObjName);
+				}
 
 				qPos.add(logObjId);
 
@@ -1022,28 +1054,33 @@ public class UVersionPersistenceImpl extends BasePersistenceImpl<UVersion>
 	}
 
 	/**
-	 * Returns the first u version in the ordered set where logObjId = &#63;.
+	 * Returns the first u version in the ordered set where logObjName = &#63; and logObjId = &#63;.
 	 *
+	 * @param logObjName the log obj name
 	 * @param logObjId the log obj ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the first matching u version
 	 * @throws irestads.NoSuchUVersionException if a matching u version could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
-	public UVersion findBylogObjId_First(long logObjId,
-		OrderByComparator orderByComparator)
+	public UVersion findBylogObjIdAndName_First(String logObjName,
+		long logObjId, OrderByComparator orderByComparator)
 		throws NoSuchUVersionException, SystemException {
-		UVersion uVersion = fetchBylogObjId_First(logObjId, orderByComparator);
+		UVersion uVersion = fetchBylogObjIdAndName_First(logObjName, logObjId,
+				orderByComparator);
 
 		if (uVersion != null) {
 			return uVersion;
 		}
 
-		StringBundler msg = new StringBundler(4);
+		StringBundler msg = new StringBundler(6);
 
 		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
 
-		msg.append("logObjId=");
+		msg.append("logObjName=");
+		msg.append(logObjName);
+
+		msg.append(", logObjId=");
 		msg.append(logObjId);
 
 		msg.append(StringPool.CLOSE_CURLY_BRACE);
@@ -1052,67 +1089,18 @@ public class UVersionPersistenceImpl extends BasePersistenceImpl<UVersion>
 	}
 
 	/**
-	 * Returns the first u version in the ordered set where logObjId = &#63;.
+	 * Returns the first u version in the ordered set where logObjName = &#63; and logObjId = &#63;.
 	 *
+	 * @param logObjName the log obj name
 	 * @param logObjId the log obj ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the first matching u version, or <code>null</code> if a matching u version could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
-	public UVersion fetchBylogObjId_First(long logObjId,
-		OrderByComparator orderByComparator) throws SystemException {
-		List<UVersion> list = findBylogObjId(logObjId, 0, 1, orderByComparator);
-
-		if (!list.isEmpty()) {
-			return list.get(0);
-		}
-
-		return null;
-	}
-
-	/**
-	 * Returns the last u version in the ordered set where logObjId = &#63;.
-	 *
-	 * @param logObjId the log obj ID
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the last matching u version
-	 * @throws irestads.NoSuchUVersionException if a matching u version could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public UVersion findBylogObjId_Last(long logObjId,
-		OrderByComparator orderByComparator)
-		throws NoSuchUVersionException, SystemException {
-		UVersion uVersion = fetchBylogObjId_Last(logObjId, orderByComparator);
-
-		if (uVersion != null) {
-			return uVersion;
-		}
-
-		StringBundler msg = new StringBundler(4);
-
-		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-		msg.append("logObjId=");
-		msg.append(logObjId);
-
-		msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-		throw new NoSuchUVersionException(msg.toString());
-	}
-
-	/**
-	 * Returns the last u version in the ordered set where logObjId = &#63;.
-	 *
-	 * @param logObjId the log obj ID
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the last matching u version, or <code>null</code> if a matching u version could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public UVersion fetchBylogObjId_Last(long logObjId,
-		OrderByComparator orderByComparator) throws SystemException {
-		int count = countBylogObjId(logObjId);
-
-		List<UVersion> list = findBylogObjId(logObjId, count - 1, count,
+	public UVersion fetchBylogObjIdAndName_First(String logObjName,
+		long logObjId, OrderByComparator orderByComparator)
+		throws SystemException {
+		List<UVersion> list = findBylogObjIdAndName(logObjName, logObjId, 0, 1,
 				orderByComparator);
 
 		if (!list.isEmpty()) {
@@ -1123,17 +1111,77 @@ public class UVersionPersistenceImpl extends BasePersistenceImpl<UVersion>
 	}
 
 	/**
-	 * Returns the u versions before and after the current u version in the ordered set where logObjId = &#63;.
+	 * Returns the last u version in the ordered set where logObjName = &#63; and logObjId = &#63;.
+	 *
+	 * @param logObjName the log obj name
+	 * @param logObjId the log obj ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching u version
+	 * @throws irestads.NoSuchUVersionException if a matching u version could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public UVersion findBylogObjIdAndName_Last(String logObjName,
+		long logObjId, OrderByComparator orderByComparator)
+		throws NoSuchUVersionException, SystemException {
+		UVersion uVersion = fetchBylogObjIdAndName_Last(logObjName, logObjId,
+				orderByComparator);
+
+		if (uVersion != null) {
+			return uVersion;
+		}
+
+		StringBundler msg = new StringBundler(6);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("logObjName=");
+		msg.append(logObjName);
+
+		msg.append(", logObjId=");
+		msg.append(logObjId);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchUVersionException(msg.toString());
+	}
+
+	/**
+	 * Returns the last u version in the ordered set where logObjName = &#63; and logObjId = &#63;.
+	 *
+	 * @param logObjName the log obj name
+	 * @param logObjId the log obj ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching u version, or <code>null</code> if a matching u version could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public UVersion fetchBylogObjIdAndName_Last(String logObjName,
+		long logObjId, OrderByComparator orderByComparator)
+		throws SystemException {
+		int count = countBylogObjIdAndName(logObjName, logObjId);
+
+		List<UVersion> list = findBylogObjIdAndName(logObjName, logObjId,
+				count - 1, count, orderByComparator);
+
+		if (!list.isEmpty()) {
+			return list.get(0);
+		}
+
+		return null;
+	}
+
+	/**
+	 * Returns the u versions before and after the current u version in the ordered set where logObjName = &#63; and logObjId = &#63;.
 	 *
 	 * @param versionId the primary key of the current u version
+	 * @param logObjName the log obj name
 	 * @param logObjId the log obj ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the previous, current, and next u version
 	 * @throws irestads.NoSuchUVersionException if a u version with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
-	public UVersion[] findBylogObjId_PrevAndNext(long versionId, long logObjId,
-		OrderByComparator orderByComparator)
+	public UVersion[] findBylogObjIdAndName_PrevAndNext(long versionId,
+		String logObjName, long logObjId, OrderByComparator orderByComparator)
 		throws NoSuchUVersionException, SystemException {
 		UVersion uVersion = findByPrimaryKey(versionId);
 
@@ -1144,13 +1192,13 @@ public class UVersionPersistenceImpl extends BasePersistenceImpl<UVersion>
 
 			UVersion[] array = new UVersionImpl[3];
 
-			array[0] = getBylogObjId_PrevAndNext(session, uVersion, logObjId,
-					orderByComparator, true);
+			array[0] = getBylogObjIdAndName_PrevAndNext(session, uVersion,
+					logObjName, logObjId, orderByComparator, true);
 
 			array[1] = uVersion;
 
-			array[2] = getBylogObjId_PrevAndNext(session, uVersion, logObjId,
-					orderByComparator, false);
+			array[2] = getBylogObjIdAndName_PrevAndNext(session, uVersion,
+					logObjName, logObjId, orderByComparator, false);
 
 			return array;
 		}
@@ -1162,9 +1210,9 @@ public class UVersionPersistenceImpl extends BasePersistenceImpl<UVersion>
 		}
 	}
 
-	protected UVersion getBylogObjId_PrevAndNext(Session session,
-		UVersion uVersion, long logObjId, OrderByComparator orderByComparator,
-		boolean previous) {
+	protected UVersion getBylogObjIdAndName_PrevAndNext(Session session,
+		UVersion uVersion, String logObjName, long logObjId,
+		OrderByComparator orderByComparator, boolean previous) {
 		StringBundler query = null;
 
 		if (orderByComparator != null) {
@@ -1177,7 +1225,19 @@ public class UVersionPersistenceImpl extends BasePersistenceImpl<UVersion>
 
 		query.append(_SQL_SELECT_UVERSION_WHERE);
 
-		query.append(_FINDER_COLUMN_LOGOBJID_LOGOBJID_2);
+		if (logObjName == null) {
+			query.append(_FINDER_COLUMN_LOGOBJIDANDNAME_LOGOBJNAME_1);
+		}
+		else {
+			if (logObjName.equals(StringPool.BLANK)) {
+				query.append(_FINDER_COLUMN_LOGOBJIDANDNAME_LOGOBJNAME_3);
+			}
+			else {
+				query.append(_FINDER_COLUMN_LOGOBJIDANDNAME_LOGOBJNAME_2);
+			}
+		}
+
+		query.append(_FINDER_COLUMN_LOGOBJIDANDNAME_LOGOBJID_2);
 
 		if (orderByComparator != null) {
 			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
@@ -1247,6 +1307,10 @@ public class UVersionPersistenceImpl extends BasePersistenceImpl<UVersion>
 		q.setMaxResults(2);
 
 		QueryPos qPos = QueryPos.getInstance(q);
+
+		if (logObjName != null) {
+			qPos.add(logObjName);
+		}
 
 		qPos.add(logObjId);
 
@@ -1395,13 +1459,15 @@ public class UVersionPersistenceImpl extends BasePersistenceImpl<UVersion>
 	}
 
 	/**
-	 * Removes all the u versions where logObjId = &#63; from the database.
+	 * Removes all the u versions where logObjName = &#63; and logObjId = &#63; from the database.
 	 *
+	 * @param logObjName the log obj name
 	 * @param logObjId the log obj ID
 	 * @throws SystemException if a system exception occurred
 	 */
-	public void removeBylogObjId(long logObjId) throws SystemException {
-		for (UVersion uVersion : findBylogObjId(logObjId)) {
+	public void removeBylogObjIdAndName(String logObjName, long logObjId)
+		throws SystemException {
+		for (UVersion uVersion : findBylogObjIdAndName(logObjName, logObjId)) {
 			remove(uVersion);
 		}
 	}
@@ -1478,24 +1544,38 @@ public class UVersionPersistenceImpl extends BasePersistenceImpl<UVersion>
 	}
 
 	/**
-	 * Returns the number of u versions where logObjId = &#63;.
+	 * Returns the number of u versions where logObjName = &#63; and logObjId = &#63;.
 	 *
+	 * @param logObjName the log obj name
 	 * @param logObjId the log obj ID
 	 * @return the number of matching u versions
 	 * @throws SystemException if a system exception occurred
 	 */
-	public int countBylogObjId(long logObjId) throws SystemException {
-		Object[] finderArgs = new Object[] { logObjId };
+	public int countBylogObjIdAndName(String logObjName, long logObjId)
+		throws SystemException {
+		Object[] finderArgs = new Object[] { logObjName, logObjId };
 
-		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_BY_LOGOBJID,
+		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_BY_LOGOBJIDANDNAME,
 				finderArgs, this);
 
 		if (count == null) {
-			StringBundler query = new StringBundler(2);
+			StringBundler query = new StringBundler(3);
 
 			query.append(_SQL_COUNT_UVERSION_WHERE);
 
-			query.append(_FINDER_COLUMN_LOGOBJID_LOGOBJID_2);
+			if (logObjName == null) {
+				query.append(_FINDER_COLUMN_LOGOBJIDANDNAME_LOGOBJNAME_1);
+			}
+			else {
+				if (logObjName.equals(StringPool.BLANK)) {
+					query.append(_FINDER_COLUMN_LOGOBJIDANDNAME_LOGOBJNAME_3);
+				}
+				else {
+					query.append(_FINDER_COLUMN_LOGOBJIDANDNAME_LOGOBJNAME_2);
+				}
+			}
+
+			query.append(_FINDER_COLUMN_LOGOBJIDANDNAME_LOGOBJID_2);
 
 			String sql = query.toString();
 
@@ -1507,6 +1587,10 @@ public class UVersionPersistenceImpl extends BasePersistenceImpl<UVersion>
 				Query q = session.createQuery(sql);
 
 				QueryPos qPos = QueryPos.getInstance(q);
+
+				if (logObjName != null) {
+					qPos.add(logObjName);
+				}
 
 				qPos.add(logObjId);
 
@@ -1520,7 +1604,7 @@ public class UVersionPersistenceImpl extends BasePersistenceImpl<UVersion>
 					count = Long.valueOf(0);
 				}
 
-				FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_LOGOBJID,
+				FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_LOGOBJIDANDNAME,
 					finderArgs, count);
 
 				closeSession(session);
@@ -1599,12 +1683,8 @@ public class UVersionPersistenceImpl extends BasePersistenceImpl<UVersion>
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
 	}
 
-	@BeanReference(type = AdsItemPersistence.class)
-	protected AdsItemPersistence adsItemPersistence;
 	@BeanReference(type = CategoryPersistence.class)
 	protected CategoryPersistence categoryPersistence;
-	@BeanReference(type = CategoryAdsPersistence.class)
-	protected CategoryAdsPersistence categoryAdsPersistence;
 	@BeanReference(type = DishPersistence.class)
 	protected DishPersistence dishPersistence;
 	@BeanReference(type = DishTablePersistence.class)
@@ -1629,7 +1709,10 @@ public class UVersionPersistenceImpl extends BasePersistenceImpl<UVersion>
 	private static final String _SQL_COUNT_UVERSION_WHERE = "SELECT COUNT(uVersion) FROM UVersion uVersion WHERE ";
 	private static final String _FINDER_COLUMN_LOGDATE_LOGDATE_1 = "uVersion.logDate IS NULL";
 	private static final String _FINDER_COLUMN_LOGDATE_LOGDATE_2 = "uVersion.logDate = ?";
-	private static final String _FINDER_COLUMN_LOGOBJID_LOGOBJID_2 = "uVersion.logObjId = ?";
+	private static final String _FINDER_COLUMN_LOGOBJIDANDNAME_LOGOBJNAME_1 = "uVersion.logObjName IS NULL AND ";
+	private static final String _FINDER_COLUMN_LOGOBJIDANDNAME_LOGOBJNAME_2 = "uVersion.logObjName = ? AND ";
+	private static final String _FINDER_COLUMN_LOGOBJIDANDNAME_LOGOBJNAME_3 = "(uVersion.logObjName IS NULL OR uVersion.logObjName = ?) AND ";
+	private static final String _FINDER_COLUMN_LOGOBJIDANDNAME_LOGOBJID_2 = "uVersion.logObjId = ?";
 	private static final String _ORDER_BY_ENTITY_ALIAS = "uVersion.";
 	private static final String _NO_SUCH_ENTITY_WITH_PRIMARY_KEY = "No UVersion exists with the primary key ";
 	private static final String _NO_SUCH_ENTITY_WITH_KEY = "No UVersion exists with the key {";
