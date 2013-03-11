@@ -71,11 +71,11 @@ public class MenuLineServiceUtil {
 		java.lang.String avatarImg, java.lang.String detailImg,
 		java.lang.String detail, int referPrice,
 		java.lang.String avatarBaseCode, java.lang.String detailBaseCode,
-		long categoryId, int numOfDish, boolean status) {
+		int numOfDiner, long categoryId, int numOfDish, boolean status) {
 		return getService()
 				   .createMenuLine(dishName, decription, avatarImg, detailImg,
-			detail, referPrice, avatarBaseCode, detailBaseCode, categoryId,
-			numOfDish, status);
+			detail, referPrice, avatarBaseCode, detailBaseCode, numOfDiner,
+			categoryId, numOfDish, status);
 	}
 
 	public static irestads.model.MenuLine createMenuLineDish(

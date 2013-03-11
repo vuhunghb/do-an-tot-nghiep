@@ -248,7 +248,7 @@ public interface MenuLineLocalService extends BaseLocalService,
 		java.lang.String decription, java.lang.String avatarImg,
 		java.lang.String detailImg, java.lang.String detail, int referPrice,
 		java.lang.String avatarBaseCode, java.lang.String detailBaseCode,
-		long categoryId, int numOfDish, boolean status);
+		int numOfDiner, long categoryId, int numOfDish, boolean status);
 
 	public irestads.model.MenuLine createMenuLineDish(
 		irestads.model.MenuLine ml);

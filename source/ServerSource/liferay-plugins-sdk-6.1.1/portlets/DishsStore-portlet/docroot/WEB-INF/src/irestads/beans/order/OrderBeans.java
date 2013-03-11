@@ -48,7 +48,7 @@ public class OrderBeans {
 	}
 
 	public String loadImg(DishTable dishTable) {
-		System.out.println("order c " + dishTable.getCurentOrder());
+	//	System.out.println("order c " + dishTable.getCurentOrder());
 
 		if (dishTable.getCurentOrder() != null) {
 			boolean flag = dishTable.getCurentOrder().getFlag();
@@ -122,10 +122,10 @@ public class OrderBeans {
 
 	public void getAllDishTable() {
 		this.dishTables = DishTableLocalServiceUtil.getAllDishTables();
-		for (int i = 0; i < dishTables.size(); i++) {
-			System.out.println("is available "
-					+ dishTables.get(i).getIsAvalable());
-		}
+//		for (int i = 0; i < dishTables.size(); i++) {
+//			System.out.println("is available "
+//					+ dishTables.get(i).getIsAvalable());
+//		}
 	}
 
 	public void setDishTables(List<DishTable> dishTables) {
@@ -243,7 +243,7 @@ public class OrderBeans {
 	public void payment() {
 	Orders curentOrder=	OrdersServiceUtil.payment(dishTableSelected.getCurrentOrderId());
 		dishTableSelected.setIsAvalable(false);
-		dishTableSelected.setCurentOrder(curentOrder);
+		dishTableSelected.setCurentOrder(null);
 		DishTableServiceUtil.updateDishTable(dishTableSelected);
 		this.getAllDishTable();
 	}

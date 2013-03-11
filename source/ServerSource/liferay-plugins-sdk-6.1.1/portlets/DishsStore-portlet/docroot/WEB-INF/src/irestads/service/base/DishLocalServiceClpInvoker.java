@@ -109,7 +109,7 @@ public class DishLocalServiceClpInvoker {
 		_methodParameterTypes94 = new String[] {
 				"java.lang.String", "java.lang.String", "java.lang.String",
 				"java.lang.String", "java.lang.String", "int",
-				"java.lang.String", "java.lang.String", "long"
+				"java.lang.String", "java.lang.String", "int", "long"
 			};
 
 		_methodName95 = "createDish";
@@ -286,7 +286,8 @@ public class DishLocalServiceClpInvoker {
 				(java.lang.String)arguments[3], (java.lang.String)arguments[4],
 				((Integer)arguments[5]).intValue(),
 				(java.lang.String)arguments[6], (java.lang.String)arguments[7],
-				((Long)arguments[8]).longValue());
+				((Integer)arguments[8]).intValue(),
+				((Long)arguments[9]).longValue());
 		}
 
 		if (_methodName95.equals(name) &&

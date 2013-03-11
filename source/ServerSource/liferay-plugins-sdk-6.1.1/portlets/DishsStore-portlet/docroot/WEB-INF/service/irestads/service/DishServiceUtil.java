@@ -66,10 +66,11 @@ public class DishServiceUtil {
 		java.lang.String decription, java.lang.String avatarImg,
 		java.lang.String detailImg, java.lang.String detail, int referPrice,
 		java.lang.String avatarBaseCode, java.lang.String detailBaseCode,
-		long categoryId) {
+		int numOfDiner, long categoryId) {
 		return getService()
 				   .createDish(dishName, decription, avatarImg, detailImg,
-			detail, referPrice, avatarBaseCode, detailBaseCode, categoryId);
+			detail, referPrice, avatarBaseCode, detailBaseCode, numOfDiner,
+			categoryId);
 	}
 
 	public static irestads.model.Dish createDish(irestads.model.Dish d) {

@@ -84,13 +84,13 @@ public class MenuLineServiceSoap {
 		java.lang.String avatarImg, java.lang.String detailImg,
 		java.lang.String detail, int referPrice,
 		java.lang.String avatarBaseCode, java.lang.String detailBaseCode,
-		long categoryId, int numOfDish, boolean status)
+		int numOfDiner, long categoryId, int numOfDish, boolean status)
 		throws RemoteException {
 		try {
 			irestads.model.MenuLine returnValue = MenuLineServiceUtil.createMenuLine(dishName,
 					decription, avatarImg, detailImg, detail, referPrice,
-					avatarBaseCode, detailBaseCode, categoryId, numOfDish,
-					status);
+					avatarBaseCode, detailBaseCode, numOfDiner, categoryId,
+					numOfDish, status);
 
 			return irestads.model.MenuLineSoap.toSoapModel(returnValue);
 		}

@@ -25,6 +25,7 @@ import org.primefaces.event.RowEditEvent;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 
+import irestads.beans.dishs_store.DishBeans;
 import irestads.defination.Base64;
 import irestads.defination.Base64.InputStream;
 import irestads.defination.BooleanToShow;
@@ -500,6 +501,12 @@ public class MenuBeans {
 
 	public void setBase64ImgAvatar(String base64ImgAvatar) {
 		this.base64ImgAvatar = base64ImgAvatar;
+	}
+	public String gotoIndex(){
+		DishBeans d=new DishBeans();
+		d.getDishsFromDB();
+		System.out.println("vo go to index");
+		return "index.xhtml";
 	}
 
 }
