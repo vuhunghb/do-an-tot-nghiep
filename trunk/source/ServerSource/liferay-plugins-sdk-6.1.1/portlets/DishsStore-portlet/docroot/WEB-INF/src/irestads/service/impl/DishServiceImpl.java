@@ -52,21 +52,16 @@ public class DishServiceImpl extends DishServiceBaseImpl {
 	 * Never reference this interface directly. Always use {@link
 	 * iRestads.service.DishServiceUtil} to access the dish remote service.
 	 */
-	// day la lop ServiceImpl trong file doc
-	// tao lai phuong thuc y chang local nhung chi cac phuong thuc can de goi tu
-	// xa (Remote calling)
-	// ko viet gi ca chi goi phuong thuc tu ServiceLocal
+
 	//
 	public Dish createDish(String dishName, String decription,
 			String avatarImg, String detailImg, String detail, int referPrice,
-			String avatarBaseCode, String detailBaseCode, long categoryId) {
+			String avatarBaseCode, String detailBaseCode,int numOfDiner, long categoryId) {
 
-		// sau nay cho nay se de kiem tra authentication..sau nay thoi
-		// vay thi DisLocalServiceUtil dc sinh ra tu DishLocalServiceImpl.
-		// ServiceImpl chi xai kieu nay thoi nha.. ok ?ok
+
 		return DishLocalServiceUtil.createDish(dishName, decription, avatarImg,
 				detailImg, detail, referPrice, avatarBaseCode, detailBaseCode,
-				categoryId);
+				 numOfDiner,categoryId);
 	}
 
 	public Dish createDish(Dish d) {

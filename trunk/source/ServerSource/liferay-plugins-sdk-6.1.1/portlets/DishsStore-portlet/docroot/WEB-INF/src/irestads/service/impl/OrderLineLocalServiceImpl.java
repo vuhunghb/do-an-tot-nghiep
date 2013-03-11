@@ -85,18 +85,20 @@ public class OrderLineLocalServiceImpl extends OrderLineLocalServiceBaseImpl {
 				orderLineModel.setNumOfDish(menuLine.getNumOfDish());
 			} else {
 				orderLineModel.setNumOfDish(numOfDish);
-				if (numOfDish > orderLineModel.getNumOfFinishDish()) {
+				if (numOfDish > orderLineModel.getNumOfFinishDish() && orderLineModel.getStatusDish()==3) {
 					orderLineModel.setStatusDish(2);// dang thuc hien
 				}
 				menuLine.setNumOfDish(menuLine.getNumOfDish() - increase);
 
 				orderLineModel = OrderLineUtil.update(orderLineModel, true);
 				MenuLineUtil.update(menuLine, true);
+				// up date flag=true khi co bat ky thay doi nao ve orderline
+				Orders orders = OrdersUtil.fetchByPrimaryKey(orderId);
+				orders.setFlag(true);
+				OrdersUtil.update(orders, true);
 			}
-			// up date flag=true khi co bat ky thay doi nao ve orderline
-			Orders orders = OrdersUtil.fetchByPrimaryKey(orderId);
-			orders.setFlag(true);
-			OrdersUtil.update(orders, true);
+			
+			
 			return orderLineModel;
 		} catch (SystemException e) {
 			// TODO Auto-generated catch block
@@ -135,6 +137,8 @@ public class OrderLineLocalServiceImpl extends OrderLineLocalServiceBaseImpl {
 	public boolean deleteOrderLineById(long orderLineId) {
 		try {
 			OrderLine orderLine = OrderLineUtil.fetchByPrimaryKey(orderLineId);
+			if(orderLine.getStatusDish()!=2 && orderLine.getStatusDish()!=3){
+				
 			MenuLine menuLine = MenuLineUtil
 					.findByDishId(orderLine.getDishId());
 
@@ -151,6 +155,9 @@ public class OrderLineLocalServiceImpl extends OrderLineLocalServiceBaseImpl {
 			OrdersUtil.update(orders, true);
 
 			return true;
+			}else{
+				return false;
+			}
 		} catch (Exception e) {
 			// TODO: handle exception
 			return false;

@@ -10,13 +10,27 @@
   </PROCESS-ITEM>
   <PROCESS-ITEM ID="rules:#views#index.xhtml:1" NAME="item1"
    PATH="/views/index.xhtml" model-entity="JSFProcessItem">
-   <PROCESS-ITEM-OUTPUT ID="goToOrder::#views#dish_tables.xhtml"
-    NAME="output" PATH="/views/dish_tables.xhtml"
-    TARGET="rules:#views#dish_tables.xhtml" TITLE="goToOrder" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="goToOrder::#views#dish_tables1.xhtml"
+    NAME="output" PATH="/views/dish_tables1.xhtml"
+    TARGET="rules:#views#dish_tables1.xhtml" TITLE="goToOrder" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+  <PROCESS-ITEM ID="rules:#views#index.xhtml:2" NAME="item2"
+   PATH="/views/index.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="goToAds::#views#ads.xhtml" NAME="output"
+    PATH="/views/ads.xhtml" TARGET="rules:#views#ads.xhtml"
+    TITLE="goToAds" model-entity="JSFProcessItemOutput"/>
   </PROCESS-ITEM>
  </PROCESS-ITEM>
- <PROCESS-ITEM NAME="rules:#views#dish_tables.xhtml"
-  PATH="/views/dish_tables.xhtml" SHAPE="256,177,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#views#dish_tables1.xhtml"
+  PATH="/views/dish_tables1.xhtml" SHAPE="256,177,0,0" model-entity="JSFProcessGroup"/>
  <PROCESS-ITEM NAME="rules:#views#menu.xhtml" PATH="/views/menu.xhtml"
-  SHAPE="256,33,0,0" model-entity="JSFProcessGroup"/>
+  SHAPE="256,33,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#views#menu.xhtml:0" NAME="item"
+   PATH="/views/menu.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="goToIndex::#views#index.xhtml" NAME="output"
+    PATH="/views/index.xhtml" TARGET="rules:#views#index.xhtml"
+    TITLE="goToIndex" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#views#ads.xhtml" PATH="/views/ads.xhtml" model-entity="JSFProcessGroup"/>
 </PROCESS>

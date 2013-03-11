@@ -31,7 +31,7 @@
 					update=":formTable:menuLineTable :formTable:messages :fAddDishFromStore:addFromDishStoreDlg"
 					icon="ui-icon-close" actionListener="#{menuBeans.deleteMenuLine()}" />
 			</p:contextMenu>
-			
+
 
 			<h:panelGrid columns="9">
 				<h:outputText value="Từ khóa " />
@@ -39,17 +39,19 @@
 					effect="fold">
 					<f:selectItem itemLabel="Select One" itemValue="2" />
 					<f:selectItems value="#{menuBeans.searchTypesValue}" />
-					<p:ajax update="gKeyWord" listener="#{menuBeans.searchTypeChanged()}" />
+					<p:ajax update="gKeyWord"
+						listener="#{menuBeans.searchTypeChanged()}" />
 				</p:selectOneMenu>
-				<h:outputText value="Nội dung"  />
-				<h:panelGroup  id="gKeyWord">
-				
-				<h:inputText id="keyWord" value="#{menuBeans.keyWords}"
-					rendered="#{not menuBeans.validateFlag}" />
-				<p:selectOneRadio id="options" value="#{menuBeans.keyWords}" rendered="#{menuBeans.validateFlag}" >
-					<f:selectItem itemLabel="Còn" itemValue="true" />
-					<f:selectItem itemLabel="Hết" itemValue="false" />
-				</p:selectOneRadio>
+				<h:outputText value="Nội dung" />
+				<h:panelGroup id="gKeyWord">
+
+					<h:inputText id="keyWord" value="#{menuBeans.keyWords}"
+						rendered="#{not menuBeans.validateFlag}" />
+					<p:selectOneRadio id="options" value="#{menuBeans.keyWords}"
+						rendered="#{menuBeans.validateFlag}">
+						<f:selectItem itemLabel="Còn" itemValue="true" />
+						<f:selectItem itemLabel="Hết" itemValue="false" />
+					</p:selectOneRadio>
 				</h:panelGroup>
 				<p:commandButton value="Tìm Kiến" update="@form"
 					action="#{menuBeans.search}" />
@@ -57,7 +59,7 @@
 					value="Thêm Mới Món Ăn" onclick="addMenuLineDlg.show()" />
 				<p:commandButton id="showAddDlgDSButton" type="button"
 					value="Lấy từ kho " onclick="storeDishsDlg.show()" />
-					<h:commandButton action="goToIndex" value="Trang chủ" />
+				<h:commandButton action="#{menuBeans.gotoIndex}" value="Trang chủ" />
 
 			</h:panelGrid>
 
@@ -72,6 +74,7 @@
 				<p:columnGroup type="header">
 					<p:row>
 						<p:column headerText="STT"></p:column>
+						<p:column width="70" headerText="Hình" />
 						<p:column width="100" headerText="Tên" />
 						<p:column headerText="Mô tả" />
 						<p:column headerText="Giá TK" />
@@ -82,7 +85,11 @@
 					</p:row>
 				</p:columnGroup>
 				<p:column>
-				<h:outputText value="#{idx+1}" />
+					<h:outputText value="#{idx+1}" />
+				</p:column>
+				<p:column>
+					<img width="70" height="50"
+						src="data:image/jpeg;base64, #{ml.dish.avatarBaseCode}" />
 				</p:column>
 				<p:column>
 					<h:outputText value="#{ml.dish.dishName}" />
@@ -94,7 +101,8 @@
 					<h:outputText value="#{ml.dish.referPrice}" />
 				</p:column>
 				<p:column>
-					<h:outputText value="#{categoryBeans.getCategoryNameByID(ml.dish.categoryId)}" />
+					<h:outputText
+						value="#{categoryBeans.getCategoryNameByID(ml.dish.categoryId)}" />
 
 				</p:column>
 				<p:column>
@@ -131,7 +139,7 @@
 				id="viewDialog">
 
 				<h:panelGrid id="display" columns="2" cellpadding="4">
-					<h:outputText value="MaMA:" />
+					<h:outputText value="Mã" />
 					<h:outputText style="font-weight:bold"
 						value="#{menuBeans.menuLineSelected.dish.dishId}" />
 
@@ -150,24 +158,24 @@
 					<h:outputText value="Mô tả:" />
 					<h:outputText style="font-weight:bold"
 						value="#{menuBeans.menuLineSelected.dish.decription}" />
-						
+
 					<h:outputText value="Ảnh đại diện:" />
-			 		<h:outputText style="font-weight:bold"
-						value="#{menuBeans.menuLineSelected.dish.avatarImg}" /> 
-				
-						
+					<img width="70" height="50"
+						src="data:image/jpeg;base64, #{menuBeans.menuLineSelected.dish.avatarBaseCode}" />
+
+
 					<h:outputText value="Ảnh chi tiết:" />
-					<h:outputText style="font-weight:bold"
-						value="#{menuBeans.menuLineSelected.dish.detailImg}" />
-						
+					<img width="70" height="50"
+						src="data:image/jpeg;base64, #{menuBeans.menuLineSelected.dish.detailBaseCode}" />
+
 					<h:outputText value="Chi tiết:" />
 					<h:outputText style="font-weight:bold"
 						value="#{menuBeans.menuLineSelected.dish.detail}" />
-						
+
 					<h:outputText value="Số lượng:" />
 					<h:outputText style="font-weight:bold"
 						value="#{menuBeans.menuLineSelected.numOfDish}" />
-						
+
 					<h:outputText value="Trạng thái:" />
 					<h:outputText style="font-weight:bold"
 						value="#{menuBeans.parseBooleanToShow(menuBeans.menuLineSelected.status)}" />
@@ -209,15 +217,15 @@
 		Hình đại diện: 
 
 					<p:fileUpload id="avatarImgAdd"
-						fileUploadListener="#{menuBeans.uploadAvatarImg}"
-						mode="advanced" update=":formTable:messages" sizeLimit="100000"
+						fileUploadListener="#{menuBeans.uploadAvatarImg}" mode="advanced"
+						update=":formTable:messages" sizeLimit="100000"
 						allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
 					<p:message for="avatarImgAdd" style="color:red"></p:message>
 		Hình chi tiết: 
 		
 						<p:fileUpload id="detailImgAdd"
-						fileUploadListener="#{menuBeans.uploadDetailImg}"
-						mode="advanced" update=":formTable:messages" sizeLimit="100000"
+						fileUploadListener="#{menuBeans.uploadDetailImg}" mode="advanced"
+						update=":formTable:messages" sizeLimit="100000"
 						allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
 					<p:message for="detailImgAdd" style="color:red"></p:message>
 		Giá tham khảo: 
@@ -235,6 +243,11 @@
 						value="#{menuBeans.menuLineAdd.numOfDish}" size="47"
 						required="true" label="Detail" />
 					<p:message for="numOfDishAdd" style="color:red"></p:message>
+					Khẩu phần ăn: 
+		<p:inputText id="numOfDiner"
+						value="#{menuBeans.menuLineAdd.dish.numOfDiner}" size="47"
+						required="false" label="Detail"  />
+					<p:message for="numOfDiner" style="color:red"></p:message>
 
 				</h:panelGrid>
 				<p:commandButton action="#{menuBeans.addMenuLine}" value="Lưu"
@@ -252,7 +265,7 @@
 			<p:dialog header="Lấy món ăn từ kho" widgetVar="storeDishsDlg"
 				resizable="false" width="755" showEffect="clip" hideEffect="fold"
 				id="addFromDishStoreDlg">
-			<!-- 	<p:messages id="msgs" /> -->
+				<!-- 	<p:messages id="msgs" /> -->
 				<p:growl id="growl" sticky="true" showDetail="true" />
 
 				<p:wizard widgetVar="wiz" flowListener="#{menuBeans.onFlowProcess}">
@@ -279,7 +292,8 @@
 							</p:column>
 
 							<p:column headerText="Loại" width="125">
-								<h:outputText value="#{categoryBeans.getCategoryNameByID(dish.categoryId)}" />
+								<h:outputText
+									value="#{categoryBeans.getCategoryNameByID(dish.categoryId)}" />
 							</p:column>
 
 						</p:dataTable>
@@ -305,7 +319,8 @@
 							</p:column>
 
 							<p:column headerText="Loại" width="110">
-								<h:outputText value="#{categoryBeans.getCategoryNameByID(ml.dish.categoryId)}" />
+								<h:outputText
+									value="#{categoryBeans.getCategoryNameByID(ml.dish.categoryId)}" />
 							</p:column>
 
 							<p:column headerText="Số lượng" width="150">

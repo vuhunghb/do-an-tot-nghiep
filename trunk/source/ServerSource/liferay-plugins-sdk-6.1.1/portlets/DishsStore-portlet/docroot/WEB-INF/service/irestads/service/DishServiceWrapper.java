@@ -59,10 +59,10 @@ public class DishServiceWrapper implements DishService,
 		java.lang.String decription, java.lang.String avatarImg,
 		java.lang.String detailImg, java.lang.String detail, int referPrice,
 		java.lang.String avatarBaseCode, java.lang.String detailBaseCode,
-		long categoryId) {
+		int numOfDiner, long categoryId) {
 		return _dishService.createDish(dishName, decription, avatarImg,
 			detailImg, detail, referPrice, avatarBaseCode, detailBaseCode,
-			categoryId);
+			numOfDiner, categoryId);
 	}
 
 	public irestads.model.Dish createDish(irestads.model.Dish d) {

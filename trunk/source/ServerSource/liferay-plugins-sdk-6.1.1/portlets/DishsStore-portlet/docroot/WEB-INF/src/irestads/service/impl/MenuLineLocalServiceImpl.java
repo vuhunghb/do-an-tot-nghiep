@@ -88,7 +88,7 @@ public class MenuLineLocalServiceImpl extends MenuLineLocalServiceBaseImpl {
 
 	public MenuLine createMenuLine(String dishName, String decription,
 			String avatarImg, String detailImg, String detail, int referPrice,
-			String avatarBaseCode, String detailBaseCode, long categoryId,
+			String avatarBaseCode, String detailBaseCode, int numOfDiner,long categoryId,
 			int numOfDish, boolean status) {
 		// cap nhat lại cai nay sau nha
 
@@ -106,6 +106,7 @@ public class MenuLineLocalServiceImpl extends MenuLineLocalServiceBaseImpl {
 			dishModel.setCategoryId(categoryId);
 			dishModel.setAvatarBaseCode(avatarBaseCode);
 			dishModel.setDetailBaseCode(detailBaseCode);
+			dishModel.setNumOfDiner(numOfDiner);
 
 			// System.out.println("categoryId--------------------------------"+categoryId);
 			dishModel = DishUtil.update(dishModel, true);

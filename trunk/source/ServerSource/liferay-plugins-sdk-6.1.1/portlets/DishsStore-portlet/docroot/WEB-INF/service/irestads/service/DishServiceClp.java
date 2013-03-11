@@ -36,7 +36,7 @@ public class DishServiceClp implements DishService {
 		_methodParameterTypes3 = new String[] {
 				"java.lang.String", "java.lang.String", "java.lang.String",
 				"java.lang.String", "java.lang.String", "int",
-				"java.lang.String", "java.lang.String", "long"
+				"java.lang.String", "java.lang.String", "int", "long"
 			};
 
 		_methodName4 = "createDish";
@@ -158,7 +158,7 @@ public class DishServiceClp implements DishService {
 		java.lang.String decription, java.lang.String avatarImg,
 		java.lang.String detailImg, java.lang.String detail, int referPrice,
 		java.lang.String avatarBaseCode, java.lang.String detailBaseCode,
-		long categoryId) {
+		int numOfDiner, long categoryId) {
 		Object returnObj = null;
 
 		try {
@@ -180,6 +180,8 @@ public class DishServiceClp implements DishService {
 					ClpSerializer.translateInput(avatarBaseCode),
 						
 					ClpSerializer.translateInput(detailBaseCode),
+						
+					numOfDiner,
 						
 					categoryId
 					});

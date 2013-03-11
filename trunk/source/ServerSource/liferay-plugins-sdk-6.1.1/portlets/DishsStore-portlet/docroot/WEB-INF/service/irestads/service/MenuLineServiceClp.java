@@ -40,7 +40,8 @@ public class MenuLineServiceClp implements MenuLineService {
 		_methodParameterTypes4 = new String[] {
 				"java.lang.String", "java.lang.String", "java.lang.String",
 				"java.lang.String", "java.lang.String", "int",
-				"java.lang.String", "java.lang.String", "long", "int", "boolean"
+				"java.lang.String", "java.lang.String", "int", "long", "int",
+				"boolean"
 			};
 
 		_methodName5 = "createMenuLineDish";
@@ -195,7 +196,7 @@ public class MenuLineServiceClp implements MenuLineService {
 		java.lang.String decription, java.lang.String avatarImg,
 		java.lang.String detailImg, java.lang.String detail, int referPrice,
 		java.lang.String avatarBaseCode, java.lang.String detailBaseCode,
-		long categoryId, int numOfDish, boolean status) {
+		int numOfDiner, long categoryId, int numOfDish, boolean status) {
 		Object returnObj = null;
 
 		try {
@@ -217,6 +218,8 @@ public class MenuLineServiceClp implements MenuLineService {
 					ClpSerializer.translateInput(avatarBaseCode),
 						
 					ClpSerializer.translateInput(detailBaseCode),
+						
+					numOfDiner,
 						
 					categoryId,
 						

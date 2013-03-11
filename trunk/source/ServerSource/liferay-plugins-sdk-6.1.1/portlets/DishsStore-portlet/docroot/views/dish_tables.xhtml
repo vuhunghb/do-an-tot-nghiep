@@ -22,17 +22,17 @@
 	<h:body>
 
 		<h:form id="tableForm">
-			<p:dataGrid id="dgDishTable" value="#{orderBeans.dishTables}"
+			<p:dataGrid id="dgDishTable" value="#{orderBeans.dishTables}" 
 				var="dishTable" columns="3" rows="12" paginator="true"
 				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 				rowsPerPageTemplate="9,12,15">
 
 				<p:column>
-					<p:panel header="#{dishTable.dishTableId}" 
-						style="text-align:center; height:360px;">
-						<p:graphicImage id="img" style="text-align:center"
+					<p:panel header="#{dishTable.dishTableId}"
+						style="text-align:center;height:360px;">
+						<p:graphicImage id="img"
 							value="#{orderBeans.loadImg(dishTable)}" />
-						<h:panelGrid columns="2" style="width:100%" >
+						<h:panelGrid columns="2" style="width:100%">
 							Số lượng ghế:
 							<h:outputText value="#{dishTable.numChair}" />
 							Trạng thái bàn:
@@ -47,7 +47,7 @@
 						<p:commandLink update=":tableForm:tableDetail"
 							rendered="#{dishTable.isAvalable}"
 							oncomplete="tableDialog.show()" title="View Detail"
-							action="#{orderBeans.loadCurrentOrderLine(dishTable.currentOrderId)}">
+							action="#{orderBeans.loadCurrentOrderLine(dishTable.curentOrder.orderId)}">
 							<h:outputText styleClass="ui-icon ui-icon-search"
 								style="margin:0 auto;" />
 							<f:setPropertyActionListener value="#{dishTable}"
@@ -57,24 +57,30 @@
 					</p:panel>
 				</p:column>
 			</p:dataGrid>
-			<p:poll listener="#{orderBeans.getAllDishTable()}" interval="30" update="dgDishTable"></p:poll>
-			<p:dialog header="Danh sách món ăn" widgetVar="tableDialog" modal="true"
+			<p:poll listener="#{orderBeans.getAllDishTable()}" interval="5"
+				update="dgDishTable"></p:poll>
+			<p:dialog header="Table Detail" widgetVar="tableDialog" modal="true" 
 				id="dlg">
 				<p:growl id="messages" showDetail="true" life="3000" />
-				<p:outputPanel id="tableDetail" style="text-align:left;"
+				<p:outputPanel  id="tableDetail" style="text-align:left;"
 					autoUpdate="true" layout="block">
-					<h:commandButton value="Xem Hóa đơn" rendered="#{not orderBeans.bntPMent}"
+				
+					<h:commandButton value="Xem Hóa đơn"
+						rendered="#{not orderBeans.bntPMent}"
 						action="#{orderBeans.viewPayment}">
 						<f:ajax render="viewPaymentTable" />
 					</h:commandButton>
-					
-					<h:commandButton value="Thanh Toán" rendered="#{orderBeans.bntPMent}"  oncomplete="handleLoginRequest(xhr, status, args)"
-						action="#{orderBeans.payment}" update="dgDishTable" >
+
+					<h:commandButton value="Thanh Toán"
+						rendered="#{orderBeans.bntPMent}"
+						oncomplete="handleLoginRequest(xhr, status, args)"
+						action="#{orderBeans.payment}" update="dgDishTable">
 					</h:commandButton>
 					<h:commandButton value="Thoát" rendered="#{orderBeans.bntPMent}"
 						action="#{orderBeans.cancelViewPayment}">
-						<f:ajax render="tableDetail" />
+						<f:ajax render="orderLineTable" />
 					</h:commandButton>
+					
 
 					<p:separator id="customSeparator" style="width:100%;height:2px"
 						rendered="#{orderBeans.dishTableSelected.isAvalable}" />
@@ -85,13 +91,13 @@
 						rowKey="#{ol.orderLineId}" selectionMode="single" editable="true"
 						rendered="#{not orderBeans.viewPayMentLable}">
 						<p:ajax event="rowEdit" listener="#{orderBeans.onEdit}"
-							update=":tableForm:tableDetail" />
+							update=":tableForm:orderLineTable :tableForm:messages" />
 						<p:columnGroup type="header">
 							<p:row>
 								
-								<p:column headerText="Món ăn" width="50" />
-								<p:column width="50" headerText="Số đã đặt" />
-								<p:column headerText="Số H.T" />
+								<p:column headerText="Món ăn" />
+								<p:column width="100" headerText="Số món đã đặt" />
+								<p:column headerText="Số đã hoàn thành" />
 								<p:column headerText="Trạng thái" />
 								<p:column headerText="Chỉnh sửa" />
 							</p:row>
@@ -113,6 +119,7 @@
 								</f:facet>
 							</p:cellEditor>
 						</p:column>
+						
 						<p:column>
 							<p:cellEditor>
 								<f:facet name="output">
@@ -130,10 +137,10 @@
 							</p:cellEditor>
 						</p:column>
 						<p:column>
-							<p:rowEditor >
-							</p:rowEditor>
+							<p:rowEditor />
 						</p:column>
 					</p:dataTable>
+					
 					</p:outputPanel>
 					
 				<!-- Xem thong tin truoc thanh toan -->
@@ -147,7 +154,7 @@
 
 						<p:columnGroup type="header">
 							<p:row>
-								<p:column width="50" headerText="Mã" />
+								
 								<p:column headerText="Món ăn" />
 								<p:column width="100" headerText="Số món đã đặt" />
 								<p:column headerText="Số đã hoàn thành" />
@@ -155,9 +162,7 @@
 								<p:column headerText="Số tiền"></p:column>
 							</p:row>
 						</p:columnGroup>
-						<p:column headerText="Mã">
-							#{ol.orderLineId}
-						</p:column>
+						
 						<p:column headerText="Món ăn">
 							#{orderBeans.getDishNameById(ol.dishId)}
 						</p:column>
@@ -175,7 +180,7 @@
 						</p:column>
 						<p:columnGroup type="footer">
 							<p:row>
-								<p:column colspan="5" footerText="Tổng cộng:"
+								<p:column colspan="4" footerText="Tổng cộng:"
 									style="text-align:right" />
 								<p:column footerText="#{orderBeans.sumChargeOL}" >
 								</p:column>
@@ -187,7 +192,7 @@
 			</p:dialog>
 		<!--  	pool-->
 
-			
+			<h:outputText id="test" value="#{orderBeans.count}" />
 		</h:form>
 	</h:body>
 </f:view>

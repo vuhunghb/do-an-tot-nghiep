@@ -114,6 +114,7 @@ public class DishBeans {
 	public List<Dish> getDishsFromDB() {
 		List<Dish> dishs= DishServiceUtil.getAllDishs();
 		//System.out.println("get dishs ------------------" + dishs.size());
+		this.dishs=dishs;
 		return dishs;
 
 	}
@@ -129,7 +130,7 @@ public class DishBeans {
 				dishAdd.getDecription(), dishAdd.getAvatarImg(),
 				dishAdd.getDetailImg(), dishAdd.getDetail(),
 				dishAdd.getReferPrice(), dishAdd.getAvatarBaseCode(),
-				dishAdd.getDetailBaseCode(), dishAdd.getCategoryId());
+				dishAdd.getDetailBaseCode(),dishAdd.getNumOfDiner(), dishAdd.getCategoryId());
 
 		if (d != null) {
 			msg = "Thêm món ăn thành công ";
@@ -267,12 +268,12 @@ public class DishBeans {
 
 	public List<Dish> getDishs() {
 		System.out.println("geter Dishs " + this.dishs.size());
-	//	this.getDishsFromDB();
+		//this.dishs=this.getDishsFromDB();
 		return dishs;
 	}
 
 	public void setDishs(List<Dish> dishs) {
-
+		this.dishs=this.getDishsFromDB();
 		this.dishs = dishs;
 	}
 

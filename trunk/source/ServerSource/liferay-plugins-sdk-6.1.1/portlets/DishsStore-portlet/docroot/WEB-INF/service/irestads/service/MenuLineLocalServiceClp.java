@@ -115,7 +115,8 @@ public class MenuLineLocalServiceClp implements MenuLineLocalService {
 		_methodParameterTypes20 = new String[] {
 				"java.lang.String", "java.lang.String", "java.lang.String",
 				"java.lang.String", "java.lang.String", "int",
-				"java.lang.String", "java.lang.String", "long", "int", "boolean"
+				"java.lang.String", "java.lang.String", "int", "long", "int",
+				"boolean"
 			};
 
 		_methodName21 = "createMenuLineDish";
@@ -739,7 +740,7 @@ public class MenuLineLocalServiceClp implements MenuLineLocalService {
 		java.lang.String decription, java.lang.String avatarImg,
 		java.lang.String detailImg, java.lang.String detail, int referPrice,
 		java.lang.String avatarBaseCode, java.lang.String detailBaseCode,
-		long categoryId, int numOfDish, boolean status) {
+		int numOfDiner, long categoryId, int numOfDish, boolean status) {
 		Object returnObj = null;
 
 		try {
@@ -761,6 +762,8 @@ public class MenuLineLocalServiceClp implements MenuLineLocalService {
 					ClpSerializer.translateInput(avatarBaseCode),
 						
 					ClpSerializer.translateInput(detailBaseCode),
+						
+					numOfDiner,
 						
 					categoryId,
 						

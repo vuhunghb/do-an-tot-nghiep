@@ -115,7 +115,8 @@ public class MenuLineLocalServiceClpInvoker {
 		_methodParameterTypes95 = new String[] {
 				"java.lang.String", "java.lang.String", "java.lang.String",
 				"java.lang.String", "java.lang.String", "int",
-				"java.lang.String", "java.lang.String", "long", "int", "boolean"
+				"java.lang.String", "java.lang.String", "int", "long", "int",
+				"boolean"
 			};
 
 		_methodName96 = "createMenuLineDish";
@@ -312,9 +313,10 @@ public class MenuLineLocalServiceClpInvoker {
 				(java.lang.String)arguments[3], (java.lang.String)arguments[4],
 				((Integer)arguments[5]).intValue(),
 				(java.lang.String)arguments[6], (java.lang.String)arguments[7],
-				((Long)arguments[8]).longValue(),
-				((Integer)arguments[9]).intValue(),
-				((Boolean)arguments[10]).booleanValue());
+				((Integer)arguments[8]).intValue(),
+				((Long)arguments[9]).longValue(),
+				((Integer)arguments[10]).intValue(),
+				((Boolean)arguments[11]).booleanValue());
 		}
 
 		if (_methodName96.equals(name) &&

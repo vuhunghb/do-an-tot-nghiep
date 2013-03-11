@@ -109,7 +109,7 @@ public class DishLocalServiceClp implements DishLocalService {
 		_methodParameterTypes19 = new String[] {
 				"java.lang.String", "java.lang.String", "java.lang.String",
 				"java.lang.String", "java.lang.String", "int",
-				"java.lang.String", "java.lang.String", "long"
+				"java.lang.String", "java.lang.String", "int", "long"
 			};
 
 		_methodName20 = "createDish";
@@ -694,7 +694,7 @@ public class DishLocalServiceClp implements DishLocalService {
 		java.lang.String decription, java.lang.String avatarImg,
 		java.lang.String detailImg, java.lang.String detail, int referPrice,
 		java.lang.String avatarBaseCode, java.lang.String detailBaseCode,
-		long categoryId) {
+		int numOfDiner, long categoryId) {
 		Object returnObj = null;
 
 		try {
@@ -716,6 +716,8 @@ public class DishLocalServiceClp implements DishLocalService {
 					ClpSerializer.translateInput(avatarBaseCode),
 						
 					ClpSerializer.translateInput(detailBaseCode),
+						
+					numOfDiner,
 						
 					categoryId
 					});

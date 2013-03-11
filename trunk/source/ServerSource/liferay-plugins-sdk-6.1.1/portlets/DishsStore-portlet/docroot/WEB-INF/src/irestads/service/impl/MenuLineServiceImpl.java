@@ -48,8 +48,8 @@ public class MenuLineServiceImpl extends MenuLineServiceBaseImpl {
 	}
 	public MenuLine createMenuLine(String dishName, String decription,
 			String avatarImg, String detailImg, String detail, int referPrice,String avatarBaseCode,String detailBaseCode,
-			long categoryId,int numOfDish, boolean status) {
-		return MenuLineLocalServiceUtil.createMenuLine(dishName, decription, avatarImg, detailImg, detail, referPrice, avatarBaseCode, detailBaseCode, categoryId, numOfDish, status);
+			int numOfDiner,long categoryId,int numOfDish, boolean status) {
+		return MenuLineLocalServiceUtil.createMenuLine(dishName, decription, avatarImg, detailImg, detail, referPrice, avatarBaseCode, detailBaseCode,  numOfDiner,categoryId, numOfDish, status);
 	}
 	public MenuLine createMenuLineDish(MenuLine ml) {
 		return MenuLineLocalServiceUtil.createMenuLineDish(ml);
