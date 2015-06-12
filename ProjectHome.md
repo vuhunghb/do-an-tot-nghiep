@@ -1,0 +1,1 @@
+Đồ án tốt nghiệp của Bùi Minh Tuấn và Trần Thị Bé. Sinh viên khoa Công Nghệ Thông Tin, ĐH Nông Lâm.
